@@ -1,4 +1,4 @@
-# CLAUDE.md — Gen Chem Interactive Notes
+# CLAUDE.md — Chemistry Interactive Text
 
 This repo builds a set of **interactive HTML review pages** for a high-school
 General Chemistry course (Semester 1). They are studied **outside class, after

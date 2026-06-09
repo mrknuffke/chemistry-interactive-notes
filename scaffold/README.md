@@ -1,4 +1,4 @@
-# Gen Chem Interactive Notes
+# Chemistry Interactive Text (Gen Chem)
 
 Interactive HTML review pages for first-semester General Chemistry. Studied
 **after** in-class first exposure: retrieval practice woven with a second,

@@ -1,8 +1,27 @@
-# General Chemistry Interactive Notes (Semester 1)
+# Chemistry Interactive Text (Semester 1)
 
 An interactive, web-based textbook designed for high-school General Chemistry students. These review pages are built for **retrieval practice, re-narration, and self-explanation** after initial in-class exposure to the material.
 
 The project is structured as a zero-build, pure static HTML/CSS/JS application that loads directly in a web browser.
+
+---
+
+## 🌐 Live Access (GitHub Pages)
+
+The live interactive text is deployed and accessible at:
+**[https://mrknuffke.github.io/chemistry-interactive-notes/](https://mrknuffke.github.io/chemistry-interactive-notes/)**
+
+---
+
+## 🔮 Development Note: AI-Assisted Vibe-Coding
+
+This project is built and maintained using **vibe-coding** workflows combining human pedagogical expertise with AI assistant agents. 
+
+In this partnership:
+*   **The Educator (Human Developer):** Directs the pedagogical design, establishes learning targets, authors the core chemistry text and explanations, acts as the primary curator of content and source-of-truth review sheets, and provides rigorous manual verification and final quality control.
+*   **The AI Coding Assistant:** Acts as the primary implementation builder—interpreting the educator's high-level specifications to generate HTML structure, CSS layouts, interactive JavaScript simulations (e.g. Bohr model and particle diagrams), and automated retrieval validation logic.
+
+By offloading direct code generation and layout assembly to the AI, this workflow enables rapid, design-forward iteration while ensuring that pedagogical integrity and chemical correctness remain firmly guided by the human educator.
 
 ---
 
@@ -38,7 +57,7 @@ python3 -m http.server 8000
 │   │   └── elements.js    # Verified elements Z=1 to 36 chemistry data
 │   ├── lessons/         # HTML pages & JS for individual lessons
 │   ├── References/      # Curated review sheets (source of truth) and diagram conventions
-│   ├── index.html       # Homepage & TOC of the interactive notes
+│   ├── index.html       # Homepage & TOC of the interactive text
 │   └── lessons.json     # Metadata catalog of lessons
 ├── LICENSE              # CC BY-NC-SA 4.0 License Text
 ├── CLAUDE.md            # Guidelines, coding conventions, and developer guidelines
@@ -63,13 +82,13 @@ Please consult **[scaffold/BUILDING.md](file:///Users/davidknuffke/Library/Cloud
 This repository is set up with GitHub Actions to automate publishing:
 *   Every push to the `main` branch triggers the **Deploy to GitHub Pages** workflow.
 *   The workflow deploys **only** the `scaffold/` directory (the site root containing `index.html`).
-*   Once configured in GitHub (under **Settings -> Pages**), the live site will be reachable at `https://<YOUR-USERNAME>.github.io/<YOUR-REPO-NAME>/`.
+*   The live site is published at **[https://mrknuffke.github.io/chemistry-interactive-notes/](https://mrknuffke.github.io/chemistry-interactive-notes/)**.
 
 ---
 
 ## 🙏 Acknowledgments
 
-The pedagogical structure and design (predict-reveal, active recall, self-explanation, and exam practice) of these interactive notes is inspired by the work at [Biology by Bradford](https://www.biologybybradford.com).
+The pedagogical structure and design (predict-reveal, active recall, self-explanation, and exam practice) of this interactive text is inspired by the work at [Biology by Bradford](https://www.biologybybradford.com).
 
 ---
 
