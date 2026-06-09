@@ -784,6 +784,73 @@ strong.term{font-weight:700;color:var(--ink);border-bottom:1.5px dashed var(--ac
   border-color: var(--accent-soft);
 }
 
+/* ============================================================
+   GLOSSARY TOOLTIP CARD
+   Shared single card, repositioned by core.js on each hover/tap.
+   Uses position:fixed so viewport-coord JS math stays simple.
+   ============================================================ */
+.gc-tooltip {
+  position: fixed;
+  z-index: 80;
+  max-width: 280px;
+  padding: .625rem .75rem;
+  background: var(--card);
+  border: 1px solid var(--hair);
+  box-shadow: 0 4px 16px rgba(0,0,0,.13);
+  opacity: 0;
+  pointer-events: none;   /* never intercepts hover — tooltip is read-only */
+  transition: opacity .12s ease;
+}
+.gc-tooltip.visible {
+  opacity: 1;
+}
+.gc-tooltip-term {
+  font-family: var(--mono);
+  font-size: .75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--ink);
+  margin-bottom: .4rem;
+}
+.gc-tooltip-def {
+  font-family: var(--serif);
+  font-size: .875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.gc-tooltip-ex {
+  font-family: var(--mono);
+  font-size: .75rem;
+  color: var(--ink-mute);
+  margin-top: .4rem;
+}
+/* Downward-pointing arrow — border layer */
+.gc-tooltip::before {
+  content: '';
+  position: absolute;
+  bottom: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0; height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-top: 9px solid var(--hair);
+}
+/* Downward-pointing arrow — fill layer */
+.gc-tooltip::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0; height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid var(--card);
+}
+
 /* ---- Resources Panel ---- */
 .resources-grid {
   display: grid;
