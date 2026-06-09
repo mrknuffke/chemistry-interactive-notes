@@ -48,7 +48,6 @@ worked exemplars: match them. Work **one lesson at a time**.
 ## Before declaring done
 - [ ] **Verify every value** that reaches a student (configs, ΔEN, molar masses,
       balanced equations). Check it — don't trust a plausible number.
-- [ ] From `scaffold/`: `node tools/screenshot.js lessons/<file>.html` and
-      actually LOOK at `tools/shots/` in **light and dark**. Fix what you see.
-      Re-run. Most bugs are visual or chemical, not in the code.
-- [ ] No console/page errors in the screenshot run output.
+- [ ] Open the lesson file in a browser (using a local server) and test it thoroughly in both **light and dark modes**. Ensure all interactive widgets, layouts, and animations display correctly.
+- [ ] No console errors or warnings in the browser developer tools.
+

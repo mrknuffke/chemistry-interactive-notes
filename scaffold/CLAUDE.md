@@ -23,7 +23,7 @@ doubt, open it and follow it.
    Check it. Do not trust memory or a plausible-looking number.
 3. **Render before declaring done.** Most quality bugs are visual (a glitchy
    glyph, dead space, an arrow that's the wrong color, a misleading particle
-   diagram). Use `tools/screenshot.js` to actually look at the output.
+   diagram). Open and test the page in a browser (light and dark mode) to actually check the output.
 4. **Adhere to the particle-diagram conventions** in `References/` (see below).
    Diagrams must be chemically honest — a diagram that only *looks* energetic is
    worse than no diagram.
@@ -47,16 +47,7 @@ lessons/
   <id>_<slug>.html one file per lesson; links ../assets/*, plus its own <id>.js
   <id>.js          lesson-specific interactives ONLY (Bohr builder, explorer…)
 References/         review sheets + convention posters (AUTHORITATIVE content/conventions)
-Exemplars/          IB-Biology HTML files — pedagogical reference ONLY (see note)
-tools/
-  screenshot.js    Playwright helper to render + screenshot a lesson
 ```
-
-**`Exemplars/` is not an aesthetic to copy.** The exemplar files are where the
-predict-reveal / recall / self-explain / exam *pedagogy* came from, and they're
-worth studying for widget ideas. But we deliberately built our **own** visual
-identity (the one in `assets/` + `1-1b`). Do **not** drift toward their
-warm-paper-zine look, fonts, or palette. Our design language is the scaffold.
 
 Lesson HTML should be **mostly content**. Shared CSS/JS lives in `assets/`.
 If you find yourself copying a style or behavior between two lessons, lift it
@@ -188,8 +179,7 @@ existence (`if (!el) return;`) so the file is safe to load anywhere.
 2. Draft the section outline (hook → re-narration → interactive(s) → retrieval).
 3. Decide the signature interactive(s) and any particle/energy diagrams.
 4. Build the HTML (content + lesson JS), linking the shared assets.
-5. **Verify chemistry.** Then `node tools/screenshot.js lessons/<file>.html`
-   and actually look — light and dark.
+5. **Verify chemistry.** Open the page in a web browser (using a local server) and test it thoroughly in both light and dark modes.
 6. Fix what you see. Repeat.
 
 Tone for prose: direct, lightly wry, second-person, no fluff — match the voice in

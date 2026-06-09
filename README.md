@@ -39,8 +39,7 @@ python3 -m http.server 8000
 │   ├── lessons/         # HTML pages & JS for individual lessons
 │   ├── References/      # Curated review sheets (source of truth) and diagram conventions
 │   ├── index.html       # Homepage & TOC of the interactive notes
-│   ├── lessons.json     # Metadata catalog of lessons
-│   └── tools/           # Headless screenshot rendering scripts for quality testing
+│   └── lessons.json     # Metadata catalog of lessons
 ├── LICENSE              # CC BY-NC-SA 4.0 License Text
 ├── CLAUDE.md            # Guidelines, coding conventions, and developer guidelines
 └── README.md            # This file
