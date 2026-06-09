@@ -356,4 +356,106 @@ window.GC_GLOSSARY = {
     definition: 'In a material design argument, the final step where the functional or health consequences of a structural substitution are evaluated. A design trade-off acknowledges that changing the molecular structure to improve one property (e.g., nutritional profile) may degrade another (e.g., physical texture). No substitution is cost-free.',
   },
 
+  // --- New entries: terms used in lessons that lacked a matching slug ---
+
+  // Atomic Structure (1-1a) — new entries
+  'nucleus': {
+    term: 'Nucleus',
+    definition: 'The dense, positively charged core at the center of every atom, containing all its protons and neutrons. The nucleus accounts for nearly all the atom\'s mass while occupying a vanishingly small fraction of its volume. The number of protons in the nucleus is the atomic number and defines which element the atom is.',
+  },
+
+  // Atomic Structure (1-1a) — plural/variant aliases
+  'shells': {
+    term: 'Electron Shell',
+    definition: 'One of the fixed energy levels at set distances from the nucleus where electrons reside. Shells fill from the inside out, with the first holding 2 electrons and the second and third holding up to 8 each for main-group chemistry. The outermost occupied shell determines an element\'s chemical behavior.',
+  },
+
+  'isotopes': {
+    term: 'Isotope',
+    definition: 'An atom of an element with a different number of neutrons than the most common form. Isotopes of the same element have identical chemical behavior because they have the same electron configuration — neutrons add mass but don\'t change the outer shell. Carbon-12 and carbon-14 are both carbon; they just weigh differently.',
+  },
+
+  // Bonding & Electronegativity (1-2a) — new entries
+  'electrostatic-force': {
+    term: 'Electrostatic Force',
+    definition: 'The fundamental push or pull between electrically charged particles: opposite charges attract, like charges repel. All chemical bonds are ultimately electrostatic in origin — ionic bonds are the attraction between full charges, covalent bonds form where shared electron density lowers the overall electrostatic energy, and even the weakest intermolecular forces arise from temporary or permanent charge imbalances.',
+  },
+
+  'sea-of-electrons': {
+    term: 'Sea of Electrons',
+    definition: 'The delocalized pool of valence electrons that flows freely throughout a metal lattice rather than belonging to any individual atom. Metal atoms release their outer electrons into this communal cloud; the attraction between the positive metal cores and the mobile electrons holds the metal together. The freely moving electrons are why metals conduct electricity and heat.',
+  },
+
+  // Lewis Structures (1-3a) — new entries
+  'lewis-structure': {
+    term: 'Lewis Structure',
+    definition: 'A two-dimensional diagram showing how valence electrons are arranged in a molecule — bonding pairs drawn as lines between atoms, lone pairs as pairs of dots. The goal is for every atom to satisfy its octet (or duet for hydrogen). Lewis structures reveal connectivity, bond order, and lone pair positions, which together determine molecular geometry and polarity.',
+  },
+
+  'single-bond': {
+    term: 'Single Bond',
+    definition: 'A covalent bond formed by sharing one pair of electrons (2 electrons total), drawn as a single line (–). Single bonds allow free rotation around the bond axis and are the longest and weakest of the three covalent bond types. Because saturated carbon chains contain only single bonds, every carbon can spin freely relative to its neighbors, allowing the chain to adopt a straight, tightly-packing shape.',
+  },
+
+  // Lewis Structures (1-3a) — plural alias
+  'lone-pairs': {
+    term: 'Lone Pair',
+    definition: 'A pair of valence electrons on an atom that is not involved in a covalent bond. Lone pairs occupy space and contribute to molecular geometry, even though they don\'t appear as bonds in a structural formula. Oxygen in water has two lone pairs; nitrogen in ammonia has one.',
+  },
+
+  // IMFs & Properties (1-3b) — plural/variant aliases
+  'intermolecular-forces': {
+    term: 'Intermolecular Force (IMF)',
+    definition: 'A force that acts between separate molecules, holding them near each other. These are electrostatic attractions — LDF, dipole-dipole, and hydrogen bonding — and are much weaker than covalent bonds. Phase changes (melting, boiling) involve overcoming intermolecular forces, not breaking covalent bonds.',
+  },
+
+  'intramolecular-bonds': {
+    term: 'Intramolecular Force',
+    definition: 'A force that acts within a molecule, between the atoms that make it up — specifically covalent bonds. Intramolecular forces are much stronger than intermolecular forces and require a chemical reaction to break. Boiling water does not break intramolecular bonds — steam is still H₂O.',
+  },
+
+  'hydrogen-bonding': {
+    term: 'Hydrogen Bond',
+    definition: 'An unusually strong intermolecular force that forms when a hydrogen atom bonded directly to N, O, or F is attracted to a lone pair on an N, O, or F atom of a neighboring molecule. Despite the name, it is not a covalent bond — it is a very strong dipole interaction. Hydrogen bonding explains water\'s anomalously high boiling point and surface tension.',
+  },
+
+  'london-dispersion-forces': {
+    term: 'London Dispersion Force (LDF)',
+    definition: 'A weak, temporary intermolecular attraction that exists between all molecules, polar or nonpolar. It arises from momentary imbalances in electron distribution that create brief partial charges, which induce matching partial charges in neighboring molecules. Larger electron clouds produce stronger LDFs — this is why heavier molecules generally have higher boiling points.',
+  },
+
+  // Reaction Types & Balancing (C-RXN) — plural alias
+  'coefficients': {
+    term: 'Coefficient',
+    definition: 'A number placed in front of a chemical formula in a balanced equation to indicate how many formula units of that substance are involved. Coefficients can be changed when balancing an equation. Changing a coefficient changes the number of molecules; subscripts inside formulas describe the molecule itself and must never be changed.',
+  },
+
+  // The Mole & Molar Mass (2-7a) — new entry
+  'grams-per-mole': {
+    term: 'Grams per Mole (g/mol)',
+    definition: 'The unit of molar mass. One g/mol means one gram of a substance contains exactly one mole of its particles. The numerical value equals the atomic or formula mass in amu — so water (18.02 amu per molecule) has a molar mass of 18.02 g/mol. It is the conversion factor that bridges laboratory-scale grams and chemistry-scale particle counts.',
+    example: 'H₂O: 18.02 g/mol · NaCl: 58.44 g/mol'
+  },
+
+  // Stoichiometry (2-7c) — new entries
+  'mole-ratio': {
+    term: 'Mole Ratio',
+    definition: 'The ratio of moles of one substance to moles of another in a chemical reaction, read directly from the coefficients of the balanced equation. Mole ratios are the conversion factors that let you move from moles of one substance to moles of any other substance in the same reaction. If the balanced equation shows CH₄ + 2 O₂, the mole ratio of O₂ to CH₄ is 2:1.',
+  },
+
+  'bca-table': {
+    term: 'BCA Table',
+    definition: 'A structured bookkeeping tool for stoichiometry that tracks every substance at three moments: Before the reaction, the Change in moles as the reaction proceeds, and After it completes. The Change row uses the balanced equation\'s mole ratios — reactants decrease (negative), products increase (positive). When the limiting reactant hits zero in the After row, the reaction stops.',
+  },
+
+  'limiting-reactant': {
+    term: 'Limiting Reactant',
+    definition: 'The reactant that is completely consumed first and therefore determines the maximum amount of product that can form. Once it runs out, the reaction stops regardless of how much of the other reactants remain. To identify the limiting reactant, divide available moles of each reactant by its coefficient and compare — the smallest value wins.',
+  },
+
+  'excess-reactant': {
+    term: 'Excess Reactant',
+    definition: 'A reactant present in greater quantity than the reaction requires, so some remains unconsumed after the limiting reactant is used up. The amount of product formed is set entirely by the limiting reactant — having extra excess reactant cannot increase yield. Stoichiometry always determines how much excess is left over.',
+  },
+
 };
