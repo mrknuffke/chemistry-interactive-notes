@@ -316,4 +316,112 @@
       else if (['ArrowUp', 'ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); go(-1); }
     });
   })();
+
+  /* ---- glossary tooltips ---- */
+  function initGlossaryTooltips() {
+    if (!window.GC_GLOSSARY) return;
+
+    const card = document.createElement('div');
+    card.id = 'gc-tooltip';
+    card.className = 'gc-tooltip';
+    card.setAttribute('role', 'tooltip');
+    card.setAttribute('aria-hidden', 'true');
+    card.innerHTML =
+      '<div class="gc-tooltip-term"></div>' +
+      '<div class="gc-tooltip-def"></div>' +
+      '<div class="gc-tooltip-ex"></div>';
+    document.body.appendChild(card);
+
+    const termEl  = card.querySelector('.gc-tooltip-term');
+    const defEl   = card.querySelector('.gc-tooltip-def');
+    const exEl    = card.querySelector('.gc-tooltip-ex');
+
+    let current = null;
+
+    function toSlug(text) {
+      return text.toLowerCase()
+        .replace(/[^\w\s-]/g, '')
+        .trim()
+        .replace(/[\s_]+/g, '-');
+    }
+
+    function hide() {
+      card.classList.remove('visible');
+      card.setAttribute('aria-hidden', 'true');
+      current = null;
+    }
+
+    function show(el) {
+      const slug = el.dataset.term || toSlug(el.textContent);
+      const entry = window.GC_GLOSSARY[slug];
+      if (!entry) return;
+
+      termEl.textContent = entry.term;
+      defEl.textContent  = entry.definition;
+      if (entry.example) {
+        exEl.textContent   = entry.example;
+        exEl.style.display = '';
+      } else {
+        exEl.style.display = 'none';
+      }
+
+      /* move off-screen so card is measurable before positioning */
+      card.style.left = '-9999px';
+      card.style.top  = '0px';
+      card.setAttribute('aria-hidden', 'false');
+
+      requestAnimationFrame(function () {
+        const r   = el.getBoundingClientRect();
+        const cw  = card.offsetWidth;
+        const ch  = card.offsetHeight;
+        const gap = 8;
+        const vw  = window.innerWidth;
+
+        let left = r.left + r.width / 2 - cw / 2;
+        let top  = r.top - ch - gap;
+
+        /* clamp horizontally; if too close to top, flip below the term */
+        left = Math.max(8, Math.min(left, vw - cw - 8));
+        if (top < 8) top = r.bottom + gap;
+
+        card.style.left = left + 'px';
+        card.style.top  = top  + 'px';
+        card.classList.add('visible');
+      });
+
+      current = el;
+    }
+
+    $$('strong.term').forEach(function (el) {
+      el.setAttribute('aria-describedby', 'gc-tooltip');
+
+      /* desktop: hover */
+      el.addEventListener('mouseover',  function () { show(el); });
+      el.addEventListener('mouseleave', function () { hide(); });
+
+      /* touch: first tap shows, second tap (or outside) hides */
+      el.addEventListener('touchend', function (e) {
+        e.stopPropagation();
+        if (current === el) {
+          hide();
+        } else {
+          if (current) hide();
+          show(el);
+          e.preventDefault();
+        }
+      });
+    });
+
+    /* escape key */
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && current) hide();
+    });
+
+    /* tap anywhere outside to dismiss */
+    document.addEventListener('touchend', function () {
+      if (current) hide();
+    }, { passive: true });
+  }
+
+  document.addEventListener('DOMContentLoaded', initGlossaryTooltips);
 })();
