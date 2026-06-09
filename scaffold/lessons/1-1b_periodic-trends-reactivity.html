@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>Periodic Trends &amp; Reactivity · Gen Chem 1-1b</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <button class="toc-btn" id="tocBtn" aria-label="Table of contents">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      Contents
+    </button>
+    <div class="crumb">Gen Chem · Sem 1 · <b>1-1b</b></div>
+  </div>
+  <div class="topbar-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </button>
+  </div>
+</div>
+<nav class="toc-drop" id="tocDrop"></nav>
+
+<!-- HERO -->
+<section id="s-hero" class="hero" data-toc="Opening">
+  <div class="wrap">
+    <div class="label label-accent">Periodic Trends &amp; Reactivity</div>
+    <h1>One metal <span class="flip">explodes</span> in water. One sits in your wiring doing nothing.</h1>
+    <p class="lede">Drop a pea-sized lump of sodium into water and it skitters, hisses, and bursts into flame. Drop in a copper penny and&hellip; nothing. Same periodic table. Different addresses. By the end of this page you'll be able to <em>predict</em> that difference from an element's position alone — before you ever open a bottle.</p>
+    <div class="meta-strip">
+      <div class="meta-block"><div class="k">Alignment</div><div class="v"><b>HS-PS1-1</b>Use the periodic table to predict the relative properties of elements from the patterns of their outer-shell electrons.</div></div>
+      <div class="meta-block"><div class="k">Objective</div><div class="v">Predict and compare an element's atomic radius, ionization energy, and electronegativity from its position — and reason about how reactive it will be, and why.</div></div>
+      <div class="meta-block"><div class="k">Scope</div><div class="v">Main-group elements through krypton (Z&nbsp;&le;&nbsp;36) — the range you draw Bohr diagrams for. Transition metals come later; their trends are messier.</div></div>
+    </div>
+    <div class="next-cue"><button class="next-btn" data-next>Start <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 01 -->
+<section id="s-position" data-toc="Why position predicts">
+  <div class="narrow">
+    <div class="section-tag"><span class="num">01</span><span class="label label-accent">Why position predicts anything at all</span></div>
+    <h2>An element's <em>address</em> on the table tells you how it behaves.</h2>
+    <p class="step reveal" style="margin-top:1.5rem;">Every periodic trend comes down to one tug-of-war over the outermost electrons. The positive nucleus pulls them in; distance and the layers of inner electrons push that pull away. Two things change the strength of that tug-of-war — and they line up exactly with the two directions you can move on the table.</p>
+    <div class="levers">
+      <div class="lever reveal"><div class="arrow">→</div><h4>Across a period</h4>
+        <p>Each step right adds <strong>one proton</strong>, but the new electron joins the <strong>same shell</strong>. More pull at the same distance: the grip <strong>tightens</strong> and the atom shrinks.</p>
+        <div class="diagram" style="margin:1rem 0 0;"><svg class="lever-svg" viewBox="0 0 280 110" role="img" aria-label="Atom shrinking as protons are added to the same shell">
+          <circle class="d-shell" cx="55" cy="55" r="40"/><circle class="d-nuc" cx="55" cy="55" r="13"/><text class="d-nuc-t" x="55" y="58" text-anchor="middle">3+</text>
+          <circle class="d-particle" cx="55" cy="15" r="4"/><circle class="d-particle" cx="92" cy="68" r="4"/><circle class="d-particle" cx="22" cy="74" r="4"/>
+          <line x1="110" y1="55" x2="150" y2="55" class="d-arrow" marker-end="url(#lev-arr)"/>
+          <circle class="d-shell" cx="215" cy="55" r="26"/><circle class="d-shell" cx="215" cy="55" r="17"/><text class="d-nuc-t" x="215" y="58" text-anchor="middle">9+</text>
+          <circle class="d-particle" cx="215" cy="29" r="4"/><circle class="d-particle" cx="239" cy="64" r="4"/><circle class="d-particle" cx="193" cy="68" r="4"/>
+          <defs><marker id="lev-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" viewBox="0 0 6 6"><path d="M0 0 L6 3 L0 6 z" fill="var(--ink)"/></marker></defs>
+        </svg></div>
+      </div>
+      <div class="lever reveal"><div class="arrow">↓</div><h4>Down a group</h4>
+        <p>Each step down adds a whole <strong>new shell</strong>. The outer electrons sit farther out and <strong>shielded</strong> by inner electrons, so the grip <strong>loosens</strong> and the atom grows.</p>
+        <div class="diagram" style="margin:1rem 0 0;"><svg class="lever-svg" viewBox="0 0 280 110" role="img" aria-label="Atom growing as new shells are added">
+          <circle class="d-shell" cx="55" cy="55" r="22"/><circle class="d-nuc" cx="55" cy="55" r="12"/><text class="d-nuc-t" x="55" y="58" text-anchor="middle">3+</text>
+          <circle class="d-particle" cx="55" cy="33" r="4"/>
+          <line x1="92" y1="55" x2="132" y2="55" class="d-arrow" marker-end="url(#lev-arr2)"/>
+          <circle class="d-shell" cx="210" cy="55" r="18"/><circle class="d-shell" cx="210" cy="55" r="33"/><circle class="d-shell" cx="210" cy="55" r="48"/>
+          <circle class="d-nuc" cx="210" cy="55" r="12"/><text class="d-nuc-t" x="210" y="58" text-anchor="middle">19+</text>
+          <circle class="d-particle" cx="210" cy="7" r="4"/>
+          <defs><marker id="lev-arr2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" viewBox="0 0 6 6"><path d="M0 0 L6 3 L0 6 z" fill="var(--ink)"/></marker></defs>
+        </svg></div>
+      </div>
+    </div>
+    <div class="callout reveal"><div class="label label-accent">The one idea to hold onto</div>
+      <p>Tighter grip on the outer electrons → smaller atom, harder to remove an electron, stronger pull on shared electrons. Looser grip → all of that, reversed. Everything below is this idea from a different angle.</p></div>
+    <div class="next-cue"><button class="next-btn" data-next>See it at the atomic level <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 02 ATOM BUILDER -->
+<section id="s-atom" data-toc="Atomic level: watch the levers" style="background:var(--paper-2);border-top:1px solid var(--hair-soft);border-bottom:1px solid var(--hair-soft);">
+  <div class="wrap">
+    <div class="section-tag reveal"><span class="num">02</span><span class="label label-accent">Atomic level · watch the lever move</span></div>
+    <h2 class="reveal">The same two levers, drawn as atoms.</h2>
+    <p class="reveal" style="margin-top:1rem;color:var(--ink-soft);">Step through the elements and watch what changes. Switch between the two directions to see why one shrinks the atom and the other grows it.</p>
+    <div class="interactive reveal">
+      <div class="interactive-head">
+        <span class="label">Bohr model · build &amp; step</span>
+        <div class="tabs" id="atomTabs">
+          <button class="tab active" data-mode="period">Across a period →</button>
+          <button class="tab" data-mode="group">Down a group ↓</button>
+        </div>
+      </div>
+      <div class="atom-stage">
+        <div class="atom-svg-wrap">
+          <svg class="atom-svg" id="atomSvg" viewBox="0 0 320 320" role="img" aria-label="Bohr model of an atom"></svg>
+          <div class="atom-controls">
+            <button class="step-btn" id="atomPrev" aria-label="Previous element">−</button>
+            <div class="step-readout-el"><span id="atomMode">across period 2</span><div id="atomName">Lithium</div></div>
+            <button class="step-btn" id="atomNext" aria-label="Next element">+</button>
+          </div>
+          <div class="atom-stats"><div>protons <b id="atomZ">3</b></div><div>shells <b id="atomShells">2</b></div></div>
+        </div>
+        <div class="readout">
+          <div class="label">What's happening</div>
+          <h4 id="atomRoTitle">Lithium · 3 protons</h4>
+          <p id="atomRoText"></p>
+        </div>
+      </div>
+    </div>
+    <div class="next-cue"><button class="next-btn" data-next>Now explore every trend <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 03 TREND EXPLORER -->
+<section id="s-explorer" data-toc="Trend explorer">
+  <div class="wrap">
+    <div class="section-tag reveal"><span class="num">03</span><span class="label label-accent">Interactive · explore the trends</span></div>
+    <h2 class="reveal">Pick a property. Watch the table light up.</h2>
+    <p class="reveal" style="margin-top:1rem;color:var(--ink-soft);">Cool = a low value, hot = a high value. The readout names the direction each property <em>increases</em>. Tap any two elements to compare them head to head.</p>
+    <div class="interactive reveal">
+      <div class="interactive-head">
+        <span class="label">Periodic table · trend heat-map</span>
+        <div class="tabs" id="trendTabs">
+          <button class="tab active" data-trend="radius">Atomic radius</button>
+          <button class="tab" data-trend="ie">Ionization energy</button>
+          <button class="tab" data-trend="en">Electronegativity</button>
+          <button class="tab" data-trend="react">Reactivity</button>
+        </div>
+      </div>
+      <div class="ptable-scroll"><div class="ptable" id="ptable"></div></div>
+      <div class="legend" id="legend"></div>
+      <div class="explorer-grid">
+        <div class="readout">
+          <div class="label">Reading the pattern</div>
+          <h4 id="roName">Atomic radius</h4>
+          <p id="roText"></p>
+          <div class="dirs"><div class="dir">Across (→): <span id="roAcross"></span></div><div class="dir">Down (↓): <span id="roDown"></span></div></div>
+        </div>
+        <div class="readout">
+          <div class="label label-accent">Compare two</div>
+          <p class="cmp-hint" id="cmpHint">Tap one element, then another.</p>
+          <div class="cmp-out" id="cmpOut"></div>
+        </div>
+      </div>
+    </div>
+    <div class="next-cue"><button class="next-btn" data-next>Test yourself <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 04 PREDICT SIZE -->
+<section id="s-predict-size" data-toc="Predict: which is bigger?">
+  <div class="narrow">
+    <div class="section-tag reveal"><span class="num">04</span><span class="label label-accent">Predict first</span></div>
+    <div class="predict-q reveal"><p>Sodium (Na) and chlorine (Cl) sit in the same period. Which atom is <em>bigger</em>?</p></div>
+    <div class="options cols reveal" data-predict="size">
+      <button class="opt" data-correct="true"><span class="ltr">A</span>Na — it's on the left</button>
+      <button class="opt" data-correct="false"><span class="ltr">B</span>Cl — it has more protons and electrons</button>
+    </div>
+    <div class="reveal-box" data-reveal="size"><div class="reveal-card"><div class="label">Why</div>
+      <p><strong>Na is bigger.</strong> "More protons and electrons" feels like it should mean "bigger," but those extra electrons land in the <em>same shell</em> — and the extra protons pull that shell inward. So across a period the atom <em>shrinks</em>. Cl has seven more protons than Na tugging on that same outer shell, so Cl is the smaller atom even though it's heavier.</p></div></div>
+    <div class="next-cue"><button class="next-btn" data-next>The trend that flips <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 05 REACTIVITY -->
+<section id="s-reactivity" data-toc="The trend that flips">
+  <div class="narrow">
+    <div class="section-tag reveal"><span class="num">05</span><span class="label label-accent">The trend that flips</span></div>
+    <h2 class="reveal">Reactivity isn't one arrow. It depends on whether the atom <em>wants to lose</em> or <em>wants to gain</em> electrons.</h2>
+    <p class="step reveal" style="margin-top:1.5rem;"><strong class="term">Atomic radius</strong>, <strong class="term">ionization energy</strong> (IE), and <strong class="term">electronegativity</strong> (EN) each run in one consistent direction. Reactivity doesn't — and that's what trips people up. Stop asking "is it reactive?" and start asking "<em>reactive how?</em>"</p>
+    <div class="diagram reveal compass-wrap"><svg viewBox="0 0 420 230" role="img" aria-label="A simplified periodic table: metallic reactivity increases toward the bottom-left, nonmetallic reactivity toward the top-right, noble gases inert on the far right.">
+      <g id="compassCells">
+        <g stroke="var(--hair)" stroke-width="1">
+          <!-- Row 1 (Period 1): H & He -->
+          <rect x="22" y="40" width="18" height="18" fill="var(--paper-3)"/>
+          <rect x="379" y="40" width="18" height="18" fill="var(--card)"/>
+
+          <!-- Row 2 (Period 2): Li, Be, B, C, N, O, F, Ne -->
+          <rect x="22" y="61" width="18" height="18" fill="var(--paper-3)"/>
+          <rect x="43" y="61" width="18" height="18" fill="var(--paper-3)"/>
+          <rect x="274" y="61" width="18" height="18" fill="var(--paper-3)"/>
+          <rect x="295" y="61" width="18" height="18" fill="var(--paper-3)"/>
+          <rect x="316" y="61" width="18" height="18" fill="var(--paper-3)"/>
+          <rect x="337" y="61" width="18" height="18" fill="var(--paper-3)"/>
+          <rect x="358" y="61" width="18" height="18" fill="var(--paper-3)"/>
+          <rect x="379" y="61" width="18" height="18" fill="var(--card)"/>
+
+          <!-- Row 3 (Period 3): Na, Mg, Al, Si, P, S, Cl, Ar -->
+          <rect x="22" y="82" width="18" height="18" fill="var(--paper-3)"/>
+          <rect x="43" y="82" width="18" height="18" fill="var(--paper-3)"/>
+          <rect x="274" y="82" width="18" height="18" fill="var(--paper-3)"/>
+          <rect x="295" y="82" width="18" height="18" fill="var(--paper-3)"/>
+          <rect x="316" y="82" width="18" height="18" fill="var(--paper-3)"/>
+          <rect x="337" y="82" width="18" height="18" fill="var(--paper-3)"/>
+          <rect x="358" y="82" width="18" height="18" fill="var(--paper-3)"/>
+          <rect x="379" y="82" width="18" height="18" fill="var(--card)"/>
+
+          <!-- Row 4 (Period 4): K, Ca, Sc-Zn (transition metals in paper-2), Ga-Kr -->
+          <rect x="22" y="103" width="18" height="18" fill="var(--paper-3)"/>
+          <rect x="43" y="103" width="18" height="18" fill="var(--paper-3)"/>
+          <!-- transition metals (Cols 3-12) -->
+          <rect x="64" y="103" width="18" height="18" fill="var(--paper-2)"/>
+          <rect x="85" y="103" width="18" height="18" fill="var(--paper-2)"/>
+          <rect x="106" y="103" width="18" height="18" fill="var(--paper-2)"/>
+          <rect x="127" y="103" width="18" height="18" fill="var(--paper-2)"/>
+          <rect x="148" y="103" width="18" height="18" fill="var(--paper-2)"/>
+          <rect x="169" y="103" width="18" height="18" fill="var(--paper-2)"/>
+          <rect x="190" y="103" width="18" height="18" fill="var(--paper-2)"/>
+          <rect x="211" y="103" width="18" height="18" fill="var(--paper-2)"/>
+          <rect x="232" y="103" width="18" height="18" fill="var(--paper-2)"/>
+          <rect x="253" y="103" width="18" height="18" fill="var(--paper-2)"/>
+          <!-- main-group -->
+          <rect x="274" y="103" width="18" height="18" fill="var(--paper-3)"/>
+          <rect x="295" y="103" width="18" height="18" fill="var(--paper-3)"/>
+          <rect x="316" y="103" width="18" height="18" fill="var(--paper-3)"/>
+          <rect x="337" y="103" width="18" height="18" fill="var(--paper-3)"/>
+          <rect x="358" y="103" width="18" height="18" fill="var(--paper-3)"/>
+          <rect x="379" y="103" width="18" height="18" fill="var(--card)"/>
+        </g>
+        <text class="d-sub" x="388" y="136" font-size="8.5" text-anchor="middle">noble</text>
+      </g>
+      <line x1="105" y1="58" x2="30" y2="128" style="stroke: var(--accent); stroke-width: 2.2px;" marker-end="url(#cm-m)"/>
+      <text class="d-label" x="112" y="50" font-size="12.5" fill="var(--accent)">metals: lose e⁻</text>
+      <text class="d-sub" x="112" y="64" font-size="9.5">most reactive ↙ bottom-left</text>
+      
+      <line x1="260" y1="125" x2="345" y2="65" style="stroke: var(--electron); stroke-width: 2.2px;" marker-end="url(#cm-n)"/>
+      <text class="d-label" x="210" y="172" font-size="12.5" text-anchor="middle" fill="var(--electron)">nonmetals: gain e⁻ · most reactive ↗ top-right (F)</text>
+      <defs>
+        <marker id="cm-m" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" viewBox="0 0 6 6"><path d="M0 0 L6 3 L0 6 z" fill="var(--accent)"/></marker>
+        <marker id="cm-n" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" viewBox="0 0 6 6"><path d="M0 0 L6 3 L0 6 z" fill="var(--electron)"/></marker>
+      </defs>
+    </svg><div class="diagram-cap">Reactivity points two ways — the split is the concept</div></div>
+    <div class="step bullet reveal"><p><strong>Metals lose electrons.</strong> Most reactive where that's easiest — <strong>low ionization energy</strong>, so down a group and to the left. The alkali metals (Li → Na → K) are the wild ones.</p></div>
+    <div class="step bullet reveal"><p><strong>Nonmetals gain electrons.</strong> Most reactive where the pull is strongest — <strong>high electronegativity</strong>, so up a group and to the right. Fluorine is the champion.</p></div>
+    <div class="step bullet reveal"><p><strong>Noble gases barely react.</strong> A full outer shell means no reason to lose or gain. The far-right column stays calm.</p></div>
+    <div class="callout reveal"><div class="label label-accent">Flip the Reactivity tab above</div>
+      <p>In the explorer, select <span class="chem">Reactivity</span>. The coloring <em>splits</em> — metals one way, nonmetals the other — instead of a single gradient.</p></div>
+    <div class="next-cue"><button class="next-btn" data-next>Predict it <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 06 PREDICT REACT -->
+<section id="s-predict-react" data-toc="Predict: which is more reactive?">
+  <div class="narrow">
+    <div class="section-tag reveal"><span class="num">06</span><span class="label label-accent">Predict first</span></div>
+    <div class="predict-q reveal"><p>Lithium (Li) and potassium (K) are both alkali metals in Group 1. Which reacts more <em>violently</em> with water?</p></div>
+    <div class="options cols reveal" data-predict="react">
+      <button class="opt" data-correct="false"><span class="ltr">A</span>Li — it's smaller, so it's denser and more concentrated</button>
+      <button class="opt" data-correct="true"><span class="ltr">B</span>K — it's lower in the group, so it loses its electron more easily</button>
+    </div>
+    <div class="reveal-box" data-reveal="react"><div class="reveal-card"><div class="label">Why</div>
+      <p><strong>K reacts more violently.</strong> Metallic reactivity is about how easily the atom <em>lets go</em> of its outer electron. K's valence electron sits in a higher shell — farther out and more shielded than Li's — so its ionization energy is lower and the electron is handed over almost for free. Lower in the group means a looser grip, which means a more violent reaction. (Rubidium and cesium are more dramatic still.)</p>
+      <p>Size and density are real properties, but they aren't what drives this reaction — the ease of losing the electron is.</p></div></div>
+    <div class="next-cue"><button class="next-btn" data-next>From position to hazard <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 07 HAZARD (single-particle) -->
+<section id="s-hazard" data-toc="From position to the label">
+  <div class="narrow">
+    <div class="section-tag reveal"><span class="num">07</span><span class="label label-accent">From position to the hazard label</span></div>
+    <h2 class="reveal">This is why you can read a hazard <em>off the table</em> — before you ever see the bottle.</h2>
+    <p class="step reveal" style="margin-top:1.5rem;">Back to where we started — and now the address explains it. At the single-particle level: sodium's one outer electron is barely held (its ionization energy is the lowest in its period), so it leaves with almost no push. That eagerness to lose an electron is what makes sodium tear into water. Copper — a transition metal, outside our main-group scope — holds its electrons far more tightly, so it just sits there.</p>
+    <div class="diagram reveal single-atom-wrap"><svg viewBox="0 0 360 170" role="img" aria-label="A single sodium atom losing its loosely-held outer electron to become a sodium ion.">
+      <!-- sodium atom: nucleus + 3 shells (2,8,1), outer electron leaving -->
+      <circle class="d-shell" cx="95" cy="90" r="22"/><circle class="d-shell" cx="95" cy="90" r="42"/><circle class="d-shell" cx="95" cy="90" r="62"/>
+      <circle class="d-nuc" cx="95" cy="90" r="15"/><text class="d-nuc-t" x="95" y="93" text-anchor="middle">11+</text>
+      <!-- inner electrons (schematic, a few) -->
+      <circle class="d-particle" cx="95" cy="68" r="4"/><circle class="d-particle" cx="117" cy="90" r="4"/><circle class="d-particle" cx="73" cy="90" r="4"/>
+      <circle class="d-particle" cx="95" cy="48" r="4"/><circle class="d-particle" cx="137" cy="90" r="4"/><circle class="d-particle" cx="53" cy="90" r="4"/>
+      <!-- the lone outer (valence) electron, leaving -->
+      <circle cx="95" cy="28" r="5.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1"/>
+      <path d="M110 28 Q180 20 235 55" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#na-arr)"/>
+      <text class="d-sub" x="150" y="14" font-size="10" fill="var(--accent)">leaves easily — low IE (496 kJ/mol)</text>
+      <!-- result: Na+ -->
+      <circle class="d-shell" cx="285" cy="95" r="20"/><circle class="d-shell" cx="285" cy="95" r="40"/>
+      <circle class="d-nuc" cx="285" cy="95" r="15"/><text class="d-nuc-t" x="285" y="98" text-anchor="middle">11+</text>
+      <circle class="d-particle" cx="285" cy="75" r="4"/><circle class="d-particle" cx="305" cy="95" r="4"/><circle class="d-particle" cx="265" cy="95" r="4"/>
+      <text class="d-label" x="285" y="150" text-anchor="middle" font-size="13">Na⁺ — stable octet</text>
+      <defs><marker id="na-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" viewBox="0 0 6 6"><path d="M0 0 L6 3 L0 6 z" fill="var(--accent)"/></marker></defs>
+    </svg><div class="diagram-cap">● electron · ● valence electron (leaving) · sodium gives up one electron almost for free</div></div>
+    <div class="more-wrap reveal">
+      <button class="more-toggle" data-more="the rough hazard map">Show the rough hazard map →</button>
+      <div class="more-body">
+        <p style="color:var(--ink-soft);"><strong>Bottom-left metals</strong> → flagged reactive or water-reactive. <strong>Top-right nonmetals</strong> (fluorine, chlorine) → corrosive, aggressive oxidizers. <strong>Far-right noble gases</strong> → inert and safe. Position first, label second.</p>
+      </div>
+    </div>
+    <div class="callout reveal"><div class="label label-accent">The limit — say it out loud</div>
+      <p>Position predicts <em>intrinsic</em> reactivity — what an element tends to do. It does <strong>not</strong> tell you concentration, quantity, or context. A trace behind glass can be safe; a drum of a "mild" element may not be. The table predicts the tendency, not the situation.</p></div>
+    <div class="next-cue"><button class="next-btn" data-next>Say it back <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 08 RECALL -->
+<section id="s-recall" class="recall-section recall" data-toc="Recall: fill the blanks">
+  <div class="narrow">
+    <div class="section-tag reveal"><span class="num">08</span><span class="label label-accent">Say it back</span></div>
+    <h2 class="reveal">Fill the blanks from memory.</h2>
+    <p class="lede reveal" style="margin-top:.75rem;">Stuck on one? Tap <em>Reveal</em>. The point is to pull it from your head, not recognize it on a page.</p>
+    <p class="recall-sentence reveal">
+      Moving <strong>across</strong> a period, each atom gains a proton in the same shell, so atomic radius
+      <input class="blank" data-answer="decreases" placeholder="?"> and ionization energy
+      <input class="blank" data-answer="increases" placeholder="?">.
+      Moving <strong>down</strong> a group, each atom adds a new shell, so the outer electrons are held more
+      <input class="blank" data-answer="weakly|loosely" placeholder="?">.
+      Metals are most reactive at the <input class="blank" data-answer="bottom-left|bottom left|lower-left|lower left" placeholder="?"> of the table because they lose electrons most easily, while the single most reactive nonmetal is
+      <input class="blank" data-answer="fluorine|f" placeholder="?">.
+    </p>
+    <div class="actions reveal">
+      <button class="btn" data-recall-check>Check</button>
+      <button class="btn ghost" data-recall-reveal>Reveal</button>
+      <button class="btn ghost" data-recall-reset>Reset</button>
+      <span class="feedback" data-recall-feedback></span>
+    </div>
+    <div class="next-cue"><button class="next-btn" data-next>Explain it <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 09 SELF EXPLAIN -->
+<section id="s-selfx" data-toc="Self-explain">
+  <div class="narrow">
+    <div class="section-tag reveal"><span class="num">09</span><span class="label label-accent">Explain it to yourself</span></div>
+    <div class="selfx-mark reveal"><p>Ionization energy <em>increases</em> across a period but <em>decreases</em> down a group. In your own words, why do those two directions go opposite ways?</p></div>
+    <p class="hint reveal">No one's grading this. Writing the reasoning out is what moves it from "I recognize it" to "I can produce it." Then peek and compare.</p>
+    <textarea class="textbox reveal" id="selfx" placeholder="Because ionization energy is about how hard it is to remove an electron, which depends on&hellip;"></textarea>
+    <div class="reveal" style="margin-top:1rem;">
+      <button class="btn ghost" data-peek>Compare with a model answer</button>
+      <div class="peek-box"><div class="reveal-card" style="border-left-color:var(--accent);"><div class="label label-accent">One way to say it</div>
+        <p>Ionization energy is the energy needed to rip off an outer electron, so it tracks how tightly that electron is held. <strong>Across</strong> a period, protons pile up in the same shell — the pull tightens, the electron is harder to remove, so it rises. <strong>Down</strong> a group, the outer electron sits in a new, farther shell and is shielded by inner electrons — the pull loosens, the electron leaves more easily, so it drops. Same tug-of-war, two different things changing.</p></div></div>
+    </div>
+    <div class="next-cue"><button class="next-btn" data-next>Mark-scheme practice <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 10 EXAM -->
+<section id="s-exam" data-toc="Exam practice">
+  <div class="narrow">
+    <div class="section-tag reveal"><span class="num">10</span><span class="label label-accent">Now the way it's marked</span></div>
+    <h2 class="reveal">Write your answer first. <em>Then</em> grade yourself.</h2>
+    <p class="lede reveal" style="margin-top:.75rem;">Give yourself a point for each idea you actually wrote down. The flag (⚑) marks the move that separates a full-credit answer from a partial one.</p>
+    <div class="exam-frame reveal">
+      <div class="exam-meta"><span class="exam-src">Gen Chem · HS-PS1-1 · constructed response</span><span class="exam-marks">[4 marks]</span></div>
+      <p class="exam-q">Rubidium (Rb) sits directly below potassium (K) in Group 1.
+        <span class="sub">Predict whether Rb or K reacts more vigorously with water, and explain your reasoning using periodic trends. Then state one thing this prediction does <em>not</em> tell you about handling the actual substance.</span></p>
+      <textarea class="textbox" id="examAns" placeholder="Prediction + reasoning + limit&hellip;"></textarea>
+      <div class="actions"><button class="btn" data-scheme>Reveal mark scheme</button></div>
+      <div class="scheme"><div class="scheme-card"><div class="label">Mark scheme — 4 marks</div>
+        <ul class="pts">
+          <li>States <strong>Rb reacts more vigorously</strong> than K.</li>
+          <li>Rb is <strong>lower in the group</strong> → its valence electron is in a higher shell, farther from the nucleus and more shielded.</li>
+          <li class="cap">Links this to a <strong>lower ionization energy</strong> → the electron is lost more easily → a more vigorous reaction. <em>(This causal link is the difference between describing and explaining.)</em></li>
+          <li>Names a real <strong>limit</strong>: the trend predicts intrinsic reactivity, not quantity, concentration, or storage conditions.</li>
+        </ul>
+        <p style="font-family:var(--mono);font-size:.72rem;color:var(--ink-mute);margin-top:.9rem;letter-spacing:.04em;">Self-score: 4 = all four · 3 = missing the limit · 2 = prediction + position, no IE link · ≤1 = prediction only.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="footer">
+  <div class="label">Gen Chem · Semester 1 · 1-1b</div>
+  <p>Position first, label second. Next: how those same outer electrons decide what <em>bonds</em> an atom will form.</p>
+</div>
+
+<script src="../assets/core.js"></script>
+<script src="1-1b.js"></script>
+</body>
+</html>

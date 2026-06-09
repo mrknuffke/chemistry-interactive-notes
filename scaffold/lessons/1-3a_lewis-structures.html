@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>Lewis Structures · Gen Chem 1-3a</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <button class="toc-btn" id="tocBtn" aria-label="Table of contents">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      Contents
+    </button>
+    <div class="crumb">Gen Chem · Sem 1 · <b>1-3a</b></div>
+  </div>
+  <div class="topbar-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </button>
+  </div>
+</div>
+<nav class="toc-drop" id="tocDrop"></nav>
+
+<!-- HERO -->
+<section id="s-hero" class="hero" data-toc="Opening">
+  <div class="wrap">
+    <div class="label label-accent">Lewis Structures</div>
+    <h1>Stable, <span class="flip">shared octets</span>: how to map the valence electrons.</h1>
+    <p class="lede">Individual atoms of nonmetals are unstable and reactive because their outer electron shells are incomplete. To become stable, they share valence electrons, forming a network of attraction that holds them together. To model and predict this electron sharing, we use a simple, two-dimensional map of dots and lines. By the end of this page, you'll be able to draw these maps for any simple molecule — and check them for octet stability.</p>
+    <div class="meta-strip">
+      <div class="meta-block"><div class="k">Alignment</div><div class="v"><b>HS-PS1-3</b>Draw a correct Lewis structure for a molecule with a clear central atom and up to four bonding atoms. (Sub-target PS1-3.4.)</div></div>
+      <div class="meta-block"><div class="k">Objective</div><div class="v">Apply the octet/duet rules to draw covalent bonds and lone pairs, and verify that a molecule's Lewis structure is chemically stable.</div></div>
+      <div class="meta-block"><div class="k">Scope</div><div class="v">Covalent molecules containing main-group elements Z&nbsp;&le;&nbsp;36. No VSEPR geometry or molecular polarity headlines here; those live in their own canonical section.</div></div>
+    </div>
+    <div class="next-cue"><button class="next-btn" data-next>Start <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 01 CONCEPT OF THE OCTET -->
+<section id="s-sharing" data-toc="Why atoms share">
+  <div class="narrow">
+    <div class="section-tag"><span class="num">01</span><span class="label label-accent">Why atoms share</span></div>
+    <h2>The drive toward stability.</h2>
+    <p class="step reveal" style="margin-top:1.5rem;">Think of two volatile gases: hydrogen (H<sub>2</sub>) and oxygen (O<sub>2</sub>). Spark them, and they react violently to form water (H<sub>2</sub>O) — a stable, calm liquid. The explanation lives in their outer shell configurations. Atoms are at their lowest energy and most stable when their outermost electron shell is completely filled.</p>
+    <p class="step reveal">For most main-group elements, a full outer shell requires <strong>8 valence electrons</strong>. This chemical tendency is the <strong class="term">octet rule</strong> (hydrogen is the main exception, seeking only <strong>2 valence electrons</strong> to fill its first and only shell, a tendency called the <strong class="term">duet rule</strong>). Since nonmetal atoms are both highly electronegative, neither can strip electrons completely from the other. Instead, they share pairs of valence electrons to satisfy their octets.</p>
+    <p class="step reveal">To model this sharing visually, we represent the outer-shell electrons as dots around the element's chemical symbol, drawing lines to show shared electron pairs. This two-dimensional diagram is a <strong class="term">Lewis structure</strong> (or <strong>Lewis dot diagram</strong>).</p>
+    
+    <div class="diagram reveal" style="max-width:480px;margin:1.8rem auto;"><svg viewBox="0 0 320 120" role="img" aria-label="Lewis structure of water: Oxygen in the center with two lone pairs on top and bottom, single-bonded to two hydrogen atoms on the left and right.">
+      <!-- Oxygen -->
+      <text x="160" y="68" font-family="var(--mono)" font-size="28" font-weight="700" fill="var(--ink)" text-anchor="middle">O</text>
+      <!-- Lone pair top -->
+      <circle cx="152" cy="38" r="2.5" fill="var(--accent)"/>
+      <circle cx="168" cy="38" r="2.5" fill="var(--accent)"/>
+      <!-- Lone pair bottom -->
+      <circle cx="152" cy="82" r="2.5" fill="var(--accent)"/>
+      <circle cx="168" cy="82" r="2.5" fill="var(--accent)"/>
+      
+      <!-- Hydrogen Left -->
+      <text x="80" y="68" font-family="var(--mono)" font-size="24" font-weight="700" fill="var(--ink)" text-anchor="middle">H</text>
+      <!-- Single Bond Left -->
+      <line x1="100" y1="60" x2="140" y2="60" stroke="var(--ink)" stroke-width="2"/>
+      
+      <!-- Hydrogen Right -->
+      <text x="240" y="68" font-family="var(--mono)" font-size="24" font-weight="700" fill="var(--ink)" text-anchor="middle">H</text>
+      <!-- Single Bond Right -->
+      <line x1="180" y1="60" x2="220" y2="60" stroke="var(--ink)" stroke-width="2"/>
+      
+      <!-- Labels and pointers cleanly separated -->
+      <text x="160" y="112" font-family="var(--display)" font-size="11" fill="var(--accent)" text-anchor="middle">lone pairs (unshared)</text>
+      <path d="M160 102 V90" fill="none" stroke="var(--accent)" stroke-width="1"/>
+      
+      <text x="110" y="22" font-family="var(--display)" font-size="11" fill="var(--ink-mute)" text-anchor="middle">single bond</text>
+      <path d="M110 26 Q115 40 120 52" fill="none" stroke="var(--hair)" stroke-width="1" stroke-dasharray="2 2" marker-end="url(#l-arr)"/>
+      
+      <defs>
+        <marker id="l-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" viewBox="0 0 6 6"><path d="M0 0 L6 3 L0 6 z" fill="var(--ink-mute)"/></marker>
+      </defs>
+    </svg><div class="diagram-cap">● valence electron dot · water (H<sub>2</sub>O) has two single bonds and two lone pairs</div></div>
+    
+    <div class="next-cue"><button class="next-btn" data-next>How to draw one step-by-step <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 02 STEP BY STEP GUIDE -->
+<section id="s-guide" data-toc="Drawing steps">
+  <div class="narrow">
+    <div class="section-tag"><span class="num">02</span><span class="label label-accent">Drawing steps</span></div>
+    <h2>The rules of the map.</h2>
+    <p class="step reveal" style="margin-top:1.5rem;">To draw any Lewis structure, follow these five steps in order. Let's trace them for carbon dioxide (CO<sub>2</sub>):</p>
+    
+    <div class="step bullet reveal"><strong>1. Find the total valence pool.</strong> Sum the valence electrons from each atom. Carbon (Group 14) has 4; oxygen (Group 16) has 6. Total = 4 + (2 &times; 6) = 16 electrons. If you get this wrong, your map is doomed from the start.</div>
+    <div class="step bullet reveal"><strong>2. Set the central skeleton.</strong> The least electronegative nonmetal goes in the center (hydrogen is never central; carbon is always central). Place carbon in the middle with the oxygens on either side.</div>
+    <div class="step bullet reveal"><strong>3. Draw single bonds.</strong> Connect each outer atom to the center with a shared pair of electrons, represented by a single line. This line is a <strong class="term">single bond</strong> (uses 2 electrons). Our skeleton O–C–O uses 4 electrons, leaving 12.</div></div>
+    <div class="step bullet reveal"><strong>4. Fill the outer octets.</strong> Distribute the remaining electrons as pairs of dots, called <strong class="term">lone pairs</strong>, around the outer atoms until their shells are complete (8 electrons). We place 3 lone pairs (6 electrons) on each oxygen, using up all 12 remaining electrons.</div>
+    <div class="step bullet reveal"><strong>5. Satisfy the central atom.</strong> Check the central atom. Carbon currently has only two single bonds (4 electrons) — a violation of the octet rule! Since no electrons remain in our pool, the outer oxygens must share. Move one lone pair from each oxygen into the bonding region. This forms two shared pairs on each side — a <strong class="term">double bond</strong>. (If they shared three pairs, it would be a <strong class="term">triple bond</strong>).</div>
+
+    <div class="diagram reveal" style="max-width:480px;margin:1.8rem auto;"><svg viewBox="0 0 320 120" role="img" aria-label="Lewis structure of carbon dioxide showing carbon double-bonded to two oxygen atoms, each oxygen with two lone pairs.">
+      <!-- Carbon -->
+      <text x="160" y="68" font-family="var(--mono)" font-size="28" font-weight="700" fill="var(--ink)" text-anchor="middle">C</text>
+      
+      <!-- Oxygen Left -->
+      <text x="80" y="68" font-family="var(--mono)" font-size="28" font-weight="700" fill="var(--ink)" text-anchor="middle">O</text>
+      <!-- Double Bond Left -->
+      <line x1="100" y1="60" x2="140" y2="60" stroke="var(--ink)" stroke-width="2"/>
+      <line x1="100" y1="68" x2="140" y2="68" stroke="var(--ink)" stroke-width="2"/>
+      <!-- Lone pairs oxygen left (symmetrical top/bottom) -->
+      <circle cx="72" cy="38" r="2.5" fill="var(--accent)"/>
+      <circle cx="88" cy="38" r="2.5" fill="var(--accent)"/>
+      <circle cx="72" cy="82" r="2.5" fill="var(--accent)"/>
+      <circle cx="88" cy="82" r="2.5" fill="var(--accent)"/>
+      
+      <!-- Oxygen Right -->
+      <text x="240" y="68" font-family="var(--mono)" font-size="28" font-weight="700" fill="var(--ink)" text-anchor="middle">O</text>
+      <!-- Double Bond Right -->
+      <line x1="180" y1="60" x2="220" y2="60" stroke="var(--ink)" stroke-width="2"/>
+      <line x1="180" y1="68" x2="220" y2="68" stroke="var(--ink)" stroke-width="2"/>
+      <!-- Lone pairs oxygen right (symmetrical top/bottom) -->
+      <circle cx="232" cy="38" r="2.5" fill="var(--accent)"/>
+      <circle cx="248" cy="38" r="2.5" fill="var(--accent)"/>
+      <circle cx="232" cy="82" r="2.5" fill="var(--accent)"/>
+      <circle cx="248" cy="82" r="2.5" fill="var(--accent)"/>
+    </svg><div class="diagram-cap">carbon dioxide (O=C=O) has two double bonds and four lone pairs</div></div>
+
+    <div class="next-cue"><button class="next-btn" data-next>Try it in the Lab <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 03 SIGNATURE INTERACTIVE -->
+<section id="s-lab" data-toc="Lewis structure lab" style="background:var(--paper-2);border-top:1px solid var(--hair-soft);border-bottom:1px solid var(--hair-soft);">
+  <div class="wrap">
+    <div class="section-tag reveal"><span class="num">03</span><span class="label label-accent">Signature interactive</span></div>
+    <h2 class="reveal">The Lewis Structure Lab</h2>
+    <p class="reveal" style="margin-top:1rem;color:var(--ink-soft);">Select a molecule from the list. Click on the <b>bonds (dashes)</b> to cycle through Single, Double, Triple, or No bonds. Click on the <b>atoms (letters)</b> to cycle through lone pairs (up to 3 pairs). Satisfy the target electron count and all octet/duet rules, then verify.</p>
+    
+    <div class="interactive reveal">
+      <div class="interactive-head">
+        <span class="label">Molecule Canvas</span>
+        <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;">
+          <span class="label">Select Molecule:</span>
+          <select id="molSelect" class="tab" style="width:160px;height:38px;padding:0 .5rem;background:var(--card);color:var(--ink);font-size:.82rem;">
+            <option value="H2">Hydrogen (H₂)</option>
+            <option value="HF">Hydrogen Fluoride (HF)</option>
+            <option value="H2O" selected>Water (H₂O)</option>
+            <option value="NH3">Ammonia (NH₃)</option>
+            <option value="CH4">Methane (CH₄)</option>
+            <option value="O2">Oxygen (O₂)</option>
+            <option value="N2">Nitrogen (N₂)</option>
+            <option value="CO2">Carbon Dioxide (CO₂)</option>
+            <option value="CF4">Carbon Tetrafluoride (CF₄)</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="atom-stage">
+        <!-- SVG Canvas -->
+        <div class="atom-svg-wrap" style="border:1px solid var(--hair);background:var(--paper);padding:1rem;position:relative;">
+          <svg class="atom-svg" id="lewisSvg" viewBox="0 0 320 220" role="img" aria-label="Interactive Lewis Structure Builder"></svg>
+          <div style="display:flex;justify-content:space-between;width:100%;max-width:320px;margin-top:.8rem;font-family:var(--mono);font-size:.78rem;color:var(--ink-soft);">
+            <div>Target Electrons: <b id="targetElec" style="color:var(--ink);">10</b></div>
+            <div>Drawn Electrons: <b id="drawnElec" style="color:var(--accent);">0</b></div>
+          </div>
+        </div>
+        
+        <!-- Readout & Checking Panel -->
+        <div class="readout" style="display:flex;flex-direction:column;justify-content:space-between;min-height:245px;">
+          <div>
+            <div class="label" id="molFormula">H₂O</div>
+            <h4 id="molName" style="margin-bottom:.5rem;">Water</h4>
+            <p id="molIntro" style="font-size:.92rem;line-height:1.5;">Oxygen acts as the central atom, bonding to two hydrogen atoms. Oxygen needs 8 outer electrons to satisfy its octet, while hydrogen needs only 2 (duet).</p>
+          </div>
+          
+          <div style="margin-top:1rem;border-top:1px solid var(--hair-soft);padding-top:.8rem;">
+            <div class="feedback" id="lewisFeedback" style="margin-bottom:.8rem;min-height:2.4em;line-height:1.4;">Click bonds and atoms to start building the structure.</div>
+            <div style="display:flex;gap:.5rem;">
+              <button class="btn" id="btnCheck">Check Structure</button>
+              <button class="btn ghost" id="btnReset">Reset</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="next-cue"><button class="next-btn" data-next>Test yourself <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 04 PREDICT -->
+<section id="s-predict" data-toc="Predict: counting practice">
+  <div class="narrow">
+    <div class="section-tag reveal"><span class="num">04</span><span class="label label-accent">Predict first</span></div>
+    
+    <!-- Q1 -->
+    <div class="predict-q reveal"><p>Formaldehyde (CH<sub>2</sub>O) is a toxic chemical used to preserve specimens. Carbon is the central atom. How many total valence electrons must be drawn in its Lewis structure?</p></div>
+    <div class="options cols reveal" data-predict="pool-ch2o">
+      <button class="opt" data-correct="false"><span class="ltr">A</span>10 electrons</button>
+      <button class="opt" data-correct="true"><span class="ltr">B</span>12 electrons</button>
+      <button class="opt" data-correct="false"><span class="ltr">C</span>14 electrons</button>
+    </div>
+    <div class="reveal-box" data-reveal="pool-ch2o"><div class="reveal-card"><div class="label">Why</div>
+      <p><strong>Total valence = 12 electrons.</strong> Carbon (Group 14) has 4. Oxygen (Group 16) has 6. Each hydrogen has 1. Math: 4 + 6 + (2 &times; 1) = 12. If your finished Lewis structure uses 10 or 14 electrons, it is chemically impossible for formaldehyde.</p></div></div>
+      
+    <hr style="border:none;border-top:1px solid var(--hair-soft);margin:2.5rem 0;" class="reveal">
+    
+    <!-- Q2 -->
+    <div class="predict-q reveal"><p>Methanol (CH<sub>3</sub>OH) has the skeleton shown below. The carbon has 4 single bonds, and oxygen is bonded to carbon and hydrogen. How many lone pairs must sit on the oxygen atom to satisfy the octet rule?</p>
+      <p style="font-family:var(--mono);font-size:.9rem;color:var(--ink-mute);margin-top:.5rem;letter-spacing:.05em;text-align:center;">H — C(H)₂ — O — H</p>
+    </div>
+    <div class="options cols reveal" data-predict="lone-meth">
+      <button class="opt" data-correct="false"><span class="ltr">A</span>None — oxygen shares all its electrons</button>
+      <button class="opt" data-correct="true"><span class="ltr">B</span>2 lone pairs (4 electrons)</button>
+      <button class="opt" data-correct="false"><span class="ltr">C</span>3 lone pairs (6 electrons)</button>
+    </div>
+    <div class="reveal-box" data-reveal="lone-meth"><div class="reveal-card"><div class="label">Why</div>
+      <p><strong>Oxygen needs 2 lone pairs.</strong> In the skeleton, oxygen shares two single bonds (one to carbon, one to hydrogen). This gives oxygen 4 shared electrons around it. To satisfy the octet rule (8 electrons total), oxygen needs 4 more electrons, which must sit as 2 unshared lone pairs. Carbon has 4 single bonds (8 electrons, full octet), and all hydrogens have 1 single bond (2 electrons, full duet).</p></div></div>
+
+    <div class="next-cue"><button class="next-btn" data-next>Say it back <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 05 RECALL -->
+<section id="s-recall" class="recall-section recall" data-toc="Recall: fill the blanks">
+  <div class="narrow">
+    <div class="section-tag reveal"><span class="num">05</span><span class="label label-accent">Say it back</span></div>
+    <h2>Fill the blanks from memory.</h2>
+    <p class="lede reveal" style="margin-top:.75rem;">Stuck on one? Tap <em>Reveal</em>. Active recall is the best way to move concepts into long-term memory.</p>
+    <p class="recall-sentence reveal">
+      The chemical tendency of atoms to seek a full outermost shell of 8 electrons is the <input class="blank" data-answer="octet rule" placeholder="?">.
+      Hydrogen is the exception, seeking only 2 electrons to fill its shell, which is the <input class="blank" data-answer="duet rule" placeholder="?">.
+      Valence electrons that are not shared in a bond sit as pairs of dots, called <input class="blank" data-answer="lone pairs" placeholder="?">.
+      A single line represents a <input class="blank" data-answer="single bond" placeholder="?">, which shares 2 electrons.
+      Carbon dioxide uses two pairs of lines to connect carbon to oxygen, forming a <input class="blank" data-answer="double bond" placeholder="?">, sharing <input class="blank" data-answer="4|four" placeholder="?"> electrons total in each bond.
+      Nitrogen gas uses three shared pairs, forming a <input class="blank" data-answer="triple bond" placeholder="?">.
+    </p>
+    <div class="actions reveal">
+      <button class="btn" data-recall-check>Check</button>
+      <button class="btn ghost" data-recall-reveal>Reveal</button>
+      <button class="btn ghost" data-recall-reset>Reset</button>
+      <span class="feedback" data-recall-feedback></span>
+    </div>
+    <div class="next-cue"><button class="next-btn" data-next>Explain it to yourself <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 06 SELF EXPLAIN -->
+<section id="s-selfx" data-toc="Self-explain">
+  <div class="narrow">
+    <div class="section-tag reveal"><span class="num">06</span><span class="label label-accent">Explain it to yourself</span></div>
+    <div class="selfx-mark reveal"><p>Why can hydrogen never act as the central atom in a Lewis structure, and why can it never form double or triple bonds?</p></div>
+    <p class="hint reveal">Explain it in plain English. Writing it out creates stronger memory hooks than just thinking about it.</p>
+    <textarea class="textbox reveal" id="selfx" placeholder="Because hydrogen's shell can only hold..."></textarea>
+    <div class="reveal" style="margin-top:1rem;">
+      <button class="btn ghost" data-peek>Compare with a model answer</button>
+      <div class="peek-box"><div class="reveal-card" style="border-left-color:var(--accent);"><div class="label label-accent">One way to say it</div>
+        <p>Hydrogen's valence shell is the very first energy level, which has a maximum capacity of only <strong>2 electrons</strong> (the duet rule). A single covalent bond already shares 2 electrons, which completely fills hydrogen's outer shell. Forming double or triple bonds, or making hydrogen a central atom (which requires bonding to at least two other atoms, i.e., sharing 4 or more electrons), would force hydrogen to hold more than 2 electrons, violating its shell limit.</p></div></div>
+    </div>
+    <div class="next-cue"><button class="next-btn" data-next>Mark-scheme practice <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 07 EXAM PRACTICE -->
+<section id="s-exam" data-toc="Exam practice">
+  <div class="narrow">
+    <div class="section-tag reveal"><span class="num">07</span><span class="label label-accent">Now the way it's marked</span></div>
+    <h2>Write your answer first. <em>Then</em> grade yourself.</h2>
+    <p class="lede reveal" style="margin-top:.75rem;">Give yourself a point for each idea you actually wrote down. The flag (⚑) marks the step that separates a complete answer from a partial one.</p>
+    <div class="exam-frame reveal">
+      <div class="exam-meta"><span class="exam-src">Gen Chem · HS-PS1-3 · constructed response</span><span class="exam-marks">[4 marks]</span></div>
+      <p class="exam-q">Nitrogen trichloride (NCl<sub>3</sub>) is a reactive, yellow oil.
+        <span class="sub">State its total number of valence electrons, predict its molecular arrangement (which atom sits in the center), and explain — using the octet rule — how many single bonds and lone pairs must sit on the central nitrogen atom in its correct Lewis structure.</span></p>
+      <textarea class="textbox" id="examAns" placeholder="Valence electron calculation, central atom, and the bond/lone-pair counts on Nitrogen..."></textarea>
+      <div class="actions"><button class="btn" data-scheme>Reveal mark scheme</button></div>
+      <div class="scheme"><div class="scheme-card"><div class="label">Mark scheme — 4 marks</div>
+        <ul class="pts">
+          <li>Calculates <strong>26 total valence electrons</strong>: Nitrogen has 5; each Chlorine has 7. Math: 5 + (3 &times; 7) = 26.</li>
+          <li>Identifies <strong>Nitrogen as the central atom</strong> (it is less electronegative than chlorine and forms the most bonds; chlorine atoms connect around it).</li>
+          <li class="cap">Explains Nitrogen's octet: Nitrogen needs 8 electrons. It forms <strong>3 single bonds</strong> (sharing 6 electrons with the three chlorines) and holds <strong>1 lone pair</strong> (2 unshared electrons) to satisfy the octet rule. <em>(This clear numerical mapping is the difference between guessing and demonstrating structural reasoning.)</em></li>
+          <li>Details the Chlorines: Each of the three Chlorine atoms forms a single bond and holds <strong>3 lone pairs</strong> (6 electrons) to satisfy its own octet.</li>
+        </ul>
+        <p style="font-family:var(--mono);font-size:.72rem;color:var(--ink-mute);margin-top:.9rem;letter-spacing:.04em;">Self-score: 4 = all four · 3 = missing chlorine details · 2 = valence count + nitrogen bonds, no EN/octet explanation · ≤1 = valence count only.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="footer">
+  <div class="label">Gen Chem · Semester 1 · 1-3a</div>
+  <p>Lewis maps show the shared electrons. Next: how these shapes create attractions <em>between</em> different molecules.</p>
+</div>
+
+<script src="../assets/core.js"></script>
+<script src="../assets/elements.js"></script>
+<script src="1-3a.js"></script>
+</body>
+</html>

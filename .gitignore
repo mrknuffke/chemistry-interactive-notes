@@ -1,0 +1,8 @@
+node_modules/
+.DS_Store
+scaffold/node_modules/
+scaffold/tools/shots/
+.claude/
+.gemini/
+scaffold/Exemplars/
+Exemplars/

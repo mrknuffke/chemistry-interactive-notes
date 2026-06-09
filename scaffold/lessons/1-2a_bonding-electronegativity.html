@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>Bonding &amp; Electronegativity · Gen Chem 1-2a</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <button class="toc-btn" id="tocBtn" aria-label="Table of contents">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      Contents
+    </button>
+    <div class="crumb">Gen Chem · Sem 1 · <b>1-2a</b></div>
+  </div>
+  <div class="topbar-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </button>
+  </div>
+</div>
+<nav class="toc-drop" id="tocDrop"></nav>
+
+<!-- HERO -->
+<section id="s-hero" class="hero" data-toc="Opening">
+  <div class="wrap">
+    <div class="label label-accent">Bonding &amp; Electronegativity</div>
+    <h1>It's not a stick. It's an <span class="flip">electrical attraction</span>.</h1>
+    <p class="lede">In middle school, chemical bonds are often drawn as solid lines or sticks connecting balls. In reality, a bond is a balance of electrical charges. Opposites attract, likes repel, and electrons are caught in a tug-of-war. By the end of this page, you'll be able to use an element's position to predict exactly how it shares its valence electrons — and what type of bond it forms.</p>
+    <div class="meta-strip">
+      <div class="meta-block"><div class="k">Alignment</div><div class="v"><b>HS-PS1-2</b>Explain chemical outcomes based on the outermost electron states and periodic trends. (Sub-target PS1-2.1: Covalent, ionic, and metallic bonding via electronegativity.)</div></div>
+      <div class="meta-block"><div class="k">Objective</div><div class="v">Define chemical bonding as an electrostatic force, explain how electronegativity differences determine electron behavior, and predict bond types.</div></div>
+      <div class="meta-block"><div class="k">Scope</div><div class="v">Main-group elements through Z&nbsp;&le;&nbsp;36, plus transition metals Sc&ndash;Zn in the context of metallic bonding. Noble gases are excluded since they do not bond.</div></div>
+    </div>
+    <div class="next-cue"><button class="next-btn" data-next>Start <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 01 FORCE DEFINITION -->
+<section id="s-forces" data-toc="Origin of the force">
+  <div class="narrow">
+    <div class="section-tag"><span class="num">01</span><span class="label label-accent">Origin of the force</span></div>
+    <h2>What actually holds two atoms together?</h2>
+    <p class="step reveal" style="margin-top:1.5rem;">A chemical bond is not a physical joint or glue. It is a push or pull between charges — an <strong class="term">electrostatic force</strong>. Every atom has a positive nucleus (protons) and a cloud of negative electrons. When two atoms get close, they experience both attraction and repulsion:</p>
+    
+    <div class="diagram reveal" style="max-width:580px;margin:1.8rem auto;"><svg viewBox="0 0 400 160" role="img" aria-label="A diagram showing the electrostatic forces of attraction and repulsion between two hydrogen atoms.">
+      <!-- Nucleus A -->
+      <circle class="d-nuc" cx="100" cy="80" r="13"/><text class="d-nuc-t" x="100" y="83" text-anchor="middle">1+</text>
+      <text class="d-label" x="100" y="112" font-size="11" text-anchor="middle">nucleus A</text>
+      
+      <!-- Nucleus B -->
+      <circle class="d-nuc" cx="300" cy="80" r="13"/><text class="d-nuc-t" x="300" y="83" text-anchor="middle">1+</text>
+      <text class="d-label" x="300" y="112" font-size="11" text-anchor="middle">nucleus B</text>
+      
+      <!-- Electron A -->
+      <circle class="d-particle" cx="150" cy="45" r="4.5"/>
+      <text class="d-sub" x="130" y="42" font-size="10" text-anchor="end">electron A</text>
+      
+      <!-- Electron B -->
+      <circle class="d-particle" cx="250" cy="45" r="4.5"/>
+      <text class="d-sub" x="270" y="42" font-size="10" text-anchor="start">electron B</text>
+      
+      <!-- Force Arrows (Attraction: Nucleus to opposite electron) -->
+      <!-- Nuc A to e B -->
+      <path d="M112 73 L242 47" fill="none" stroke="var(--good)" stroke-width="1.2" stroke-dasharray="3 2" marker-end="url(#f-att)"/>
+      <!-- Nuc B to e A -->
+      <path d="M288 73 L158 47" fill="none" stroke="var(--good)" stroke-width="1.2" stroke-dasharray="3 2" marker-end="url(#f-att)"/>
+      
+      <!-- Force Arrows (Repulsion: Like charges) -->
+      <!-- Nucleus to Nucleus -->
+      <path d="M100 80 H 70" fill="none" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#f-rep)"/>
+      <path d="M300 80 H 330" fill="none" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#f-rep)"/>
+      <text class="d-sub" x="200" y="96" font-size="9" text-anchor="middle" fill="var(--accent)">repulsion (nucleus-nucleus)</text>
+      
+      <!-- Electron to Electron -->
+      <path d="M145 45 H 125" fill="none" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#f-rep)"/>
+      <path d="M255 45 H 275" fill="none" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#f-rep)"/>
+      <text class="d-sub" x="200" y="16" font-size="9" text-anchor="middle" fill="var(--good)">attraction (nucleus-electron)</text>
+      
+      <defs>
+        <marker id="f-att" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" viewBox="0 0 6 6"><path d="M0 0 L6 3 L0 6 z" fill="var(--good)"/></marker>
+        <marker id="f-rep" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" viewBox="0 0 6 6"><path d="M0 0 L6 3 L0 6 z" fill="var(--accent)"/></marker>
+      </defs>
+    </svg><div class="diagram-cap">● nucleus (+) · ● electron (−) · Green = Attraction (opposite charges) · Red = Repulsion (like charges)</div></div>
+    
+    <p class="step bullet reveal"><strong>Opposite charges pull together.</strong> Each positive nucleus attracts the negative electrons of the neighboring atom. This attraction pulls the atoms closer.</p>
+    <p class="step bullet reveal"><strong>Like charges push apart.</strong> As they get too close, the two positive nuclei repel each other, and the negative electron clouds repel each other.</p>
+    <p class="step bullet reveal"><strong>A stable balance.</strong> A bond forms at the exact distance where the attractive pulls are maximized and the repulson pushes are minimized. The atoms settle into this lowest-energy state.</p>
+    
+    <div class="next-cue"><button class="next-btn" data-next>How the tug-of-war is decided <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 02 THE TUG-OF-WAR -->
+<section id="s-tug" data-toc="The electronegativity tug-of-war">
+  <div class="narrow">
+    <div class="section-tag"><span class="num">02</span><span class="label label-accent">Tug-of-war</span></div>
+    <h2>How do different atoms share? It depends on their electronegativity.</h2>
+    <p class="step reveal" style="margin-top:1.5rem;">Not all atoms pull on electrons with the same strength. An atom's power to attract shared electrons is called its <strong class="term">electronegativity</strong>. Small, tight atoms with many protons (like fluorine) have very high electronegativity. Large atoms with shielded outer shells (like sodium) have very low electronegativity.</p>
+    <p class="step reveal">When two atoms bond, the difference in their pulling power — the <strong class="term">electronegativity difference</strong> (&Delta;<span class="chem">EN</span>) — decides exactly where the shared electrons spend their time, resulting in one of four bond types:</p>
+    
+    <div class="levers">
+      <div class="lever reveal">
+        <h4>Nonpolar Covalent</h4>
+        <div class="arrow">⚖️</div>
+        <p><strong>Equal sharing.</strong> Two nonmetals with similar strength (&Delta;<span class="chem">EN</span> &lt; 0.5). Electrons spend equal time between the two nuclei. A <strong class="term">nonpolar covalent bond</strong> has no charge separation.</p>
+      </div>
+      <div class="lever reveal">
+        <h4>Polar Covalent</h4>
+        <div class="arrow">⚖️ ➔ 🧲</div>
+        <p><strong>Unequal sharing.</strong> Two nonmetals with mismatched strength (0.5 &le; &Delta;<span class="chem">EN</span> &lt; 1.7). The hungrier atom pulls electrons closer, creating a partial negative charge (&delta;&minus;) on itself and leaving a partial positive charge (&delta;+) on the other. This is a <strong class="term">polar covalent bond</strong>.</p>
+      </div>
+      <div class="lever reveal">
+        <h4>Ionic</h4>
+        <div class="arrow">⚡</div>
+        <p><strong>Electron transfer.</strong> A metal (low EN) and a nonmetal (high EN) with a huge strength mismatch (&Delta;<span class="chem">EN</span> &ge; 1.7). The nonmetal rips the electron completely away, forming positive and negative ions held together by attraction. This is an <strong class="term">ionic bond</strong>.</p>
+      </div>
+      <div class="lever reveal">
+        <h4>Metallic</h4>
+        <div class="arrow">🌊</div>
+        <p><strong>Delocalized sea.</strong> Two metal atoms (both low EN). Neither atom holds its outer electrons tightly, so they let go. The valence electrons float free among a grid of positive metal cores. This shared attraction is a <strong class="term">metallic bond</strong>, and the electrons form a delocalized <strong class="term">sea of electrons</strong>.</p>
+      </div>
+    </div>
+    
+    <div class="next-cue"><button class="next-btn" data-next>Explore the explorer <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 03 SIGNATURE INTERACTIVE -->
+<section id="s-interactive" data-toc="Interactive bond explorer" style="background:var(--paper-2);border-top:1px solid var(--hair-soft);border-bottom:1px solid var(--hair-soft);">
+  <div class="wrap">
+    <div class="section-tag reveal"><span class="num">03</span><span class="label label-accent">Signature interactive</span></div>
+    <h2 class="reveal">Select two elements. Watch their bond form.</h2>
+    <p class="reveal" style="margin-top:1rem;color:var(--ink-soft);">Pick Element A and Element B from the list. The explorer reads their electronegativities, calculates the difference (&Delta;<span class="chem">EN</span>), predicts the bond, and renders the electrostatic arrangement at the atomic level.</p>
+    
+    <div class="interactive reveal">
+      <div class="interactive-head">
+        <span class="label">Bond explorer · Z = 1 → 36</span>
+        <div class="tabs" id="bondExplorerType">
+          <span class="label label-accent" id="bondTypeText">Select two elements below...</span>
+        </div>
+      </div>
+      
+      <div class="explorer-grid" style="grid-template-columns: 1fr;">
+        <!-- Selection Stage -->
+        <div style="display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:center;margin-bottom:1rem;">
+          <div style="text-align:center;">
+            <div class="label">Element A</div>
+            <select id="selectA" class="tab" style="width:180px;height:42px;font-size:.9rem;padding:0 .5rem;background:var(--card);color:var(--ink);"></select>
+            <div id="enA" class="valence-pill" style="margin-top:.4rem;font-size:.85rem;">EN: —</div>
+          </div>
+          <div style="display:flex;align-items:center;font-family:var(--display);font-size:2rem;font-weight:700;color:var(--accent);">+</div>
+          <div style="text-align:center;">
+            <div class="label">Element B</div>
+            <select id="selectB" class="tab" style="width:180px;height:42px;font-size:.9rem;padding:0 .5rem;background:var(--card);color:var(--ink);"></select>
+            <div id="enB" class="valence-pill" style="margin-top:.4rem;font-size:.85rem;">EN: —</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Visualization Stage -->
+      <div class="atom-stage" style="margin-top:1.5rem;">
+        <div class="atom-svg-wrap" style="border:1px solid var(--hair);background:var(--paper);padding:1rem;">
+          <svg class="atom-svg" id="bondSvg" viewBox="0 0 320 200" role="img" aria-label="Dynamic molecular bonding diagram"></svg>
+        </div>
+        <div class="readout">
+          <div class="label">Bond Analysis</div>
+          <h4 id="bondTitle">No bond selected</h4>
+          <p id="bondDesc">Choose one element in each dropdown to build a bond. The tug-of-war will calculate in real time.</p>
+          <div class="dirs" style="margin-top:1.1rem;border-top:1px solid var(--hair-soft);padding-top:.8rem;">
+            <div class="dir">&Delta;EN: <span id="deltaEnVal">—</span></div>
+            <div class="dir">Bond Character: <span id="bondCharVal">—</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="next-cue"><button class="next-btn" data-next>Test your predictions <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 04 PREDICT -->
+<section id="s-predict" data-toc="Predict: test your intuition">
+  <div class="narrow">
+    <div class="section-tag reveal"><span class="num">04</span><span class="label label-accent">Predict first</span></div>
+    
+    <!-- Q1 -->
+    <div class="predict-q reveal"><p>Carbon (C, EN = 2.55) and hydrogen (H, EN = 2.20) are both nonmetals. What type of bond holds a carbon-hydrogen (C–H) bond together in methane (CH<sub>4</sub>)?</p></div>
+    <div class="options cols reveal" data-predict="bond-ch">
+      <button class="opt" data-correct="true"><span class="ltr">A</span>Nonpolar covalent — shared almost equally</button>
+      <button class="opt" data-correct="false"><span class="ltr">B</span>Polar covalent — hydrogen attracts electrons more strongly</button>
+      <button class="opt" data-correct="false"><span class="ltr">C</span>Ionic — carbon strips hydrogen's electron completely</button>
+    </div>
+    <div class="reveal-box" data-reveal="bond-ch"><div class="reveal-card"><div class="label">Why</div>
+      <p><strong>C-H is nonpolar covalent.</strong> The electronegativity difference is &Delta;<span class="chem">EN</span> = 2.55 &minus; 2.20 = 0.35. Since 0.35 is less than the 0.5 threshold, the electrostatic pull from both nuclei is nearly equal. They share the electrons almost perfectly in the middle. This is why organic compounds like oils and fats (made of C-H bonds) are completely nonpolar and do not mix with water.</p></div></div>
+      
+    <hr style="border:none;border-top:1px solid var(--hair-soft);margin:2.5rem 0;" class="reveal">
+    
+    <!-- Q2 -->
+    <div class="predict-q reveal"><p>Hydrogen (H, EN = 2.20) and fluorine (F, EN = 3.98) react to form hydrogen fluoride (HF, &Delta;<span class="chem">EN</span> = 1.78). Both are nonmetals. What type of bond is this?</p></div>
+    <div class="options cols reveal" data-predict="bond-hf">
+      <button class="opt" data-correct="false"><span class="ltr">A</span>Ionic — because &Delta;EN (1.78) is greater than 1.7</button>
+      <button class="opt" data-correct="true"><span class="ltr">B</span>Polar covalent — they share electrons, even though the sharing is heavily lopsided</button>
+      <button class="opt" data-correct="false"><span class="ltr">C</span>Metallic — both let go of their electrons to form a sea</button>
+    </div>
+    <div class="reveal-box" data-reveal="bond-hf"><div class="reveal-card"><div class="label">Why</div>
+      <p><strong>H-F is polar covalent.</strong> This is a key boundary case. The 1.7 threshold is a guideline, not a strict law. Because hydrogen and fluorine are both nonmetals, they both have a strong pull on electrons (high ionization energies), meaning neither wants to let go completely to form separate ions. They still share the electrons (making it covalent), though fluorine pulls them so hard that the bond is extremely polar and holds a massive charge separation.</p></div></div>
+
+    <hr style="border:none;border-top:1px solid var(--hair-soft);margin:2.5rem 0;" class="reveal">
+
+    <!-- Q3 -->
+    <div class="predict-q reveal"><p>Copper (Cu, EN = 1.90) and zinc (Zn, EN = 1.65) are melted together to form brass. What type of bond holds the copper and zinc atoms together in the solid alloy?</p></div>
+    <div class="options cols reveal" data-predict="bond-brass">
+      <button class="opt" data-correct="false"><span class="ltr">A</span>Covalent — they share localized electrons</button>
+      <button class="opt" data-correct="false"><span class="ltr">B</span>Ionic — copper strips electrons from zinc</button>
+      <button class="opt" data-correct="true"><span class="ltr">C</span>Metallic — delocalized valence electrons flow around both nuclei</button>
+    </div>
+    <div class="reveal-box" data-reveal="bond-brass"><div class="reveal-card"><div class="label">Why</div>
+      <p><strong>It is a metallic bond.</strong> Both copper and zinc are metal atoms with relatively low electronegativities. Because neither nucleus pulls strongly enough to keep its outer electrons locked in place, their valence shells merge and the electrons flow freely throughout the metal lattice. This shared attraction holds the alloy together, making brass malleable and highly conductive.</p></div></div>
+
+    <div class="next-cue"><button class="next-btn" data-next>Say it back <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 05 RECALL -->
+<section id="s-recall" class="recall-section recall" data-toc="Recall: fill the blanks">
+  <div class="narrow">
+    <div class="section-tag reveal"><span class="num">05</span><span class="label label-accent">Say it back</span></div>
+    <h2>Fill the blanks from memory.</h2>
+    <p class="lede reveal" style="margin-top:.75rem;">Can't remember the details? Tap <em>Reveal</em>. The physical act of retrieval is what makes it stick.</p>
+    <p class="recall-sentence reveal">
+      A chemical bond is actually an <input class="blank" data-answer="electrostatic|electrical" placeholder="?"> force of attraction between the positive nuclei and negative electrons.
+      An atom's power to pull shared electrons is its <input class="blank" data-answer="electronegativity" placeholder="?">.
+      When two nonmetals share electrons equally, they form a <input class="blank" data-answer="nonpolar covalent" placeholder="?"> bond.
+      If sharing is unequal, the bond is <input class="blank" data-answer="polar covalent" placeholder="?">, which creates partial charges.
+      When a metal and a nonmetal bond, electrons are fully <input class="blank" data-answer="transferred|lost|gained" placeholder="?"> to form ions in an <input class="blank" data-answer="ionic" placeholder="?"> bond.
+      When metals bond together, their loose outer electrons form a delocalized <input class="blank" data-answer="sea of electrons|sea" placeholder="?"> in a <input class="blank" data-answer="metallic" placeholder="?"> bond.
+    </p>
+    <div class="actions reveal">
+      <button class="btn" data-recall-check>Check</button>
+      <button class="btn ghost" data-recall-reveal>Reveal</button>
+      <button class="btn ghost" data-recall-reset>Reset</button>
+      <span class="feedback" data-recall-feedback></span>
+    </div>
+    <div class="next-cue"><button class="next-btn" data-next>Explain it to yourself <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 06 SELF EXPLAIN -->
+<section id="s-selfx" data-toc="Self-explain">
+  <div class="narrow">
+    <div class="section-tag reveal"><span class="num">06</span><span class="label label-accent">Explain it to yourself</span></div>
+    <div class="selfx-mark reveal"><p>In your own words, explain how the electronegativities of two metal atoms lead to the formation of a "sea of electrons" instead of an ionic or covalent bond.</p></div>
+    <p class="hint reveal">Writing it out forces your brain to organize the concept. Write your answer first, then peek and compare.</p>
+    <textarea class="textbox reveal" id="selfx" placeholder="Because metals have low electronegativity, meaning..."></textarea>
+    <div class="reveal" style="margin-top:1rem;">
+      <button class="btn ghost" data-peek>Compare with a model answer</button>
+      <div class="peek-box"><div class="reveal-card" style="border-left-color:var(--accent);"><div class="label label-accent">One way to say it</div>
+        <p>Metals have <strong>low electronegativity</strong>, meaning their nuclei exert a very weak grip on their valence electrons. When metal atoms get close to each other, neither atom is strong enough to keep its outer electrons locked locally (ruling out covalent sharing) or strong enough to strip them from the neighbor (ruling out ionic transfer). As a result, the valence electrons escape their parent shells and flow freely as a <strong>delocalized sea of electrons</strong>, attracting all the positive metal cores together like a fluid electrostatic glue.</p></div></div>
+    </div>
+    <div class="next-cue"><button class="next-btn" data-next>Mark-scheme practice <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 07 EXAM PRACTICE -->
+<section id="s-exam" data-toc="Exam practice">
+  <div class="narrow">
+    <div class="section-tag reveal"><span class="num">07</span><span class="label label-accent">Now the way it's marked</span></div>
+    <h2>Write your answer first. <em>Then</em> grade yourself.</h2>
+    <p class="lede reveal" style="margin-top:.75rem;">Give yourself a point for each key concept you wrote down. The flag (⚑) marks the step that separates a complete description from a partial one.</p>
+    <div class="exam-frame reveal">
+      <div class="exam-meta"><span class="exam-src">Gen Chem · HS-PS1-2 · constructed response</span><span class="exam-marks">[4 marks]</span></div>
+      <p class="exam-q">Explain the molecular-level difference in electrical force and electron behavior between a covalent bond in water (H<sub>2</sub>O) and a metallic bond in aluminum (Al).
+        <span class="sub">Contrast where the valence electrons live and how the electrostatic force holds each substance together, linking it to electronegativities. Then name one macroscopic physical property of aluminum that results from this difference.</span></p>
+      <textarea class="textbox" id="examAns" placeholder="Covalent vs metallic force, electron location, electronegativity link, and macroscopic property..."></textarea>
+      <div class="actions"><button class="btn" data-scheme>Reveal mark scheme</button></div>
+      <div class="scheme"><div class="scheme-card"><div class="label">Mark scheme — 4 marks</div>
+        <ul class="pts">
+          <li>Describes <strong>covalent bonding in water</strong>: valence electrons are <em>localized</em> and shared between specific hydrogen and oxygen nuclei.</li>
+          <li>Describes <strong>metallic bonding in aluminum</strong>: valence electrons are <em>delocalized</em> and shared freely as a "sea" flowing around a lattice of positive aluminum cations.</li>
+          <li class="cap">Links this to <strong>electronegativity</strong>: oxygen and hydrogen are nonmetals with high EN that hold onto and pull electrons locally; aluminum consists of metal atoms with low EN that let their valence electrons drift free. <em>(This chemical reasoning is the difference between describing and explaining.)</em></li>
+          <li>Identifies a correct <strong>macroscopic property</strong> of aluminum: electrical conductivity (free-flowing electrons carry current), thermal conductivity, or malleability/ductility (atoms can slide past each other in the fluid sea without breaking the bond).</li>
+        </ul>
+        <p style="font-family:var(--mono);font-size:.72rem;color:var(--ink-mute);margin-top:.9rem;letter-spacing:.04em;">Self-score: 4 = all four · 3 = missing the EN explanation · 2 = described both bonds but omitted EN and properties · ≤1 = simple definition of one bond type.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="footer">
+  <div class="label">Gen Chem · Semester 1 · 1-2a</div>
+  <p>Electrical force holds everything together. Next: how we draw these shared electrons using Lewis dot structures.</p>
+</div>
+
+<script src="../assets/core.js"></script>
+<script src="../assets/elements.js"></script>
+<script src="1-2a.js"></script>
+</body>
+</html>

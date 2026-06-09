@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Structure &rarr; Property &rarr; Argument · Gen Chem C-SPA</title>
+  <link rel="stylesheet" href="../assets/tokens.css">
+  <link rel="stylesheet" href="../assets/components.css">
+  <style>
+    /* Local styles for Lesson C-SPA */
+    .spa-stage {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      align-items: start;
+      margin-top: 1.5rem;
+    }
+    @media(min-width: 880px) {
+      .spa-stage {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .explorer-panel {
+      background: var(--paper-2);
+      border: 1px solid var(--hair);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .sim-canvas {
+      width: 100%;
+      aspect-ratio: 16/10;
+      border: 1px solid var(--hair-soft);
+      background: var(--paper);
+      box-shadow: inset 0 0 12px rgba(0,0,0,0.02);
+    }
+    .builder-panel {
+      background: var(--paper);
+      border: 1px solid var(--hair);
+      padding: 1.25rem;
+    }
+    .argument-step {
+      margin-bottom: 1rem;
+    }
+    .argument-step:last-child {
+      margin-bottom: 0;
+    }
+    .step-header {
+      font-family: var(--display);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--ink-mute);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.35rem;
+    }
+    .step-select {
+      width: 100%;
+      padding: 0.55rem;
+      font-family: var(--serif);
+      font-size: 0.94rem;
+      background: var(--card);
+      border: 1px solid var(--hair);
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.15s ease;
+    }
+    .step-select:focus {
+      border-color: var(--accent);
+    }
+    .step-select.correct-select {
+      border-color: var(--good);
+      background: var(--paper-3);
+    }
+    .step-select.wrong-select {
+      border-color: var(--accent);
+    }
+    .paragraph-output {
+      border: 1px dashed var(--hair);
+      background: var(--paper-2);
+      padding: 1.2rem;
+      margin-top: 1.25rem;
+      min-height: 120px;
+    }
+    .paragraph-output p {
+      font-family: var(--serif);
+      font-size: 1rem;
+      line-height: 1.55;
+      color: var(--ink-soft);
+    }
+    .paragraph-output.complete p {
+      color: var(--ink);
+    }
+    .status-badge-inline {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.25rem 0.5rem;
+      border-radius: 3px;
+      display: inline-block;
+    }
+    .status-badge-inline.correct {
+      background: var(--good-soft);
+      color: var(--good);
+    }
+    .status-badge-inline.pending {
+      background: var(--hair-soft);
+      color: var(--ink-mute);
+    }
+    .imf-line {
+      stroke: var(--accent-soft);
+      stroke-dasharray: 2 2;
+      stroke-width: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="toc-btn" id="tocBtn" aria-label="Table of contents">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <path d="M3 6h18M3 12h18M3 18h18" />
+        </svg>
+        Contents
+      </button>
+      <div class="crumb">Gen Chem · Shared · <b>C-SPA</b></div>
+    </div>
+    <div class="topbar-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+          stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4" />
+          <path
+            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <nav class="toc-drop" id="tocDrop"></nav>
+
+  <!-- HERO -->
+  <section id="s-hero" class="hero" data-toc="Opening">
+    <div class="wrap">
+      <div class="label label-accent">Structure &rarr; Property &rarr; Argument</div>
+      <h1>Explain the macro using the <span class="flip">micro</span>.</h1>
+      <p class="lede">In chemistry, we design materials and analyze properties by building a logical chain of reasoning. A molecule's sub-microscopic structural shape determines how closely it can pack against its neighbors. This packing limits or maximizes the strength of its intermolecular forces (IMFs). Finally, these force strengths dictate macroscopic properties like melting points and food texture. To communicate this to other scientists, we use a structured five-part argument. In this lesson, we explore saturated and unsaturated fats to master this scientific reasoning chain.</p>
+      <div class="meta-strip">
+        <div class="meta-block">
+          <div class="k">Alignment</div>
+          <div class="v"><b>HS-PS2-6</b> Connect molecular structure to intermolecular forces and macroscopic properties (PS2-6 targets).</div>
+        </div>
+        <div class="meta-block">
+          <div class="k">Objective</div>
+          <div class="v">Contrast straight saturated fat chains with kinked unsaturated fat chains, relate packing tightness to London dispersion forces, and write a structured material design argument.</div>
+        </div>
+        <div class="meta-block">
+          <div class="k">Scope</div>
+          <div class="v">Saturated vs. unsaturated fats, London dispersion forces, packing density, material design arguments (Feature &rarr; IMF &rarr; Property &rarr; Function &rarr; Trade-off).</div>
+        </div>
+      </div>
+      <div class="next-cue"><button class="next-btn" data-next>Start <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 01 SATURATED VS UNSATURATED -->
+  <section id="s-structure" data-toc="Fat Structures">
+    <div class="narrow">
+      <div class="section-tag"><span class="num">01</span><span class="label label-accent">Microscopic Shape</span></div>
+      <h2>Straight lines vs. double-bond kinks.</h2>
+      <p class="step reveal" style="margin-top:1.5rem;">Fats and oils are made of long hydrocarbon chains called fatty acids. The key difference between a solid fat (like butter or ghee) and a liquid oil (like canola or olive oil) lies entirely in the geometry of these carbon skeletons.</p>
+      
+      <p class="step reveal">A <strong class="term">saturated fat</strong> contains carbon chains with only single bonds. Every carbon atom is bonded to as many hydrogen atoms as possible (it is "saturated" with hydrogens). Because single bonds allow free rotation and form a uniform zig-zag shape, these chains are overall <strong>straight and linear</strong>.</p>
+      
+      <p class="step reveal">An <strong class="term">unsaturated fat</strong> contains one or more double bonds between carbon atoms. Because a double bond is rigid and locked, it forces the carbon skeleton into a bent geometry, creating a permanent <strong>kink or bend</strong> in the middle of the chain.</p>
+      
+      <div class="next-cue"><button class="next-btn" data-next>Packing and Forces <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 02 PACKING, IMFS & MELTING POINT -->
+  <section id="s-imfs" data-toc="Packing &amp; IMFs">
+    <div class="narrow">
+      <div class="section-tag reveal"><span class="num">02</span><span class="label label-accent">Intermolecular Forces</span></div>
+      <h2 class="reveal">Tighter packing makes stronger forces.</h2>
+      <p class="step reveal" style="margin-top:1.5rem;">How does this geometry translate to melting points? It is a direct result of <strong>molecular packing density</strong> and the strength of <strong class="term">London dispersion forces</strong> (LDFs), the weak intermolecular forces that temporarily attract nonpolar molecules to one another.</p>
+      
+      <div class="callout reveal" style="margin-top:1.5rem;">
+        <div class="label label-accent">The velcro analogy</div>
+        <p>Think of London dispersion forces like Velcro. Two flat, straight strips of Velcro can press tightly together, making a strong grip. Two crumpled, bent pieces of Velcro will barely touch, gripping each other very weakly.</p>
+      </div>
+
+      <p class="step reveal" style="margin-top:1.5rem;">Because saturated fat chains are straight, they can pack tightly side-by-side, maximizing the contact surface area between molecules. This close contact allows LDFs to operate at their highest strength, holding the molecules firmly in a solid grid at room temperature.</p>
+      
+      <p class="step reveal">Because unsaturated fat chains have rigid kinks, they cannot pack tightly. The kinks push neighboring molecules apart, creating large gaps of empty space. This increased distance significantly weakens LDFs. Because the forces holding the molecules together are weak, unsaturated fats melt at much lower temperatures and are liquids at room temperature.</p>
+
+      <div class="next-cue"><button class="next-btn" data-next>The 5-part Argument structure <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 03 THE DESIGNED FOOD ARGUMENT -->
+  <section id="s-argument" data-toc="Scientific Arguments">
+    <div class="narrow">
+      <div class="section-tag reveal"><span class="num">03</span><span class="label label-accent">Scientific Writing</span></div>
+      <h2 class="reveal">Feature &rarr; IMF &rarr; Property &rarr; Function &rarr; Trade-off.</h2>
+      <p class="step reveal" style="margin-top:1.5rem;">In chemistry, we do not simply list facts; we construct logical claims. When designing materials (such as substituting a cooking ingredient), we follow a structured 5-part argument:</p>
+      
+      <ol class="pts reveal" style="margin: 1.25rem 0;">
+        <li><strong>Structural Feature:</strong> Identify the microscopic shape of the molecules (e.g. straight saturated chains vs. kinked unsaturated chains).</li>
+        <li><strong>IMF Strength:</strong> Relate the shape to packing tightness and the resulting strength of intermolecular forces (e.g., tight packing leads to stronger London dispersion forces).</li>
+        <li><strong>Macroscopic Property:</strong> Explain how the IMF strength affects the physical state or melting point (e.g. stronger forces require more thermal energy to overcome, resulting in a solid at room temperature).</li>
+        <li><strong>Material Function:</strong> Connect the physical property to its practical use (e.g. solid fats trap air and support dough structures, creating flaky pastries).</li>
+        <li><strong>Design Trade-off:</strong> Evaluate what happens if you substitute ingredients, balancing healthier molecular structures against degraded physical performance.</li>
+      </ol>
+
+      <div class="next-cue"><button class="next-btn" data-next>Explore the simulator &amp; builder <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 04 SIGNATURE INTERACTIVE: EXPLORER & BUILDER -->
+  <section id="s-explorer" data-toc="Interactive Explorer" style="background:var(--paper-2);border-top:1px solid var(--hair-soft);border-bottom:1px solid var(--hair-soft);">
+    <div class="wrap">
+      <div class="section-tag reveal"><span class="num">04</span><span class="label label-accent">Interactive &middot; Fat Simulator &amp; Argument Constructor</span></div>
+      <h2 class="reveal">Heat the chains. Construct the claim.</h2>
+      <p class="reveal" style="margin-top:1rem;color:var(--ink-soft);">Toggle between saturated and unsaturated fat structures. Slide the temperature to watch how LDF attractions break. On the right, select the correct logical segments to build a complete scientific argument.</p>
+      
+      <div class="interactive reveal" style="margin-top:1.5rem;">
+        <div class="spa-stage">
+          <!-- Left side: Simulator -->
+          <div class="explorer-panel">
+            <div class="interactive-head" style="padding:0; border:none; background:none;">
+              <div class="eqn-selector" style="margin:0;">
+                <button class="chip active" id="fatSat" data-fat="saturated">Saturated (Straight)</button>
+                <button class="chip" id="fatUnsat" data-fat="unsaturated">Unsaturated (Kinked)</button>
+              </div>
+            </div>
+
+            <div class="slider-row">
+              <div class="slider-header">
+                <span>Temperature</span>
+                <span class="val" id="tempVal">20&deg;C</span>
+              </div>
+              <input type="range" class="slider-input" id="tempInput" min="0" max="100" step="5" value="20">
+            </div>
+
+            <svg class="sim-canvas" id="simCanvas" viewBox="0 0 320 200" role="img" aria-label="Visual simulation showing fat molecules vibrating or sliding past each other as temperature changes."></svg>
+            
+            <div class="readout-box" style="min-height:90px; padding:0.8rem 1rem;">
+              <h4 id="simTitle" style="font-size:0.9rem; margin-bottom:0.2rem;">Saturated Solid</h4>
+              <p id="simText" style="font-size:0.84rem; line-height:1.45;">At 20&deg;C, straight saturated fat chains are packed tightly together. London dispersion forces (LDFs, shown in orange) hold them in a rigid solid grid.</p>
+            </div>
+          </div>
+
+          <!-- Right side: Argument Builder -->
+          <div class="builder-panel">
+            <div class="label" style="border-bottom:1px solid var(--hair-soft); padding-bottom:0.4rem; margin-bottom:0.8rem; display:flex; justify-content:space-between; align-items:center;">
+              <span>Scientific Argument Builder (PS2-6)</span>
+              <span class="status-badge-inline pending" id="argStatus">Pending</span>
+            </div>
+
+            <div class="argument-step">
+              <div class="step-header">1. Structural Feature</div>
+              <select class="step-select" id="step1">
+                <option value="">-- Choose statement --</option>
+                <option value="sat">Saturated fat molecules have straight, linear carbon chains, while unsaturated fats have rigid double bonds that create a kinked shape.</option>
+                <option value="unsat">Saturated fats contain multiple triple bonds that twist the molecules, whereas unsaturated fats are perfectly linear circles.</option>
+              </select>
+            </div>
+
+            <div class="argument-step">
+              <div class="step-header">2. Packing Density &amp; IMFs</div>
+              <select class="step-select" id="step2">
+                <option value="">-- Choose statement --</option>
+                <option value="weak">Linear shapes cause molecules to bounce off each other, weakening electrostatic covalent bonds between atoms.</option>
+                <option value="strong">Straight saturated chains pack tightly together, maximizing surface contact and LDF strength. Kinked unsaturated chains cannot pack tightly, resulting in weaker LDFs.</option>
+              </select>
+            </div>
+
+            <div class="argument-step">
+              <div class="step-header">3. Macroscopic Property</div>
+              <select class="step-select" id="step3">
+                <option value="">-- Choose statement --</option>
+                <option value="mp">Stronger LDFs require more thermal energy to overcome, giving saturated fats a higher melting point (solid at room temperature) than unsaturated fats (liquid at room temperature).</option>
+                <option value="bp">Weaker LDFs trap heat inside the molecules, causing unsaturated fats to boil immediately and turn into gases at room temperature.</option>
+              </select>
+            </div>
+
+            <div class="argument-step">
+              <div class="step-header">4. Practical Food Function</div>
+              <select class="step-select" id="step4">
+                <option value="">-- Choose statement --</option>
+                <option value="baking">In baking, solid fats support dough structures by trapping air and separating flour layers, creating a light, flaky texture.</option>
+                <option value="frying">In baking, liquid oils are required to dissolve starch grains and cook the internal gluten proteins rapidly.</option>
+              </select>
+            </div>
+
+            <div class="argument-step">
+              <div class="step-header">5. Design Trade-off</div>
+              <select class="step-select" id="step5">
+                <option value="">-- Choose statement --</option>
+                <option value="trade">Substituting liquid vegetable oil for ghee makes the pastry healthier (lower saturated fat) but degrades structure, causing the dough to collapse and become flat and greasy.</option>
+                <option value="health">Substituting solid butter for ghee increases the vitamins but makes the pastry highly toxic and completely unsellable due to carbon combustion.</option>
+              </select>
+            </div>
+
+            <div class="paragraph-output" id="paragraphOutput">
+              <p id="paragraphText">Select a statement for each step above to construct your material design argument...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="next-cue"><button class="next-btn" data-next>Practice argument reasoning <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 05 PREDICT FIRST -->
+  <section id="s-predict" data-toc="Predict First">
+    <div class="narrow">
+      <div class="section-tag reveal"><span class="num">05</span><span class="label label-accent">Predict &middot; Reveal</span></div>
+      <h2 class="reveal">Predict the property trend.</h2>
+
+      <!-- Q1 -->
+      <div class="step reveal" style="margin-top:1.5rem;">
+        <p><strong>1. Comparing IMF Strengths:</strong> Stearic acid is a saturated fatty acid with a straight 18-carbon chain. Oleic acid is an unsaturated fatty acid, also with 18 carbons, but with a double-bond kink in the middle. Which compound has stronger intermolecular forces holding its molecules together?</p>
+        <div class="actions" style="margin-top:0.75rem;" data-predict="imfPredict">
+          <button class="btn opt" data-val="stearic" data-correct="true">Stearic Acid (Saturated)</button>
+          <button class="btn opt" data-val="oleic">Oleic Acid (Unsaturated)</button>
+          <button class="btn opt" data-val="equal">Both have Equal IMF Strength</button>
+        </div>
+        <div class="peek-box" data-reveal="imfPredict">
+          <div class="reveal-card">
+            <div class="label label-accent">The Answer: Stearic Acid (Saturated)</div>
+            <p>Because stearic acid molecules are straight, they can pack tightly side-by-side, maximizing contact surface area. This maximizes the strength of the London dispersion forces between them. The kink in oleic acid pushes molecules apart, weakening the LDFs.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="step reveal" style="margin-top:2rem;">
+        <p><strong>2. Predicting States:</strong> Based on the IMF strength described, which acid will have a higher melting point and remain a solid at room temperature (20&deg;C)?</p>
+        <div class="actions" style="margin-top:0.75rem;" data-predict="statePredict">
+          <button class="btn opt" data-val="stearic" data-correct="true">Stearic Acid (Saturated)</button>
+          <button class="btn opt" data-val="oleic">Oleic Acid (Unsaturated)</button>
+        </div>
+        <div class="peek-box" data-reveal="statePredict">
+          <div class="reveal-card">
+            <div class="label label-accent">The Answer: Stearic Acid (Saturated)</div>
+            <p>Stearic acid, with its stronger London dispersion forces, requires more thermal energy (higher temperature) to overcome the attractions and melt. Its melting point is 69&deg;C, so it is a solid at room temperature. Oleic acid, with weaker forces, melts at 13&deg;C, making it a liquid oil at room temperature.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="next-cue"><button class="next-btn" data-next>Recall the terms <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 06 RECALL -->
+  <section id="s-recall" data-toc="Recall">
+    <div class="narrow">
+      <div class="section-tag reveal"><span class="num">06</span><span class="label label-accent">Recall</span></div>
+      <h2 class="reveal">Say it back.</h2>
+      <p class="lede reveal" style="margin-top:.75rem;">Fill in the blanks to lock in the core terms. Matches are case-insensitive.</p>
+      
+      <div class="recall interactive reveal" style="margin-top:1.5rem;">
+        <div class="st-prompt">
+          <h3>Argument &amp; IMF Vocabulary</h3>
+          <div class="st-meta">Fill in the terms.</div>
+        </div>
+        <div class="st-fields" style="margin-top:1.25rem;">
+          <label>
+            1. Saturated fatty acids contain only single bonds, resulting in a molecular shape that is:
+            <input type="text" class="blank" data-answer="straight|linear">
+          </label>
+          <label>
+            2. Unsaturated fatty acids contain double bonds, which introduce a permanent:
+            <input type="text" class="blank" data-answer="kink|bend">
+          </label>
+          <label>
+            3. The specific type of weak intermolecular forces that attract nonpolar hydrocarbon chains together are:
+            <input type="text" class="blank" data-answer="london dispersion forces|ldf|ldfs|dispersion forces">
+          </label>
+          <label>
+            4. Straight molecules pack closely, which increases their packing density and:
+            <input type="text" class="blank" data-answer="contact surface area|surface area|contact area">
+          </label>
+          <label>
+            5. In a material design argument, the final step where we evaluate functional drawbacks is the:
+            <input type="text" class="blank" data-answer="trade-off|tradeoff">
+          </label>
+        </div>
+        <div class="actions" style="margin-top:1.5rem; justify-content: flex-start;">
+          <button class="btn" id="recallCheck" data-recall-check>Check Answers</button>
+          <button class="btn ghost" id="recallReset" data-recall-reset>Reset</button>
+        </div>
+        <div class="valence-pill" id="recallFeedback" data-recall-feedback style="display:none;"></div>
+      </div>
+      
+      <div class="next-cue"><button class="next-btn" data-next>Self-Explain practice <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 07 SELF-EXPLAIN -->
+  <section id="s-explain" data-toc="Self-Explain">
+    <div class="narrow">
+      <div class="section-tag reveal"><span class="num">07</span><span class="label label-accent">Self-Explain</span></div>
+      <h2 class="reveal">Why do kinks lower melting point?</h2>
+      <p class="reveal" style="margin-top:1rem;color:var(--ink-soft);">Explain, using the concepts of molecular shape, packing density, and intermolecular force strength, why unsaturated fat has a lower melting point than saturated fat.</p>
+      
+      <div class="interactive reveal" style="margin-top:1.5rem;">
+        <textarea class="textbox" placeholder="Write your explanation here..." style="width:100%; min-height:120px; font-family:var(--serif); font-size:1.05rem; padding:0.8rem; background:var(--paper); border:1px solid var(--hair); color:var(--ink); outline:none; resize:vertical;"></textarea>
+        <div class="actions" style="margin-top:1rem; justify-content: flex-start;">
+          <button class="btn ghost" data-peek>Compare with model answer</button>
+        </div>
+        <div class="peek-box">
+          <div class="reveal-card" style="border-left-color:var(--accent);">
+            <div class="label label-accent">Model Answer</div>
+            <p>Saturated fats have straight carbon chains that allow molecules to pack tightly side-by-side, maximizing contact surface area and producing strong London dispersion forces between the chains. Overcoming these strong attractions requires a significant amount of thermal energy, resulting in a high melting point. Unsaturated fats have rigid double-bond kinks that prevent tight packing, pushing molecules apart and leaving empty spaces. This increased distance significantly reduces contact and weakens the London dispersion forces. Because the attractions holding the molecules together are weak, very little thermal energy is needed to separate them, resulting in a low melting point (making them liquid oils at room temperature).</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="next-cue"><button class="next-btn" data-next>Constructed Response practice <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 08 EXAM PRACTICE -->
+  <section id="s-exam" data-toc="Exam Practice">
+    <div class="narrow">
+      <div class="section-tag reveal"><span class="num">08</span><span class="label label-accent">Exam Practice</span></div>
+      <h2 class="reveal">Write the complete material design argument.</h2>
+      <p class="lede reveal" style="margin-top:.75rem;">Give yourself a point for each idea you actually wrote down. The flag (⚑) marks the critical linking step.</p>
+      
+      <div class="exam-frame reveal" style="margin-top:1.5rem;">
+        <div class="exam-meta">
+          <span class="exam-src">Gen Chem · HS-PS2-6 · constructed response</span>
+          <span class="exam-marks">[5 marks]</span>
+        </div>
+        <p class="exam-q">
+          A bakery wants to make a recipe healthier by substituting liquid canola oil (unsaturated fat) for solid shortening/butter (saturated fat). 
+          <br><br>
+          <span class="sub">Write a complete five-part material design argument explaining the structural differences, why these properties arise, the functional role of the fat in baking, and the physical trade-off that occurs when you perform this substitution.</span>
+        </p>
+        <textarea class="textbox" id="examAns" placeholder="Write your constructed response here..."></textarea>
+        <div class="actions" style="margin-top:1rem; justify-content: flex-start;">
+          <button class="btn" data-scheme>Reveal mark scheme</button>
+        </div>
+        <div class="scheme">
+          <div class="scheme-card">
+            <div class="label">Mark Scheme — 5 marks</div>
+            <ul class="pts">
+              <li><strong>Structural Feature:</strong> States that shortening/butter contains straight saturated carbon chains, while canola oil contains rigid kinks from double-bonded unsaturated chains.</li>
+              <li><strong>Molecular Packing:</strong> Explains that straight chains pack tightly side-by-side, whereas kinked chains cannot pack tightly, leaving large gaps between molecules.</li>
+              <li class="cap"><strong>IMF Attraction:</strong> Connects packing density to intermolecular force strength: the close contact in saturated chains maximizes London dispersion forces, while the gaps in unsaturated chains significantly weaken London dispersion forces. <em>(⚑ Linking molecular packing directly to LDF force strength is required for this mark.)</em></li>
+              <li><strong>Macroscopic Property:</strong> Relates force strength to state: stronger LDFs require more thermal energy to break, keeping shortening solid at room temperature, while weaker LDFs in canola oil result in a liquid oil at room temperature.</li>
+              <li><strong>Function &amp; Trade-off:</strong> Identifies that solid fat is required to trap air and separate flour layers to create a flaky pastry; substituting liquid oil will cause the pastry to collapse, becoming flat, dense, and greasy, trading physical texture for a healthier nutritional profile.</li>
+            </ul>
+            <p style="font-family:var(--mono);font-size:.72rem;color:var(--ink-mute);margin-top:.9rem;letter-spacing:.04em;">
+              Self-score: 5 = all five points · 4 = wrote a strong argument but missed either the LDF strength link or the specific baking function · 3 = general comparison with no LDF or function detail.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">
+    <div class="label">Gen Chem · Shared · C-SPA</div>
+    <p>Structure &rarr; Property &rarr; Argument. End of Semester 1 Interactive Notes.</p>
+  </div>
+
+  <script src="../assets/core.js"></script>
+  <script src="C-SPA.js"></script>
+</body>
+</html>

@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>The Mole &amp; Molar Mass · Gen Chem 2-7a</title>
+  <link rel="stylesheet" href="../assets/tokens.css">
+  <link rel="stylesheet" href="../assets/components.css">
+  <style>
+    /* Local styles for Lesson 2-7a */
+    .builder-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      align-items: start;
+      margin-top: 1.5rem;
+    }
+    @media(min-width: 820px) {
+      .builder-grid {
+        grid-template-columns: 1.1fr 0.9fr;
+      }
+    }
+    .builder-left {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+    }
+    .builder-right {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+    }
+    .formula-input-wrap {
+      display: flex;
+      gap: 0.5rem;
+      width: 100%;
+    }
+    .formula-input {
+      flex: 1;
+      font-family: var(--mono);
+      font-size: 1.15rem;
+      padding: 0.72rem 0.9rem;
+      background: var(--paper);
+      border: 1px solid var(--hair);
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .formula-input:focus {
+      border-color: var(--accent);
+    }
+    .formula-btn {
+      padding: 0 1.25rem;
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 0.88rem;
+      background: var(--ink);
+      color: var(--paper);
+      border: 1px solid var(--ink);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      min-height: 48px;
+    }
+    .formula-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .presets-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.25rem;
+    }
+    .molecule-canvas {
+      width: 100%;
+      aspect-ratio: 16/10;
+      border: 1px solid var(--hair-soft);
+      background: var(--paper-2);
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.02);
+    }
+    .molar-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      margin-top: 0.5rem;
+    }
+    .molar-table th {
+      border-bottom: 1.5px solid var(--hair);
+      padding: 0.65rem 0.45rem;
+      text-align: left;
+      color: var(--ink-mute);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.7rem;
+    }
+    .molar-table td {
+      padding: 0.72rem 0.45rem;
+      border-bottom: 1px solid var(--hair-soft);
+      color: var(--ink-soft);
+      vertical-align: middle;
+    }
+    .molar-table tr:last-child td {
+      border-bottom: none;
+    }
+    .total-row {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--accent);
+      font-family: var(--display);
+      border-top: 2px solid var(--hair);
+      margin-top: 0.8rem;
+      padding-top: 0.8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .total-val {
+      font-size: 1.55rem;
+      font-family: var(--mono);
+      font-weight: 700;
+    }
+    .calc-readout {
+      border: 1px solid var(--hair);
+      background: var(--paper);
+      padding: 1.1rem 1.3rem;
+    }
+    .calc-readout h4 {
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+    .calc-readout p {
+      font-size: 0.94rem;
+      color: var(--ink-soft);
+      line-height: 1.5;
+    }
+    .static-molar-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      margin: 1.25rem 0;
+      background: var(--card);
+      border: 1px solid var(--hair-soft);
+    }
+    .static-molar-table th {
+      background: var(--paper-2);
+      border-bottom: 1px solid var(--hair);
+      padding: 0.6rem 0.8rem;
+      text-align: left;
+      color: var(--ink-mute);
+      font-size: 0.72rem;
+    }
+    .static-molar-table td {
+      padding: 0.7rem 0.8rem;
+      border-bottom: 1px solid var(--hair-soft);
+      color: var(--ink-soft);
+    }
+    .static-molar-table tr:last-child td {
+      border-bottom: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="toc-btn" id="tocBtn" aria-label="Table of contents">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <path d="M3 6h18M3 12h18M3 18h18" />
+        </svg>
+        Contents
+      </button>
+      <div class="crumb">Gen Chem · Sem 1 · <b>2-7a</b></div>
+    </div>
+    <div class="topbar-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+          stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4" />
+          <path
+            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <nav class="toc-drop" id="tocDrop"></nav>
+
+  <!-- HERO -->
+  <section id="s-hero" class="hero" data-toc="Opening">
+    <div class="wrap">
+      <div class="label label-accent">The Mole &amp; Molar Mass</div>
+      <h1>How do you weigh a particle you <span class="flip">cannot see</span>?</h1>
+      <p class="lede">Pour a teaspoon of baking soda onto a scale. It weighs exactly 4.2 grams. But how many individual sodium hydrogen carbonate molecules are sitting on that metal pan? How do chemists count out reactant particles to ensure none are wasted? By the end of this page you will understand the giant counting unit known as the mole, calculate the molar mass of any formula, and bridge the sub-microscopic scale of atoms to the macroscopic scale of the lab.</p>
+      <div class="meta-strip">
+        <div class="meta-block">
+          <div class="k">Alignment</div>
+          <div class="v"><b>HS-PS1-7</b> Use mathematical representations to support the claim that atoms, and therefore mass, are conserved. (PS1-7.1 and PS1-7.5 targets).</div>
+        </div>
+        <div class="meta-block">
+          <div class="k">Objective</div>
+          <div class="v">Explain the mole as a count bridge (Avogadro's number), calculate compound molar masses using the periodic table, and connect recipe scaling to chemical proportions.</div>
+        </div>
+        <div class="meta-block">
+          <div class="k">Scope</div>
+          <div class="v">Avogadro's number (6.022 &times; 10²³), molar mass in g/mol, main-group formula calculations, and mathematical scaling.</div>
+        </div>
+      </div>
+      <div class="next-cue"><button class="next-btn" data-next>Start <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 01 THE CHEMIST'S DOZEN -->
+  <section id="s-dozen" data-toc="The Mole Concept">
+    <div class="narrow">
+      <div class="section-tag"><span class="num">01</span><span class="label label-accent">Counting by weighing</span></div>
+      <h2>The mole is just a massive dozen.</h2>
+      <p class="step reveal" style="margin-top:1.5rem;">If you bake flatbread or make cookies, you don't count out individual grains of flour or sugar. You buy them by the kilogram, or count eggs by the dozen. We use macroscopic quantities because individual particles are too small to handle.</p>
+      <p class="step reveal">Atoms are so tiny that a single drop of water contains more of them than there are grains of sand on Earth. To handle these quantities, chemists use a giant counting unit called the <strong class="term">mole</strong> (abbreviated as <strong>mol</strong>). Just as a dozen represents exactly 12 items, a mole represents exactly <strong class="term">Avogadro's number</strong>:</p>
+      
+      <p class="step reveal" style="font-family:var(--mono); font-size:1.35rem; font-weight:800; color:var(--accent); text-align:center; margin:1.25rem 0;">
+        1 mol = 6.022 &times; 10²³ particles
+      </p>
+
+      <p class="step reveal">This is our bridge of <strong>Scale, Proportion &amp; Quantity (CCC3)</strong>. A mole is not a weight; it is a count. One mole of helium gas contains 6.022 &times; 10²³ atoms, and one mole of xenon gas contains 6.022 &times; 10²³ atoms. Because xenon atoms are much larger and contain more protons and neutrons, a mole of xenon will weigh much more than a mole of helium—but the <em>count</em> of gas particles in each container is identical.</p>
+
+      <div class="callout reveal">
+        <div class="label label-accent">A simple dozen analogy</div>
+        <p>A dozen chicken eggs and a dozen ostrich eggs both contain exactly 12 eggs. However, the dozen ostrich eggs will weigh significantly more. In chemistry, a mole of water molecules (H₂O) and a mole of baking soda molecules (NaHCO₃) both contain exactly 6.022 &times; 10²³ molecules, but their masses are very different.</p>
+      </div>
+      
+      <div class="next-cue"><button class="next-btn" data-next>Scale to the Periodic Table <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 02 MOLAR MASS -->
+  <section id="s-molarmass" data-toc="Molar Mass">
+    <div class="narrow">
+      <div class="section-tag reveal"><span class="num">02</span><span class="label label-accent">From AMU to Grams</span></div>
+      <h2 class="reveal">Scaling up the periodic table.</h2>
+      <p class="step reveal" style="margin-top:1.5rem;">Look at any element cell on the periodic table. The number at the bottom is the average atomic mass of a single atom, measured in <strong>atomic mass units</strong> (amu). By mathematical design, Avogadro's number is the exact factor needed to scale this microscopic mass into grams:</p>
+      <p class="step reveal" style="font-family:var(--mono); font-size:1.05rem; color:var(--ink-soft); text-align:center; margin:1rem 0;">
+        1 atom of Carbon-12 = 12.00 amu &nbsp;&nbsp;&rarr;&nbsp;&nbsp; 1 mole of Carbon-12 = 12.00 grams
+      </p>
+      <p class="step reveal">This means the atomic mass of any element in amu is numerically identical to the mass of one mole of that element in grams. We call this the <strong class="term">molar mass</strong>, measured in <strong class="term">grams per mole</strong> (<strong>g/mol</strong>).</p>
+
+      <h3 class="reveal" style="margin-top:2rem;">Calculating Molar Mass of a Compound</h3>
+      <p class="step reveal">To find the molar mass of any compound, you sum the molar masses of its constituent atoms using the subscripts in the chemical formula:</p>
+      
+      <!-- Static Water Table -->
+      <h4 class="reveal" style="margin-top:1.25rem; color:var(--accent);">Example 1: Water (H<sub>2</sub>O)</h4>
+      <table class="static-molar-table reveal">
+        <thead>
+          <tr>
+            <th>Element</th>
+            <th>Count</th>
+            <th>Atomic Mass (g/mol)</th>
+            <th>Subtotal (g/mol)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Hydrogen (H)</td>
+            <td>2</td>
+            <td>1.01</td>
+            <td>2.02</td>
+          </tr>
+          <tr>
+            <td>Oxygen (O)</td>
+            <td>1</td>
+            <td>16.00</td>
+            <td>16.00</td>
+          </tr>
+          <tr style="font-weight:700; border-top:1.5px solid var(--hair);">
+            <td colspan="3" style="text-align:right;">TOTAL MOLAR MASS:</td>
+            <td style="color:var(--accent);">18.02 g/mol</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Static Baking Soda Table -->
+      <h4 class="reveal" style="margin-top:1.5rem; color:var(--accent);">Example 2: Sodium Bicarbonate / Baking Soda (NaHCO<sub>3</sub>)</h4>
+      <table class="static-molar-table reveal">
+        <thead>
+          <tr>
+            <th>Element</th>
+            <th>Count</th>
+            <th>Atomic Mass (g/mol)</th>
+            <th>Subtotal (g/mol)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sodium (Na)</td>
+            <td>1</td>
+            <td>22.99</td>
+            <td>22.99</td>
+          </tr>
+          <tr>
+            <td>Hydrogen (H)</td>
+            <td>1</td>
+            <td>1.01</td>
+            <td>1.01</td>
+          </tr>
+          <tr>
+            <td>Carbon (C)</td>
+            <td>1</td>
+            <td>12.01</td>
+            <td>12.01</td>
+          </tr>
+          <tr>
+            <td>Oxygen (O)</td>
+            <td>3</td>
+            <td>16.00</td>
+            <td>48.00</td>
+          </tr>
+          <tr style="font-weight:700; border-top:1.5px solid var(--hair);">
+            <td colspan="3" style="text-align:right;">TOTAL MOLAR MASS:</td>
+            <td style="color:var(--accent);">84.01 g/mol</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="next-cue"><button class="next-btn" data-next>Build and calculate molecules <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 03 SIGNATURE INTERACTIVE: MOLAR MASS BUILDER -->
+  <section id="s-builder" data-toc="Molar Mass Builder" style="background:var(--paper-2);border-top:1px solid var(--hair-soft);border-bottom:1px solid var(--hair-soft);">
+    <div class="wrap">
+      <div class="section-tag reveal"><span class="num">03</span><span class="label label-accent">Interactive &middot; Molar Mass Builder</span></div>
+      <h2 class="reveal">Build a formula. Calculate the mass.</h2>
+      <p class="reveal" style="margin-top:1rem;color:var(--ink-soft);">Select a preset molecule or type any chemical formula in the input box. The tool will parse the formula, calculate the step-by-step molar mass, and sketch the particle cluster.</p>
+      
+      <div class="interactive reveal">
+        <div class="interactive-head">
+          <span class="label">Formula Parser &middot; Calculator</span>
+          <div class="presets-wrap" id="presetButtons">
+            <button class="chip active" data-formula="H2O">Water</button>
+            <button class="chip" data-formula="CO2">Carbon Dioxide</button>
+            <button class="chip" data-formula="NaCl">Table Salt</button>
+            <button class="chip" data-formula="NaHCO3">Baking Soda</button>
+            <button class="chip" data-formula="CH4">Methane</button>
+            <button class="chip" data-formula="C6H12O6">Glucose</button>
+          </div>
+        </div>
+
+        <div class="builder-grid">
+          <div class="builder-left">
+            <div class="formula-input-wrap">
+              <input type="text" id="formulaInput" class="formula-input" value="H2O" placeholder="Type formula... e.g., H2SO4">
+              <button id="calcBtn" class="formula-btn">Calculate</button>
+            </div>
+            
+            <svg class="molecule-canvas" id="moleculeCanvas" role="img" aria-label="Particle cluster representation of compound"></svg>
+          </div>
+
+          <div class="builder-right">
+            <div class="tally-card" style="background:var(--paper); min-height: 250px; display:flex; flex-direction:column; justify-content:space-between;">
+              <div>
+                <div class="label" style="border-bottom: 1px solid var(--hair-soft); padding-bottom: 0.4rem; margin-bottom: 0.25rem;">Molar Mass Calculation</div>
+                <table class="molar-table">
+                  <thead>
+                    <tr>
+                      <th>Atom</th>
+                      <th>Qty</th>
+                      <th>Atomic Mass</th>
+                      <th>Subtotal</th>
+                    </tr>
+                  </thead>
+                  <tbody id="calcTableBody">
+                    <!-- Dynamically populated -->
+                  </tbody>
+                </table>
+              </div>
+              
+              <div class="total-row">
+                <span>Molar Mass:</span>
+                <span class="total-val" id="totalMass">18.02 g/mol</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="next-cue"><button class="next-btn" data-next>Recipe scaling analogy <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 04 SCALE & PROPORTION -->
+  <section id="s-scale" data-toc="Recipe Scaling">
+    <div class="narrow">
+      <div class="section-tag reveal"><span class="num">04</span><span class="label label-accent">Scale and Proportion</span></div>
+      <h2 class="reveal">Recipe ratios vs. chemical mole ratios.</h2>
+      <p class="step reveal" style="margin-top:1.5rem;">Avogadro's number is a scaling factor, but the relative proportions never change as you scale. This is the heart of <strong>Scale, Proportion &amp; Quantity (CCC3)</strong>.</p>
+      <p class="step reveal">A kitchen recipe lists proportions (e.g. 3 cups of flour to 1 cup of water, a 3:1 ratio). If you scale the recipe up to bake a single small loaf, or enough loaves to feed a whole school, you must keep the water-to-flour ratio exactly 3:1. If you shift the ratio, the texture collapses.</p>
+      <p class="step reveal">Similarly, a chemical formula is an atomic recipe (e.g., H₂O requires 2 hydrogen atoms for every 1 oxygen atom, a 2:1 ratio). When you scale this recipe up to one mole, you have exactly 2 moles of hydrogen atoms (1.204 &times; 10²⁴) and 1 mole of oxygen atoms (6.022 &times; 10²³). The scale increases by 6.022 &times; 10²³, but the proportion of Hydrogen to Oxygen remains exactly 2:1.</p>
+      
+      <div class="callout reveal">
+        <div class="label label-accent">Why we use moles</div>
+        <p>Because atoms are too small to count, we scale the chemical recipe up by one mole so we can weigh the proportions in grams. Molar mass is the conversion tool that lets us translate our chemical counting recipe into a scale reading.</p>
+      </div>
+
+      <div class="next-cue"><button class="next-btn" data-next>Practice predictions <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 05 PREDICT FIRST -->
+  <section id="s-predict" data-toc="Predict First">
+    <div class="narrow">
+      <div class="section-tag reveal"><span class="num">05</span><span class="label label-accent">Predict &middot; Reveal</span></div>
+      <h2 class="reveal">Test your scale reasoning.</h2>
+
+      <!-- Q1 -->
+      <div class="step reveal" style="margin-top:1.5rem;">
+        <p><strong>1. Comparing Mole Counts:</strong> You weigh out 1.0 mole of Water (H₂O, molar mass 18.02 g/mol) and 1.0 mole of Glucose (C₆H₁₂O₆, molar mass 180.16 g/mol) in separate containers. Which container has more molecules?</p>
+        <div class="actions" style="margin-top:0.75rem;" data-predict="moleCount">
+          <button class="btn opt" data-val="water">Water Beaker</button>
+          <button class="btn opt" data-val="glucose">Glucose Beaker</button>
+          <button class="btn opt" data-val="same">Both Beakers are Equal</button>
+        </div>
+        <div class="peek-box" data-reveal="moleCount">
+          <div class="reveal-card">
+            <div class="label label-accent">The Answer: Both are Equal</div>
+            <p>A mole is a count unit. Since both beakers contain exactly 1.0 mole of molecules, they both contain exactly 6.022 &times; 10²³ molecules. Because glucose molecules contain many more atoms and protons/neutrons, the glucose beaker weighs 10 times more—but the counting number of molecules is identical.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="step reveal" style="margin-top:2rem;">
+        <p><strong>2. Molar Mass of Carbon Dioxide:</strong> Methane (CH₄) has a molar mass of 16.05 g/mol. Carbon dioxide (CO₂) has a molar mass of 44.01 g/mol. Which element causes CO₂ to be so much heavier than CH₄?</p>
+        <div class="actions" style="margin-top:0.75rem;" data-predict="heavier">
+          <button class="btn opt" data-val="c">Carbon (C) atoms</button>
+          <button class="btn opt" data-val="o">Oxygen (O) atoms vs. Hydrogen (H)</button>
+        </div>
+        <div class="peek-box" data-reveal="heavier">
+          <div class="reveal-card">
+            <div class="label label-accent">The Answer: Oxygen vs. Hydrogen</div>
+            <p>Both compounds contain exactly one Carbon atom, which contributes 12.01 g/mol to both. The massive difference comes from the other atoms: Methane has 4 Hydrogen atoms (4 &times; 1.01 = 4.04 g/mol), while Carbon Dioxide has 2 Oxygen atoms (2 &times; 16.00 = 32.00 g/mol). Oxygen atoms are 16 times heavier than Hydrogen atoms.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="next-cue"><button class="next-btn" data-next>Recall the terminology <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 06 RECALL -->
+  <section id="s-recall" data-toc="Recall">
+    <div class="narrow">
+      <div class="section-tag reveal"><span class="num">06</span><span class="label label-accent">Recall</span></div>
+      <h2 class="reveal">Say it back.</h2>
+      <p class="lede reveal" style="margin-top:.75rem;">Fill in the blanks to lock in the core terms. Matches are case-insensitive.</p>
+      
+      <div class="recall interactive reveal" style="margin-top:1.5rem;">
+        <div class="st-prompt">
+          <h3>Vocabulary Check</h3>
+          <div class="st-meta">Fill in the correct stoichiometric units.</div>
+        </div>
+        <div class="st-fields" style="margin-top:1.25rem;">
+          <label>
+            1. The chemical counting unit that represents 6.022 &times; 10²³ particles is the:
+            <input type="text" class="blank" data-answer="mole">
+          </label>
+          <label>
+            2. The exact number 6.022 &times; 10²³ is known as:
+            <input type="text" class="blank" data-answer="Avogadro's number">
+          </label>
+          <label>
+            3. The mass of one mole of a chemical substance is its:
+            <input type="text" class="blank" data-answer="molar mass">
+          </label>
+          <label>
+            4. The standard unit used to measure molar mass is:
+            <input type="text" class="blank" data-answer="grams per mole|g/mol">
+          </label>
+          <label>
+            5. The cross-cutting concept that connects microscopic count to macroscopic mass is:
+            <input type="text" class="blank" data-answer="scale, proportion, and quantity|scale, proportion &amp; quantity">
+          </label>
+        </div>
+        <div class="actions" style="margin-top:1.5rem; justify-content: flex-start;">
+          <button class="btn" id="recallCheck" data-recall-check>Check Answers</button>
+          <button class="btn ghost" id="recallReset" data-recall-reset>Reset</button>
+        </div>
+        <div class="valence-pill" id="recallFeedback" data-recall-feedback style="display:none;"></div>
+      </div>
+      
+      <div class="next-cue"><button class="next-btn" data-next>Self-Explain practice <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 07 SELF-EXPLAIN -->
+  <section id="s-explain" data-toc="Self-Explain">
+    <div class="narrow">
+      <div class="section-tag reveal"><span class="num">07</span><span class="label label-accent">Self-Explain</span></div>
+      <h2 class="reveal">Dozen eggs vs. Dozen watermelons.</h2>
+      <p class="reveal" style="margin-top:1rem;color:var(--ink-soft);">Using the analogy of a dozen chicken eggs vs. a dozen watermelons, explain why 1 mole of hydrogen gas (H<sub>2</sub>) has a completely different mass than 1 mole of carbon dioxide gas (CO<sub>2</sub>), even though both contain the exact same number of molecules.</p>
+      
+      <div class="interactive reveal" style="margin-top:1.5rem;">
+        <textarea class="textbox" placeholder="Write your explanation here..." style="width:100%; min-height:120px; font-family:var(--serif); font-size:1.05rem; padding:0.8rem; background:var(--paper); border:1px solid var(--hair); color:var(--ink); outline:none; resize:vertical;"></textarea>
+        <div class="actions" style="margin-top:1rem; justify-content: flex-start;">
+          <button class="btn ghost" data-peek>Compare with model answer</button>
+        </div>
+        <div class="peek-box">
+          <div class="reveal-card" style="border-left-color:var(--accent);">
+            <div class="label label-accent">Model Answer</div>
+            <p>A mole is a counting unit representing exactly 6.022 &times; 10²³ particles, just as a dozen represents exactly 12 items. A dozen watermelons has a much larger mass than a dozen chicken eggs because an individual watermelon is much heavier than a chicken egg. Similarly, 1 mole of CO₂ has a much larger mass than 1 mole of H₂ because a single CO₂ molecule is much more massive (containing carbon and two oxygens) than a single H₂ molecule (containing only two hydrogens), despite the particle count being identical in both cases.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="next-cue"><button class="next-btn" data-next>Constructed Response practice <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 08 EXAM PRACTICE -->
+  <section id="s-exam" data-toc="Exam Practice">
+    <div class="narrow">
+      <div class="section-tag reveal"><span class="num">08</span><span class="label label-accent">Exam Practice</span></div>
+      <h2 class="reveal">Calculate compound molar mass.</h2>
+      <p class="lede reveal" style="margin-top:.75rem;">Give yourself a point for each idea you actually wrote down. The flag (⚑) marks the key conceptual definition.</p>
+      
+      <div class="exam-frame reveal" style="margin-top:1.5rem;">
+        <div class="exam-meta">
+          <span class="exam-src">Gen Chem · HS-PS1-7 · constructed response</span>
+          <span class="exam-marks">[3 marks]</span>
+        </div>
+        <p class="exam-q">
+          Calculate the molar mass of sucrose (C<sub>12</sub>H<sub>22</sub>O<sub>11</sub>). Show all step-by-step arithmetic, listing the element counts and atomic masses used. Then, in one sentence, explain what this value physically represents.
+        </p>
+        <textarea class="textbox" id="examAns" placeholder="Write your constructed response here..."></textarea>
+        <div class="actions" style="margin-top:1rem; justify-content: flex-start;">
+          <button class="btn" data-scheme>Reveal mark scheme</button>
+        </div>
+        <div class="scheme">
+          <div class="scheme-card">
+            <div class="label">Mark Scheme — 3 marks</div>
+            <ul class="pts">
+              <li>Shows the correct multiplication of element counts and atomic masses: C (12 &times; 12.01), H (22 &times; 1.01), and O (11 &times; 16.00).</li>
+              <li>Calculates the correct final sum: <strong>342.34 g/mol</strong> (accept 342 to 343 depending on decimal precision).</li>
+              <li class="cap">Explains that the value represents the <strong>mass in grams of exactly 1 mole</strong> (6.022 &times; 10²³ molecules) of sucrose. <em>(⚑ This connection between mass and the molecular count is required for full credit.)</em></li>
+            </ul>
+            <p style="font-family:var(--mono);font-size:.72rem;color:var(--ink-mute);margin-top:.9rem;letter-spacing:.04em;">
+              Self-score: 3 = all three points · 2 = arithmetic only, missing or vague physical definition · 1 = setup only with calculation error.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">
+    <div class="label">Gen Chem · Semester 1 · 2-7a</div>
+    <p>The Mole &amp; Molar Mass. Next: using this mass bridge to perform dimensional analysis conversions in the laboratory.</p>
+  </div>
+
+  <script src="../assets/core.js"></script>
+  <script src="2-7a.js"></script>
+</body>
+</html>

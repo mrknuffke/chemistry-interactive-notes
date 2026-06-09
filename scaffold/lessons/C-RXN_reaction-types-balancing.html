@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Reaction Types &amp; Balancing · Gen Chem C-RXN</title>
+  <link rel="stylesheet" href="../assets/tokens.css">
+  <link rel="stylesheet" href="../assets/components.css">
+  <style>
+    /* Local styles for Lesson C-RXN */
+    .balancer-stage {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      align-items: start;
+      margin-top: 1.5rem;
+    }
+    @media(min-width: 860px) {
+      .balancer-stage {
+        grid-template-columns: 1.1fr 0.9fr;
+      }
+    }
+    .eqn-selector {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .balancer-controls {
+      background: var(--paper-2);
+      border: 1px solid var(--hair);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .control-group-title {
+      font-family: var(--display);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--ink-mute);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border-bottom: 1px solid var(--hair-soft);
+      padding-bottom: 0.3rem;
+      margin-bottom: 0.5rem;
+    }
+    .coeff-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+    .coeff-row:last-child {
+      margin-bottom: 0;
+    }
+    .coeff-name {
+      font-family: var(--mono);
+      font-size: 0.95rem;
+      color: var(--ink-soft);
+    }
+    .coeff-adjuster {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .coeff-val {
+      font-family: var(--mono);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--accent);
+      min-width: 20px;
+      text-align: center;
+    }
+    .adjust-btn {
+      width: 28px;
+      height: 28px;
+      border: 1px solid var(--hair);
+      background: var(--card);
+      color: var(--ink);
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+    .adjust-btn:hover:not(:disabled) {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--paper);
+    }
+    .adjust-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+    .balance-canvas {
+      width: 100%;
+      aspect-ratio: 16/11;
+      border: 1px solid var(--hair-soft);
+      background: var(--paper);
+      box-shadow: inset 0 0 12px rgba(0,0,0,0.02);
+    }
+    .status-badge-inline {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.25rem 0.5rem;
+      border-radius: 3px;
+      display: inline-block;
+    }
+    .status-badge-inline.balanced {
+      background: var(--good-soft);
+      color: var(--good);
+    }
+    .status-badge-inline.unbalanced {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+    .tally-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      margin-top: 1rem;
+      text-align: center;
+    }
+    .tally-box {
+      border: 1px solid var(--hair-soft);
+      background: var(--paper-2);
+      padding: 0.5rem;
+      font-family: var(--mono);
+    }
+    .tally-box .element-name {
+      font-size: 0.7rem;
+      color: var(--ink-mute);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .tally-box .counts {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-top: 0.2rem;
+    }
+    .tally-box .counts.match {
+      color: var(--good);
+    }
+    .tally-box .counts.no-match {
+      color: var(--accent);
+    }
+    .type-card {
+      border: 1px solid var(--hair-soft);
+      background: var(--card);
+      padding: 1rem 1.2rem;
+      margin-bottom: 0.75rem;
+    }
+    .type-card h4 {
+      color: var(--accent);
+      margin-bottom: 0.25rem;
+      font-family: var(--display);
+    }
+    .type-card p {
+      font-size: 0.92rem;
+      color: var(--ink-soft);
+      line-height: 1.45;
+    }
+    .type-card .generic-form {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      color: var(--ink-mute);
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="toc-btn" id="tocBtn" aria-label="Table of contents">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <path d="M3 6h18M3 12h18M3 18h18" />
+        </svg>
+        Contents
+      </button>
+      <div class="crumb">Gen Chem · Shared · <b>C-RXN</b></div>
+    </div>
+    <div class="topbar-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+          stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4" />
+          <path
+            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <nav class="toc-drop" id="tocDrop"></nav>
+
+  <!-- HERO -->
+  <section id="s-hero" class="hero" data-toc="Opening">
+    <div class="wrap">
+      <div class="label label-accent">Reaction Types &amp; Balancing</div>
+      <h1>Keep the atoms, and <span class="flip">level the beam</span>.</h1>
+      <p class="lede">A chemical reaction is not a magical creation; it is an atomic remodeling project. Bonds break, elements separate, and new structures assemble—but the starting building blocks never vanish. The Law of Conservation of Mass dictates that every single atom present before a reaction must remain afterward. To model this, we balance chemical equations with molecular coefficients. In this lesson, you will learn to categorize chemical changes into six distinct patterns and balance molecular equations visually.</p>
+      <div class="meta-strip">
+        <div class="meta-block">
+          <div class="k">Alignment</div>
+          <div class="v"><b>HS-PS1-2, HS-PS1-7</b> Categorize chemical changes and balance equations to support mass conservation (PS1-2.2, .3 targets).</div>
+        </div>
+        <div class="meta-block">
+          <div class="k">Objective</div>
+          <div class="v">Identify synthesis, decomposition, combustion, single replacement, double replacement, and acid-base reactions, and balance equations using a visual balancer.</div>
+        </div>
+        <div class="meta-block">
+          <div class="k">Scope</div>
+          <div class="v">Six main reaction categories, coefficient balancing rules, atomic conservation.</div>
+        </div>
+      </div>
+      <div class="next-cue"><button class="next-btn" data-next>Start <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 01 SIX REACTION TYPES -->
+  <section id="s-types" data-toc="Six Reaction Types">
+    <div class="narrow">
+      <div class="section-tag"><span class="num">01</span><span class="label label-accent">Patterns of Change</span></div>
+      <h2>Six blueprints of rearrangement.</h2>
+      <p class="step reveal" style="margin-top:1.5rem;">Rather than memorizing millions of unique chemical reactions, chemists categorize reactions into a few core blueprints. By looking at how the reactants are combined, you can predict what kind of products will form.</p>
+      
+      <div class="step reveal" style="margin-top:1.5rem;">
+        <!-- Synthesis -->
+        <div class="type-card">
+          <h4>1. Combining elements together (Synthesis)</h4>
+          <p>Two or more simple starting materials combine to build a single, more complex compound. In the kitchen, combining flour, water, and yeast to form bread dough is an analogy.</p>
+          <div class="generic-form">Generic Form: A + B &rarr; AB</div>
+        </div>
+
+        <!-- Decomposition -->
+        <div class="type-card">
+          <h4>2. Breaking compounds apart (Decomposition)</h4>
+          <p>A single complex starting material breaks down into two or more simpler products. An example is heating sodium bicarbonate (baking soda) in cake batter, which decomposes to release carbon dioxide gas, bubbles, and sodium carbonate.</p>
+          <div class="generic-form">Generic Form: AB &rarr; A + B</div>
+        </div>
+
+        <!-- Single Replacement -->
+        <div class="type-card">
+          <h4>3. Single swap (Single Replacement)</h4>
+          <p>An active free element swaps places with an element inside a compound, kicking the original element out to stand alone.</p>
+          <div class="generic-form">Generic Form: A + BC &rarr; B + AC</div>
+        </div>
+
+        <!-- Double Replacement -->
+        <div class="type-card">
+          <h4>4. Double swap (Double Replacement)</h4>
+          <p>Two ionic compounds switch partner ions, forming two brand-new ionic compounds. Typically, this reaction forms a solid precipitate that falls out of solution.</p>
+          <div class="generic-form">Generic Form: AB + CD &rarr; AD + CB</div>
+        </div>
+
+        <!-- Combustion -->
+        <div class="type-card">
+          <h4>5. Burning in oxygen (Combustion)</h4>
+          <p>A hydrocarbon fuel reacts rapidly with oxygen gas (O<sub>2</sub>) from the air. This highly exothermic reaction always produces carbon dioxide (CO<sub>2</sub>) and water vapor (H<sub>2</sub>O).</p>
+          <div class="generic-form">Generic Form: Fuel + O<sub>2</sub> &rarr; CO<sub>2</sub> + H<sub>2</sub>O</div>
+        </div>
+
+        <!-- Acid-Base -->
+        <div class="type-card">
+          <h4>6. Proton exchange (Acid-Base Neutralization)</h4>
+          <p>An acid (releasing H<sup>+</sup> ions) reacts with a base (releasing OH<sup>-</sup> ions). They neutralize each other, forming water (H<sub>2</sub>O) and an ionic salt.</p>
+          <div class="generic-form">Generic Form: HA + BOH &rarr; H<sub>2</sub>O + BA</div>
+        </div>
+      </div>
+      
+      <div class="next-cue"><button class="next-btn" data-next>The Law of Balancing <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 02 THE LAW OF BALANCING -->
+  <section id="s-law" data-toc="Locking Subscripts">
+    <div class="narrow">
+      <div class="section-tag reveal"><span class="num">02</span><span class="label label-accent">Conservation</span></div>
+      <h2 class="reveal">Adjust coefficients, lock the subscripts.</h2>
+      <p class="step reveal" style="margin-top:1.5rem;">To conserve atoms, we might be tempted to change the subscripts inside formulas. <strong>Never do this.</strong> Subscripts define the chemical identity of a substance. If you change the subscript of water (H<sub>2</sub>O) to H<sub>2</sub>O<sub>2</sub> to get more oxygen, you are no longer modeling water—you are modeling hydrogen peroxide, a corrosive bleach. You cannot change the recipe ingredients to balance the scale.</p>
+      
+      <p class="step reveal">Instead, we adjust the <strong class="term">coefficients</strong> (the numbers placed in front of formulas). A coefficient scales the entire molecule. Placing a "2" in front of H<sub>2</sub>O (2 H<sub>2</sub>O) means you have two distinct water molecules, doubling the counts of both hydrogen and oxygen atoms without changing what the substance is.</p>
+
+      <div class="callout reveal">
+        <div class="label label-accent">Drawing boundaries</div>
+        <p>Think of each compound as being inside a sealed plastic box. You can buy more boxes (coefficients), but you cannot open the box to alter the atoms inside (subscripts).</p>
+      </div>
+
+      <div class="next-cue"><button class="next-btn" data-next>Try the Visual Balancer <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 03 SIGNATURE INTERACTIVE: VISUAL BALANCER -->
+  <section id="s-balancer" data-toc="Visual Balancer" style="background:var(--paper-2);border-top:1px solid var(--hair-soft);border-bottom:1px solid var(--hair-soft);">
+    <div class="wrap">
+      <div class="section-tag reveal"><span class="num">03</span><span class="label label-accent">Interactive &middot; Visual Equation Balancer</span></div>
+      <h2 class="reveal">Balance the beam. Conserve the atoms.</h2>
+      <p class="reveal" style="margin-top:1rem;color:var(--ink-soft);">Select a chemical equation. Use the plus and minus buttons to change the coefficients. Watch the molecule drawings populate the balance beam. When the atom counts match on both sides, the beam will level out.</p>
+      
+      <div class="interactive reveal">
+        <div class="interactive-head" style="flex-wrap:wrap; gap:0.5rem;">
+          <span class="label">Choose Reaction to Balance:</span>
+          <div class="eqn-selector">
+            <button class="chip active" id="rxnWater" data-rxn="water">Water Synthesis</button>
+            <button class="chip" id="rxnAmmonia" data-rxn="ammonia">Ammonia Synthesis</button>
+          </div>
+        </div>
+
+        <div class="balancer-stage">
+          <div class="builder-left">
+            <svg class="balance-canvas" id="balanceCanvas" viewBox="0 0 400 275" role="img" aria-label="Visual balance beam scale with reactant molecules on the left pan and product molecules on the right pan."></svg>
+          </div>
+
+          <div class="builder-right">
+            <div class="balancer-controls">
+              <div>
+                <div class="control-group-title">Reactant Coefficients</div>
+                <div id="reactantControls">
+                  <!-- Dynamically populated -->
+                </div>
+              </div>
+
+              <div>
+                <div class="control-group-title">Product Coefficients</div>
+                <div id="productControls">
+                  <!-- Dynamically populated -->
+                </div>
+              </div>
+            </div>
+
+            <div class="bca-table-wrap" style="background:var(--paper); padding:1rem; border:1px solid var(--hair); margin-top:1rem;">
+              <div class="label" style="border-bottom:1px solid var(--hair-soft); padding-bottom:0.4rem; margin-bottom:0.5rem; display:flex; justify-content:space-between; align-items:center;">
+                <span>Atom Count Ledger</span>
+                <span class="status-badge-inline unbalanced" id="balanceStatus">Unbalanced</span>
+              </div>
+              
+              <div class="tally-grid" id="tallyGrid">
+                <!-- Dynamically populated atom tally boxes -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="next-cue"><button class="next-btn" data-next>Practice balancing predictions <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 04 PREDICT FIRST -->
+  <section id="s-predict" data-toc="Predict First">
+    <div class="narrow">
+      <div class="section-tag reveal"><span class="num">04</span><span class="label label-accent">Predict &middot; Reveal</span></div>
+      <h2 class="reveal">Predict the coefficients.</h2>
+
+      <!-- Q1 -->
+      <div class="step reveal" style="margin-top:1.5rem;">
+        <p><strong>1. Balancing Combustion:</strong> Consider the combustion of methane: CH<sub>4</sub> + O<sub>2</sub> &rarr; CO<sub>2</sub> + H<sub>2</sub>O. Looking at the hydrogens, the reactant side has 4 hydrogens while the product side only has 2. What coefficient should you place in front of H<sub>2</sub>O to balance hydrogen?</p>
+        <div class="actions" style="margin-top:0.75rem;" data-predict="combustCoeff">
+          <button class="btn opt" data-val="1">1</button>
+          <button class="btn opt" data-val="2" data-correct="true">2</button>
+          <button class="btn opt" data-val="4">4</button>
+        </div>
+        <div class="peek-box" data-reveal="combustCoeff">
+          <div class="reveal-card">
+            <div class="label label-accent">The Answer: 2</div>
+            <p>Placing a coefficient of 2 in front of H<sub>2</sub>O (2 H<sub>2</sub>O) gives a total of 4 hydrogen atoms on the product side, matching the 4 hydrogen atoms in the single CH<sub>4</sub> reactant molecule. (This also increases oxygen, which you would then balance by placing a 2 in front of O<sub>2</sub> reactants).</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="step reveal" style="margin-top:2rem;">
+        <p><strong>2. Categorizing Reaction:</strong> A beaker containing aqueous sodium chloride (NaCl) is mixed with silver nitrate (AgNO<sub>3</sub>). A solid white cloud of silver chloride (AgCl) immediately forms and settles at the bottom of the beaker. What type of reaction is this?</p>
+        <div class="actions" style="margin-top:0.75rem;" data-predict="rxnCategory">
+          <button class="btn opt" data-val="decomp">Decomposition</button>
+          <button class="btn opt" data-val="double" data-correct="true">Double Replacement</button>
+          <button class="btn opt" data-val="single">Single Replacement</button>
+        </div>
+        <div class="peek-box" data-reveal="rxnCategory">
+          <div class="reveal-card">
+            <div class="label label-accent">The Answer: Double Replacement</div>
+            <p>This is a double replacement precipitation reaction. The sodium (Na<sup>+</sup>) and silver (Ag<sup>+</sup>) ions swap partner anions (Cl<sup>-</sup> and NO<sub>3</sub><sup>-</sup>) to produce a solid salt (AgCl) and aqueous sodium nitrate (NaNO<sub>3</sub>).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="next-cue"><button class="next-btn" data-next>Recall the terms <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 05 RECALL -->
+  <section id="s-recall" data-toc="Recall">
+    <div class="narrow">
+      <div class="section-tag reveal"><span class="num">05</span><span class="label label-accent">Recall</span></div>
+      <h2 class="reveal">Say it back.</h2>
+      <p class="lede reveal" style="margin-top:.75rem;">Fill in the blanks to lock in the core terms. Matches are case-insensitive.</p>
+      
+      <div class="recall interactive reveal" style="margin-top:1.5rem;">
+        <div class="st-prompt">
+          <h3>Balancing &amp; Types Vocabulary</h3>
+          <div class="st-meta">Fill in the terms.</div>
+        </div>
+        <div class="st-fields" style="margin-top:1.25rem;">
+          <label>
+            1. The chemical reaction type where a fuel reacts with oxygen to form CO<sub>2</sub> and H<sub>2</sub>O is:
+            <input type="text" class="blank" data-answer="combustion">
+          </label>
+          <label>
+            2. The chemical reaction type where a single reactant breaks down into multiple products is:
+            <input type="text" class="blank" data-answer="decomposition">
+          </label>
+          <label>
+            3. The fundamental law that requires equations to be balanced is the Law of:
+            <input type="text" class="blank" data-answer="conservation of mass|conservation of matter">
+          </label>
+          <label>
+            4. The numbers placed in front of chemical formulas to balance an equation are:
+            <input type="text" class="blank" data-answer="coefficients">
+          </label>
+          <label>
+            5. The subscript numbers inside a chemical formula represent the compound's:
+            <input type="text" class="blank" data-answer="chemical identity|identity|subscripts">
+          </label>
+        </div>
+        <div class="actions" style="margin-top:1.5rem; justify-content: flex-start;">
+          <button class="btn" id="recallCheck" data-recall-check>Check Answers</button>
+          <button class="btn ghost" id="recallReset" data-recall-reset>Reset</button>
+        </div>
+        <div class="valence-pill" id="recallFeedback" data-recall-feedback style="display:none;"></div>
+      </div>
+      
+      <div class="next-cue"><button class="next-btn" data-next>Self-Explain practice <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 06 SELF-EXPLAIN -->
+  <section id="s-explain" data-toc="Self-Explain">
+    <div class="narrow">
+      <div class="section-tag reveal"><span class="num">06</span><span class="label label-accent">Self-Explain</span></div>
+      <h2 class="reveal">Why lock the subscripts?</h2>
+      <p class="reveal" style="margin-top:1rem;color:var(--ink-soft);">Explain, in terms of chemical identity and atomic structure, why you are permitted to change coefficients to balance an equation, but strictly forbidden from modifying subscripts.</p>
+      
+      <div class="interactive reveal" style="margin-top:1.5rem;">
+        <textarea class="textbox" placeholder="Write your explanation here..." style="width:100%; min-height:120px; font-family:var(--serif); font-size:1.05rem; padding:0.8rem; background:var(--paper); border:1px solid var(--hair); color:var(--ink); outline:none; resize:vertical;"></textarea>
+        <div class="actions" style="margin-top:1rem; justify-content: flex-start;">
+          <button class="btn ghost" data-peek>Compare with model answer</button>
+        </div>
+        <div class="peek-box">
+          <div class="reveal-card" style="border-left-color:var(--accent);">
+            <div class="label label-accent">Model Answer</div>
+            <p>Subscripts represent the fixed ratio of atoms bonded together within an individual molecule, establishing its unique chemical identity and properties. Changing a subscript alters the actual substance being modeled (for example, turning oxygen gas O<sub>2</sub> into toxic ozone O<sub>3</sub>). Coefficients, however, simply indicate the number of independent molecules participating in the reaction. Modifying coefficients scales the total amount of the substance present without changing its atomic bonding, allowing us to balance the equation while keeping the chemical species correct.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="next-cue"><button class="next-btn" data-next>Constructed Response practice <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 07 EXAM PRACTICE -->
+  <section id="s-exam" data-toc="Exam Practice">
+    <div class="narrow">
+      <div class="section-tag reveal"><span class="num">07</span><span class="label label-accent">Exam Practice</span></div>
+      <h2 class="reveal">Balance a thermal decomposition.</h2>
+      <p class="lede reveal" style="margin-top:.75rem;">Give yourself a point for each idea you actually wrote down. The flag (⚑) marks the coefficient comparison step.</p>
+      
+      <div class="exam-frame reveal" style="margin-top:1.5rem;">
+        <div class="exam-meta">
+          <span class="exam-src">Gen Chem · HS-PS1-7 · constructed response</span>
+          <span class="exam-marks">[3 marks]</span>
+        </div>
+        <p class="exam-q">
+          When baking soda (NaHCO<sub>3</sub>) is heated in an oven, it undergoes thermal decomposition to form solid sodium carbonate (Na<sub>2</sub>CO<sub>3</sub>), water vapor (H<sub>2</sub>O), and carbon dioxide gas (CO<sub>2</sub>).
+          <br><br>
+          <span class="sub">Write out the unbalanced chemical equation, balance it using coefficients, and show how the atom count ledger is equal on both reactant and product sides.</span>
+        </p>
+        <textarea class="textbox" id="examAns" placeholder="Write your constructed response here..."></textarea>
+        <div class="actions" style="margin-top:1rem; justify-content: flex-start;">
+          <button class="btn" data-scheme>Reveal mark scheme</button>
+        </div>
+        <div class="scheme">
+          <div class="scheme-card">
+            <div class="label">Mark Scheme — 3 marks</div>
+            <ul class="pts">
+              <li>Writes the correct unbalanced chemical equation: NaHCO<sub>3</sub> &rarr; Na<sub>2</sub>CO<sub>3</sub> + H<sub>2</sub>O + CO<sub>2</sub>.</li>
+              <li class="cap">Balances the equation by placing a coefficient of 2 in front of NaHCO<sub>3</sub>: <strong>2 NaHCO<sub>3</sub> &rarr; Na<sub>2</sub>CO<sub>3</sub> + H<sub>2</sub>O + CO<sub>2</sub></strong>. <em>(⚑ Placing the single coefficient 2 to balance all element counts is required for this mark.)</em></li>
+              <li>Shows the atom count ledger matches on both sides: Reactants: 2 Na, 2 H, 2 C, 6 O; Products: 2 Na, 2 H, 2 C (1+1), 6 O (3+1+2).</li>
+            </ul>
+            <p style="font-family:var(--mono);font-size:.72rem;color:var(--ink-mute);margin-top:.9rem;letter-spacing:.04em;">
+              Self-score: 3 = all three points · 2 = balanced equation but missing/incorrect atom count ledger · 1 = wrote unbalanced equation only.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">
+    <div class="label">Gen Chem · Shared · C-RXN</div>
+    <p>Reaction Types &amp; Balancing. Next: connecting molecular shapes and intermolecular forces to physical macroscopic properties.</p>
+  </div>
+
+  <script src="../assets/core.js"></script>
+  <script src="C-RXN.js"></script>
+</body>
+</html>

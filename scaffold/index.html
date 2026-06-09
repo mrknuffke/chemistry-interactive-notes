@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Interactive Chemistry Textbook · General Chemistry</title>
+  <link rel="stylesheet" href="assets/tokens.css">
+  <link rel="stylesheet" href="assets/components.css">
+  <style>
+    /* Local dashboard styles */
+    .dashboard-container {
+      max-width: 78rem;
+      margin: 0 auto;
+      padding: 2rem var(--gutter) 6rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="crumb">General Chemistry · <b>Interactive Textbook</b></div>
+    </div>
+    <div class="topbar-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="dashboard-header">
+    <h1>General Chemistry</h1>
+    <p class="lede">Active retrieval practice and visual particle models to review your understanding of chemical concepts. Move at your own pace, complete the checkpoints, and build solid scientific arguments.</p>
+    
+    <!-- Search Bar -->
+    <div class="search-container">
+      <svg class="search-icon" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8" />
+        <path d="M21 21l-4.3-4.3" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <input type="text" class="search-input" id="searchInput" placeholder="Search lessons, terms, or study topics...">
+    </div>
+  </header>
+
+  <!-- Sticky Tabs -->
+  <div class="dashboard-tabs-wrap">
+    <div class="dashboard-tabs">
+      <button class="dashboard-tab active" data-panel="lessons">Lessons</button>
+      <button class="dashboard-tab" data-panel="glossary">Glossary</button>
+      <button class="dashboard-tab" data-panel="unit1-res">Unit 1 Resources</button>
+      <button class="dashboard-tab" data-panel="unit2-res">Unit 2 Resources</button>
+    </div>
+  </div>
+
+  <!-- Main Content Panels -->
+  <main class="dashboard-container">
+    
+    <!-- ================= LESSONS PANEL ================= -->
+    <div class="dashboard-panel active" id="panel-lessons">
+      
+      <!-- Unit 1 -->
+      <section class="unit-section" style="margin-top:0;">
+        <h2>Unit 1: Atomic Structure &amp; Bonding <span>5 Lessons · 1 Coda</span></h2>
+        
+        <div class="lessons-grid">
+          
+          <!-- Lesson 1-1a -->
+          <a href="lessons/1-1a_atomic-structure-electron-config.html" class="lesson-card" data-search="atomic structure electron configuration nucleus shells protons neutrons Z transition metals Cr Cu anomalies Bohr diagram orbitals">
+            <div class="lesson-card-top">
+              <div class="lesson-card-header">
+                <span class="lesson-badge">1-1a</span>
+                <span class="lesson-status-badge not-started" id="status-1-1a">Not Started</span>
+              </div>
+              <h3>Atomic Structure &amp; Electron Configuration</h3>
+              <span class="lesson-pes">HS-PS1-1 · Targets PS1-1.2, .3</span>
+              <p class="lesson-desc">Explore Bohr models, electron shell configuration up to Z=36, valence counts, and transition metal exceptions.</p>
+            </div>
+            <div class="lesson-card-bottom">
+              <div class="lesson-progress-container">
+                <div class="lesson-progress-meta">
+                  <span>Progress</span>
+                  <span id="text-1-1a">0/4 checkpoints</span>
+                </div>
+                <div class="lesson-progress-bar-bg">
+                  <div class="lesson-progress-bar" id="bar-1-1a"></div>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <!-- Lesson 1-1b -->
+          <a href="lessons/1-1b_periodic-trends-reactivity.html" class="lesson-card" data-search="periodic trends reactivity atomic radius ionization energy electronegativity periodic table nuclear charge">
+            <div class="lesson-card-top">
+              <div class="lesson-card-header">
+                <span class="lesson-badge">1-1b</span>
+                <span class="lesson-status-badge not-started" id="status-1-1b">Not Started</span>
+              </div>
+              <h3>Periodic Trends &amp; Reactivity</h3>
+              <span class="lesson-pes">HS-PS1-1 · Targets PS1-1.1, .4, .5</span>
+              <p class="lesson-desc">Understand how atomic radius, ionization energy, and electronegativity dictate metal and nonmetal reactivity.</p>
+            </div>
+            <div class="lesson-card-bottom">
+              <div class="lesson-progress-container">
+                <div class="lesson-progress-meta">
+                  <span>Progress</span>
+                  <span id="text-1-1b">0/4 checkpoints</span>
+                </div>
+                <div class="lesson-progress-bar-bg">
+                  <div class="lesson-progress-bar" id="bar-1-1b"></div>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <!-- Lesson 1-2a -->
+          <a href="lessons/1-2a_bonding-electronegativity.html" class="lesson-card" data-search="bonding electronegativity covalent ionic metallic bond electronegativity difference ΔEN polar nonpolar local delocalized sea of electrons">
+            <div class="lesson-card-top">
+              <div class="lesson-card-header">
+                <span class="lesson-badge">1-2a</span>
+                <span class="lesson-status-badge not-started" id="status-1-2a">Not Started</span>
+              </div>
+              <h3>Bonding &amp; Electronegativity</h3>
+              <span class="lesson-pes">HS-PS1-2 · Target PS1-2.1</span>
+              <p class="lesson-desc">Classify bond types using electronegativity difference, and explore covalent, polar, ionic, and metallic lattices.</p>
+            </div>
+            <div class="lesson-card-bottom">
+              <div class="lesson-progress-container">
+                <div class="lesson-progress-meta">
+                  <span>Progress</span>
+                  <span id="text-1-2a">0/4 checkpoints</span>
+                </div>
+                <div class="lesson-progress-bar-bg">
+                  <div class="lesson-progress-bar" id="bar-1-2a"></div>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <!-- Lesson 1-3a -->
+          <a href="lessons/1-3a_lewis-structures.html" class="lesson-card" data-search="lewis structures sharing duet rule octet rule single double triple bonds valence pool central atom lone pairs">
+            <div class="lesson-card-top">
+              <div class="lesson-card-header">
+                <span class="lesson-badge">1-3a</span>
+                <span class="lesson-status-badge not-started" id="status-1-3a">Not Started</span>
+              </div>
+              <h3>Lewis Structures</h3>
+              <span class="lesson-pes">HS-PS1-3 · Target PS1-3.4</span>
+              <p class="lesson-desc">Draw 2D valence electron maps using duet/octet skeleton rules, showing bonds and lone pair distributions.</p>
+            </div>
+            <div class="lesson-card-bottom">
+              <div class="lesson-progress-container">
+                <div class="lesson-progress-meta">
+                  <span>Progress</span>
+                  <span id="text-1-3a">0/4 checkpoints</span>
+                </div>
+                <div class="lesson-progress-bar-bg">
+                  <div class="lesson-progress-bar" id="bar-1-3a"></div>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <!-- Lesson 1-3b -->
+          <a href="lessons/1-3b_imfs-properties.html" class="lesson-card" data-search="imfs properties intermolecular forces intramolecular bonds LDF London dispersion force dipole dipole hydrogen bonding surface tension boiling point vapor pressure phase changes">
+            <div class="lesson-card-top">
+              <div class="lesson-card-header">
+                <span class="lesson-badge">1-3b</span>
+                <span class="lesson-status-badge not-started" id="status-1-3b">Not Started</span>
+              </div>
+              <h3>IMFs &amp; Properties</h3>
+              <span class="lesson-pes">HS-PS1-3 · Target PS1-3.5</span>
+              <p class="lesson-desc">Distinguish bonds within molecules from intermolecular forces between them, explaining bulk phase properties.</p>
+            </div>
+            <div class="lesson-card-bottom">
+              <div class="lesson-progress-container">
+                <div class="lesson-progress-meta">
+                  <span>Progress</span>
+                  <span id="text-1-3b">0/4 checkpoints</span>
+                </div>
+                <div class="lesson-progress-bar-bg">
+                  <div class="lesson-progress-bar" id="bar-1-3b"></div>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <!-- Lesson C-SPA -->
+          <a href="lessons/C-SPA_structure-property-argument.html" class="lesson-card" data-search="C-SPA structure property argument fat saturated fat unsaturated fat LDF packing melting point velcro double bond kink GHS hazard argument builder scientific writing">
+            <div class="lesson-card-top">
+              <div class="lesson-card-header">
+                <span class="lesson-badge">C-SPA</span>
+                <span class="lesson-status-badge not-started" id="status-C-SPA">Not Started</span>
+              </div>
+              <h3>Structure &rarr; Property &rarr; Argument</h3>
+              <span class="lesson-pes">HS-PS2-6 · Targets PS2-6.1, .2, .3</span>
+              <p class="lesson-desc">Link fatty acid shapes to intermolecular packing density, melting point, and structured material design arguments.</p>
+            </div>
+            <div class="lesson-card-bottom">
+              <div class="lesson-progress-container">
+                <div class="lesson-progress-meta">
+                  <span>Progress</span>
+                  <span id="text-C-SPA">0/4 checkpoints</span>
+                </div>
+                <div class="lesson-progress-bar-bg">
+                  <div class="lesson-progress-bar" id="bar-C-SPA"></div>
+                </div>
+              </div>
+            </div>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- Unit 2 -->
+      <section class="unit-section">
+        <h2>Unit 2: Chemical Reactions &amp; Stoichiometry <span>4 Lessons · 1 Coda</span></h2>
+        
+        <div class="lessons-grid">
+          
+          <!-- Lesson 2-2a -->
+          <a href="lessons/2-2a_physical-chemical-change.html" class="lesson-card" data-search="physical chemical change particle diagrams conservation of mass open closed system phase changes dissolution reactants products">
+            <div class="lesson-card-top">
+              <div class="lesson-card-header">
+                <span class="lesson-badge">2-2a</span>
+                <span class="lesson-status-badge not-started" id="status-2-2a">Not Started</span>
+              </div>
+              <h3>Physical vs. Chemical Change &amp; Particle Diagrams</h3>
+              <span class="lesson-pes">HS-PS1-2 · Targets PS1-2.1, .4</span>
+              <p class="lesson-desc">Contrast physical and chemical changes at the particle scale, showing mass and atom conservation visually.</p>
+            </div>
+            <div class="lesson-card-bottom">
+              <div class="lesson-progress-container">
+                <div class="lesson-progress-meta">
+                  <span>Progress</span>
+                  <span id="text-2-2a">0/4 checkpoints</span>
+                </div>
+                <div class="lesson-progress-bar-bg">
+                  <div class="lesson-progress-bar" id="bar-2-2a"></div>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <!-- Lesson C-RXN -->
+          <a href="lessons/C-RXN_reaction-types-balancing.html" class="lesson-card" data-search="C-RXN reaction types balancing chemical equations coefficients synthesis decomposition single replacement double replacement combustion acid base law of balancing">
+            <div class="lesson-card-top">
+              <div class="lesson-card-header">
+                <span class="lesson-badge">C-RXN</span>
+                <span class="lesson-status-badge not-started" id="status-C-RXN">Not Started</span>
+              </div>
+              <h3>Reaction Types &amp; Balancing</h3>
+              <span class="lesson-pes">HS-PS1-2 · Targets PS1-2.2, .3</span>
+              <p class="lesson-desc">Identify the six primary chemical reaction types and balance equations visually using a balanced beam scale.</p>
+            </div>
+            <div class="lesson-card-bottom">
+              <div class="lesson-progress-container">
+                <div class="lesson-progress-meta">
+                  <span>Progress</span>
+                  <span id="text-C-RXN">0/4 checkpoints</span>
+                </div>
+                <div class="lesson-progress-bar-bg">
+                  <div class="lesson-progress-bar" id="bar-C-RXN"></div>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <!-- Lesson 2-7a -->
+          <a href="lessons/2-7a_the-mole-molar-mass.html" class="lesson-card" data-search="mole molar mass Avogadros number scaling scale proportion quantity CCC3 atomic mass units grams per mole molecular count">
+            <div class="lesson-card-top">
+              <div class="lesson-card-header">
+                <span class="lesson-badge">2-7a</span>
+                <span class="lesson-status-badge not-started" id="status-2-7a">Not Started</span>
+              </div>
+              <h3>The Mole &amp; Molar Mass</h3>
+              <span class="lesson-pes">HS-PS1-7 · Targets PS1-7.1, .5</span>
+              <p class="lesson-desc">Understand the mole concept as a mathematical scaling bridge from microscopic counts to macro masses in grams.</p>
+            </div>
+            <div class="lesson-card-bottom">
+              <div class="lesson-progress-container">
+                <div class="lesson-progress-meta">
+                  <span>Progress</span>
+                  <span id="text-2-7a">0/4 checkpoints</span>
+                </div>
+                <div class="lesson-progress-bar-bg">
+                  <div class="lesson-progress-bar" id="bar-2-7a"></div>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <!-- Lesson 2-7b -->
+          <a href="lessons/2-7b_mole-conversions.html" class="lesson-card" data-search="mole conversions dimensional analysis conversion factor builder unit cancellation factor label method mass to moles moles to mass">
+            <div class="lesson-card-top">
+              <div class="lesson-card-header">
+                <span class="lesson-badge">2-7b</span>
+                <span class="lesson-status-badge not-started" id="status-2-7b">Not Started</span>
+              </div>
+              <h3>Mole Conversions</h3>
+              <span class="lesson-pes">HS-PS1-7 · Target PS1-7.2</span>
+              <p class="lesson-desc">Master mass-to-mole and mole-to-mass conversions using dimensional analysis and interactive unit cancellation.</p>
+            </div>
+            <div class="lesson-card-bottom">
+              <div class="lesson-progress-container">
+                <div class="lesson-progress-meta">
+                  <span>Progress</span>
+                  <span id="text-2-7b">0/4 checkpoints</span>
+                </div>
+                <div class="lesson-progress-bar-bg">
+                  <div class="lesson-progress-bar" id="bar-2-7b"></div>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <!-- Lesson 2-7c -->
+          <a href="lessons/2-7c_stoichiometry.html" class="lesson-card" data-search="stoichiometry BCA table mole ratio limiting reactant excess reactant chemical yield combustion reaction progress">
+            <div class="lesson-card-top">
+              <div class="lesson-card-header">
+                <span class="lesson-badge">2-7c</span>
+                <span class="lesson-status-badge not-started" id="status-2-7c">Not Started</span>
+              </div>
+              <h3>Stoichiometry</h3>
+              <span class="lesson-pes">HS-PS1-7 · Targets PS1-7.3, .4</span>
+              <p class="lesson-desc">Solve chemical recipes using Before-Change-After tables and verify limiting reactant physics dynamically.</p>
+            </div>
+            <div class="lesson-card-bottom">
+              <div class="lesson-progress-container">
+                <div class="lesson-progress-meta">
+                  <span>Progress</span>
+                  <span id="text-2-7c">0/4 checkpoints</span>
+                </div>
+                <div class="lesson-progress-bar-bg">
+                  <div class="lesson-progress-bar" id="bar-2-7c"></div>
+                </div>
+              </div>
+            </div>
+          </a>
+
+        </div>
+      </section>
+      
+    </div>
+
+    <!-- ================= GLOSSARY PANEL ================= -->
+    <div class="dashboard-panel" id="panel-glossary">
+      <div class="glossary-grid" id="glossaryGrid">
+        <!-- Alphabetical terms dynamically generated and filtered -->
+      </div>
+    </div>
+
+    <!-- ================= UNIT 1 RESOURCES PANEL ================= -->
+    <div class="dashboard-panel" id="panel-unit1-res">
+      <div class="resources-grid">
+        <div class="resource-group">
+          <h3>Videos</h3>
+          <div class="resource-list" id="unit1-videos-list"></div>
+        </div>
+        <div class="resource-group">
+          <h3>Readings &amp; Simulations</h3>
+          <div class="resource-list" id="unit1-texts-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= UNIT 2 RESOURCES PANEL ================= -->
+    <div class="dashboard-panel" id="panel-unit2-res">
+      <div class="resources-grid">
+        <div class="resource-group">
+          <h3>Videos</h3>
+          <div class="resource-list" id="unit2-videos-list"></div>
+        </div>
+        <div class="resource-group">
+          <h3>Readings &amp; Simulations</h3>
+          <div class="resource-list" id="unit2-texts-list"></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    // Embedded Manifest Data for Offline / file:// CORS compatibility
+    const MANIFEST_DATA = {
+  "lessons": [
+    {
+      "id": "1-1a",
+      "slug": "1-1a_atomic-structure-electron-config",
+      "title": "Atomic Structure & Electron Configuration",
+      "unit": "1",
+      "pes": [
+        "HS-PS1-1"
+      ],
+      "description": "Explore the nucleus, electron shells, energy levels, valence counts, and transition metal configurations."
+    },
+    {
+      "id": "1-1b",
+      "slug": "1-1b_periodic-trends-reactivity",
+      "title": "Periodic Trends & Reactivity",
+      "unit": "1",
+      "pes": [
+        "HS-PS1-1"
+      ],
+      "description": "Understand how atomic radius, ionization energy, and electronegativity dictate chemical reactivity."
+    },
+    {
+      "id": "1-2a",
+      "slug": "1-2a_bonding-electronegativity",
+      "title": "Bonding & Electronegativity",
+      "unit": "1",
+      "pes": [
+        "HS-PS1-2"
+      ],
+      "description": "Investigate electrostatic forces, electronegativity differences, and covalent, ionic, and metallic bonds."
+    },
+    {
+      "id": "1-3a",
+      "slug": "1-3a_lewis-structures",
+      "title": "Lewis Structures",
+      "unit": "1",
+      "pes": [
+        "HS-PS1-3"
+      ],
+      "description": "Draw stable 2D valence electron sharing maps using the duet and octet rules."
+    },
+    {
+      "id": "1-3b",
+      "slug": "1-3b_imfs-properties",
+      "title": "IMFs & Properties",
+      "unit": "1",
+      "pes": [
+        "HS-PS1-3"
+      ],
+      "description": "Differentiate intramolecular bonds from intermolecular forces (LDF, dipole-dipole, H-bonding) during phase changes."
+    },
+    {
+      "id": "C-SPA",
+      "slug": "C-SPA_structure-property-argument",
+      "title": "Structure → Property → Argument",
+      "unit": "1",
+      "pes": [
+        "HS-PS2-6"
+      ],
+      "description": "Link fatty acid molecular shapes (saturated vs. unsaturated) to LDF strength, melting points, and scientific claims."
+    },
+    {
+      "id": "2-2a",
+      "slug": "2-2a_physical-chemical-change",
+      "title": "Physical vs. Chemical Change & Particle Diagrams",
+      "unit": "2",
+      "pes": [
+        "HS-PS1-2"
+      ],
+      "description": "Classify physical and chemical transformations at the particle scale and model mass conservation."
+    },
+    {
+      "id": "C-RXN",
+      "slug": "C-RXN_reaction-types-balancing",
+      "title": "Reaction Types & Balancing",
+      "unit": "2",
+      "pes": [
+        "HS-PS1-2"
+      ],
+      "description": "Classify the six chemical reaction types and balance equations without modifying subscripts."
+    },
+    {
+      "id": "2-7a",
+      "slug": "2-7a_the-mole-molar-mass",
+      "title": "The Mole & Molar Mass",
+      "unit": "2",
+      "pes": [
+        "HS-PS1-7"
+      ],
+      "description": "Use the mole as a scale bridge between microscopic atom counts and macroscopic masses in grams."
+    },
+    {
+      "id": "2-7b",
+      "slug": "2-7b_mole-conversions",
+      "title": "Mole Conversions",
+      "unit": "2",
+      "pes": [
+        "HS-PS1-7"
+      ],
+      "description": "Perform mass-to-mole and mole-to-mass conversions using dimensional analysis and unit cancellation."
+    },
+    {
+      "id": "2-7c",
+      "slug": "2-7c_stoichiometry",
+      "title": "Stoichiometry",
+      "unit": "2",
+      "pes": [
+        "HS-PS1-7"
+      ],
+      "description": "Solve chemical recipes using Before-Change-After (BCA) tables and identify limiting reactants."
+    }
+  ],
+  "glossary": [
+    {
+      "term": "nucleus",
+      "definition": "The tiny, dense central core of an atom containing positive protons and neutral neutrons.",
+      "lessonId": "1-1a",
+      "sectionId": "s-parts"
+    },
+    {
+      "term": "atomic number",
+      "definition": "The number of protons in an atom's nucleus, which uniquely identifies the chemical element.",
+      "lessonId": "1-1a",
+      "sectionId": "s-parts"
+    },
+    {
+      "term": "shells",
+      "definition": "Concentric energy levels surrounding the nucleus where electrons are grouped.",
+      "lessonId": "1-1a",
+      "sectionId": "s-parts"
+    },
+    {
+      "term": "valence electrons",
+      "definition": "The electrons in the outermost occupied shell of an atom that participate in chemical bonding.",
+      "lessonId": "1-1a",
+      "sectionId": "s-parts"
+    },
+    {
+      "term": "isotopes",
+      "definition": "Atoms of the same element that have the same number of protons but different numbers of neutrons, resulting in different atomic masses.",
+      "lessonId": "1-1a",
+      "sectionId": "s-parts"
+    },
+    {
+      "term": "Atomic radius",
+      "definition": "The distance from the center of the nucleus to the outer boundary of its electron cloud.",
+      "lessonId": "1-1b",
+      "sectionId": "s-reactivity"
+    },
+    {
+      "term": "ionization energy",
+      "definition": "The energy required to completely remove a valence electron from a gaseous atom.",
+      "lessonId": "1-1b",
+      "sectionId": "s-reactivity"
+    },
+    {
+      "term": "electronegativity",
+      "definition": "A measure of an atom's relative ability to attract shared electrons in a chemical bond.",
+      "lessonId": "1-1b",
+      "sectionId": "s-reactivity"
+    },
+    {
+      "term": "electrostatic force",
+      "definition": "The attractive or repulsive force between electrical charges (protons and electrons).",
+      "lessonId": "1-2a",
+      "sectionId": "s-forces"
+    },
+    {
+      "term": "electronegativity difference",
+      "definition": "The difference in electronegativity values between two bonded atoms, deciding the bond's electronic character.",
+      "lessonId": "1-2a",
+      "sectionId": "s-tug"
+    },
+    {
+      "term": "nonpolar covalent bond",
+      "definition": "A covalent bond in which valence electrons are shared equally between atoms (typically ΔEN < 0.5).",
+      "lessonId": "1-2a",
+      "sectionId": "s-tug"
+    },
+    {
+      "term": "polar covalent bond",
+      "definition": "A covalent bond in which valence electrons are shared unequally, creating partial positive and negative charges (0.5 ≤ ΔEN < 1.7).",
+      "lessonId": "1-2a",
+      "sectionId": "s-tug"
+    },
+    {
+      "term": "ionic bond",
+      "definition": "A chemical bond resulting from the electrostatic attraction between oppositely charged ions formed by electron transfer (typically ΔEN ≥ 1.7).",
+      "lessonId": "1-2a",
+      "sectionId": "s-tug"
+    },
+    {
+      "term": "metallic bond",
+      "definition": "The electrostatic attraction between positive metal cations and a delocalized sea of shared valence electrons.",
+      "lessonId": "1-2a",
+      "sectionId": "s-tug"
+    },
+    {
+      "term": "sea of electrons",
+      "definition": "The collective pool of delocalized valence electrons that flow freely around metal cations in a metallic lattice.",
+      "lessonId": "1-2a",
+      "sectionId": "s-tug"
+    },
+    {
+      "term": "octet rule",
+      "definition": "The tendency of main-group atoms to gain, lose, or share electrons in order to acquire a full set of 8 valence electrons.",
+      "lessonId": "1-3a",
+      "sectionId": "s-sharing"
+    },
+    {
+      "term": "duet rule",
+      "definition": "The tendency of hydrogen (and helium) to share or gain electrons to fill its first and only shell with exactly 2 electrons.",
+      "lessonId": "1-3a",
+      "sectionId": "s-sharing"
+    },
+    {
+      "term": "Lewis structure",
+      "definition": "A 2D structural diagram showing how valence electrons are shared as bonds or held as lone pairs around symbols of atoms.",
+      "lessonId": "1-3a",
+      "sectionId": "s-sharing"
+    },
+    {
+      "term": "single bond",
+      "definition": "A covalent bond in which two atoms share one pair of valence electrons (2 electrons).",
+      "lessonId": "1-3a",
+      "sectionId": "s-guide"
+    },
+    {
+      "term": "lone pairs",
+      "definition": "Pairs of valence electrons that are not shared in chemical bonds but reside locally on a single atom.",
+      "lessonId": "1-3a",
+      "sectionId": "s-guide"
+    },
+    {
+      "term": "double bond",
+      "definition": "A covalent bond in which two atoms share two pairs of valence electrons (4 electrons).",
+      "lessonId": "1-3a",
+      "sectionId": "s-guide"
+    },
+    {
+      "term": "triple bond",
+      "definition": "A covalent bond in which two atoms share three pairs of valence electrons (6 electrons).",
+      "lessonId": "1-3a",
+      "sectionId": "s-guide"
+    },
+    {
+      "term": "intramolecular bonds",
+      "definition": "Strong chemical bonds (such as covalent or ionic bonds) that hold atoms together within a molecule.",
+      "lessonId": "1-3b",
+      "sectionId": "s-attraction"
+    },
+    {
+      "term": "intermolecular forces",
+      "definition": "Relatively weak electrical attractions that exist between neighboring chemical particles (molecules).",
+      "lessonId": "1-3b",
+      "sectionId": "s-attraction"
+    },
+    {
+      "term": "London dispersion force",
+      "definition": "The weakest intermolecular force, caused by temporary, induced dipole shifts in electron clouds; present in all molecules.",
+      "lessonId": "1-3b",
+      "sectionId": "s-types"
+    },
+    {
+      "term": "dipole-dipole force",
+      "definition": "An intermolecular force of attraction between the positive and negative ends of adjacent polar molecules.",
+      "lessonId": "1-3b",
+      "sectionId": "s-types"
+    },
+    {
+      "term": "hydrogen bonding",
+      "definition": "An exceptionally strong dipole-dipole attraction that occurs when hydrogen is bonded directly to highly electronegative nitrogen, oxygen, or fluorine atoms.",
+      "lessonId": "1-3b",
+      "sectionId": "s-types"
+    },
+    {
+      "term": "surface tension",
+      "definition": "The inward electrostatic pull experienced by molecules at the surface of a liquid, causing the liquid to minimize its surface area.",
+      "lessonId": "1-3b",
+      "sectionId": "s-bulk"
+    },
+    {
+      "term": "saturated fat",
+      "definition": "A lipid containing fatty acid chains with only single carbon-carbon bonds, resulting in straight, linear shapes that pack tightly and melt at higher temperatures.",
+      "lessonId": "C-SPA",
+      "sectionId": "s-structure"
+    },
+    {
+      "term": "unsaturated fat",
+      "definition": "A lipid containing one or more double carbon-carbon bonds, creating rigid bends or kinks that prevent tight packing and lower the melting point.",
+      "lessonId": "C-SPA",
+      "sectionId": "s-structure"
+    },
+    {
+      "term": "physical change",
+      "definition": "A transformation that changes the state or spacing of particles without breaking covalent bonds or changing chemical identity.",
+      "lessonId": "2-2a",
+      "sectionId": "s-concept"
+    },
+    {
+      "term": "chemical change",
+      "definition": "A process where chemical bonds break and new ones form, rearranging atoms to produce new substances with different properties.",
+      "lessonId": "2-2a",
+      "sectionId": "s-concept"
+    },
+    {
+      "term": "reactants",
+      "definition": "The starting chemical substances consumed in a chemical reaction.",
+      "lessonId": "2-2a",
+      "sectionId": "s-concept"
+    },
+    {
+      "term": "products",
+      "definition": "The newly formed chemical substances produced by a chemical reaction.",
+      "lessonId": "2-2a",
+      "sectionId": "s-concept"
+    },
+    {
+      "term": "coefficients",
+      "definition": "Numbers placed in front of chemical formulas in a balanced equation to represent the relative mole proportions of reactants and products.",
+      "lessonId": "C-RXN",
+      "sectionId": "s-law"
+    },
+    {
+      "term": "mole",
+      "definition": "The standard chemical counting unit representing exactly 6.022 × 10²³ particles (atoms, molecules, or ions).",
+      "lessonId": "2-7a",
+      "sectionId": "s-dozen"
+    },
+    {
+      "term": "Avogadro's number",
+      "definition": "The constant 6.022 × 10²³, representing the number of counting particles in exactly one mole of a substance.",
+      "lessonId": "2-7a",
+      "sectionId": "s-dozen"
+    },
+    {
+      "term": "molar mass",
+      "definition": "The mass in grams of exactly one mole of a chemical substance, measured in grams per mole (g/mol).",
+      "lessonId": "2-7a",
+      "sectionId": "s-molarmass"
+    },
+    {
+      "term": "grams per mole",
+      "definition": "The standard unit (g/mol) used to express the molar mass of an element or compound.",
+      "lessonId": "2-7a",
+      "sectionId": "s-molarmass"
+    },
+    {
+      "term": "dimensional analysis",
+      "definition": "A problem-solving method that uses conversion factors and unit cancellations to convert one unit of measurement to another.",
+      "lessonId": "2-7b",
+      "sectionId": "s-da"
+    },
+    {
+      "term": "mole ratio",
+      "definition": "The ratio of moles of any two substances involved in a balanced chemical equation, representing their scaling proportions.",
+      "lessonId": "2-7c",
+      "sectionId": "s-recipe"
+    },
+    {
+      "term": "BCA table",
+      "definition": "A Before-Change-After stoichiometric grid used to track mole amounts of reactants and products before, during, and after a reaction.",
+      "lessonId": "2-7c",
+      "sectionId": "s-bca"
+    },
+    {
+      "term": "limiting reactant",
+      "definition": "The reactant that is completely consumed first in a reaction, determining the maximum yield of products.",
+      "lessonId": "2-7c",
+      "sectionId": "s-limiting"
+    },
+    {
+      "term": "excess reactant",
+      "definition": "The reactant that remains left over after a chemical reaction halts because the limiting reactant is exhausted.",
+      "lessonId": "2-7c",
+      "sectionId": "s-limiting"
+    }
+  ],
+  "resources": {
+    "unit1": [
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 3.1: Atomic Structure",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+3.1"
+      },
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 3.2: Electron Configuration",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+3.2"
+      },
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 4.1: Periodic Trends",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+4.1"
+      },
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 5.1: Chemical Bonding",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+5.1"
+      },
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 5.3: Lewis Structures",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+5.3"
+      },
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 5.4: VSEPR Theory",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+5.4"
+      },
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 6.1: IMFs",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+6.1"
+      },
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 8.1: Balancing Equations",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+8.1"
+      },
+      {
+        "type": "video",
+        "category": "Crash Course Chemistry",
+        "title": "The Periodic Table: CC Chemistry #4",
+        "url": "https://www.youtube.com/watch?v=0RRVV4Diomg"
+      },
+      {
+        "type": "video",
+        "category": "Crash Course Chemistry",
+        "title": "Bonding Models & Lewis Structures: CC Chemistry #24",
+        "url": "https://www.youtube.com/watch?v=a8LF7JEb0IA"
+      },
+      {
+        "type": "video",
+        "category": "Crash Course Chemistry",
+        "title": "Polar & Non-Polar Molecules: CC Chemistry #23",
+        "url": "https://www.youtube.com/watch?v=PVL24HAesnc"
+      },
+      {
+        "type": "video",
+        "category": "Crash Course Chemistry",
+        "title": "Hydrogen Bonding: CC Chemistry #38",
+        "url": "https://www.youtube.com/watch?v=PyC5r2mB4d4"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Atomic Structure",
+        "url": "https://www.ck12.org/chemistry/atomic-structure/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Electron Configuration",
+        "url": "https://www.ck12.org/chemistry/electron-configuration/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Periodic Table Trends",
+        "url": "https://www.ck12.org/chemistry/periodic-table-trends/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Chemical Bonding and ΔEN",
+        "url": "https://www.ck12.org/chemistry/chemical-bonding/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Naming Ionic Compounds",
+        "url": "https://www.ck12.org/chemistry/naming-ionic-compounds/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Naming Covalent Compounds",
+        "url": "https://www.ck12.org/chemistry/naming-covalent-compounds/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Lewis Dot Structures",
+        "url": "https://www.ck12.org/chemistry/lewis-dot-structures/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "VSEPR Theory",
+        "url": "https://www.ck12.org/chemistry/vsepr-theory/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Molecular Polarity",
+        "url": "https://www.ck12.org/chemistry/molecular-polarity/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Intermolecular Forces",
+        "url": "https://www.ck12.org/chemistry/intermolecular-forces/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Physical Properties and IMFs",
+        "url": "https://www.ck12.org/chemistry/physical-properties-and-imfs/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Balancing Chemical Equations",
+        "url": "https://www.ck12.org/chemistry/balancing-chemical-equations/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Types of Chemical Reactions",
+        "url": "https://www.ck12.org/chemistry/types-of-chemical-reactions/"
+      },
+      {
+        "type": "simulation",
+        "category": "PhET Simulations",
+        "title": "PhET: Build an Atom",
+        "url": "https://phet.colorado.edu/sims/html/build-an-atom/latest/build-an-atom_all.html"
+      },
+      {
+        "type": "simulation",
+        "category": "PhET Simulations",
+        "title": "PhET: Molecule Shapes",
+        "url": "https://phet.colorado.edu/sims/html/molecule-shapes/latest/molecule-shapes_all.html"
+      },
+      {
+        "type": "simulation",
+        "category": "PhET Simulations",
+        "title": "PhET: Molecule Polarity",
+        "url": "https://phet.colorado.edu/sims/html/molecule-polarity/latest/molecule-polarity_all.html"
+      },
+      {
+        "type": "simulation",
+        "category": "PhET Simulations",
+        "title": "PhET: Balancing Chemical Equations",
+        "url": "https://phet.colorado.edu/sims/html/balancing-chemical-equations/latest/balancing-chemical-equations_all.html"
+      }
+    ],
+    "unit2": [
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 2.1: Properties & Changes of Matter",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+2.1"
+      },
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 8.1: Balancing Equations",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+8.1"
+      },
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 8.2: Redox Reactions",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+8.2"
+      },
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 8.3: Double Replacement Reactions",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+8.3"
+      },
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 7.8: Formula Mass",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+7.8"
+      },
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 7.11: Formula Stoichiometry",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+7.11"
+      },
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 8.4: Equation Stoichiometry",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+8.4"
+      },
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 8.4A: Advanced Equation Stoichiometry",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+8.4A"
+      },
+      {
+        "type": "video",
+        "category": "Crash Course Chemistry",
+        "title": "The Creation of Chemistry — Fundamental Laws: CC Chemistry #3",
+        "url": "https://www.youtube.com/watch?v=QiiyDXg-m90"
+      },
+      {
+        "type": "video",
+        "category": "Crash Course Chemistry",
+        "title": "Stoichiometry — Chemistry for Massive Creatures: CC Chemistry #6",
+        "url": "https://www.youtube.com/watch?v=UL1jmJaUkaQ"
+      },
+      {
+        "type": "video",
+        "category": "Crash Course Chemistry",
+        "title": "Reactions & Stoichiometry: CC Chemistry #10",
+        "url": "https://www.youtube.com/watch?v=r30cZ_wZt_8"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Conservation of Mass in Chemical Reactions",
+        "url": "https://www.ck12.org/chemistry/conservation-of-mass/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Synthesis Reactions",
+        "url": "https://www.ck12.org/chemistry/synthesis-reactions/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Decomposition Reactions",
+        "url": "https://www.ck12.org/chemistry/decomposition-reactions/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Single Replacement Reactions",
+        "url": "https://www.ck12.org/chemistry/single-replacement-reactions/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Double Replacement Reactions",
+        "url": "https://www.ck12.org/chemistry/double-replacement-reactions/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Combustion Reactions",
+        "url": "https://www.ck12.org/chemistry/combustion-reactions/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Mole Ratios",
+        "url": "https://www.ck12.org/chemistry/mole-ratios/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Law of Conservation of Mass",
+        "url": "https://www.ck12.org/chemistry/conservation-of-mass/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Mass-Mole Stoichiometry",
+        "url": "https://www.ck12.org/chemistry/mass-mole-stoichiometry/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Mass-Mass Stoichiometry",
+        "url": "https://www.ck12.org/chemistry/mass-mass-stoichiometry/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Limiting Reactant",
+        "url": "https://www.ck12.org/chemistry/limiting-reactant/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Physical Properties and Intermolecular Forces",
+        "url": "https://www.ck12.org/chemistry/physical-properties-and-imfs/"
+      },
+      {
+        "type": "simulation",
+        "category": "PhET Simulations",
+        "title": "PhET: Reactants, Products & Leftovers",
+        "url": "https://phet.colorado.edu/sims/html/reactants-products-and-leftovers/latest/reactants-products-and-leftovers_all.html"
+      },
+      {
+        "type": "simulation",
+        "category": "PhET Simulations",
+        "title": "PhET: Balancing Chemical Equations",
+        "url": "https://phet.colorado.edu/sims/html/balancing-chemical-equations/latest/balancing-chemical-equations_all.html"
+      },
+      {
+        "type": "simulation",
+        "category": "PhET Simulations",
+        "title": "PhET: Molecule Polarity",
+        "url": "https://phet.colorado.edu/sims/html/molecule-polarity/latest/molecule-polarity_all.html"
+      }
+    ]
+  }
+};
+
+    // DOM Utilities
+    const $ = s => document.querySelector(s);
+    const $$ = s => [...document.querySelectorAll(s)];
+
+    // Theme Toggle Logic
+    const root = document.documentElement;
+    let savedTheme = null;
+    try { savedTheme = localStorage.getItem('gc-theme'); } catch(e) {}
+    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      root.classList.add('dark');
+    }
+    $('#themeToggle').addEventListener('click', () => {
+      root.classList.toggle('dark');
+      try { localStorage.setItem('gc-theme', root.classList.contains('dark') ? 'dark' : 'light'); } catch(e) {}
+    });
+
+    // Tab Switching Logic
+    $$('.dashboard-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        $$('.dashboard-tab').forEach(t => t.classList.remove('active'));
+        $$('.dashboard-panel').forEach(p => p.classList.remove('active'));
+        
+        tab.classList.add('active');
+        $(`#panel-${tab.dataset.panel}`).classList.add('active');
+        
+        // Reset search filter when switching tabs
+        $('#searchInput').value = '';
+        filterItems('');
+      });
+    });
+
+    // Generate Glossary Cards alphabetically with dynamic section anchoring
+    const glossaryGrid = $('#glossaryGrid');
+    const sortedGlossary = [...MANIFEST_DATA.glossary].sort((a, b) => a.term.localeCompare(b.term));
+    
+    sortedGlossary.forEach(g => {
+      const lesson = MANIFEST_DATA.lessons.find(l => l.id === g.lessonId);
+      const url = lesson ? `lessons/${lesson.slug}.html#${g.sectionId}` : '#';
+      const lessonName = lesson ? lesson.id : g.lessonId;
+      
+      const card = document.createElement('div');
+      card.className = 'glossary-card';
+      card.setAttribute('data-search', `${g.term} ${g.definition} ${lessonName}`);
+      card.innerHTML = `
+        <div class="glossary-card-top">
+          <div class="glossary-term">${g.term}</div>
+          <div class="glossary-definition">${g.definition}</div>
+        </div>
+        <a href="${url}" class="glossary-link">Found in Lesson ${lessonName} &rarr;</a>
+      `;
+      glossaryGrid.appendChild(card);
+    });
+
+    // Generate Resources dynamically (excluding Gizmos & practice worksheets)
+    function renderResources(unit, containerPrefix) {
+      const videosList = $(`#${containerPrefix}-videos-list`);
+      const textsList = $(`#${containerPrefix}-texts-list`);
+      if (!videosList || !textsList) return;
+      
+      const resources = MANIFEST_DATA.resources[unit] || [];
+      
+      // Group by category under type groups
+      const groupedVideos = {};
+      const groupedTextsSims = {};
+      
+      resources.forEach(r => {
+        const catName = r.category;
+        if (r.type === 'video') {
+          if (!groupedVideos[catName]) groupedVideos[catName] = [];
+          groupedVideos[catName].push(r);
+        } else {
+          // both text (Readings) and simulation (PhET) go to column 2
+          if (!groupedTextsSims[catName]) groupedTextsSims[catName] = [];
+          groupedTextsSims[catName].push(r);
+        }
+      });
+      
+      // Render Videos (Column 1)
+      for (const [catName, items] of Object.entries(groupedVideos)) {
+        const groupDiv = document.createElement('div');
+        groupDiv.className = 'resource-category-group';
+        
+        const catTitle = document.createElement('div');
+        catTitle.className = 'resource-category-title';
+        catTitle.textContent = catName;
+        groupDiv.appendChild(catTitle);
+        
+        items.forEach(r => {
+          const item = document.createElement('a');
+          item.href = r.url;
+          item.target = '_blank';
+          item.className = 'resource-item';
+          item.setAttribute('data-search', `${r.title} ${catName} video`);
+          item.innerHTML = `
+            <svg class="resource-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <div class="resource-title">${r.title}</div>
+          `;
+          groupDiv.appendChild(item);
+        });
+        videosList.appendChild(groupDiv);
+      }
+      
+      // Render Readings & Simulations (Column 2)
+      for (const [catName, items] of Object.entries(groupedTextsSims)) {
+        const groupDiv = document.createElement('div');
+        groupDiv.className = 'resource-category-group';
+        
+        const catTitle = document.createElement('div');
+        catTitle.className = 'resource-category-title';
+        catTitle.textContent = catName;
+        groupDiv.appendChild(catTitle);
+        
+        items.forEach(r => {
+          const item = document.createElement('a');
+          item.href = r.url;
+          item.target = '_blank';
+          item.className = 'resource-item';
+          item.setAttribute('data-search', `${r.title} ${catName} ${r.type}`);
+          
+          let iconHtml = '';
+          if (r.type === 'text') {
+            iconHtml = `<svg class="resource-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>`;
+          } else if (r.type === 'simulation') {
+            iconHtml = `<svg class="resource-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>`;
+          }
+          
+          item.innerHTML = `
+            ${iconHtml}
+            <div class="resource-title">${r.title}</div>
+          `;
+          groupDiv.appendChild(item);
+        });
+        textsList.appendChild(groupDiv);
+      }
+    }
+
+    // Progress Rendering Engine
+    function renderProgress() {
+      let progress = {};
+      try { progress = JSON.parse(localStorage.getItem('gc-textbook-progress')) || {}; } catch(e) {}
+
+      MANIFEST_DATA.lessons.forEach(l => {
+        const lessonProgress = progress[l.id] || {};
+        const total = lessonProgress._total || 4; // fallback to 4 standard checkpoints if not opened yet
+        
+        // Count actual completed checkpoints (excluding the _total key)
+        const completedKeys = Object.keys(lessonProgress).filter(k => k !== '_total' && lessonProgress[k] === true);
+        const completed = completedKeys.length;
+
+        const ratio = total > 0 ? (completed / total) : 0;
+        const pct = Math.min(Math.round(ratio * 100), 100);
+
+        // Update elements
+        const bar = $(`#bar-${l.id}`);
+        const text = $(`#text-${l.id}`);
+        const status = $(`#status-${l.id}`);
+
+        if (bar) {
+          bar.style.width = `${pct}%`;
+          if (pct === 100) bar.classList.add('completed');
+          else bar.classList.remove('completed');
+        }
+
+        if (text) {
+          text.textContent = `${completed}/${total} checkpoints (${pct}%)`;
+        }
+
+        if (status) {
+          status.className = 'lesson-status-badge';
+          if (completed === 0) {
+            status.textContent = 'Not Started';
+            status.classList.add('not-started');
+          } else if (completed === total) {
+            status.textContent = 'Completed';
+            status.classList.add('completed');
+          } else {
+            status.textContent = 'In Progress';
+            status.classList.add('in-progress');
+          }
+        }
+      });
+    }
+
+    // Search Filtering Engine
+    function filterItems(query) {
+      const q = query.trim().toLowerCase();
+      
+      // Filter Lessons
+      const lessonCards = $$('#panel-lessons .lesson-card');
+      let visibleLessons = 0;
+      lessonCards.forEach(card => {
+        const searchText = card.getAttribute('data-search').toLowerCase() + ' ' + card.querySelector('h3').textContent.toLowerCase();
+        if (searchText.includes(q)) {
+          card.style.display = 'flex';
+          visibleLessons++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Filter Units (hide headings if all nested lessons are hidden)
+      $$('#panel-lessons .unit-section').forEach(sec => {
+        const visibleInSec = [...sec.querySelectorAll('.lesson-card')].filter(c => c.style.display !== 'none').length;
+        sec.style.display = visibleInSec > 0 ? 'block' : 'none';
+      });
+
+      // Filter Glossary
+      const glossaryCards = $$('#panel-glossary .glossary-card');
+      let visibleGlossary = 0;
+      glossaryCards.forEach(card => {
+        const searchText = card.getAttribute('data-search').toLowerCase();
+        if (searchText.includes(q)) {
+          card.style.display = 'flex';
+          visibleGlossary++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Filter Unit 1 Resources
+      const u1Items = $$('#panel-unit1-res .resource-item');
+      let visibleU1 = 0;
+      u1Items.forEach(item => {
+        const searchText = item.getAttribute('data-search').toLowerCase();
+        if (searchText.includes(q)) {
+          item.style.display = 'flex';
+          visibleU1++;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+      // Hide empty category groups
+      $$('#panel-unit1-res .resource-category-group').forEach(group => {
+        const visible = [...group.querySelectorAll('.resource-item')].filter(i => i.style.display !== 'none').length;
+        group.style.display = visible > 0 ? 'block' : 'none';
+      });
+      // Hide empty resource groups
+      $$('#panel-unit1-res .resource-group').forEach(group => {
+        const visible = [...group.querySelectorAll('.resource-item')].filter(i => i.style.display !== 'none').length;
+        group.style.display = visible > 0 ? 'block' : 'none';
+      });
+
+      // Filter Unit 2 Resources
+      const u2Items = $$('#panel-unit2-res .resource-item');
+      let visibleU2 = 0;
+      u2Items.forEach(item => {
+        const searchText = item.getAttribute('data-search').toLowerCase();
+        if (searchText.includes(q)) {
+          item.style.display = 'flex';
+          visibleU2++;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+      $$('#panel-unit2-res .resource-category-group').forEach(group => {
+        const visible = [...group.querySelectorAll('.resource-item')].filter(i => i.style.display !== 'none').length;
+        group.style.display = visible > 0 ? 'block' : 'none';
+      });
+      $$('#panel-unit2-res .resource-group').forEach(group => {
+        const visible = [...group.querySelectorAll('.resource-item')].filter(i => i.style.display !== 'none').length;
+        group.style.display = visible > 0 ? 'block' : 'none';
+      });
+
+      // Handle "No Results" placeholders
+      const activeTab = $('.dashboard-tab.active').dataset.panel;
+      removeNoResults();
+
+      if (activeTab === 'lessons' && visibleLessons === 0) {
+        showNoResults('#panel-lessons');
+      } else if (activeTab === 'glossary' && visibleGlossary === 0) {
+        showNoResults('#panel-glossary');
+      } else if (activeTab === 'unit1-res' && visibleU1 === 0) {
+        showNoResults('#panel-unit1-res');
+      } else if (activeTab === 'unit2-res' && visibleU2 === 0) {
+        showNoResults('#panel-unit2-res');
+      }
+    }
+
+    function showNoResults(parentSelector) {
+      const parent = $(parentSelector);
+      const div = document.createElement('div');
+      div.className = 'no-results';
+      div.innerHTML = 'No matching items found. Try another search term!';
+      parent.appendChild(div);
+    }
+
+    function removeNoResults() {
+      $$('.no-results').forEach(el => el.remove());
+    }
+
+    // Search Input Event
+    $('#searchInput').addEventListener('input', e => {
+      filterItems(e.target.value);
+    });
+
+    // Run on Load
+    renderProgress();
+    renderResources('unit1', 'unit1');
+    renderResources('unit2', 'unit2');
+  </script>
+</body>
+</html>

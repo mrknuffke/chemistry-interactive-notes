@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Mole Conversions · Gen Chem 2-7b</title>
+  <link rel="stylesheet" href="../assets/tokens.css">
+  <link rel="stylesheet" href="../assets/components.css">
+  <style>
+    /* Local styles for Lesson 2-7b */
+    .conversion-stage {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      align-items: start;
+      margin-top: 1.5rem;
+    }
+    @media(min-width: 820px) {
+      .conversion-stage {
+        grid-template-columns: 1.15fr 0.85fr;
+      }
+    }
+    .problem-box {
+      border: 1px solid var(--hair);
+      background: var(--paper-2);
+      padding: 1.1rem 1.4rem;
+      width: 100%;
+    }
+    .problem-text {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      line-height: 1.45;
+      color: var(--ink);
+    }
+    .setup-area {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+      background: var(--paper);
+      border: 1px solid var(--hair-soft);
+      padding: 1.25rem;
+      min-height: 90px;
+    }
+    .setup-item {
+      font-family: var(--mono);
+      font-size: 0.98rem;
+      color: var(--ink-soft);
+    }
+    .fraction-block {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      font-family: var(--mono);
+      font-size: 0.88rem;
+      min-width: 120px;
+      padding: 0 0.5rem;
+    }
+    .num-line {
+      border-bottom: 1.8px solid var(--ink);
+      padding-bottom: 0.25rem;
+      text-align: center;
+      width: 100%;
+    }
+    .den-line {
+      padding-top: 0.25rem;
+      text-align: center;
+      width: 100%;
+    }
+    .slot-box {
+      border: 2px dashed var(--accent-soft);
+      min-width: 140px;
+      min-height: 66px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      color: var(--ink-mute);
+      background: var(--card);
+    }
+    .slot-box.active {
+      border-style: solid;
+      border-color: var(--ink);
+      background: var(--paper);
+      color: var(--ink);
+    }
+    .multiply-sign {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--ink-mute);
+      user-select: none;
+    }
+    .canceled {
+      text-decoration: line-through;
+      color: var(--accent);
+      opacity: 0.55;
+    }
+    .factor-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      width: 100%;
+      margin-top: 1.25rem;
+    }
+    .factor-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.6rem;
+    }
+    .factor-card {
+      border: 1px solid var(--hair);
+      background: var(--card);
+      padding: 0.5rem;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.18s ease;
+      min-height: 72px;
+    }
+    .factor-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .factor-card.selected {
+      border-color: var(--accent);
+      background: var(--paper-3);
+    }
+    .nav-buttons {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .nav-btn {
+      flex: 1;
+      padding: 0.65rem;
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 0.8rem;
+      border: 1px solid var(--hair);
+      background: var(--card);
+      color: var(--ink-soft);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .nav-btn:hover:not(:disabled) {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .nav-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+    .readout-box {
+      border: 1px solid var(--hair);
+      background: var(--paper);
+      padding: 1.15rem 1.4rem;
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .readout-box h4 {
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+    .readout-box p {
+      font-size: 0.94rem;
+      color: var(--ink-soft);
+      line-height: 1.55;
+    }
+    .status-badge {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.25rem 0.5rem;
+      border-radius: 3px;
+      display: inline-block;
+      margin-top: 0.5rem;
+    }
+    .status-badge.correct {
+      background: var(--good-soft);
+      color: var(--good);
+    }
+    .status-badge.wrong {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+    .map-svg {
+      width: 100%;
+      max-width: 450px;
+      margin: 1.5rem auto 0;
+      background: var(--paper-2);
+      border: 1px solid var(--hair-soft);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="toc-btn" id="tocBtn" aria-label="Table of contents">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <path d="M3 6h18M3 12h18M3 18h18" />
+        </svg>
+        Contents
+      </button>
+      <div class="crumb">Gen Chem · Sem 1 · <b>2-7b</b></div>
+    </div>
+    <div class="topbar-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+          stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4" />
+          <path
+            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <nav class="toc-drop" id="tocDrop"></nav>
+
+  <!-- HERO -->
+  <section id="s-hero" class="hero" data-toc="Opening">
+    <div class="wrap">
+      <div class="label label-accent">Mole Conversions</div>
+      <h1>Follow the map, and <span class="flip">cancel the units</span>.</h1>
+      <p class="lede">In the lab, scales read in grams, but chemical equations "speak" in moles. How do we convert back and forth between what we can weigh and what the atoms require? We use a simple conversion map, and the foolproof method of dimensional analysis. If you set up the fractions so that the units cancel, the math will balance itself.</p>
+      <div class="meta-strip">
+        <div class="meta-block">
+          <div class="k">Alignment</div>
+          <div class="v"><b>HS-PS1-7</b> Convert between mass (grams) and moles using dimensional analysis (PS1-7.2 target).</div>
+        </div>
+        <div class="meta-block">
+          <div class="k">Objective</div>
+          <div class="v">Set up conversion factors to translate between mass and moles, track unit cancelation, and explain calculations.</div>
+        </div>
+        <div class="meta-block">
+          <div class="k">Scope</div>
+          <div class="v">Gram-to-mole and mole-to-gram conversions. Molar mass as a fractional conversion factor. (Empirical formulas are excluded).</div>
+        </div>
+      </div>
+      <div class="next-cue"><button class="next-btn" data-next>Start <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 01 THE MOLE MAP -->
+  <section id="s-map" data-toc="The Mole Map">
+    <div class="narrow">
+      <div class="section-tag"><span class="num">01</span><span class="label label-accent">The Hub and Spoke</span></div>
+      <h2>Mole is always the central hub.</h2>
+      <p class="step reveal" style="margin-top:1.5rem;">To convert chemical quantities in the laboratory, you must follow one golden rule: <strong>always convert through the mole</strong>. The mole is the common counting language of chemistry, connecting the microscopic count to the macroscopic weight.</p>
+      
+      <p class="step reveal">This relationship forms our <strong>Mole Map</strong>. If you start with a mass in grams and want to find moles, or if you start with moles and want to find mass, the molar mass is the conversion factor bridge.</p>
+
+      <div class="diagram reveal single-atom-wrap" style="max-width:520px;">
+        <svg class="map-svg" viewBox="0 0 320 150" role="img" aria-label="Mole map diagram showing grams converting to moles by dividing by molar mass, and moles converting to grams by multiplying.">
+          <!-- Grams Box -->
+          <rect x="20" y="55" width="80" height="40" rx="4" fill="var(--card)" stroke="var(--ink)" stroke-width="1.2" />
+          <text x="60" y="80" text-anchor="middle" font-family="var(--display)" font-weight="700" font-size="12">Grams (g)</text>
+          
+          <!-- Moles Box -->
+          <rect x="220" y="55" width="80" height="40" rx="4" fill="var(--card)" stroke="var(--ink)" stroke-width="1.2" />
+          <text x="260" y="80" text-anchor="middle" font-family="var(--display)" font-weight="700" font-size="12">Moles (mol)</text>
+
+          <!-- Top Arrow: Grams -> Moles -->
+          <path d="M 105,65 L 215,65" fill="none" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#map-arr)" />
+          <text x="160" y="58" text-anchor="middle" font-family="var(--mono)" font-size="8.5" fill="var(--accent)">divide by MM</text>
+
+          <!-- Bottom Arrow: Moles -> Grams -->
+          <path d="M 215,85 L 105,85" fill="none" stroke="var(--ink)" stroke-width="1.5" marker-end="url(#map-arr2)" />
+          <text x="160" y="98" text-anchor="middle" font-family="var(--mono)" font-size="8.5" fill="var(--ink-soft)">multiply by MM</text>
+
+          <defs>
+            <marker id="map-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" viewBox="0 0 6 6">
+              <path d="M0 0 L6 3 L0 6 z" fill="var(--accent)" />
+            </marker>
+            <marker id="map-arr2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" viewBox="0 0 6 6">
+              <path d="M0 0 L6 3 L0 6 z" fill="var(--ink)" />
+            </marker>
+          </defs>
+        </svg>
+      </div>
+
+      <div class="next-cue"><button class="next-btn" data-next>How to build the setup <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 02 DIMENSIONAL ANALYSIS -->
+  <section id="s-da" data-toc="Dimensional Analysis">
+    <div class="narrow">
+      <div class="section-tag reveal"><span class="num">02</span><span class="label label-accent">Dimensional Analysis</span></div>
+      <h2 class="reveal">Let the units do the work.</h2>
+      <p class="step reveal" style="margin-top:1.5rem;">Rather than memorizing when to multiply or divide, we use <strong class="term">dimensional analysis</strong> (the factor-label method). You treat units like algebraic variables: any unit in a numerator divided by the same unit in a denominator cancels out, leaving only the desired unit behind.</p>
+      
+      <p class="step reveal">A conversion factor is written as a fraction. Because one mole of Water (H₂O) is exactly equal to 18.02 grams, we can write two conversion factor fractions that both equal 1:</p>
+      <p class="step reveal" style="font-family:var(--mono); font-size:1.05rem; text-align:center; margin:1.25rem 0;">
+        <span class="fraction"><span class="numerator">1 mol H₂O</span><span class="denominator">18.02 g H₂O</span></span> &nbsp;&nbsp;&nbsp;&nbsp; or &nbsp;&nbsp;&nbsp;&nbsp; <span class="fraction"><span class="numerator">18.02 g H₂O</span><span class="denominator">1 mol H₂O</span></span>
+      </p>
+
+      <p class="step reveal">To convert <strong>36.04 grams of water to moles</strong>, you choose the fraction that puts the unwanted unit (grams) in the denominator to cancel the starting grams:</p>
+      
+      <p class="step reveal" style="font-family:var(--mono); font-size:1.15rem; display:flex; align-items:center; justify-content:center; gap:0.5rem; margin:1.5rem 0;">
+        36.04 <span class="canceled">g H₂O</span> &times; <span class="fraction"><span class="numerator">1 mol H₂O</span><span class="denominator">18.02 <span class="canceled">g H₂O</span></span></span> = 2.00 mol H₂O
+      </p>
+
+      <p class="step reveal">Because the starting unit (g H₂O) and the denominator unit cancel, you are left with `mol H₂O`. The units prove that the setup is correct before you ever punch the numbers into a calculator.</p>
+      
+      <div class="next-cue"><button class="next-btn" data-next>Build conversions yourself <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 03 SIGNATURE INTERACTIVE: CONVERSION BUILDER -->
+  <section id="s-builder" data-toc="Conversion Builder" style="background:var(--paper-2);border-top:1px solid var(--hair-soft);border-bottom:1px solid var(--hair-soft);">
+    <div class="wrap">
+      <div class="section-tag reveal"><span class="num">03</span><span class="label label-accent">Interactive &middot; Conversion Factor Builder</span></div>
+      <h2 class="reveal">Set up the math. Watch the units cancel.</h2>
+      <p class="reveal" style="margin-top:1rem;color:var(--ink-soft);">Select the conversion factor card that correctly cancels the starting unit. Drag or click the card to slot it in, and check if the math balances.</p>
+      
+      <div class="interactive reveal">
+        <div class="interactive-head">
+          <span class="label">Dimensional Analysis &middot; Unit Solver</span>
+          <span class="label" id="problemCounter" style="color:var(--ink-mute);">Problem 1 of 5</span>
+        </div>
+
+        <div class="conversion-stage">
+          <div class="builder-left">
+            <div class="problem-box">
+              <p class="problem-text" id="problemText">Loading problem...</p>
+            </div>
+
+            <div class="setup-area">
+              <div class="setup-item" id="startingValue">36.04 g H₂O</div>
+              <div class="multiply-sign">&times;</div>
+              <div class="slot-box" id="factorSlot">Click a card below to slot it here</div>
+              <div class="multiply-sign">=</div>
+              <div class="setup-item" id="finalResult" style="font-weight:700;">?</div>
+            </div>
+
+            <div class="factor-container">
+              <div class="label" style="font-size:0.7rem; color:var(--ink-mute);">Available Conversion Factors</div>
+              <div class="factor-cards" id="factorCards">
+                <!-- Dynamically populated card chips -->
+              </div>
+            </div>
+            
+            <div class="nav-buttons">
+              <button class="nav-btn" id="prevBtn" disabled>&larr; Prev</button>
+              <button class="nav-btn" id="nextBtn" disabled>Next &rarr;</button>
+            </div>
+          </div>
+
+          <div class="builder-right">
+            <div class="readout-box">
+              <div>
+                <div class="label" style="border-bottom:1px solid var(--hair-soft); padding-bottom:0.4rem; margin-bottom:0.6rem;">Analysis Dashboard</div>
+                <h4 id="readoutTitle">Awaiting setup...</h4>
+                <p id="readoutText">Click one of the cards below to choose a conversion factor. Look for the card that puts the starting unit in the denominator so they cancel out.</p>
+              </div>
+              <div>
+                <span class="status-badge" id="statusBadge" style="display:none;">Correct Setup</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="next-cue"><button class="next-btn" data-next>Practice predictions <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 04 PREDICT FIRST -->
+  <section id="s-predict" data-toc="Predict First">
+    <div class="narrow">
+      <div class="section-tag reveal"><span class="num">04</span><span class="label label-accent">Predict &middot; Reveal</span></div>
+      <h2 class="reveal">Predict the scale outcome.</h2>
+
+      <!-- Q1 -->
+      <div class="step reveal" style="margin-top:1.5rem;">
+        <p><strong>1. Mass of 2.50 moles of water:</strong> One mole of water has a mass of 18.02 grams. If you measure out exactly 2.50 moles of water, what will the scale read?</p>
+        <div class="actions" style="margin-top:0.75rem;" data-predict="waterMass">
+          <button class="btn opt" data-val="low">7.21 grams</button>
+          <button class="btn opt" data-val="high" data-correct="true">45.05 grams</button>
+          <button class="btn opt" data-val="mid">20.52 grams</button>
+        </div>
+        <div class="peek-box" data-reveal="waterMass">
+          <div class="reveal-card">
+            <div class="label label-accent">The Answer: 45.05 grams</div>
+            <p>To convert moles to grams, you multiply by the molar mass:<br>
+              <span style="font-family:var(--mono);">2.50 mol H₂O &times; (18.02 g H₂O / 1 mol H₂O) = 45.05 g H₂O</span><br>
+              The moles units cancel out, leaving grams.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="step reveal" style="margin-top:2rem;">
+        <p><strong>2. Moles in a carbon sample:</strong> A sample of pure charcoal contains 36.03 grams of Carbon (molar mass 12.01 g/mol). How many moles of Carbon atoms are in this sample?</p>
+        <div class="actions" style="margin-top:0.75rem;" data-predict="carbonMoles">
+          <button class="btn opt" data-val="1">1.00 mole</button>
+          <button class="btn opt" data-val="3" data-correct="true">3.00 moles</button>
+          <button class="btn opt" data-val="12">12.01 moles</button>
+        </div>
+        <div class="peek-box" data-reveal="carbonMoles">
+          <div class="reveal-card">
+            <div class="label label-accent">The Answer: 3.00 moles</div>
+            <p>To convert grams to moles, you divide by the molar mass:<br>
+              <span style="font-family:var(--mono);">36.03 g Carbon &times; (1 mol Carbon / 12.01 g Carbon) = 3.00 mol Carbon</span><br>
+              The grams units cancel, leaving moles.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="next-cue"><button class="next-btn" data-next>Recall the terminology <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 05 RECALL -->
+  <section id="s-recall" data-toc="Recall">
+    <div class="narrow">
+      <div class="section-tag reveal"><span class="num">05</span><span class="label label-accent">Recall</span></div>
+      <h2 class="reveal">Say it back.</h2>
+      <p class="lede reveal" style="margin-top:.75rem;">Fill in the blanks to lock in the core terms. Matches are case-insensitive.</p>
+      
+      <div class="recall interactive reveal" style="margin-top:1.5rem;">
+        <div class="st-prompt">
+          <h3>Vocabulary Check</h3>
+          <div class="st-meta">Fill in the conversion terms.</div>
+        </div>
+        <div class="st-fields" style="margin-top:1.25rem;">
+          <label>
+            1. The mathematical method of using fractions to cancel units is:
+            <input type="text" class="blank" data-answer="dimensional analysis|factor-label method">
+          </label>
+          <label>
+            2. The central hub of all stoichiometric calculations is the:
+            <input type="text" class="blank" data-answer="mole">
+          </label>
+          <label>
+            3. A fraction where the numerator and denominator represent equal amounts in different units is a:
+            <input type="text" class="blank" data-answer="conversion factor">
+          </label>
+          <label>
+            4. To cancel a unit on a starting value, the conversion factor must place that unit in the:
+            <input type="text" class="blank" data-answer="denominator">
+          </label>
+        </div>
+        <div class="actions" style="margin-top:1.5rem; justify-content: flex-start;">
+          <button class="btn" id="recallCheck" data-recall-check>Check Answers</button>
+          <button class="btn ghost" id="recallReset" data-recall-reset>Reset</button>
+        </div>
+        <div class="valence-pill" id="recallFeedback" data-recall-feedback style="display:none;"></div>
+      </div>
+      
+      <div class="next-cue"><button class="next-btn" data-next>Self-Explain practice <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 06 SELF-EXPLAIN -->
+  <section id="s-explain" data-toc="Self-Explain">
+    <div class="narrow">
+      <div class="section-tag reveal"><span class="num">06</span><span class="label label-accent">Self-Explain</span></div>
+      <h2 class="reveal">Why do we cancel units?</h2>
+      <p class="reveal" style="margin-top:1rem;color:var(--ink-soft);">Explain how treating units as algebraic variables guarantees that you don't accidentally multiply when you should divide during mole conversions.</p>
+      
+      <div class="interactive reveal" style="margin-top:1.5rem;">
+        <textarea class="textbox" placeholder="Write your explanation here..." style="width:100%; min-height:120px; font-family:var(--serif); font-size:1.05rem; padding:0.8rem; background:var(--paper); border:1px solid var(--hair); color:var(--ink); outline:none; resize:vertical;"></textarea>
+        <div class="actions" style="margin-top:1rem; justify-content: flex-start;">
+          <button class="btn ghost" data-peek>Compare with model answer</button>
+        </div>
+        <div class="peek-box">
+          <div class="reveal-card" style="border-left-color:var(--accent);">
+            <div class="label label-accent">Model Answer</div>
+            <p>Treating units as algebraic variables ensures that you place the conversion units in the correct positions (numerator or denominator) so that unwanted units cancel out. If you set up a conversion incorrectly—for example, multiplying grams by grams/mole instead of mole/grams—the units will not cancel and will instead result in a nonsense unit (like g²/mol). Tracking unit cancelation mathematically guarantees that the final remaining unit is the one you are solving for, preventing calculation direction errors.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="next-cue"><button class="next-btn" data-next>Constructed Response practice <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 07 EXAM PRACTICE -->
+  <section id="s-exam" data-toc="Exam Practice">
+    <div class="narrow">
+      <div class="section-tag reveal"><span class="num">07</span><span class="label label-accent">Exam Practice</span></div>
+      <h2 class="reveal">Solve with dimensional analysis.</h2>
+      <p class="lede reveal" style="margin-top:.75rem;">Give yourself a point for each idea you actually wrote down. The flag (⚑) marks the critical unit tracking step.</p>
+      
+      <div class="exam-frame reveal" style="margin-top:1.5rem;">
+        <div class="exam-meta">
+          <span class="exam-src">Gen Chem · HS-PS1-7 · constructed response</span>
+          <span class="exam-marks">[3 marks]</span>
+        </div>
+        <p class="exam-q">
+          A recipe requires exactly 126.02 grams of sodium bicarbonate (NaHCO<sub>3</sub>, molar mass 84.01 g/mol). 
+          <span class="sub">Calculate the moles of NaHCO<sub>3</sub> required, showing your complete dimensional analysis setup with all conversion units and unit cancelations clearly written out.</span>
+        </p>
+        <textarea class="textbox" id="examAns" placeholder="Write your constructed response here..."></textarea>
+        <div class="actions" style="margin-top:1rem; justify-content: flex-start;">
+          <button class="btn" data-scheme>Reveal mark scheme</button>
+        </div>
+        <div class="scheme">
+          <div class="scheme-card">
+            <div class="label">Mark Scheme — 3 marks</div>
+            <ul class="pts">
+              <li>Writes the starting value with units (126.02 g NaHCO₃).</li>
+              <li class="cap">Shows the conversion factor set up with grams in the denominator (&times; 1 mol NaHCO₃ / 84.01 g NaHCO₃), showing the cancelation of the grams units. <em>(⚑ This dimensional analysis unit layout is required for full credit.)</em></li>
+              <li>Calculates the correct final value with proper units: <strong>1.500 moles of NaHCO₃</strong> (accept 1.500 mol or 1.50 mol NaHCO₃).</li>
+            </ul>
+            <p style="font-family:var(--mono);font-size:.72rem;color:var(--ink-mute);margin-top:.9rem;letter-spacing:.04em;">
+              Self-score: 3 = all three points · 2 = calculated 1.5 mol but missing unit cancelation marks in setup · 1 = calculated 1.5 mol with no setup shown.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">
+    <div class="label">Gen Chem · Semester 1 · 2-7b</div>
+    <p>Mole Conversions. Next: applying these conversion factors to calculate reactants and products in stoichiometry equations.</p>
+  </div>
+
+  <script src="../assets/core.js"></script>
+  <script src="2-7b.js"></script>
+</body>
+</html>

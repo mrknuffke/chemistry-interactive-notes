@@ -1,0 +1,716 @@
+{
+  "lessons": [
+    {
+      "id": "1-1a",
+      "slug": "1-1a_atomic-structure-electron-config",
+      "title": "Atomic Structure & Electron Configuration",
+      "unit": "1",
+      "pes": [
+        "HS-PS1-1"
+      ],
+      "description": "Explore the nucleus, electron shells, energy levels, valence counts, and transition metal configurations."
+    },
+    {
+      "id": "1-1b",
+      "slug": "1-1b_periodic-trends-reactivity",
+      "title": "Periodic Trends & Reactivity",
+      "unit": "1",
+      "pes": [
+        "HS-PS1-1"
+      ],
+      "description": "Understand how atomic radius, ionization energy, and electronegativity dictate chemical reactivity."
+    },
+    {
+      "id": "1-2a",
+      "slug": "1-2a_bonding-electronegativity",
+      "title": "Bonding & Electronegativity",
+      "unit": "1",
+      "pes": [
+        "HS-PS1-2"
+      ],
+      "description": "Investigate electrostatic forces, electronegativity differences, and covalent, ionic, and metallic bonds."
+    },
+    {
+      "id": "1-3a",
+      "slug": "1-3a_lewis-structures",
+      "title": "Lewis Structures",
+      "unit": "1",
+      "pes": [
+        "HS-PS1-3"
+      ],
+      "description": "Draw stable 2D valence electron sharing maps using the duet and octet rules."
+    },
+    {
+      "id": "1-3b",
+      "slug": "1-3b_imfs-properties",
+      "title": "IMFs & Properties",
+      "unit": "1",
+      "pes": [
+        "HS-PS1-3"
+      ],
+      "description": "Differentiate intramolecular bonds from intermolecular forces (LDF, dipole-dipole, H-bonding) during phase changes."
+    },
+    {
+      "id": "C-SPA",
+      "slug": "C-SPA_structure-property-argument",
+      "title": "Structure → Property → Argument",
+      "unit": "1",
+      "pes": [
+        "HS-PS2-6"
+      ],
+      "description": "Link fatty acid molecular shapes (saturated vs. unsaturated) to LDF strength, melting points, and scientific claims."
+    },
+    {
+      "id": "2-2a",
+      "slug": "2-2a_physical-chemical-change",
+      "title": "Physical vs. Chemical Change & Particle Diagrams",
+      "unit": "2",
+      "pes": [
+        "HS-PS1-2"
+      ],
+      "description": "Classify physical and chemical transformations at the particle scale and model mass conservation."
+    },
+    {
+      "id": "C-RXN",
+      "slug": "C-RXN_reaction-types-balancing",
+      "title": "Reaction Types & Balancing",
+      "unit": "2",
+      "pes": [
+        "HS-PS1-2"
+      ],
+      "description": "Classify the six chemical reaction types and balance equations without modifying subscripts."
+    },
+    {
+      "id": "2-7a",
+      "slug": "2-7a_the-mole-molar-mass",
+      "title": "The Mole & Molar Mass",
+      "unit": "2",
+      "pes": [
+        "HS-PS1-7"
+      ],
+      "description": "Use the mole as a scale bridge between microscopic atom counts and macroscopic masses in grams."
+    },
+    {
+      "id": "2-7b",
+      "slug": "2-7b_mole-conversions",
+      "title": "Mole Conversions",
+      "unit": "2",
+      "pes": [
+        "HS-PS1-7"
+      ],
+      "description": "Perform mass-to-mole and mole-to-mass conversions using dimensional analysis and unit cancellation."
+    },
+    {
+      "id": "2-7c",
+      "slug": "2-7c_stoichiometry",
+      "title": "Stoichiometry",
+      "unit": "2",
+      "pes": [
+        "HS-PS1-7"
+      ],
+      "description": "Solve chemical recipes using Before-Change-After (BCA) tables and identify limiting reactants."
+    }
+  ],
+  "glossary": [
+    {
+      "term": "nucleus",
+      "definition": "The tiny, dense central core of an atom containing positive protons and neutral neutrons.",
+      "lessonId": "1-1a",
+      "sectionId": "s-parts"
+    },
+    {
+      "term": "atomic number",
+      "definition": "The number of protons in an atom's nucleus, which uniquely identifies the chemical element.",
+      "lessonId": "1-1a",
+      "sectionId": "s-parts"
+    },
+    {
+      "term": "shells",
+      "definition": "Concentric energy levels surrounding the nucleus where electrons are grouped.",
+      "lessonId": "1-1a",
+      "sectionId": "s-parts"
+    },
+    {
+      "term": "valence electrons",
+      "definition": "The electrons in the outermost occupied shell of an atom that participate in chemical bonding.",
+      "lessonId": "1-1a",
+      "sectionId": "s-parts"
+    },
+    {
+      "term": "isotopes",
+      "definition": "Atoms of the same element that have the same number of protons but different numbers of neutrons, resulting in different atomic masses.",
+      "lessonId": "1-1a",
+      "sectionId": "s-parts"
+    },
+    {
+      "term": "Atomic radius",
+      "definition": "The distance from the center of the nucleus to the outer boundary of its electron cloud.",
+      "lessonId": "1-1b",
+      "sectionId": "s-reactivity"
+    },
+    {
+      "term": "ionization energy",
+      "definition": "The energy required to completely remove a valence electron from a gaseous atom.",
+      "lessonId": "1-1b",
+      "sectionId": "s-reactivity"
+    },
+    {
+      "term": "electronegativity",
+      "definition": "A measure of an atom's relative ability to attract shared electrons in a chemical bond.",
+      "lessonId": "1-1b",
+      "sectionId": "s-reactivity"
+    },
+    {
+      "term": "electrostatic force",
+      "definition": "The attractive or repulsive force between electrical charges (protons and electrons).",
+      "lessonId": "1-2a",
+      "sectionId": "s-forces"
+    },
+    {
+      "term": "electronegativity difference",
+      "definition": "The difference in electronegativity values between two bonded atoms, deciding the bond's electronic character.",
+      "lessonId": "1-2a",
+      "sectionId": "s-tug"
+    },
+    {
+      "term": "nonpolar covalent bond",
+      "definition": "A covalent bond in which valence electrons are shared equally between atoms (typically ΔEN < 0.5).",
+      "lessonId": "1-2a",
+      "sectionId": "s-tug"
+    },
+    {
+      "term": "polar covalent bond",
+      "definition": "A covalent bond in which valence electrons are shared unequally, creating partial positive and negative charges (0.5 ≤ ΔEN < 1.7).",
+      "lessonId": "1-2a",
+      "sectionId": "s-tug"
+    },
+    {
+      "term": "ionic bond",
+      "definition": "A chemical bond resulting from the electrostatic attraction between oppositely charged ions formed by electron transfer (typically ΔEN ≥ 1.7).",
+      "lessonId": "1-2a",
+      "sectionId": "s-tug"
+    },
+    {
+      "term": "metallic bond",
+      "definition": "The electrostatic attraction between positive metal cations and a delocalized sea of shared valence electrons.",
+      "lessonId": "1-2a",
+      "sectionId": "s-tug"
+    },
+    {
+      "term": "sea of electrons",
+      "definition": "The collective pool of delocalized valence electrons that flow freely around metal cations in a metallic lattice.",
+      "lessonId": "1-2a",
+      "sectionId": "s-tug"
+    },
+    {
+      "term": "octet rule",
+      "definition": "The tendency of main-group atoms to gain, lose, or share electrons in order to acquire a full set of 8 valence electrons.",
+      "lessonId": "1-3a",
+      "sectionId": "s-sharing"
+    },
+    {
+      "term": "duet rule",
+      "definition": "The tendency of hydrogen (and helium) to share or gain electrons to fill its first and only shell with exactly 2 electrons.",
+      "lessonId": "1-3a",
+      "sectionId": "s-sharing"
+    },
+    {
+      "term": "Lewis structure",
+      "definition": "A 2D structural diagram showing how valence electrons are shared as bonds or held as lone pairs around symbols of atoms.",
+      "lessonId": "1-3a",
+      "sectionId": "s-sharing"
+    },
+    {
+      "term": "single bond",
+      "definition": "A covalent bond in which two atoms share one pair of valence electrons (2 electrons).",
+      "lessonId": "1-3a",
+      "sectionId": "s-guide"
+    },
+    {
+      "term": "lone pairs",
+      "definition": "Pairs of valence electrons that are not shared in chemical bonds but reside locally on a single atom.",
+      "lessonId": "1-3a",
+      "sectionId": "s-guide"
+    },
+    {
+      "term": "double bond",
+      "definition": "A covalent bond in which two atoms share two pairs of valence electrons (4 electrons).",
+      "lessonId": "1-3a",
+      "sectionId": "s-guide"
+    },
+    {
+      "term": "triple bond",
+      "definition": "A covalent bond in which two atoms share three pairs of valence electrons (6 electrons).",
+      "lessonId": "1-3a",
+      "sectionId": "s-guide"
+    },
+    {
+      "term": "intramolecular bonds",
+      "definition": "Strong chemical bonds (such as covalent or ionic bonds) that hold atoms together within a molecule.",
+      "lessonId": "1-3b",
+      "sectionId": "s-attraction"
+    },
+    {
+      "term": "intermolecular forces",
+      "definition": "Relatively weak electrical attractions that exist between neighboring chemical particles (molecules).",
+      "lessonId": "1-3b",
+      "sectionId": "s-attraction"
+    },
+    {
+      "term": "London dispersion force",
+      "definition": "The weakest intermolecular force, caused by temporary, induced dipole shifts in electron clouds; present in all molecules.",
+      "lessonId": "1-3b",
+      "sectionId": "s-types"
+    },
+    {
+      "term": "dipole-dipole force",
+      "definition": "An intermolecular force of attraction between the positive and negative ends of adjacent polar molecules.",
+      "lessonId": "1-3b",
+      "sectionId": "s-types"
+    },
+    {
+      "term": "hydrogen bonding",
+      "definition": "An exceptionally strong dipole-dipole attraction that occurs when hydrogen is bonded directly to highly electronegative nitrogen, oxygen, or fluorine atoms.",
+      "lessonId": "1-3b",
+      "sectionId": "s-types"
+    },
+    {
+      "term": "surface tension",
+      "definition": "The inward electrostatic pull experienced by molecules at the surface of a liquid, causing the liquid to minimize its surface area.",
+      "lessonId": "1-3b",
+      "sectionId": "s-bulk"
+    },
+    {
+      "term": "saturated fat",
+      "definition": "A lipid containing fatty acid chains with only single carbon-carbon bonds, resulting in straight, linear shapes that pack tightly and melt at higher temperatures.",
+      "lessonId": "C-SPA",
+      "sectionId": "s-structure"
+    },
+    {
+      "term": "unsaturated fat",
+      "definition": "A lipid containing one or more double carbon-carbon bonds, creating rigid bends or kinks that prevent tight packing and lower the melting point.",
+      "lessonId": "C-SPA",
+      "sectionId": "s-structure"
+    },
+    {
+      "term": "physical change",
+      "definition": "A transformation that changes the state or spacing of particles without breaking covalent bonds or changing chemical identity.",
+      "lessonId": "2-2a",
+      "sectionId": "s-concept"
+    },
+    {
+      "term": "chemical change",
+      "definition": "A process where chemical bonds break and new ones form, rearranging atoms to produce new substances with different properties.",
+      "lessonId": "2-2a",
+      "sectionId": "s-concept"
+    },
+    {
+      "term": "reactants",
+      "definition": "The starting chemical substances consumed in a chemical reaction.",
+      "lessonId": "2-2a",
+      "sectionId": "s-concept"
+    },
+    {
+      "term": "products",
+      "definition": "The newly formed chemical substances produced by a chemical reaction.",
+      "lessonId": "2-2a",
+      "sectionId": "s-concept"
+    },
+    {
+      "term": "coefficients",
+      "definition": "Numbers placed in front of chemical formulas in a balanced equation to represent the relative mole proportions of reactants and products.",
+      "lessonId": "C-RXN",
+      "sectionId": "s-law"
+    },
+    {
+      "term": "mole",
+      "definition": "The standard chemical counting unit representing exactly 6.022 × 10²³ particles (atoms, molecules, or ions).",
+      "lessonId": "2-7a",
+      "sectionId": "s-dozen"
+    },
+    {
+      "term": "Avogadro's number",
+      "definition": "The constant 6.022 × 10²³, representing the number of counting particles in exactly one mole of a substance.",
+      "lessonId": "2-7a",
+      "sectionId": "s-dozen"
+    },
+    {
+      "term": "molar mass",
+      "definition": "The mass in grams of exactly one mole of a chemical substance, measured in grams per mole (g/mol).",
+      "lessonId": "2-7a",
+      "sectionId": "s-molarmass"
+    },
+    {
+      "term": "grams per mole",
+      "definition": "The standard unit (g/mol) used to express the molar mass of an element or compound.",
+      "lessonId": "2-7a",
+      "sectionId": "s-molarmass"
+    },
+    {
+      "term": "dimensional analysis",
+      "definition": "A problem-solving method that uses conversion factors and unit cancellations to convert one unit of measurement to another.",
+      "lessonId": "2-7b",
+      "sectionId": "s-da"
+    },
+    {
+      "term": "mole ratio",
+      "definition": "The ratio of moles of any two substances involved in a balanced chemical equation, representing their scaling proportions.",
+      "lessonId": "2-7c",
+      "sectionId": "s-recipe"
+    },
+    {
+      "term": "BCA table",
+      "definition": "A Before-Change-After stoichiometric grid used to track mole amounts of reactants and products before, during, and after a reaction.",
+      "lessonId": "2-7c",
+      "sectionId": "s-bca"
+    },
+    {
+      "term": "limiting reactant",
+      "definition": "The reactant that is completely consumed first in a reaction, determining the maximum yield of products.",
+      "lessonId": "2-7c",
+      "sectionId": "s-limiting"
+    },
+    {
+      "term": "excess reactant",
+      "definition": "The reactant that remains left over after a chemical reaction halts because the limiting reactant is exhausted.",
+      "lessonId": "2-7c",
+      "sectionId": "s-limiting"
+    }
+  ],
+  "resources": {
+    "unit1": [
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 3.1: Atomic Structure",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+3.1"
+      },
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 3.2: Electron Configuration",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+3.2"
+      },
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 4.1: Periodic Trends",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+4.1"
+      },
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 5.1: Chemical Bonding",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+5.1"
+      },
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 5.3: Lewis Structures",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+5.3"
+      },
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 5.4: VSEPR Theory",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+5.4"
+      },
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 6.1: IMFs",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+6.1"
+      },
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 8.1: Balancing Equations",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+8.1"
+      },
+      {
+        "type": "video",
+        "category": "Crash Course Chemistry",
+        "title": "The Periodic Table: CC Chemistry #4",
+        "url": "https://www.youtube.com/watch?v=0RRVV4Diomg"
+      },
+      {
+        "type": "video",
+        "category": "Crash Course Chemistry",
+        "title": "Bonding Models & Lewis Structures: CC Chemistry #24",
+        "url": "https://www.youtube.com/watch?v=a8LF7JEb0IA"
+      },
+      {
+        "type": "video",
+        "category": "Crash Course Chemistry",
+        "title": "Polar & Non-Polar Molecules: CC Chemistry #23",
+        "url": "https://www.youtube.com/watch?v=PVL24HAesnc"
+      },
+      {
+        "type": "video",
+        "category": "Crash Course Chemistry",
+        "title": "Hydrogen Bonding: CC Chemistry #38",
+        "url": "https://www.youtube.com/watch?v=PyC5r2mB4d4"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Atomic Structure",
+        "url": "https://www.ck12.org/chemistry/atomic-structure/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Electron Configuration",
+        "url": "https://www.ck12.org/chemistry/electron-configuration/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Periodic Table Trends",
+        "url": "https://www.ck12.org/chemistry/periodic-table-trends/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Chemical Bonding and ΔEN",
+        "url": "https://www.ck12.org/chemistry/chemical-bonding/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Naming Ionic Compounds",
+        "url": "https://www.ck12.org/chemistry/naming-ionic-compounds/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Naming Covalent Compounds",
+        "url": "https://www.ck12.org/chemistry/naming-covalent-compounds/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Lewis Dot Structures",
+        "url": "https://www.ck12.org/chemistry/lewis-dot-structures/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "VSEPR Theory",
+        "url": "https://www.ck12.org/chemistry/vsepr-theory/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Molecular Polarity",
+        "url": "https://www.ck12.org/chemistry/molecular-polarity/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Intermolecular Forces",
+        "url": "https://www.ck12.org/chemistry/intermolecular-forces/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Physical Properties and IMFs",
+        "url": "https://www.ck12.org/chemistry/physical-properties-and-imfs/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Balancing Chemical Equations",
+        "url": "https://www.ck12.org/chemistry/balancing-chemical-equations/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Types of Chemical Reactions",
+        "url": "https://www.ck12.org/chemistry/types-of-chemical-reactions/"
+      },
+      {
+        "type": "simulation",
+        "category": "PhET Simulations",
+        "title": "PhET: Build an Atom",
+        "url": "https://phet.colorado.edu/sims/html/build-an-atom/latest/build-an-atom_all.html"
+      },
+      {
+        "type": "simulation",
+        "category": "PhET Simulations",
+        "title": "PhET: Molecule Shapes",
+        "url": "https://phet.colorado.edu/sims/html/molecule-shapes/latest/molecule-shapes_all.html"
+      },
+      {
+        "type": "simulation",
+        "category": "PhET Simulations",
+        "title": "PhET: Molecule Polarity",
+        "url": "https://phet.colorado.edu/sims/html/molecule-polarity/latest/molecule-polarity_all.html"
+      },
+      {
+        "type": "simulation",
+        "category": "PhET Simulations",
+        "title": "PhET: Balancing Chemical Equations",
+        "url": "https://phet.colorado.edu/sims/html/balancing-chemical-equations/latest/balancing-chemical-equations_all.html"
+      }
+    ],
+    "unit2": [
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 2.1: Properties & Changes of Matter",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+2.1"
+      },
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 8.1: Balancing Equations",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+8.1"
+      },
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 8.2: Redox Reactions",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+8.2"
+      },
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 8.3: Double Replacement Reactions",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+8.3"
+      },
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 7.8: Formula Mass",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+7.8"
+      },
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 7.11: Formula Stoichiometry",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+7.11"
+      },
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 8.4: Equation Stoichiometry",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+8.4"
+      },
+      {
+        "type": "video",
+        "category": "K-Chem Playlists",
+        "title": "K-Chem 8.4A: Advanced Equation Stoichiometry",
+        "url": "https://www.youtube.com/@DavidKnuffke/search?query=K-Chem+8.4A"
+      },
+      {
+        "type": "video",
+        "category": "Crash Course Chemistry",
+        "title": "The Creation of Chemistry — Fundamental Laws: CC Chemistry #3",
+        "url": "https://www.youtube.com/watch?v=QiiyDXg-m90"
+      },
+      {
+        "type": "video",
+        "category": "Crash Course Chemistry",
+        "title": "Stoichiometry — Chemistry for Massive Creatures: CC Chemistry #6",
+        "url": "https://www.youtube.com/watch?v=UL1jmJaUkaQ"
+      },
+      {
+        "type": "video",
+        "category": "Crash Course Chemistry",
+        "title": "Reactions & Stoichiometry: CC Chemistry #10",
+        "url": "https://www.youtube.com/watch?v=r30cZ_wZt_8"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Conservation of Mass in Chemical Reactions",
+        "url": "https://www.ck12.org/chemistry/conservation-of-mass/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Synthesis Reactions",
+        "url": "https://www.ck12.org/chemistry/synthesis-reactions/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Decomposition Reactions",
+        "url": "https://www.ck12.org/chemistry/decomposition-reactions/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Single Replacement Reactions",
+        "url": "https://www.ck12.org/chemistry/single-replacement-reactions/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Double Replacement Reactions",
+        "url": "https://www.ck12.org/chemistry/double-replacement-reactions/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Combustion Reactions",
+        "url": "https://www.ck12.org/chemistry/combustion-reactions/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Mole Ratios",
+        "url": "https://www.ck12.org/chemistry/mole-ratios/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Law of Conservation of Mass",
+        "url": "https://www.ck12.org/chemistry/conservation-of-mass/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Mass-Mole Stoichiometry",
+        "url": "https://www.ck12.org/chemistry/mass-mole-stoichiometry/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Mass-Mass Stoichiometry",
+        "url": "https://www.ck12.org/chemistry/mass-mass-stoichiometry/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Limiting Reactant",
+        "url": "https://www.ck12.org/chemistry/limiting-reactant/"
+      },
+      {
+        "type": "text",
+        "category": "CK-12 Textbook Chapters",
+        "title": "Physical Properties and Intermolecular Forces",
+        "url": "https://www.ck12.org/chemistry/physical-properties-and-imfs/"
+      },
+      {
+        "type": "simulation",
+        "category": "PhET Simulations",
+        "title": "PhET: Reactants, Products & Leftovers",
+        "url": "https://phet.colorado.edu/sims/html/reactants-products-and-leftovers/latest/reactants-products-and-leftovers_all.html"
+      },
+      {
+        "type": "simulation",
+        "category": "PhET Simulations",
+        "title": "PhET: Balancing Chemical Equations",
+        "url": "https://phet.colorado.edu/sims/html/balancing-chemical-equations/latest/balancing-chemical-equations_all.html"
+      },
+      {
+        "type": "simulation",
+        "category": "PhET Simulations",
+        "title": "PhET: Molecule Polarity",
+        "url": "https://phet.colorado.edu/sims/html/molecule-polarity/latest/molecule-polarity_all.html"
+      }
+    ]
+  }
+}

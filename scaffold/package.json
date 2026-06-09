@@ -1,0 +1,16 @@
+{
+  "name": "scaffold",
+  "version": "1.0.0",
+  "description": "Interactive HTML review pages for first-semester General Chemistry. Studied **after** in-class first exposure: retrieval practice woven with a second, diagram-led re-narration. Phenomenon-anchored hooks, but the chemistry stands on its own (built to the **review sheets**, not tied to unit storylines).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "playwright": "^1.60.0"
+  }
+}

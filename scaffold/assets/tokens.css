@@ -1,0 +1,73 @@
+/* ============================================================
+   GEN CHEM INTERACTIVES — DESIGN TOKENS
+   The single source of truth for color, type, and base layout.
+   Change a value here and it propagates to every lesson.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&family=Spectral:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* paper / ink */
+  --paper:#EDF1EC; --paper-2:#E4EAE3; --paper-3:#DBE2D9; --card:#F5F8F4;
+  --ink:#16201C; --ink-soft:#3A463F; --ink-mute:#6B756D;
+
+  /* accents — ONE primary accent (vermilion). green = "correct"/positive only. */
+  --accent:#D6452A; --accent-soft:#E68A77; --good:#2E7D57; --good-soft:#6FAF8F;
+
+  /* diagram + heat-map families */
+  --nucleus:#D6452A; --electron:#2E7D57; --shell:rgba(22,32,28,.35);
+  --cool:#3E6FA5; --hot:#D6452A; --water:#3E6FA5;
+
+  /* structure */
+  --grid:rgba(22,32,28,.02); --grid-bold:rgba(22,32,28,.04);
+  --hair:rgba(22,32,28,.16); --hair-soft:rgba(22,32,28,.09);
+
+  /* type */
+  --display:'Hanken Grotesk',system-ui,sans-serif;
+  --serif:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+
+  /* rhythm */
+  --gutter:clamp(1.25rem,5vw,4rem); --beat:clamp(2.75rem,8vh,6rem); --prose:52rem;
+}
+
+:root.dark {
+  --paper:#131A17; --paper-2:#18211D; --paper-3:#1F2A25; --card:#1B2420;
+  --ink:#E7EDE6; --ink-soft:#C3CCC2; --ink-mute:#8A948B;
+  --accent:#F26B4E; --accent-soft:#9E4636; --good:#5FB088; --good-soft:#3A6B53;
+  --nucleus:#F26B4E; --electron:#5FB088; --shell:rgba(231,237,230,.32);
+  --cool:#6B9BD0; --hot:#F26B4E; --water:#6B9BD0;
+  --grid:rgba(231,237,230,.012); --grid-bold:rgba(231,237,230,.025);
+  --hair:rgba(231,237,230,.16); --hair-soft:rgba(231,237,230,.08);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+
+body{
+  font-family:var(--serif); font-size:22px; line-height:1.62; color:var(--ink);
+  font-feature-settings:"lnum" 1,"tnum" 1;          /* lining + tabular figures */
+  background-color:var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:26px 26px,26px 26px;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; overflow-x:hidden;
+  transition:background-color .3s ease,color .3s ease;
+}
+
+h1,h2,h3,h4{font-family:var(--display);line-height:1.04;letter-spacing:-0.02em;color:var(--ink);font-weight:800;}
+h1{font-size:clamp(2.5rem,7vw,4.7rem);}
+h2{font-size:clamp(1.8rem,4.2vw,3rem);font-weight:700;}
+h3{font-size:clamp(1.25rem,2.3vw,1.7rem);font-weight:700;}
+h4{font-size:1.15rem;font-weight:700;}
+p{max-width:var(--prose);}
+em{font-style:italic;color:var(--accent);}
+strong{font-weight:600;color:var(--ink);}
+abbr{text-decoration:none;}
+.chem{font-family:var(--mono);}
+sub{font-size:.7em;}
+
+.label{font-family:var(--mono);font-size:.74rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mute);}
+.label-accent{color:var(--accent);}
+.lede{font-size:clamp(1.15rem,2vw,1.42rem);line-height:1.5;color:var(--ink-soft);}
