@@ -30,7 +30,7 @@ doubt, open it and follow it.
 5. **One accent.** Vermilion is the only accent color. Green means
    "correct/positive" only. Cool→hot blue/red is for sequential heat-maps only.
    Don't introduce new hues.
-6. **Concept-before-definition & term styling:** Always explain a concept in plain English *before* introducing/naming the term. Wrap defined terms in `<strong class="term">` (styled with a dashed vermilion underline in CSS) to aid visual focus and support future automated glossary index search.
+6. **Concept-before-definition & term styling:** Always explain a concept in plain English *before* introducing/naming the term. Wrap defined terms in `<strong class="term">` — this applies the dashed vermilion underline AND triggers a hover/tap tooltip from `glossary.js` when the text slug matches a `GC_GLOSSARY` key. Add `data-term="slug"` to override the auto-slug when the visible text doesn't normalize cleanly. When you introduce a new defined term in a lesson, add it to `assets/glossary.js` too.
 
 ---
 
@@ -40,7 +40,9 @@ doubt, open it and follow it.
 assets/
   tokens.css       design tokens: fonts, colors, base type, grid bg, dark mode
   components.css   shared component library (frame, widgets, diagram conventions)
-  core.js          shared behaviors (theme, TOC, nav, reveal, retrieval widgets)
+  core.js          shared behaviors (theme, TOC, nav, reveal, retrieval widgets, glossary tooltips)
+  glossary.js      window.GC_GLOSSARY — 62 term definitions; drives hover tooltips on <strong class="term">
+  elements.js      window.GC_ELEMENTS — canonical periodic data (Z=1..36); read from here, never retype
 lessons/
   <id>_<slug>.html one file per lesson; links ../assets/*, plus its own <id>.js
   <id>.js          lesson-specific interactives ONLY (Bohr builder, explorer…)
@@ -162,6 +164,10 @@ in `components.css`.
   `[data-recall-reveal]` `[data-recall-reset]` `[data-recall-feedback]`
 - `[data-peek]` + following `.peek-box`
 - `[data-scheme]` inside `.exam-frame` (toggles the `.scheme`)
+- `<strong class="term">` → hover/tap tooltip from `window.GC_GLOSSARY` (defined in
+  `glossary.js`). Slug = normalized text content (lowercase, spaces→hyphens, strip
+  punctuation). Override with `data-term="slug"`. No glossary entry = silent no-op.
+  Requires `glossary.js` loaded after `core.js`.
 
 `data-answer` accepts `|`-separated alternates; matching is case/space-insensitive.
 
@@ -175,9 +181,10 @@ existence (`if (!el) return;`) so the file is safe to load anywhere.
 1. Read the relevant review sheet in `References/`. List the sub-targets.
 2. Draft the section outline (hook → re-narration → interactive(s) → retrieval).
 3. Decide the signature interactive(s) and any particle/energy diagrams.
-4. Build the HTML (content + lesson JS), linking the shared assets.
-5. **Verify chemistry.** Open the page in a web browser (using a local server) and test it thoroughly in both light and dark modes.
-6. Fix what you see. Repeat.
+4. Build the HTML (content + lesson JS), linking the shared assets. Script load order: `core.js` → `glossary.js` → `elements.js` (if needed) → `<id>.js`.
+5. For every `<strong class="term">` you write, verify the slug exists in `glossary.js`. Add a new entry if needed; do not leave a term without a definition.
+6. **Verify chemistry.** Open the page in a web browser (using a local server) and test it thoroughly in both light and dark modes.
+7. Fix what you see. Repeat.
 
 Tone for prose: direct, lightly wry, second-person, no fluff — match the voice in
 `1-1b` and the author's older notes. Spell out abbreviations on first use

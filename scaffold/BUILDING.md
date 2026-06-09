@@ -16,9 +16,10 @@ worked exemplars: match them. Work **one lesson at a time**.
 
 ## While writing
 - [ ] HTML links `../assets/tokens.css` + `../assets/components.css`; ends with
-      `../assets/core.js`, then `../assets/elements.js` (if it needs element
-      data), then `<id>.js`. Lesson-specific JS goes ONLY in `lessons/<id>.js`
-      and must guard `if (!el) return;`.
+      `../assets/core.js`, then `../assets/glossary.js`, then
+      `../assets/elements.js` (if it needs element data), then `<id>.js`.
+      Lesson-specific JS goes ONLY in `lessons/<id>.js` and must guard
+      `if (!el) return;`.
 - [ ] **Never re-type periodic data.** Read it from `window.GC_ELEMENTS`
       (`assets/elements.js`). If you need a value that isn't there, add it there
       (verified), don't inline it in a lesson.
@@ -26,7 +27,7 @@ worked exemplars: match them. Work **one lesson at a time**.
       (`data-predict`/`data-reveal`, `.recall`/`.blank`, `data-peek`,
       `data-scheme`), and the `.d-*` / `.atom-*` diagram classes. If you'd copy a
       style/behavior between two lessons, lift it into `components.css`/`core.js`.
-- [ ] **Concept-before-definition & term styling:** Explain concepts in plain English *before* naming them. Wrap defined terms in `<strong class="term">` tags for visual focus and indexing.
+- [ ] **Concept-before-definition & term styling:** Explain concepts in plain English *before* naming them. Wrap defined terms in `<strong class="term">` — this triggers the hover tooltip from `glossary.js`. For every term you wrap, confirm its slug exists in `assets/glossary.js` (key = lowercase, spaces→hyphens, punctuation stripped). Add a new entry if it's missing. Use `data-term="slug"` when the visible text doesn't normalize to the right key.
 - [ ] Each `<section>` has `data-toc="Label"` and ends in a `data-next` button;
       sections numbered `01…NN` via `.section-tag .num`.
 
