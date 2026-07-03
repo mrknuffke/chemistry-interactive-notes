@@ -31,12 +31,22 @@ doubt, open it and follow it.
    "correct/positive" only. Cool→hot blue/red is for sequential heat-maps only.
    Don't introduce new hues.
 6. **Concept-before-definition & term styling:** Always explain a concept in plain English *before* introducing/naming the term. Wrap defined terms in `<strong class="term">` (styled with a dashed vermilion underline in CSS) to aid visual focus and support future automated glossary index search.
+7. **No LaTeX formatting:** Never use LaTeX formatting syntax (like $H_2$, $O_2$, or $\Delta EN$) in HTML content. Instead, use standard HTML tags (e.g., H<sub>2</sub>, O<sub>2</sub>, &Delta;EN) to ensure proper, clean rendering in the browser without any math engines.
+8. **Keep storylines/contexts light and tangential:** Focus heavily on the core chemistry, not the storylines. The storylines (e.g. roti prata, tawa) are tangential and can be referenced briefly, but always in a general way that works for any student, even if they are unfamiliar with the specific story context. Do not let contexts overwhelm chemical explanations.
+9. **Follow the VOICE.md Prose Contract:** All student-facing text must follow the rules in [VOICE.md](file:///Users/dknuffke/Library/CloudStorage/Dropbox/Projects/Chemistry%20Interactive%20Notes/VOICE.md): use second person ("you"), predict specific misconceptions by name, concrete before abstract, short declaratives, no throat-clearing, and describe consequences rather than just definitions. Widget feedback must explain the temptation of the incorrect choice, never just say "incorrect". Run the VOICE.md §6 QA pass (read aloud, check banned words, check misconceptions) before declaring any page done.
+10. **Gated Interaction Contract (INTERACTION_SPEC.md):** Commit-before-reveal is mandatory on all widgets and predict prompts. Never let the student see the answer or proceed without committing an answer first. Parity for keyboard and touch, no persistence of state on reload. Green means correct/positive only; incorrect uses vermilion outline/text, never red fill. Follow the widget config patterns and motion controller specifications defined in [INTERACTION_SPEC.md](file:///Users/dknuffke/Library/CloudStorage/Dropbox/Projects/Chemistry%20Interactive%20Notes/INTERACTION_SPEC.md).
+11. **Session Sequence & QA Gates:** Develop files strictly in the session sequence and using the QA gates and prompts specified in [BUILD_PLAN.md](file:///Users/dknuffke/Library/CloudStorage/Dropbox/Projects/Chemistry%20Interactive%20Notes/BUILD_PLAN.md).
 
 ---
 
 ## File / project structure
 
 ```
+BUILD_PLAN.md       sequence roadmap for development sessions
+VOICE.md            the prose and feedback text style contract
+INTERACTION_SPEC.md details for the widgets and motion controller configurations
+Content_Expansion_v2.md core content copy for v2 updates
+Diagram_Inventory_v2.md detail specs for all diagrams/SVGs
 assets/
   tokens.css       design tokens: fonts, colors, base type, grid bg, dark mode
   components.css   shared component library (frame, widgets, diagram conventions)
@@ -124,6 +134,7 @@ Each `<section>` ends with a `data-next` button; the topbar has a TOC built from
   metal vs nonmetal reactivity) uses the vermilion/green split instead — keep
   these distinct.
 - Don't over-format. Minimal headers; prose over bullet lists in explanations.
+- **Diagram sizes & Lightbox zoom:** Static diagrams must have a spacious, readable size (use standard wrap classes like `.compass-wrap` (600px), `.single-atom-wrap` (600px), and `.octet-wrap` (640px) or set appropriate inline `max-width` like `480px` or `580px`). Clicking any diagram SVG automatically opens a high-resolution, centered Lightbox viewer overlay with en-dash/subscript support.
 
 ---
 
@@ -143,7 +154,7 @@ in `components.css`.
   more marks = hotter / more energy. (Bring these in for phase/IMF/reaction
   files — `2-2a`, `C-RXN`, `1-3b`.)
 - **Energy** = energy-bar diagrams (conserved total; gain/loss shown; bars
-  lost as heat). Use for any energy-accounting visual.
+  lost as heat). **Note:** Energy-bar diagrams are deferred to Unit 3 (next unit) and MUST NOT be used in Unit 2. Use only particle diagrams for Unit 2.
 - **Atomic level** = Bohr model (see `1-1b.js`); animate electrons orbiting.
 - Honest > pretty. If a diagram can't be made chemically correct at the level
   shown, simplify the claim (e.g. show single-particle ionization instead of a

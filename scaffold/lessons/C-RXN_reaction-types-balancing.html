@@ -211,6 +211,134 @@
       <div class="label label-accent">Reaction Types &amp; Balancing</div>
       <h1>Keep the atoms, and <span class="flip">level the beam</span>.</h1>
       <p class="lede">A chemical reaction is not a magical creation; it is an atomic remodeling project. Bonds break, elements separate, and new structures assemble—but the starting building blocks never vanish. The Law of Conservation of Mass dictates that every single atom present before a reaction must remain afterward. To model this, we balance chemical equations with molecular coefficients. In this lesson, you will learn to categorize chemical changes into six distinct patterns and balance molecular equations visually.</p>
+
+      <!-- SVG steppable V-crxn-01 -->
+      <div data-motion="step" data-step-count="3" data-step-start="1" data-step-labels="before: separate reactants|rearrangement: breaking &amp; forming bonds|after: final ionic crystal lattice" style="max-width: 540px; margin: 2rem auto 0.5rem;" class="reveal">
+        <!-- Step 1: Before -->
+        <div data-step="1" style="width: 100%;">
+          <svg viewBox="0 0 300 130" style="width: 100%; border: 1px solid var(--hair-soft); background: var(--paper-2); border-radius: 4px;">
+            <!-- Reactants -->
+            <g transform="translate(60, 50)">
+              <!-- 2 separate Na atoms -->
+              <circle cx="-25" cy="10" r="8" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="1.2"/>
+              <text x="-25" y="12" font-family="var(--mono)" font-size="6" font-weight="700" fill="var(--paper)" text-anchor="middle">Na</text>
+              
+              <circle cx="-10" cy="-15" r="8" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="1.2"/>
+              <text x="-10" y="-13" font-family="var(--mono)" font-size="6" font-weight="700" fill="var(--paper)" text-anchor="middle">Na</text>
+
+              <!-- 1 Cl2 molecule (two green atoms bonded) -->
+              <line x1="20" y1="0" x2="36" y2="0" stroke="var(--accent)" stroke-width="2.5"/>
+              <circle cx="20" cy="0" r="9" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.2"/>
+              <text x="20" y="2" font-family="var(--mono)" font-size="6" font-weight="700" fill="var(--accent)" text-anchor="middle">Cl</text>
+              <circle cx="36" cy="0" r="9" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.2"/>
+              <text x="36" y="2" font-family="var(--mono)" font-size="6" font-weight="700" fill="var(--accent)" text-anchor="middle">Cl</text>
+              
+              <text x="5" y="38" font-family="var(--display)" font-size="8" font-weight="700" text-anchor="middle">2 Na + Cl₂</text>
+            </g>
+
+            <!-- Arrow -->
+            <g transform="translate(145, 50)">
+              <line x1="-15" y1="0" x2="15" y2="0" stroke="var(--ink-mute)" stroke-width="1.5"/>
+              <polygon points="8,-4 16,0 8,4" fill="var(--ink-mute)"/>
+            </g>
+
+            <!-- Products (initially blank or dashed outline) -->
+            <g transform="translate(230, 50)">
+              <rect x="-30" y="-25" width="60" height="50" fill="none" stroke="var(--hair-soft)" stroke-dasharray="2 2" stroke-width="1" rx="4"/>
+              <text x="0" y="3" font-family="var(--display)" font-size="6" fill="var(--ink-mute)" text-anchor="middle">Products Form Here</text>
+            </g>
+
+            <!-- Fixed Atom-Inventory Ledger at bottom -->
+            <rect x="15" y="102" width="270" height="20" rx="3" fill="var(--paper)" stroke="var(--hair-soft)"/>
+            <text x="150" y="115" font-family="var(--mono)" font-size="7" fill="var(--ink-soft)" text-anchor="middle" font-weight="700">
+              LEDGER: &nbsp;&nbsp;&nbsp; Sodium (Na): <span style="color:var(--ink);">2</span> on left &bull; <span style="color:var(--ink);">2</span> on right &nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;&nbsp; Chlorine (Cl): <span style="color:var(--accent);">2</span> on left &bull; <span style="color:var(--accent);">2</span> on right
+            </text>
+          </svg>
+        </div>
+
+        <!-- Step 2: Rearrangement -->
+        <div data-step="2" style="width: 100%;">
+          <svg viewBox="0 0 300 130" style="width: 100%; border: 1px solid var(--hair-soft); background: var(--paper-2); border-radius: 4px;">
+            <!-- Rearranging: bonds breaking -->
+            <g transform="translate(60, 50)">
+              <!-- Na losing e- (dashed orbits/arrows) -->
+              <circle cx="-25" cy="10" r="8" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="1.2" opacity="0.6"/>
+              <circle cx="-10" cy="-15" r="8" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="1.2" opacity="0.6"/>
+              <!-- Cl2 bond breaking -->
+              <line x1="20" y1="0" x2="36" y2="0" stroke="var(--accent)" stroke-width="1" stroke-dasharray="2 2"/>
+              <circle cx="20" cy="0" r="9" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.2" opacity="0.6"/>
+              <circle cx="36" cy="0" r="9" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.2" opacity="0.6"/>
+              
+              <!-- Curving energy arrows representing electron transfer -->
+              <path d="M -17 -10 Q 0 -15 11 -3" fill="none" stroke="var(--accent)" stroke-width="1" stroke-dasharray="2 1.5"/>
+              <path d="M -17 8 Q 5 15 27 5" fill="none" stroke="var(--accent)" stroke-width="1" stroke-dasharray="2 1.5"/>
+              <text x="5" y="38" font-family="var(--display)" font-size="8" font-weight="700" text-anchor="middle">Rearranging</text>
+            </g>
+
+            <!-- Arrow -->
+            <g transform="translate(145, 50)">
+              <line x1="-15" y1="0" x2="15" y2="0" stroke="var(--ink-mute)" stroke-width="1.5"/>
+              <polygon points="8,-4 16,0 8,4" fill="var(--ink-mute)"/>
+            </g>
+
+            <!-- In transit particles -->
+            <g transform="translate(230, 50)">
+              <text x="0" y="3" font-family="var(--display)" font-size="6" fill="var(--ink-mute)" text-anchor="middle">Electrons Transferring...</text>
+            </g>
+
+            <!-- Fixed Atom-Inventory Ledger at bottom -->
+            <rect x="15" y="102" width="270" height="20" rx="3" fill="var(--paper)" stroke="var(--hair-soft)"/>
+            <text x="150" y="115" font-family="var(--mono)" font-size="7" fill="var(--ink-soft)" text-anchor="middle" font-weight="700">
+              LEDGER: &nbsp;&nbsp;&nbsp; Sodium (Na): <span style="color:var(--ink);">2</span> on left &bull; <span style="color:var(--ink);">2</span> on right &nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;&nbsp; Chlorine (Cl): <span style="color:var(--accent);">2</span> on left &bull; <span style="color:var(--accent);">2</span> on right
+            </text>
+          </svg>
+        </div>
+
+        <!-- Step 3: After -->
+        <div data-step="3" style="width: 100%;">
+          <svg viewBox="0 0 300 130" style="width: 100%; border: 1px solid var(--hair-soft); background: var(--paper-2); border-radius: 4px;">
+            <!-- Empty reactants -->
+            <g transform="translate(60, 50)">
+              <rect x="-38" y="-25" width="85" height="50" fill="none" stroke="var(--hair-soft)" stroke-dasharray="2 2" stroke-width="1" rx="4"/>
+              <text x="4" y="3" font-family="var(--display)" font-size="6" fill="var(--ink-mute)" text-anchor="middle">Reactants Consumed</text>
+            </g>
+
+            <!-- Arrow -->
+            <g transform="translate(145, 50)">
+              <line x1="-15" y1="0" x2="15" y2="0" stroke="var(--ink-mute)" stroke-width="1.5"/>
+              <polygon points="8,-4 16,0 8,4" fill="var(--ink-mute)"/>
+            </g>
+
+            <!-- Products: NaCl ionic lattice -->
+            <g transform="translate(230, 50)">
+              <!-- Ions Na+ and Cl- stacked -->
+              <circle cx="-12" cy="-10" r="7" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="1.2"/>
+              <text x="-12" y="-8" font-family="var(--mono)" font-size="5" font-weight="700" fill="var(--paper)" text-anchor="middle">Na⁺</text>
+              
+              <circle cx="8" cy="-10" r="10" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.2"/>
+              <text x="8" y="-8" font-family="var(--mono)" font-size="6" font-weight="700" fill="var(--accent)" text-anchor="middle">Cl⁻</text>
+              
+              <circle cx="-12" cy="12" r="10" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.2"/>
+              <text x="-12" y="14" font-family="var(--mono)" font-size="6" font-weight="700" fill="var(--accent)" text-anchor="middle">Cl⁻</text>
+              
+              <circle cx="8" cy="12" r="7" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="1.2"/>
+              <text x="8" y="14" font-family="var(--mono)" font-size="5" font-weight="700" fill="var(--paper)" text-anchor="middle">Na⁺</text>
+
+              <text x="0" y="38" font-family="var(--display)" font-size="8" font-weight="700" text-anchor="middle">2 NaCl (crystal)</text>
+            </g>
+
+            <!-- Fixed Atom-Inventory Ledger at bottom -->
+            <rect x="15" y="102" width="270" height="20" rx="3" fill="var(--paper)" stroke="var(--hair-soft)"/>
+            <text x="150" y="115" font-family="var(--mono)" font-size="7" fill="var(--ink-soft)" text-anchor="middle" font-weight="700">
+              LEDGER: &nbsp;&nbsp;&nbsp; Sodium (Na): <span style="color:var(--ink);">2</span> on left &bull; <span style="color:var(--ink);">2</span> on right &nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;&nbsp; Chlorine (Cl): <span style="color:var(--accent);">2</span> on left &bull; <span style="color:var(--accent);">2</span> on right
+            </text>
+          </svg>
+        </div>
+      </div>
+      <p style="font-style:italic; font-size:0.85rem; color:var(--ink-soft); text-align:center; margin-bottom:1.5rem;">
+        the atoms are rearranged, not created or destroyed &middot; ledger counts stay identical
+      </p>
+
       <div class="meta-strip">
         <div class="meta-block">
           <div class="k">Alignment</div>
@@ -229,58 +357,168 @@
     </div>
   </section>
 
-  <!-- 01 SIX REACTION TYPES -->
   <section id="s-types" data-toc="Six Reaction Types">
     <div class="narrow">
       <div class="section-tag"><span class="num">01</span><span class="label label-accent">Patterns of Change</span></div>
       <h2>Six blueprints of rearrangement.</h2>
       <p class="step reveal" style="margin-top:1.5rem;">Rather than memorizing millions of unique chemical reactions, chemists categorize reactions into a few core blueprints. By looking at how the reactants are combined, you can predict what kind of products will form.</p>
       
-      <div class="step reveal" style="margin-top:1.5rem;">
-        <!-- Synthesis -->
-        <div class="type-card">
-          <h4>1. Combining elements together (Synthesis)</h4>
-          <p>Two or more simple starting materials combine to build a single, more complex compound. In the kitchen, combining flour, water, and yeast to form bread dough is an analogy.</p>
-          <div class="generic-form">Generic Form: A + B &rarr; AB</div>
+      <!-- Interactive Tabbed Card Deck V-crxn-02 -->
+      <div class="interactive reveal" id="rxn-types-card" style="margin-top: 1.5rem; margin-bottom: 2rem;">
+        <div class="interactive-head">
+          <span class="label">Six Reaction Blueprints</span>
+          <div class="tabs" id="types-tabs">
+            <button class="tab active" data-tab="synthesis">Synthesis</button>
+            <button class="tab" data-tab="decomp">Decomposition</button>
+            <button class="tab" data-tab="single">Single replacement</button>
+            <button class="tab" data-tab="double">Double replacement</button>
+            <button class="tab" data-tab="combustion">Combustion</button>
+            <button class="tab" data-tab="neutral">Neutralization</button>
+          </div>
         </div>
 
-        <!-- Decomposition -->
-        <div class="type-card">
-          <h4>2. Breaking compounds apart (Decomposition)</h4>
-          <p>A single complex starting material breaks down into two or more simpler products. An example is heating sodium bicarbonate (baking soda) in cake batter, which decomposes to release carbon dioxide gas, bubbles, and sodium carbonate.</p>
-          <div class="generic-form">Generic Form: AB &rarr; A + B</div>
+        <div class="tab-panels">
+          <!-- Panel 1: Synthesis -->
+          <div class="readout tab-panel" id="panel-synthesis">
+            <h4>Synthesis</h4>
+            <p style="font-family:var(--mono); font-weight:700; font-size:1.1rem; margin-bottom:0.5rem; color:var(--ink);">A + B &rarr; AB</p>
+            <p style="margin-bottom:0.5rem;"><strong>Example:</strong> 2 Mg + O₂ &rarr; 2 MgO</p>
+            <p style="color:var(--ink-soft); font-style:italic;"><strong>Signature:</strong> Two things walk in, one thing walks out. Separate elements or simple compounds combine to make a single final compound.</p>
+          </div>
+          <!-- Panel 2: Decomposition -->
+          <div class="readout tab-panel" id="panel-decomp" style="display:none;">
+            <h4>Decomposition</h4>
+            <p style="font-family:var(--mono); font-weight:700; font-size:1.1rem; margin-bottom:0.5rem; color:var(--ink);">AB &rarr; A + B</p>
+            <p style="margin-bottom:0.5rem;"><strong>Example:</strong> 2 H₂O₂ &rarr; 2 H₂O + O₂</p>
+            <p style="color:var(--ink-soft); font-style:italic;"><strong>Signature:</strong> One reactant, multiple products &mdash; usually needs heat, electricity, or a spark to kick it apart.</p>
+          </div>
+          <!-- Panel 3: Single Replacement -->
+          <div class="readout tab-panel" id="panel-single" style="display:none;">
+            <h4>Single Replacement</h4>
+            <p style="font-family:var(--mono); font-weight:700; font-size:1.1rem; margin-bottom:0.5rem; color:var(--ink);">A + BC &rarr; AC + B</p>
+            <p style="margin-bottom:0.5rem;"><strong>Example:</strong> Zn + CuSO₄ &rarr; ZnSO₄ + Cu</p>
+            <p style="color:var(--ink-soft); font-style:italic;"><strong>Signature:</strong> A lone element on each side of the arrow &mdash; one element shoves another out of its compound to take its place.</p>
+          </div>
+          <!-- Panel 4: Double Replacement -->
+          <div class="readout tab-panel" id="panel-double" style="display:none;">
+            <h4>Double Replacement</h4>
+            <p style="font-family:var(--mono); font-weight:700; font-size:1.1rem; margin-bottom:0.5rem; color:var(--ink);">AB + CD &rarr; AD + CB</p>
+            <p style="margin-bottom:0.5rem;"><strong>Example:</strong> AgNO₃ + NaCl &rarr; AgCl + NaNO₃</p>
+            <p style="color:var(--ink-soft); font-style:italic;"><strong>Signature:</strong> Two compounds swap partners &mdash; positive ions change negative partners. Often watch for a solid precipitate dropping out of solution.</p>
+          </div>
+          <!-- Panel 5: Combustion -->
+          <div class="readout tab-panel" id="panel-combustion" style="display:none;">
+            <h4>Combustion</h4>
+            <p style="font-family:var(--mono); font-weight:700; font-size:1.1rem; margin-bottom:0.5rem; color:var(--ink);">fuel + O₂ &rarr; CO₂ + H₂O</p>
+            <p style="margin-bottom:0.5rem;"><strong>Example:</strong> C₃H₈ + 5 O₂ &rarr; 3 CO₂ + 4 H₂O</p>
+            <p style="color:var(--ink-soft); font-style:italic;"><strong>Signature:</strong> O₂ on the left, CO₂ and H₂O on the right. If those three appear and heat is released, it is combustion, full stop.</p>
+          </div>
+          <!-- Panel 6: Acid-Base Neutralization -->
+          <div class="readout tab-panel" id="panel-neutral" style="display:none;">
+            <h4>Acid-Base Neutralization</h4>
+            <p style="font-family:var(--mono); font-weight:700; font-size:1.1rem; margin-bottom:0.5rem; color:var(--ink);">acid + base &rarr; salt + water</p>
+            <p style="margin-bottom:0.5rem;"><strong>Example:</strong> HCl + NaOH &rarr; NaCl + H₂O</p>
+            <p style="color:var(--ink-soft); font-style:italic;"><strong>Signature:</strong> An H-first compound (acid) meets an -OH compound (base); water (H₂O) always forms along with an ionic salt.</p>
+          </div>
         </div>
 
-        <!-- Single Replacement -->
-        <div class="type-card">
-          <h4>3. Single swap (Single Replacement)</h4>
-          <p>An active free element swaps places with an element inside a compound, kicking the original element out to stand alone.</p>
-          <div class="generic-form">Generic Form: A + BC &rarr; B + AC</div>
-        </div>
-
-        <!-- Double Replacement -->
-        <div class="type-card">
-          <h4>4. Double swap (Double Replacement)</h4>
-          <p>Two ionic compounds switch partner ions, forming two brand-new ionic compounds. Typically, this reaction forms a solid precipitate that falls out of solution.</p>
-          <div class="generic-form">Generic Form: AB + CD &rarr; AD + CB</div>
-        </div>
-
-        <!-- Combustion -->
-        <div class="type-card">
-          <h4>5. Burning in oxygen (Combustion)</h4>
-          <p>A hydrocarbon fuel reacts rapidly with oxygen gas (O<sub>2</sub>) from the air. This highly exothermic reaction always produces carbon dioxide (CO<sub>2</sub>) and water vapor (H<sub>2</sub>O).</p>
-          <div class="generic-form">Generic Form: Fuel + O<sub>2</sub> &rarr; CO<sub>2</sub> + H<sub>2</sub>O</div>
-        </div>
-
-        <!-- Acid-Base -->
-        <div class="type-card">
-          <h4>6. Proton exchange (Acid-Base Neutralization)</h4>
-          <p>An acid (releasing H<sup>+</sup> ions) reacts with a base (releasing OH<sup>-</sup> ions). They neutralize each other, forming water (H<sub>2</sub>O) and an ionic salt.</p>
-          <div class="generic-form">Generic Form: HA + BOH &rarr; H<sub>2</sub>O + BA</div>
-        </div>
+        <script>
+          document.addEventListener("DOMContentLoaded", () => {
+            const tabs = document.querySelectorAll("#types-tabs .tab");
+            const panels = document.querySelectorAll(".tab-panel");
+            tabs.forEach(tab => {
+              tab.addEventListener("click", () => {
+                tabs.forEach(t => t.classList.remove("active"));
+                panels.forEach(p => p.style.display = "none");
+                tab.classList.add("active");
+                const target = document.getElementById("panel-" + tab.dataset.tab);
+                if (target) target.style.display = "block";
+              });
+            });
+          });
+        </script>
       </div>
-      
-      <div class="next-cue"><button class="next-btn" data-next>The Law of Balancing <span class="chev">↓</span></button></div>
+
+      <!-- Classification drill -->
+      <h4 class="reveal" style="margin-top:2rem; color:var(--accent);">Practice classifying reactions</h4>
+      <div data-widget="commit-reveal" class="reveal" style="margin-top: 1rem;">
+        <script type="application/json" class="w-config">
+        {
+          "mode": "drill",
+          "items": [
+            {
+              "prompt": "Classify this reaction: <strong class='chem'>2 K + Br₂ &rarr; 2 KBr</strong>",
+              "options": [
+                {"label": "Synthesis", "correct": true, "feedback": "Correct! Two reactants combine to form one compound: A + B &rarr; AB."},
+                {"label": "Decomposition", "correct": false, "feedback": "Incorrect. Think of the signature: are reactants breaking down (AB &rarr; A + B), or combining?"},
+                {"label": "Single replacement", "correct": false, "feedback": "Incorrect. Is there a lone element swapping places with another in a compound?"},
+                {"label": "Double replacement", "correct": false, "feedback": "Incorrect. Is this a swap between two compounds?"},
+                {"label": "Combustion", "correct": false, "feedback": "Incorrect. Does it react with O₂ to make CO₂ and H₂O?"},
+                {"label": "Acid-Base neutralization", "correct": false, "feedback": "Incorrect. Do you see an acid (H-) meeting a base (-OH) to form water?"}
+              ]
+            },
+            {
+              "prompt": "Classify this reaction: <strong class='chem'>CaCO₃ &rarr; CaO + CO₂</strong>",
+              "options": [
+                {"label": "Synthesis", "correct": false, "feedback": "Incorrect. Synthesis combines multiple reactants. Here, we start with a single reactant."},
+                {"label": "Decomposition", "correct": true, "feedback": "Correct! One reactant breaks down into multiple products: AB &rarr; A + B."},
+                {"label": "Single replacement", "correct": false, "feedback": "Incorrect. Look at the reactants: is there an element and a compound, or just one complex compound?"},
+                {"label": "Double replacement", "correct": false, "feedback": "Incorrect. Double replacement starts with two reactants swapping partners."},
+                {"label": "Combustion", "correct": false, "feedback": "Incorrect. Combustion has O₂ as a reactant and CO₂ + H₂O as products."},
+                {"label": "Acid-Base neutralization", "correct": false, "feedback": "Incorrect. Neutralization starts with an acid and base."}
+              ]
+            },
+            {
+              "prompt": "Classify this reaction: <strong class='chem'>Fe + CuCl₂ &rarr; FeCl₂ + Cu</strong>",
+              "options": [
+                {"label": "Synthesis", "correct": false, "feedback": "Incorrect. Synthesis makes one product from many reactants. Here we have two reactants and two products."},
+                {"label": "Decomposition", "correct": false, "feedback": "Incorrect. Decomposition starts with one reactant breaking apart."},
+                {"label": "Single replacement", "correct": true, "feedback": "Correct! Fe is a lone element that shoves Cu out of its compound: A + BC &rarr; AC + B."},
+                {"label": "Double replacement", "correct": false, "feedback": "Incorrect. Double replacement has two compounds swapping partners, not a lone element."},
+                {"label": "Combustion", "correct": false, "feedback": "Incorrect. Combustion requires O₂ reactant and carbon dioxide/water products."},
+                {"label": "Acid-Base neutralization", "correct": false, "feedback": "Incorrect. Neutralization is an acid-base double-swap forming water."}
+              ]
+            },
+            {
+              "prompt": "Classify this reaction: <strong class='chem'>BaCl₂ + Na₂SO₄ &rarr; BaSO₄ + 2 NaCl</strong>",
+              "options": [
+                {"label": "Synthesis", "correct": false, "feedback": "Incorrect. This reaction has multiple reactants and products. Synthesis has one product."},
+                {"label": "Decomposition", "correct": false, "feedback": "Incorrect. Decomposition starts with one reactant breaking apart."},
+                {"label": "Single replacement", "correct": false, "feedback": "Incorrect. Single replacement involves one lone element; here both reactants are ionic compounds."},
+                {"label": "Double replacement", "correct": true, "feedback": "Correct! Ba and Na swap their partner anions (Cl and SO₄): AB + CD &rarr; AD + CB."},
+                {"label": "Combustion", "correct": false, "feedback": "Incorrect. Combustion requires O₂ reactant."},
+                {"label": "Acid-Base neutralization", "correct": false, "feedback": "Incorrect. Neutralization is a double replacement, but specifically between acid and base, which forms water. No water forms here."}
+              ]
+            },
+            {
+              "prompt": "Classify this reaction: <strong class='chem'>CH₄ + 2 O₂ &rarr; CO₂ + 2 H₂O</strong>",
+              "options": [
+                {"label": "Synthesis", "correct": false, "feedback": "Incorrect. Multiple products form, not just one synthesis compound."},
+                {"label": "Decomposition", "correct": false, "feedback": "Incorrect. Decomposition has only one reactant."},
+                {"label": "Single replacement", "correct": false, "feedback": "Incorrect. Is a lone metal displacing another metal?"},
+                {"label": "Double replacement", "correct": false, "feedback": "Incorrect. Does it swap ions, or burn in oxygen?"},
+                {"label": "Combustion", "correct": true, "feedback": "Correct! Oxygen (O₂) reacts with a hydrocarbon fuel to yield CO₂ and H₂O."},
+                {"label": "Acid-Base neutralization", "correct": false, "feedback": "Incorrect. Neutralization is specifically acid + base &rarr; water + salt. This is burning fuel in oxygen."}
+              ]
+            },
+            {
+              "prompt": "Classify this reaction: <strong class='chem'>H₂SO₄ + 2 KOH &rarr; K₂SO₄ + 2 H₂O</strong>",
+              "options": [
+                {"label": "Synthesis", "correct": false, "feedback": "Incorrect. Synthesis combines elements into one compound; here we form water and salt."},
+                {"label": "Decomposition", "correct": false, "feedback": "Incorrect. Decomposition starts with one reactant."},
+                {"label": "Single replacement", "correct": false, "feedback": "Incorrect. Is there a lone neutral element?"},
+                {"label": "Double replacement", "correct": false, "feedback": "Incorrect. While it is technically a double replacement, pick the more specific name for an acid and a base forming water."},
+                {"label": "Combustion", "correct": false, "feedback": "Incorrect. Does it burn fuel in O₂?"},
+                {"label": "Acid-Base neutralization", "correct": true, "feedback": "Correct! Acid (H₂SO₄) meets base (KOH) to form salt and water."}
+              ]
+            }
+          ],
+"reveal": "<h4>Perfect!</h4><p>You have classified all six standard reaction types successfully. The signatures are:</p><ul><li><strong>Synthesis:</strong> A + B &rarr; AB (one product)</li><li><strong>Decomposition:</strong> AB &rarr; A + B (one reactant)</li><li><strong>Single Replacement:</strong> A + BC &rarr; AC + B (lone element on each side)</li><li><strong>Double Replacement:</strong> AB + CD &rarr; AD + CB (two compounds swap)</li><li><strong>Combustion:</strong> fuel + O₂ &rarr; CO₂ + H₂O (reacts with oxygen)</li><li><strong>Neutralization:</strong> acid + base &rarr; salt + water (forms water)</li></ul>"
+        }
+        </script>
+      </div>
+
+      <div class="next-cue" style="margin-top:2rem;"><button class="next-btn" data-next>The Law of Balancing <span class="chev">↓</span></button></div>
     </div>
   </section>
 
@@ -293,7 +531,182 @@
       
       <p class="step reveal">Instead, we adjust the <strong class="term">coefficients</strong> (the numbers placed in front of formulas). A coefficient scales the entire molecule. Placing a "2" in front of H<sub>2</sub>O (2 H<sub>2</sub>O) means you have two distinct water molecules, doubling the counts of both hydrogen and oxygen atoms without changing what the substance is.</p>
 
-      <div class="callout reveal">
+      <!-- Step Builder Walkthrough V-crxn-03 -->
+      <h4 class="reveal" style="margin-top: 2rem; color: var(--accent);">Walkthrough: balancing methane combustion</h4>
+      <div data-widget="step-builder" class="reveal" style="margin-top: 1rem;">
+        <div class="diagram" id="balWalkSvgContainer" style="max-width: 480px; margin: 1.5rem auto;">
+          <svg viewBox="0 0 220 110" style="width: 100%; height: auto; border: 1px solid var(--hair-soft); background: var(--paper-2); border-radius: 4px;">
+            <!-- State 1: Unbalanced -->
+            <g id="state-1" class="svg-step-layer">
+              <!-- Equation -->
+              <text x="110" y="30" font-family="var(--mono)" font-size="10" font-weight="700" fill="var(--ink)" text-anchor="middle">
+                CH₄ + O₂ &rarr; CO₂ + H₂O
+              </text>
+              <!-- Ledger -->
+              <rect x="25" y="48" width="170" height="48" rx="3" fill="var(--paper)" stroke="var(--hair-soft)"/>
+              <g font-family="var(--mono)" font-size="7.5" fill="var(--ink-soft)">
+                <!-- Table headers -->
+                <text x="35" y="58" font-weight="700">Element</text>
+                <text x="115" y="58" text-anchor="middle" font-weight="700">Left</text>
+                <text x="175" y="58" text-anchor="middle" font-weight="700">Right</text>
+                <line x1="30" y1="62" x2="190" y2="62" stroke="var(--hair-soft)" stroke-width="0.8"/>
+                
+                <!-- C row -->
+                <text x="35" y="71" fill="var(--ink)">Carbon (C)</text>
+                <text x="115" y="71" text-anchor="middle" fill="var(--ink)">1</text>
+                <text x="175" y="71" text-anchor="middle" fill="var(--ink)">1</text>
+                
+                <!-- H row -->
+                <text x="35" y="81" fill="var(--accent)">Hydrogen (H)</text>
+                <text x="115" y="81" text-anchor="middle" fill="var(--accent)" font-weight="700">4</text>
+                <text x="175" y="81" text-anchor="middle" fill="var(--accent)" font-weight="700">2</text>
+                
+                <!-- O row -->
+                <text x="35" y="91" fill="var(--accent)">Oxygen (O)</text>
+                <text x="115" y="91" text-anchor="middle" fill="var(--accent)" font-weight="700">2</text>
+                <text x="175" y="91" text-anchor="middle" fill="var(--accent)" font-weight="700">3</text>
+              </g>
+            </g>
+
+            <!-- State 2: H balanced -->
+            <g id="state-2" class="svg-step-layer" style="display:none; opacity:0;">
+              <!-- Equation -->
+              <text x="110" y="30" font-family="var(--mono)" font-size="10" font-weight="700" fill="var(--ink)" text-anchor="middle">
+                CH₄ + O₂ &rarr; CO₂ + <tspan fill="var(--accent)" font-weight="800">2</tspan> H₂O
+              </text>
+              <!-- Ledger -->
+              <rect x="25" y="48" width="170" height="48" rx="3" fill="var(--paper)" stroke="var(--hair-soft)"/>
+              <g font-family="var(--mono)" font-size="7.5" fill="var(--ink-soft)">
+                <text x="35" y="58" font-weight="700">Element</text>
+                <text x="115" y="58" text-anchor="middle" font-weight="700">Left</text>
+                <text x="175" y="58" text-anchor="middle" font-weight="700">Right</text>
+                <line x1="30" y1="62" x2="190" y2="62" stroke="var(--hair-soft)" stroke-width="0.8"/>
+                
+                <!-- C row -->
+                <text x="35" y="71" fill="var(--ink)">Carbon (C)</text>
+                <text x="115" y="71" text-anchor="middle" fill="var(--ink)">1</text>
+                <text x="175" y="71" text-anchor="middle" fill="var(--ink)">1</text>
+                
+                <!-- H row (now balanced) -->
+                <text x="35" y="81" fill="var(--ink)">Hydrogen (H)</text>
+                <text x="115" y="81" text-anchor="middle" fill="var(--ink)">4</text>
+                <text x="175" y="81" text-anchor="middle" fill="var(--ink)">4</text>
+                <circle cx="145" cy="78" r="4" fill="none" stroke="var(--ink)" stroke-width="0.5"/>
+                
+                <!-- O row (still imbalanced) -->
+                <text x="35" y="91" fill="var(--accent)">Oxygen (O)</text>
+                <text x="115" y="91" text-anchor="middle" fill="var(--accent)" font-weight="700">2</text>
+                <text x="175" y="91" text-anchor="middle" fill="var(--accent)" font-weight="700">4</text>
+              </g>
+            </g>
+
+            <!-- State 3: O balanced -->
+            <g id="state-3" class="svg-step-layer" style="display:none; opacity:0;">
+              <!-- Equation -->
+              <text x="110" y="30" font-family="var(--mono)" font-size="10" font-weight="700" fill="var(--ink)" text-anchor="middle">
+                CH₄ + <tspan fill="var(--accent)" font-weight="800">2</tspan> O₂ &rarr; CO₂ + 2 H₂O
+              </text>
+              <!-- Ledger -->
+              <rect x="25" y="48" width="170" height="48" rx="3" fill="var(--paper)" stroke="var(--hair-soft)"/>
+              <g font-family="var(--mono)" font-size="7.5" fill="var(--ink-soft)">
+                <text x="35" y="58" font-weight="700">Element</text>
+                <text x="115" y="58" text-anchor="middle" font-weight="700">Left</text>
+                <text x="175" y="58" text-anchor="middle" font-weight="700">Right</text>
+                <line x1="30" y1="62" x2="190" y2="62" stroke="var(--hair-soft)" stroke-width="0.8"/>
+                
+                <!-- C row -->
+                <text x="35" y="71" fill="var(--ink)">Carbon (C)</text>
+                <text x="115" y="71" text-anchor="middle" fill="var(--ink)">1</text>
+                <text x="175" y="71" text-anchor="middle" fill="var(--ink)">1</text>
+                
+                <!-- H row -->
+                <text x="35" y="81" fill="var(--ink)">Hydrogen (H)</text>
+                <text x="115" y="81" text-anchor="middle" fill="var(--ink)">4</text>
+                <text x="175" y="81" text-anchor="middle" fill="var(--ink)">4</text>
+                
+                <!-- O row (now balanced) -->
+                <text x="35" y="91" fill="var(--ink)">Oxygen (O)</text>
+                <text x="115" y="91" text-anchor="middle" fill="var(--ink)">4</text>
+                <text x="175" y="91" text-anchor="middle" fill="var(--ink)">4</text>
+                <circle cx="145" cy="88" r="4" fill="none" stroke="var(--ink)" stroke-width="0.5"/>
+              </g>
+            </g>
+
+            <!-- State 4: Balanced final audit -->
+            <g id="state-4" class="svg-step-layer" style="display:none; opacity:0;">
+              <!-- Equation -->
+              <text x="110" y="30" font-family="var(--mono)" font-size="10" font-weight="700" fill="var(--ink)" text-anchor="middle">
+                <tspan fill="var(--ink-mute)">1</tspan> CH₄ + <tspan fill="var(--ink)">2</tspan> O₂ &rarr; <tspan fill="var(--ink-mute)">1</tspan> CO₂ + <tspan fill="var(--ink)">2</tspan> H₂O
+              </text>
+              <!-- Ledger (all green highlight) -->
+              <rect x="25" y="48" width="170" height="48" rx="3" fill="var(--paper)" stroke="var(--accent)" stroke-width="1.2"/>
+              <g font-family="var(--mono)" font-size="7.5" fill="var(--accent)">
+                <text x="35" y="58" font-weight="700">Element</text>
+                <text x="115" y="58" text-anchor="middle" font-weight="700">Left</text>
+                <text x="175" y="58" text-anchor="middle" font-weight="700">Right</text>
+                <line x1="30" y1="62" x2="190" y2="62" stroke="var(--accent)" stroke-width="0.8"/>
+                
+                <!-- C row -->
+                <text x="35" y="71">Carbon (C)</text>
+                <text x="115" y="71" text-anchor="middle">1</text>
+                <text x="175" y="71" text-anchor="middle">1</text>
+                
+                <!-- H row -->
+                <text x="35" y="81">Hydrogen (H)</text>
+                <text x="115" y="81" text-anchor="middle">4</text>
+                <text x="175" y="81" text-anchor="middle">4</text>
+                
+                <!-- O row -->
+                <text x="35" y="91">Oxygen (O)</text>
+                <text x="115" y="91" text-anchor="middle">4</text>
+                <text x="175" y="91" text-anchor="middle">4</text>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <script type="application/json" class="w-config">
+        {
+          "diagramId": "balWalkSvgContainer",
+          "steps": [
+            {
+              "state": "state-1",
+              "question": "<strong>Step 1:</strong> Carbon is balanced (1=1), but hydrogen (4&ne;2) and oxygen (2&ne;3) are unbalanced. Which element should you balance first?",
+              "options": [
+                {"label": "Hydrogen (H) &mdash; it appears in only one product", "correct": true, "feedback": "Correct! Always fix elements that have only one 'home' on each side first. Oxygen lives in both products, so changing water or carbon dioxide will shuffle oxygen around. Save it for last."},
+                {"label": "Oxygen (O) &mdash; it's the most broken", "correct": false, "feedback": "Incorrect. Oxygen lives in both CO₂ and H₂O. If you try to fix it now, you'll end up re-breaking it when you balance Hydrogen later. Save oxygen for last."}
+              ]
+            },
+            {
+              "state": "state-2",
+              "question": "<strong>Step 2:</strong> There are 4 Hydrogen on the left and 2 on the right. What is the correct, legal move to balance them?",
+              "options": [
+                {"label": "Put a coefficient 2 in front of H₂O", "correct": true, "feedback": "Correct! Coefficients multiply whole molecules. Placing a 2 in front of H₂O gives us 2 &times; 2 = 4 hydrogens on the right, matching the left."},
+                {"label": "Change H₂O to H₄O", "correct": false, "feedback": "Incorrect! That is a major violation. Changing subscripts changes the chemical identity of the substance. You cannot invent chemicals to balance the scales. Subscripts are locked!"},
+                {"label": "Put a coefficient 2 in front of CH₄", "correct": false, "feedback": "Incorrect. Adding a coefficient to CH₄ would give us 8 hydrogens on the left, making it even more unbalanced."}
+              ]
+            },
+            {
+              "state": "state-3",
+              "question": "<strong>Step 3:</strong> Hydrogen is now balanced, but Oxygen is still unbalanced (2 on left vs. 4 on right: 2 in CO₂ + 2 in the two H₂O molecules). What is the next move?",
+              "options": [
+                {"label": "Put a coefficient 2 in front of O₂", "correct": true, "feedback": "Correct! Placing a 2 in front of O₂ gives us 2 &times; 2 = 4 oxygens on the left, matching the 4 oxygens on the right. Since O₂ stands alone, this change doesn't disrupt any other elements."},
+                {"label": "Put a coefficient 2 in front of CO₂", "correct": false, "feedback": "Incorrect. Adding a 2 in front of CO₂ would change the carbon count, re-breaking the carbon balance we had locked in."}
+              ]
+            },
+            {
+              "state": "state-4",
+              "question": "<strong>Step 4:</strong> Check the ledger: C 1=1 &bull; H 4=4 &bull; O 4=4. Every row is equal. What is the final balanced equation?",
+              "options": [
+                {"label": "1 CH₄ + 2 O₂ &rarr; 1 CO₂ + 2 H₂O", "correct": true, "feedback": "Correct! The equation is fully balanced. Remember: a blank coefficient is understood to be a 1."},
+                {"label": "It is not yet balanced because CH₄ has no number", "correct": false, "feedback": "Incorrect. A blank coefficient represents exactly 1 molecule of CH₄. The ledger matches perfectly."}
+              ]
+            }
+          ]
+        }
+        </script>
+      </div>
+
+      <div class="callout reveal" style="margin-top: 2rem;">
         <div class="label label-accent">Drawing boundaries</div>
         <p>Think of each compound as being inside a sealed plastic box. You can buy more boxes (coefficients), but you cannot open the box to alter the atoms inside (subscripts).</p>
       </div>
@@ -365,38 +778,40 @@
       <h2 class="reveal">Predict the coefficients.</h2>
 
       <!-- Q1 -->
-      <div class="step reveal" style="margin-top:1.5rem;">
-        <p><strong>1. Balancing Combustion:</strong> Consider the combustion of methane: CH<sub>4</sub> + O<sub>2</sub> &rarr; CO<sub>2</sub> + H<sub>2</sub>O. Looking at the hydrogens, the reactant side has 4 hydrogens while the product side only has 2. What coefficient should you place in front of H<sub>2</sub>O to balance hydrogen?</p>
-        <div class="actions" style="margin-top:0.75rem;" data-predict="combustCoeff">
-          <button class="btn opt" data-val="1">1</button>
-          <button class="btn opt" data-val="2" data-correct="true">2</button>
-          <button class="btn opt" data-val="4">4</button>
-        </div>
-        <div class="peek-box" data-reveal="combustCoeff">
-          <div class="reveal-card">
-            <div class="label label-accent">The Answer: 2</div>
-            <p>Placing a coefficient of 2 in front of H<sub>2</sub>O (2 H<sub>2</sub>O) gives a total of 4 hydrogen atoms on the product side, matching the 4 hydrogen atoms in the single CH<sub>4</sub> reactant molecule. (This also increases oxygen, which you would then balance by placing a 2 in front of O<sub>2</sub> reactants).</p>
-          </div>
+      <div class="reveal" style="margin-top: 1.5rem;">
+        <div data-widget="commit-reveal">
+          <script type="application/json" class="w-config">
+          {
+            "mode": "choice",
+            "prompt": "<strong>1. Balancing Combustion:</strong> Consider the combustion of methane: CH₄ + O₂ &rarr; CO₂ + H₂O. Looking at the hydrogens, the reactant side has 4 hydrogens while the product side only has 2. What coefficient should you place in front of H₂O to balance hydrogen?",
+            "options": [
+              {"label": "1", "correct": false, "feedback": "Incorrect. A coefficient of 1 leaves 2 hydrogens, which doesn't balance the 4 hydrogens on the left."},
+              {"label": "2", "correct": true, "feedback": "Correct! Placing a coefficient of 2 in front of H₂O (2 H₂O) gives a total of 4 hydrogen atoms on the product side, matching the 4 hydrogen atoms in the single CH₄ reactant molecule."},
+              {"label": "4", "correct": false, "feedback": "Incorrect. A coefficient of 4 would give 8 hydrogens on the right, overshooting the 4 hydrogens on the left."}
+            ]
+          }
+          </script>
         </div>
       </div>
 
       <!-- Q2 -->
-      <div class="step reveal" style="margin-top:2rem;">
-        <p><strong>2. Categorizing Reaction:</strong> A beaker containing aqueous sodium chloride (NaCl) is mixed with silver nitrate (AgNO<sub>3</sub>). A solid white cloud of silver chloride (AgCl) immediately forms and settles at the bottom of the beaker. What type of reaction is this?</p>
-        <div class="actions" style="margin-top:0.75rem;" data-predict="rxnCategory">
-          <button class="btn opt" data-val="decomp">Decomposition</button>
-          <button class="btn opt" data-val="double" data-correct="true">Double Replacement</button>
-          <button class="btn opt" data-val="single">Single Replacement</button>
-        </div>
-        <div class="peek-box" data-reveal="rxnCategory">
-          <div class="reveal-card">
-            <div class="label label-accent">The Answer: Double Replacement</div>
-            <p>This is a double replacement precipitation reaction. The sodium (Na<sup>+</sup>) and silver (Ag<sup>+</sup>) ions swap partner anions (Cl<sup>-</sup> and NO<sub>3</sub><sup>-</sup>) to produce a solid salt (AgCl) and aqueous sodium nitrate (NaNO<sub>3</sub>).</p>
-          </div>
+      <div class="reveal" style="margin-top: 2rem;">
+        <div data-widget="commit-reveal">
+          <script type="application/json" class="w-config">
+          {
+            "mode": "choice",
+            "prompt": "<strong>2. Categorizing Reaction:</strong> A beaker containing aqueous sodium chloride (NaCl) is mixed with silver nitrate (AgNO₃). A solid white cloud of silver chloride (AgCl) immediately forms and settles at the bottom of the beaker. What type of reaction is this?",
+            "options": [
+              {"label": "Decomposition", "correct": false, "feedback": "Incorrect. Decomposition starts with a single compound breaking apart into multiple products."},
+              {"label": "Single Replacement", "correct": false, "feedback": "Incorrect. Single replacement requires a lone neutral element swapping with a compound. Here both reactants are compounds."},
+              {"label": "Double Replacement", "correct": true, "feedback": "Correct! This is a double replacement precipitation reaction. The sodium (Na⁺) and silver (Ag⁺) ions swap partner anions (Cl&minus; and NO₃&minus;) to produce a solid salt (AgCl) and aqueous sodium nitrate (NaNO₃)."}
+            ]
+          }
+          </script>
         </div>
       </div>
 
-      <div class="next-cue"><button class="next-btn" data-next>Recall the terms <span class="chev">↓</span></button></div>
+      <div class="next-cue" style="margin-top: 2rem;"><button class="next-btn" data-next>Recall the terms <span class="chev">↓</span></button></div>
     </div>
   </section>
 
@@ -450,22 +865,19 @@
     <div class="narrow">
       <div class="section-tag reveal"><span class="num">06</span><span class="label label-accent">Self-Explain</span></div>
       <h2 class="reveal">Why lock the subscripts?</h2>
-      <p class="reveal" style="margin-top:1rem;color:var(--ink-soft);">Explain, in terms of chemical identity and atomic structure, why you are permitted to change coefficients to balance an equation, but strictly forbidden from modifying subscripts.</p>
       
-      <div class="interactive reveal" style="margin-top:1.5rem;">
-        <textarea class="textbox" placeholder="Write your explanation here..." style="width:100%; min-height:120px; font-family:var(--serif); font-size:1.05rem; padding:0.8rem; background:var(--paper); border:1px solid var(--hair); color:var(--ink); outline:none; resize:vertical;"></textarea>
-        <div class="actions" style="margin-top:1rem; justify-content: flex-start;">
-          <button class="btn ghost" data-peek>Compare with model answer</button>
-        </div>
-        <div class="peek-box">
-          <div class="reveal-card" style="border-left-color:var(--accent);">
-            <div class="label label-accent">Model Answer</div>
-            <p>Subscripts represent the fixed ratio of atoms bonded together within an individual molecule, establishing its unique chemical identity and properties. Changing a subscript alters the actual substance being modeled (for example, turning oxygen gas O<sub>2</sub> into toxic ozone O<sub>3</sub>). Coefficients, however, simply indicate the number of independent molecules participating in the reaction. Modifying coefficients scales the total amount of the substance present without changing its atomic bonding, allowing us to balance the equation while keeping the chemical species correct.</p>
-          </div>
-        </div>
+      <div data-widget="commit-reveal" class="reveal" style="margin-top: 1.5rem;">
+        <script type="application/json" class="w-config">
+        {
+          "mode": "free",
+          "prompt": "Explain, in terms of chemical identity and atomic structure, why you are permitted to change coefficients to balance an equation, but strictly forbidden from modifying subscripts.",
+          "minChars": 30,
+          "reveal": "Subscripts represent the fixed ratio of atoms bonded together within an individual molecule, establishing its unique chemical identity and properties. Changing a subscript alters the actual substance being modeled (for example, turning oxygen gas O₂ into toxic ozone O₃). Coefficients, however, simply indicate the number of independent molecules participating in the reaction. Modifying coefficients scales the total amount of the substance present without changing its atomic bonding, allowing us to balance the equation while keeping the chemical species correct."
+        }
+        </script>
       </div>
       
-      <div class="next-cue"><button class="next-btn" data-next>Constructed Response practice <span class="chev">↓</span></button></div>
+      <div class="next-cue" style="margin-top: 2rem;"><button class="next-btn" data-next>Constructed Response practice <span class="chev">↓</span></button></div>
     </div>
   </section>
 
@@ -474,34 +886,22 @@
     <div class="narrow">
       <div class="section-tag reveal"><span class="num">07</span><span class="label label-accent">Exam Practice</span></div>
       <h2 class="reveal">Balance a thermal decomposition.</h2>
-      <p class="lede reveal" style="margin-top:.75rem;">Give yourself a point for each idea you actually wrote down. The flag (⚑) marks the coefficient comparison step.</p>
       
       <div class="exam-frame reveal" style="margin-top:1.5rem;">
         <div class="exam-meta">
           <span class="exam-src">Gen Chem · HS-PS1-7 · constructed response</span>
           <span class="exam-marks">[3 marks]</span>
         </div>
-        <p class="exam-q">
-          When baking soda (NaHCO<sub>3</sub>) is heated in an oven, it undergoes thermal decomposition to form solid sodium carbonate (Na<sub>2</sub>CO<sub>3</sub>), water vapor (H<sub>2</sub>O), and carbon dioxide gas (CO<sub>2</sub>).
-          <br><br>
-          <span class="sub">Write out the unbalanced chemical equation, balance it using coefficients, and show how the atom count ledger is equal on both reactant and product sides.</span>
-        </p>
-        <textarea class="textbox" id="examAns" placeholder="Write your constructed response here..."></textarea>
-        <div class="actions" style="margin-top:1rem; justify-content: flex-start;">
-          <button class="btn" data-scheme>Reveal mark scheme</button>
-        </div>
-        <div class="scheme">
-          <div class="scheme-card">
-            <div class="label">Mark Scheme — 3 marks</div>
-            <ul class="pts">
-              <li>Writes the correct unbalanced chemical equation: NaHCO<sub>3</sub> &rarr; Na<sub>2</sub>CO<sub>3</sub> + H<sub>2</sub>O + CO<sub>2</sub>.</li>
-              <li class="cap">Balances the equation by placing a coefficient of 2 in front of NaHCO<sub>3</sub>: <strong>2 NaHCO<sub>3</sub> &rarr; Na<sub>2</sub>CO<sub>3</sub> + H<sub>2</sub>O + CO<sub>2</sub></strong>. <em>(⚑ Placing the single coefficient 2 to balance all element counts is required for this mark.)</em></li>
-              <li>Shows the atom count ledger matches on both sides: Reactants: 2 Na, 2 H, 2 C, 6 O; Products: 2 Na, 2 H, 2 C (1+1), 6 O (3+1+2).</li>
-            </ul>
-            <p style="font-family:var(--mono);font-size:.72rem;color:var(--ink-mute);margin-top:.9rem;letter-spacing:.04em;">
-              Self-score: 3 = all three points · 2 = balanced equation but missing/incorrect atom count ledger · 1 = wrote unbalanced equation only.
-            </p>
-          </div>
+        
+        <div data-widget="commit-reveal">
+          <script type="application/json" class="w-config">
+          {
+            "mode": "free",
+            "prompt": "When baking soda (NaHCO₃) is heated in an oven, it undergoes thermal decomposition to form solid sodium carbonate (Na₂CO₃), water vapor (H₂O), and carbon dioxide gas (CO₂).<br><br>Write out the unbalanced chemical equation, balance it using coefficients, and show how the atom count ledger is equal on both reactant and product sides.",
+            "minChars": 40,
+            "reveal": "<h4>Mark Scheme &mdash; 3 marks</h4><ul class=\"pts\"><li>Writes the correct unbalanced chemical equation: NaHCO₃ &rarr; Na₂CO₃ + H₂O + CO₂. [1 mark]</li><li class=\"cap\">Balances the equation by placing a coefficient of 2 in front of NaHCO₃: <strong>2 NaHCO₃ &rarr; Na₂CO₃ + H₂O + CO₂</strong>. <em>(⚑ Placing the single coefficient 2 to balance all element counts is required for this mark.)</em> [1 mark]</li><li>Shows the atom count ledger matches on both sides: Reactants: 2 Na, 2 H, 2 C, 6 O; Products: 2 Na, 2 H, 2 C (1+1), 6 O (3+1+2). [1 mark]</li></ul><p style=\"font-family:var(--mono);font-size:.72rem;color:var(--ink-mute);margin-top:.9rem;letter-spacing:.04em;\">Self-score: 3 = all three points &bull; 2 = balanced equation but missing/incorrect atom count ledger &bull; 1 = wrote unbalanced equation only.</p>"
+          }
+          </script>
         </div>
       </div>
     </div>
@@ -513,6 +913,7 @@
   </div>
 
   <script src="../assets/core.js"></script>
+  <script src="../assets/glossary.js"></script>
   <script src="C-RXN.js"></script>
 </body>
 </html>
