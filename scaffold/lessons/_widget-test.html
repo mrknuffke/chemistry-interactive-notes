@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>Widget Test Page</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <button class="toc-btn" id="tocBtn" aria-label="Table of contents">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      Contents
+    </button>
+    <div class="crumb">Gen Chem · Sem 1 · <b>Test</b></div>
+  </div>
+  <div class="topbar-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </button>
+  </div>
+</div>
+<nav class="toc-drop" id="tocDrop"></nav>
+
+<section id="s-hero" class="hero" data-toc="Opening">
+  <div class="wrap">
+    <div class="label label-accent">Widget Test Bench</div>
+    <h1>Testing the Widget &amp; Motion Framework</h1>
+    <p class="lede">This page is a benchmark test harness for all widgets and primitives built in Gen Chem core assets.</p>
+  </div>
+</section>
+
+<!-- 1. COMMIT-REVEAL CHOICE -->
+<section id="s-cr-choice" class="widget-section" data-toc="CR Choice" data-widget="commit-reveal">
+  <script type="application/json" class="w-config">
+  {
+    "mode": "choice",
+    "prompt": "Pick the correct option. Sulfur gains 2 electrons to reach a full outer shell. What is the charge on the resulting sulfide ion?",
+    "options": [
+      {"label": "S<sup>2+</sup>", "correct": false, "feedback": "Incorrect. Gaining negative electrons results in a negative charge, not a positive one."},
+      {"label": "S<sup>2&ndash;</sup>", "correct": true, "feedback": "Correct! Gaining 2 negative electrons gives the sulfur atom a net 2&ndash; charge, making it S<sup>2&ndash;</sup>."}
+    ],
+    "reveal": "<p>Sulfide (S<sup>2&ndash;</sup>) has a full valence configuration of 2, 8, 8, matching argon.</p>"
+  }
+  </script>
+</section>
+
+<!-- 2. COMMIT-REVEAL FREE -->
+<section id="s-cr-free" class="widget-section" data-toc="CR Free" data-widget="commit-reveal">
+  <script type="application/json" class="w-config">
+  {
+    "mode": "free",
+    "prompt": "Explain why atomic radius decreases as you move left-to-right across a period on the periodic table.",
+    "minChars": 30,
+    "reveal": "As you move across a period, you add protons to the nucleus (increasing nuclear pull) without adding new electron shells. The stronger positive pull draws the same outer shell closer, shrinking the atom."
+  }
+  </script>
+</section>
+
+<!-- 3. COMMIT-REVEAL DRILL -->
+<section id="s-cr-drill" class="widget-section" data-toc="CR Drill" data-widget="commit-reveal">
+  <script type="application/json" class="w-config">
+  {
+    "mode": "drill",
+    "items": [
+      {
+        "prompt": "Classify: 2 H<sub>2</sub> + O<sub>2</sub> &rarr; 2 H<sub>2</sub>O",
+        "options": [
+          {"label": "Synthesis", "correct": true, "feedback": "Correct! Two reactants combine to form one product."},
+          {"label": "Decomposition", "correct": false, "feedback": "Incorrect. Decomposition starts with a single reactant."}
+        ]
+      },
+      {
+        "prompt": "Classify: CH<sub>4</sub> + 2 O<sub>2</sub> &rarr; CO<sub>2</sub> + 2 H<sub>2</sub>O",
+        "options": [
+          {"label": "Decomposition", "correct": false, "feedback": "Incorrect. This is combustion."},
+          {"label": "Combustion", "correct": true, "feedback": "Correct! A hydrocarbon reacts with oxygen to form CO2 and H2O."}
+        ]
+      }
+    ],
+    "reveal": "<p>You have mastered reaction classification!</p>"
+  }
+  </script>
+</section>
+
+<!-- 4. FADED EXAMPLE -->
+<section id="s-faded" class="widget-section" data-toc="Faded Example" data-widget="faded-example">
+  <script type="application/json" class="w-config">
+  {
+    "model": {
+      "title": "Worked Example: Molar Mass of H<sub>2</sub>O",
+      "steps": [
+        {"label": "1. Find atomic masses", "work": "H = 1.01 g/mol · O = 16.00 g/mol", "why": "Read atomic masses from the periodic table."},
+        {"label": "2. Count and multiply", "work": "2 &times; 1.01 (H) = 2.02 · 1 &times; 16.00 (O) = 16.00", "why": "Multiply each atomic mass by its subscript in the formula."},
+        {"label": "3. Add total", "work": "2.02 + 16.00 = 18.02 g/mol", "why": "Sum the masses to find the molar mass of the compound."}
+      ]
+    },
+    "yours": {
+      "title": "Your Turn: Molar Mass of CO<sub>2</sub>",
+      "checkMode": "step",
+      "steps": [
+        {"label": "1. Find atomic masses", "given": "C = 12.01 g/mol · O = 16.00 g/mol"},
+        {
+          "label": "2. Count and multiply",
+          "blank": {
+            "type": "numeric",
+            "answer": 32.00,
+            "tol": 0.05,
+            "prompt": "Mass of oxygen (2 x 16.00)",
+            "feedback_wrong": "Wrong. Multiply O (16.00) by 2.",
+            "feedback_right": "Correct! Oxygen contributes 32.00 g/mol."
+          }
+        },
+        {
+          "label": "3. Add total",
+          "blank": {
+            "type": "numeric",
+            "answer": 44.01,
+            "tol": 0.05,
+            "prompt": "Total mass (12.01 + 32.00)",
+            "feedback_wrong": "Incorrect sum. Add C (12.01) to your O mass (32.00).",
+            "feedback_right": "Great job! Molar mass of CO2 is 44.01 g/mol."
+          }
+        }
+      ]
+    }
+  }
+  </script>
+</section>
+
+<!-- 5. SCAFFOLD: BANK -->
+<section id="s-scaffold-bank" class="widget-section" data-toc="Scaffold Bank" data-widget="scaffold">
+  <script type="application/json" class="w-config">
+  {
+    "mode": "bank",
+    "chain": true,
+    "slots": [
+      {"id": "slot1", "label": "1. Structural Feature"},
+      {"id": "slot2", "label": "2. Molecular Packing"},
+      {"id": "slot3", "label": "3. IMF Strength"}
+    ],
+    "bank": [
+      {"text": "Saturated fat has straight single-bonded carbon chains.", "slot": "slot1", "feedback": "Correct structural feature description."},
+      {"text": "Straight chains pack tightly side-by-side.", "slot": "slot2", "feedback": "Correct molecular packing description."},
+      {"text": "Tight packing maximizes London dispersion forces.", "slot": "slot3", "feedback": "Correct IMF strength description."},
+      {"text": "Distractor: Kinks weaken intramolecular bonds.", "slot": null, "feedback": "Intramolecular bonds are not broken during phase changes!"}
+    ]
+  }
+  </script>
+</section>
+
+<!-- 6. SCAFFOLD: FREE -->
+<section id="s-scaffold-free" class="widget-section" data-toc="Scaffold Free" data-widget="scaffold">
+  <script type="application/json" class="w-config">
+  {
+    "mode": "free",
+    "slots": [
+      {"id": "s1", "label": "1. Solid Fat vs Liquid Oil", "model": "Saturated fats have straight chains that pack tightly side-by-side, maximizing contact and LDF, making them solid at room temperature. Unsaturated fats have kinked chains that pack loosely, weakening LDF and making them liquid."},
+      {"id": "s2", "label": "2. Pastry Lamination", "model": "Solid fat remains in distinct layers separating the flour sheets, trapping steam to rise into flaky layers. Liquid oil would soak in, causing the layers to fuse."}
+    ]
+  }
+  </script>
+</section>
+
+<!-- 7. SCAFFOLD: TABLE -->
+<section id="s-scaffold-table" class="widget-section" data-toc="Scaffold Table" data-widget="scaffold">
+  <script type="application/json" class="w-config">
+  {
+    "mode": "table",
+    "table": {
+      "headers": ["Reactant", "Before (mol)", "Change (mol)", "After (mol)"],
+      "rows": [
+        [
+          {"given": "A"},
+          {"given": "10.00"},
+          {"blank": {"type": "numeric", "answer": -4.00, "tol": 0.05, "feedback_wrong": "Check reactant Change row."}},
+          {"blank": {"type": "numeric", "answer": 6.00, "tol": 0.05, "feedback_wrong": "Check reactant After calculation."}}
+        ],
+        [
+          {"given": "B (product)"},
+          {"given": "0.00"},
+          {"blank": {"type": "numeric", "answer": 2.00, "tol": 0.05, "feedback_wrong": "Check product Change row."}},
+          {"blank": {"type": "numeric", "answer": 2.00, "tol": 0.05, "feedback_wrong": "Check product After calculation."}}
+        ]
+      ]
+    }
+  }
+  </script>
+</section>
+
+<!-- 8. STEP-BUILDER -->
+<section id="s-step-builder" class="widget-section" data-toc="Step Builder" data-widget="step-builder">
+  <div class="diagram" id="dummySvgContainer" style="max-width: 400px; margin: 0 auto 1.5rem;">
+    <!-- Dummy SVG representing state layers -->
+    <svg viewBox="0 0 100 100" style="width: 100%; height: auto; border: 1px solid var(--hair); background: var(--paper);">
+      <!-- State 1 -->
+      <g id="state-start" class="svg-step-layer">
+        <circle cx="50" cy="50" r="20" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
+        <text x="50" y="55" font-size="6" text-anchor="middle" font-family="var(--mono)">START</text>
+      </g>
+      <!-- State 2 -->
+      <g id="state-middle" class="svg-step-layer" style="display:none; opacity:0;">
+        <circle cx="50" cy="50" r="30" fill="var(--green)" stroke="var(--green)" stroke-width="2" opacity="0.3"/>
+        <circle cx="50" cy="50" r="20" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
+        <text x="50" y="55" font-size="6" text-anchor="middle" font-family="var(--mono)">MIDDLE</text>
+      </g>
+      <!-- State 3 -->
+      <g id="state-end" class="svg-step-layer" style="display:none; opacity:0;">
+        <rect x="20" y="20" width="60" height="60" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4"/>
+        <circle cx="50" cy="50" r="30" fill="var(--green)" stroke="var(--green)" stroke-width="2" opacity="0.3"/>
+        <circle cx="50" cy="50" r="20" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
+        <text x="50" y="55" font-size="6" text-anchor="middle" font-family="var(--mono)">DONE</text>
+      </g>
+    </svg>
+  </div>
+  <script type="application/json" class="w-config">
+  {
+    "diagramId": "dummySvgContainer",
+    "steps": [
+      {
+        "state": "state-start",
+        "question": "Step 1: Carbon has 4 valence electrons. What is its first step toward stability?",
+        "options": [
+          {"label": "Lose 4 electrons", "correct": false, "feedback": "Cheaper to share. Try another move."},
+          {"label": "Share electrons in covalent bonds", "correct": true, "feedback": "Yes! Sharing enables it to complete its octet."}
+        ]
+      },
+      {
+        "state": "state-middle",
+        "question": "Step 2: Carbon forms a bond with oxygen. What type of bond will it form?",
+        "options": [
+          {"label": "Ionic bond", "correct": false, "feedback": "Incorrect. Both are nonmetals."},
+          {"label": "Covalent bond", "correct": true, "feedback": "Yes! They will share electrons."}
+        ]
+      }
+    ],
+    "finale": "<p>You have completed the carbon bonding builder walkthrough!</p>"
+  }
+  </script>
+</section>
+
+<!-- 9. STEP CONTROLLER MOTION PRIMITIVE -->
+<section id="s-step-motion" class="widget-section" data-toc="Step Motion" data-motion="step" data-step-count="3" data-step-start="1" data-step-labels="Initial State|Middle State|Final State">
+  <div style="text-align: center; font-family: var(--display); font-size: 1.2rem; padding: 2rem 0; height: 120px; display: flex; align-items: center; justify-content: center; width: 100%;">
+    <div data-step="1" style="width: 100%;">
+      <span style="font-size: 3rem;">🔴</span>
+      <p>Red Circle - Step 1</p>
+    </div>
+    <div data-step="2" style="width: 100%;">
+      <span style="font-size: 3rem;">🟢</span>
+      <p>Green Circle - Step 2</p>
+    </div>
+    <div data-step="3" style="width: 100%;">
+      <span style="font-size: 3rem;">🔵</span>
+      <p>Blue Circle - Step 3</p>
+    </div>
+  </div>
+</section>
+
+<!-- 10. SCRUB CONTROLLER MOTION PRIMITIVE -->
+<section id="s-scrub-motion" class="widget-section" data-toc="Scrub Motion" data-motion="scrub" data-scrub-fn="den-cloud" data-scrub-min="0" data-scrub-max="3.5" data-scrub-step="0.1" data-scrub-value="0.0" data-scrub-label="Electronegativity Difference (ΔEN)" data-scrub-marks="0.0:Covalent|0.4:Polar|1.7:Ionic" data-scrub-target="1.7">
+  <div style="max-width: 400px; margin: 0 auto 1rem; text-align: center;">
+    <svg viewBox="0 0 200 100" style="width: 100%; border: 1px solid var(--hair); background: var(--paper);">
+      <defs>
+        <radialGradient id="cloudGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.8"/>
+          <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <!-- Electron Cloud -->
+      <circle class="cloud-gradient" cx="50%" cy="50%" r="40" fill="url(#cloudGrad)" />
+      <!-- Atoms -->
+      <circle class="atom-l" cx="50" cy="50" r="15" fill="var(--card)" stroke="var(--ink)" stroke-width="2"/>
+      <text class="charge-l" x="50" y="55" text-anchor="middle" font-family="var(--mono)" font-size="12" fill="var(--accent)"></text>
+      <text x="50" y="30" text-anchor="middle" font-family="var(--mono)" font-size="10">H</text>
+      
+      <circle class="atom-r" cx="150" cy="50" r="15" fill="var(--card)" stroke="var(--ink)" stroke-width="2"/>
+      <text class="charge-r" x="150" y="55" text-anchor="middle" font-family="var(--mono)" font-size="12" fill="var(--accent)"></text>
+      <text x="150" y="30" text-anchor="middle" font-family="var(--mono)" font-size="10">F</text>
+    </svg>
+  </div>
+</section>
+
+<!-- 11. ZOOM STAGE MOTION PRIMITIVE -->
+<section id="s-zoom-motion" class="widget-section" data-toc="Zoom Motion" data-motion="zoom" data-zoom-levels="2" data-zoom-labels="Beaker (Macro)|Molecules (Particulate)" data-zoom-anchor="50,50,12">
+  <div data-zoom-level="macro" style="width: 100%; height: 100%;">
+    <svg viewBox="0 0 100 100" style="width: 100%; height: 100%;">
+      <rect x="25" y="30" width="50" height="50" rx="4" fill="var(--paper-2)" stroke="var(--ink)" stroke-width="2"/>
+      <path d="M30 45 C 40 45, 60 45, 70 45" fill="none" stroke="var(--accent-soft)" stroke-width="2"/>
+      <text x="50" y="60" text-anchor="middle" font-family="var(--mono)" font-size="8">Macro Beaker</text>
+    </svg>
+  </div>
+  <div data-zoom-level="particulate" style="width: 100%; height: 100%;">
+    <svg viewBox="0 0 100 100" style="width: 100%; height: 100%;">
+      <circle cx="20" cy="30" r="6" fill="var(--accent)" />
+      <circle cx="45" cy="50" r="6" fill="var(--accent)" />
+      <circle cx="70" cy="70" r="6" fill="var(--accent)" />
+      <circle cx="80" cy="25" r="6" fill="var(--accent)" />
+      <text x="50" y="90" text-anchor="middle" font-family="var(--mono)" font-size="8">Particulate Molecules</text>
+    </svg>
+  </div>
+</section>
+
+<div class="footer"></div>
+
+<script src="../assets/core.js"></script>
+  <script src="../assets/glossary.js"></script>
+</body>
+</html>

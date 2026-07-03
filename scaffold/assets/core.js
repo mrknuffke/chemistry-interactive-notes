@@ -317,111 +317,1603 @@
     });
   })();
 
-  /* ---- glossary tooltips ---- */
+  /* ---- glossary term tooltips ---- */
   function initGlossaryTooltips() {
-    if (!window.GC_GLOSSARY) return;
+    if (typeof window.GC_GLOSSARY === 'undefined') return;
 
-    const card = document.createElement('div');
-    card.id = 'gc-tooltip';
-    card.className = 'gc-tooltip';
-    card.setAttribute('role', 'tooltip');
-    card.setAttribute('aria-hidden', 'true');
-    card.innerHTML =
-      '<div class="gc-tooltip-term"></div>' +
-      '<div class="gc-tooltip-def"></div>' +
-      '<div class="gc-tooltip-ex"></div>';
-    document.body.appendChild(card);
+    // Create the tooltip card dynamically and append to body
+    let tooltip = $('#gc-glossary-tooltip');
+    if (!tooltip) {
+      tooltip = document.createElement('div');
+      tooltip.id = 'gc-glossary-tooltip';
+      tooltip.className = 'gc-tooltip';
+      tooltip.setAttribute('role', 'tooltip');
+      tooltip.setAttribute('aria-hidden', 'true');
+      tooltip.innerHTML = `
+        <div class="gc-tooltip-term"></div>
+        <div class="gc-tooltip-definition"></div>
+        <div class="gc-tooltip-example"></div>
+      `;
+      document.body.appendChild(tooltip);
+    }
 
-    const termEl  = card.querySelector('.gc-tooltip-term');
-    const defEl   = card.querySelector('.gc-tooltip-def');
-    const exEl    = card.querySelector('.gc-tooltip-ex');
+    const termNameEl = $('.gc-tooltip-term', tooltip);
+    const defEl = $('.gc-tooltip-definition', tooltip);
+    const exEl = $('.gc-tooltip-example', tooltip);
 
-    let current = null;
+    let activeTerm = null;
+    let isTouch = false;
 
-    function toSlug(text) {
-      return text.toLowerCase()
-        .replace(/[^\w\s-]/g, '')
+    // Detect touch usage
+    window.addEventListener('touchstart', function onFirstTouch() {
+      isTouch = true;
+      window.removeEventListener('touchstart', onFirstTouch);
+    }, { passive: true });
+
+    // Normalize text helper to kebab-case
+    const getSlug = el => {
+      if (el.dataset.term) return el.dataset.term;
+      return el.textContent
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, '')
         .trim()
-        .replace(/[\s_]+/g, '-');
+        .replace(/\s+/g, '-');
+    };
+
+    // Position helper
+    function positionTooltip(termEl) {
+      const rect = termEl.getBoundingClientRect();
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const scrollLeft = window.scrollX || document.documentElement.scrollLeft;
+      
+      const tooltipWidth = tooltip.offsetWidth;
+      const tooltipHeight = tooltip.offsetHeight;
+      const viewportWidth = document.documentElement.clientWidth;
+      const padding = 12; // minimum boundary spacing
+
+      let clientLeft = rect.left + rect.width / 2 - tooltipWidth / 2;
+      let shift = 0;
+
+      if (clientLeft < padding) {
+        shift = padding - clientLeft;
+      } else if (clientLeft + tooltipWidth > viewportWidth - padding) {
+        shift = (viewportWidth - padding) - (clientLeft + tooltipWidth);
+      }
+
+      tooltip.style.left = `${clientLeft + shift + scrollLeft}px`;
+      tooltip.style.top = `${rect.top - tooltipHeight - 8 + scrollTop}px`; // 8px space for arrow/offset
+      
+      // Calculate arrow left position relative to tooltip width
+      let arrowLeft = tooltipWidth / 2 - shift;
+      // Clamp arrow to stay within the card bounds (avoid rounded corners)
+      arrowLeft = Math.max(12, Math.min(tooltipWidth - 12, arrowLeft));
+      tooltip.style.setProperty('--arrow-left', `${arrowLeft}px`);
     }
 
-    function hide() {
-      card.classList.remove('visible');
-      card.setAttribute('aria-hidden', 'true');
-      current = null;
-    }
-
-    function show(el) {
-      const slug = el.dataset.term || toSlug(el.textContent);
-      const entry = window.GC_GLOSSARY[slug];
-      if (!entry) return;
-
-      termEl.textContent = entry.term;
-      defEl.textContent  = entry.definition;
+    function showTooltip(termEl, entry) {
+      termNameEl.textContent = entry.term;
+      defEl.textContent = entry.definition;
       if (entry.example) {
-        exEl.textContent   = entry.example;
-        exEl.style.display = '';
+        exEl.textContent = entry.example;
+        exEl.style.display = 'block';
       } else {
         exEl.style.display = 'none';
       }
 
-      /* move off-screen so card is measurable before positioning */
-      card.style.left = '-9999px';
-      card.style.top  = '0px';
-      card.setAttribute('aria-hidden', 'false');
+      // Render hidden offscreen to measure dimensions first
+      tooltip.style.left = '-9999px';
+      tooltip.style.top = '-9999px';
+      tooltip.classList.add('visible');
+      tooltip.setAttribute('aria-hidden', 'false');
 
-      requestAnimationFrame(function () {
-        const r   = el.getBoundingClientRect();
-        const cw  = card.offsetWidth;
-        const ch  = card.offsetHeight;
-        const gap = 8;
-        const vw  = window.innerWidth;
-
-        let left = r.left + r.width / 2 - cw / 2;
-        let top  = r.top - ch - gap;
-
-        /* clamp horizontally; if too close to top, flip below the term */
-        left = Math.max(8, Math.min(left, vw - cw - 8));
-        if (top < 8) top = r.bottom + gap;
-
-        card.style.left = left + 'px';
-        card.style.top  = top  + 'px';
-        card.classList.add('visible');
-      });
-
-      current = el;
+      positionTooltip(termEl);
+      activeTerm = termEl;
     }
 
-    $$('strong.term').forEach(function (el) {
-      el.setAttribute('aria-describedby', 'gc-tooltip');
+    function hideTooltip() {
+      if (!activeTerm) return;
+      tooltip.classList.remove('visible');
+      tooltip.setAttribute('aria-hidden', 'true');
+      activeTerm = null;
+    }
 
-      /* desktop: hover */
-      el.addEventListener('mouseover',  function () { show(el); });
-      el.addEventListener('mouseleave', function () { hide(); });
+    // Attach event listeners to term elements
+    $$('strong.term').forEach(termEl => {
+      const slug = getSlug(termEl);
+      if (!window.GC_GLOSSARY[slug]) return;
 
-      /* touch: first tap shows, second tap (or outside) hides */
-      el.addEventListener('touchend', function (e) {
+      termEl.setAttribute('aria-describedby', 'gc-glossary-tooltip');
+      termEl.style.cursor = 'help';
+
+      // Hover triggers (ignored on touch devices)
+      termEl.addEventListener('mouseenter', () => {
+        if (isTouch) return;
+        showTooltip(termEl, window.GC_GLOSSARY[slug]);
+      });
+
+      termEl.addEventListener('mouseleave', () => {
+        if (isTouch) return;
+        hideTooltip();
+      });
+
+      // Click / Tap triggers
+      termEl.addEventListener('click', (e) => {
         e.stopPropagation();
-        if (current === el) {
-          hide();
+        if (activeTerm === termEl) {
+          hideTooltip();
         } else {
-          if (current) hide();
-          show(el);
-          e.preventDefault();
+          showTooltip(termEl, window.GC_GLOSSARY[slug]);
         }
       });
     });
 
-    /* escape key */
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && current) hide();
+    // Dismiss handlers
+    document.addEventListener('click', (e) => {
+      if (activeTerm && !activeTerm.contains(e.target) && !tooltip.contains(e.target)) {
+        hideTooltip();
+      }
     });
 
-    /* tap anywhere outside to dismiss */
-    document.addEventListener('touchend', function () {
-      if (current) hide();
-    }, { passive: true });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        hideTooltip();
+      }
+    });
+
+    // Update positions on resize
+    window.addEventListener('resize', () => {
+      if (activeTerm) {
+        positionTooltip(activeTerm);
+      }
+    });
   }
 
-  document.addEventListener('DOMContentLoaded', initGlossaryTooltips);
+  /* ============================================================
+     WIDGET FRAMEWORK — DYNAMIC COMPONENT INITIALIZATION
+     ============================================================ */
+
+  function initWidgets() {
+    $$('[data-widget]').forEach((el, idx) => {
+      if (el.dataset.wInitialized) return;
+      el.dataset.wInitialized = 'true';
+
+      const configEl = $('.w-config', el);
+      if (!configEl) return;
+      let config = {};
+      try {
+        config = JSON.parse(configEl.textContent);
+      } catch (e) {
+        console.error('Invalid JSON config for widget:', el, e);
+        return;
+      }
+
+      const type = el.dataset.widget;
+      if (type === 'commit-reveal') {
+        initCommitReveal(el, config, idx);
+      } else if (type === 'faded-example') {
+        initFadedExample(el, config, idx);
+      } else if (type === 'scaffold') {
+        initScaffold(el, config, idx);
+      } else if (type === 'step-builder') {
+        initStepBuilder(el, config, idx);
+      }
+    });
+  }
+
+  // --- Helpers for Controls & Reset ---
+  function createWidgetControls(el, onCheck, onReset) {
+    const controls = document.createElement('div');
+    controls.className = 'w-controls';
+    controls.innerHTML = `
+      <div class="w-feedback" role="status" aria-live="polite"></div>
+      <div class="w-buttons">
+        <button class="w-btn w-btn-check" type="button">Check</button>
+        <button class="w-btn w-btn-reset" type="button" style="display: none;">Reset</button>
+      </div>
+    `;
+    el.appendChild(controls);
+
+    const checkBtn = $('.w-btn-check', controls);
+    const resetBtn = $('.w-btn-reset', controls);
+    const feedback = $('.w-feedback', controls);
+
+    checkBtn.addEventListener('click', () => onCheck(checkBtn, resetBtn, feedback));
+    resetBtn.addEventListener('click', () => {
+      onReset(checkBtn, resetBtn, feedback);
+      resetBtn.style.display = 'none';
+      checkBtn.style.display = '';
+      feedback.textContent = '';
+      feedback.className = 'w-feedback';
+    });
+
+    return { checkBtn, resetBtn, feedback };
+  }
+
+  // --- 1. Commit-Reveal Widget ---
+  function initCommitReveal(el, config, widgetIdx) {
+    const mode = config.mode || 'choice';
+    
+    // Create prompt
+    const promptDiv = document.createElement('div');
+    promptDiv.className = 'w-prompt';
+    promptDiv.innerHTML = config.prompt || '';
+    el.appendChild(promptDiv);
+
+    // Create workspace
+    const workspace = document.createElement('div');
+    workspace.className = 'w-workspace';
+    el.appendChild(workspace);
+
+    // Create reveal area
+    const revealArea = document.createElement('div');
+    revealArea.className = 'w-reveal-area';
+    revealArea.style.display = 'none';
+    el.appendChild(revealArea);
+
+    let state = {
+      selectedOptIdx: null,
+      drillIdx: 0,
+      drillCorrectCount: 0,
+      drillAnswers: [] // tracks first-try success per drill item
+    };
+
+    if (mode === 'choice') {
+      const grid = document.createElement('div');
+      grid.className = 'w-options-grid';
+      config.options.forEach((opt, oIdx) => {
+        const btn = document.createElement('button');
+        btn.className = 'w-opt';
+        btn.type = 'button';
+        btn.innerHTML = opt.label;
+        btn.addEventListener('click', () => {
+          if (el.dataset.committed === 'true') return;
+          $$('.w-opt', grid).forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          state.selectedOptIdx = oIdx;
+          checkBtn.removeAttribute('disabled');
+        });
+        grid.appendChild(btn);
+      });
+      workspace.appendChild(grid);
+
+      const { checkBtn, resetBtn, feedback } = createWidgetControls(el, 
+        // onCheck
+        (cBtn, rBtn, fb) => {
+          if (state.selectedOptIdx === null) return;
+          el.dataset.committed = 'true';
+          cBtn.style.display = 'none';
+          rBtn.style.display = '';
+
+          const chosen = config.options[state.selectedOptIdx];
+          const opts = $$('.w-opt', grid);
+          opts.forEach(o => o.setAttribute('disabled', 'true'));
+
+          opts[state.selectedOptIdx].classList.add(chosen.correct ? 'correct' : 'wrong');
+          
+          // Highlight correct one in green
+          config.options.forEach((opt, oIdx) => {
+            if (opt.correct) opts[oIdx].classList.add('correct');
+          });
+
+          fb.innerHTML = chosen.feedback;
+          fb.className = 'w-feedback ' + (chosen.correct ? 'correct' : 'wrong');
+
+          if (config.reveal) {
+            revealArea.innerHTML = config.reveal;
+            revealArea.style.display = 'block';
+            revealArea.classList.add('show');
+            initWidgets();
+            initMotionPrimitives();
+          }
+          markCheckpointCompleted('commit-reveal', widgetIdx);
+        },
+        // onReset
+        (cBtn, rBtn, fb) => {
+          el.removeAttribute('data-committed');
+          state.selectedOptIdx = null;
+          const opts = $$('.w-opt', grid);
+          opts.forEach(o => {
+            o.removeAttribute('disabled');
+            o.classList.remove('selected', 'correct', 'wrong');
+          });
+          cBtn.setAttribute('disabled', 'true');
+          revealArea.style.display = 'none';
+          revealArea.classList.remove('show');
+          revealArea.innerHTML = '';
+        }
+      );
+      checkBtn.setAttribute('disabled', 'true');
+
+    } else if (mode === 'free') {
+      const textarea = document.createElement('textarea');
+      textarea.className = 'w-textarea';
+      textarea.placeholder = 'Write your answer first — even a rough one...';
+      workspace.appendChild(textarea);
+
+      const minChars = config.minChars || 25;
+      const counter = document.createElement('div');
+      counter.className = 'w-char-count';
+      counter.textContent = `0 / ${minChars} characters`;
+      workspace.appendChild(counter);
+
+      textarea.addEventListener('input', () => {
+        const len = textarea.value.trim().length;
+        counter.textContent = `${len} / ${minChars} characters`;
+        if (len >= minChars) {
+          checkBtn.removeAttribute('disabled');
+        } else {
+          checkBtn.setAttribute('disabled', 'true');
+        }
+      });
+
+      const { checkBtn, resetBtn, feedback } = createWidgetControls(el,
+        // onCheck
+        (cBtn, rBtn, fb) => {
+          textarea.setAttribute('disabled', 'true');
+          cBtn.style.display = 'none';
+          rBtn.style.display = '';
+          fb.textContent = 'Excellent. Now compare your self-explanation with the model below.';
+          fb.className = 'w-feedback correct';
+
+          if (config.reveal) {
+            revealArea.innerHTML = `<h4>Model Answer</h4><p>${config.reveal}</p>`;
+            revealArea.style.display = 'block';
+            revealArea.classList.add('show');
+            initWidgets();
+            initMotionPrimitives();
+          }
+          markCheckpointCompleted('commit-reveal', widgetIdx);
+        },
+        // onReset
+        (cBtn, rBtn, fb) => {
+          textarea.removeAttribute('disabled');
+          textarea.value = '';
+          counter.textContent = `0 / ${minChars} characters`;
+          cBtn.setAttribute('disabled', 'true');
+          revealArea.style.display = 'none';
+          revealArea.classList.remove('show');
+          revealArea.innerHTML = '';
+        }
+      );
+      checkBtn.textContent = 'Compare with model';
+      checkBtn.setAttribute('disabled', 'true');
+
+    } else if (mode === 'drill') {
+      // Classification drill sequence
+      const status = document.createElement('div');
+      status.className = 'w-drill-status';
+      status.innerHTML = `
+        <span class="w-drill-progress">Item 1 of ${config.items.length}</span>
+        <span class="w-drill-score">Score: 0 / 0</span>
+      `;
+      workspace.insertBefore(status, workspace.firstChild);
+
+      const qBox = document.createElement('div');
+      qBox.className = 'w-drill-question';
+      workspace.appendChild(qBox);
+
+      const grid = document.createElement('div');
+      grid.className = 'w-options-grid';
+      workspace.appendChild(grid);
+
+      const progressEl = $('.w-drill-progress', status);
+      const scoreEl = $('.w-drill-score', status);
+
+      const renderDrillItem = () => {
+        const item = config.items[state.drillIdx];
+        progressEl.textContent = `Item ${state.drillIdx + 1} of ${config.items.length}`;
+        qBox.innerHTML = `<p>${item.prompt}</p>`;
+        grid.innerHTML = '';
+        state.selectedOptIdx = null;
+        state.drillAnswers[state.drillIdx] = { attempts: 0, firstTryCorrect: false };
+
+        item.options.forEach((opt, oIdx) => {
+          const btn = document.createElement('button');
+          btn.className = 'w-opt';
+          btn.type = 'button';
+          btn.innerHTML = opt.label;
+          btn.addEventListener('click', () => {
+            if (state.selectedOptIdx !== null) return; // already answered correct
+            state.drillAnswers[state.drillIdx].attempts++;
+            const ok = opt.correct;
+            
+            btn.classList.add(ok ? 'correct' : 'wrong');
+            feedback.innerHTML = opt.feedback;
+            feedback.className = 'w-feedback ' + (ok ? 'correct' : 'wrong');
+
+            if (ok) {
+              state.selectedOptIdx = oIdx;
+              if (state.drillAnswers[state.drillIdx].attempts === 1) {
+                state.drillAnswers[state.drillIdx].firstTryCorrect = true;
+                state.drillCorrectCount++;
+              }
+              // disable other choices
+              $$('.w-opt', grid).forEach(b => b.setAttribute('disabled', 'true'));
+              // update score display
+              scoreEl.textContent = `Score: ${state.drillCorrectCount} / ${state.drillIdx + 1}`;
+
+              // check if last
+              if (state.drillIdx < config.items.length - 1) {
+                checkBtn.style.display = '';
+                checkBtn.textContent = 'Next';
+              } else {
+                checkBtn.style.display = 'none';
+                resetBtn.style.display = '';
+                feedback.textContent = `Completed! Final score: ${state.drillCorrectCount} / ${config.items.length}`;
+                if (config.reveal) {
+                  revealArea.innerHTML = config.reveal;
+                  revealArea.style.display = 'block';
+                  revealArea.classList.add('show');
+                  initWidgets();
+                  initMotionPrimitives();
+                }
+                markCheckpointCompleted('commit-reveal', widgetIdx);
+              }
+            } else {
+              // wrong
+              btn.setAttribute('disabled', 'true');
+              scoreEl.textContent = `Score: ${state.drillCorrectCount} / ${state.drillIdx + 1}`;
+            }
+          });
+          grid.appendChild(btn);
+        });
+      };
+
+      const { checkBtn, resetBtn, feedback } = createWidgetControls(el,
+        // onCheck (acting as "Next" button here)
+        (cBtn, rBtn, fb) => {
+          state.drillIdx++;
+          cBtn.style.display = 'none';
+          fb.textContent = '';
+          fb.className = 'w-feedback';
+          renderDrillItem();
+        },
+        // onReset
+        (cBtn, rBtn, fb) => {
+          state.drillIdx = 0;
+          state.drillCorrectCount = 0;
+          state.drillAnswers = [];
+          scoreEl.textContent = 'Score: 0 / 0';
+          revealArea.style.display = 'none';
+          revealArea.classList.remove('show');
+          revealArea.innerHTML = '';
+          renderDrillItem();
+        }
+      );
+      checkBtn.style.display = 'none'; // hidden initially, shown when step completes
+      renderDrillItem();
+    }
+  }
+
+  // --- 2. Faded Worked Example Widget ---
+  function initFadedExample(el, config, widgetIdx) {
+    const layout = document.createElement('div');
+    layout.className = 'faded-layout';
+    
+    // Model panel
+    const modelPanel = document.createElement('div');
+    modelPanel.className = 'faded-panel faded-model';
+    modelPanel.innerHTML = `<h3>${config.model.title}</h3>`;
+    const modelSteps = document.createElement('ol');
+    modelSteps.className = 'faded-steps';
+    config.model.steps.forEach(step => {
+      const li = document.createElement('li');
+      li.innerHTML = `
+        <span class="step-label">${step.label}</span>
+        <div class="step-work">${step.work}</div>
+        <div class="step-why">${step.why}</div>
+      `;
+      modelSteps.appendChild(li);
+    });
+    modelPanel.appendChild(modelSteps);
+
+    // Mobile wrapper for model
+    const mobileCollapsible = document.createElement('details');
+    mobileCollapsible.className = 'faded-model-collapsible';
+    mobileCollapsible.innerHTML = `<summary>Show Worked Example</summary>`;
+    
+    // Yours panel
+    const yoursPanel = document.createElement('div');
+    yoursPanel.className = 'faded-panel faded-yours';
+    yoursPanel.innerHTML = `<h3>${config.yours.title}</h3>`;
+    const yoursSteps = document.createElement('ol');
+    yoursSteps.className = 'faded-steps';
+    yoursPanel.appendChild(yoursSteps);
+
+    mobileCollapsible.appendChild(modelPanel);
+    layout.appendChild(mobileCollapsible);
+    layout.appendChild(yoursPanel);
+    el.appendChild(layout);
+
+    let blanksData = [];
+
+    config.yours.steps.forEach((step, sIdx) => {
+      const li = document.createElement('li');
+      const label = `<span class="step-label">${step.label}</span>`;
+      
+      if (step.given) {
+        li.innerHTML = `${label}<div class="step-work">${step.given}</div>`;
+      } else if (step.blank) {
+        const blank = step.blank;
+        const bIdx = blanksData.length;
+        blanksData.push({
+          config: blank,
+          attempts: 0,
+          resolved: false,
+          stepIdx: sIdx
+        });
+
+        let inputHtml = '';
+        if (blank.type === 'numeric' || blank.type === 'text') {
+          inputHtml = `<input class="w-blank-input" type="text" placeholder="${blank.prompt || ''}" data-blank-idx="${bIdx}">`;
+        } else if (blank.type === 'choice') {
+          inputHtml = `<div class="w-blank-choices" data-blank-idx="${bIdx}">`;
+          blank.options.forEach(opt => {
+            inputHtml += `<button class="w-blank-opt" type="button">${opt}</button>`;
+          });
+          inputHtml += `</div>`;
+        }
+
+        const checkBtnHtml = config.yours.checkMode === 'all' ? '' : `<button class="w-step-check-btn" type="button" data-blank-idx="${bIdx}">Check</button>`;
+
+        li.innerHTML = `
+          ${label}
+          <div class="step-work">
+            ${inputHtml}
+            ${checkBtnHtml}
+            <div class="w-step-feedback" id="fb-${widgetIdx}-${bIdx}" role="status" aria-live="polite"></div>
+          </div>
+        `;
+
+        if (blank.type === 'choice') {
+          setTimeout(() => {
+            const container = li.querySelector('.w-blank-choices');
+            const opts = container.querySelectorAll('.w-blank-opt');
+            opts.forEach(btn => btn.addEventListener('click', () => {
+              if (blanksData[bIdx].resolved) return;
+              opts.forEach(b => b.classList.remove('selected'));
+              btn.classList.add('selected');
+            }));
+          }, 0);
+        }
+      }
+      yoursSteps.appendChild(li);
+    });
+
+    const evalBlank = (bIdx, inputVal, elementToStyle, feedbackEl, afterResolve) => {
+      const data = blanksData[bIdx];
+      const blank = data.config;
+      let correct = false;
+
+      if (blank.type === 'numeric') {
+        const val = parseFloat(inputVal);
+        if (!isNaN(val)) {
+          correct = Math.abs(val - blank.answer) <= (blank.tol || 0.001);
+        }
+      } else if (blank.type === 'text') {
+        const normVal = inputVal.trim().toLowerCase();
+        const answers = Array.isArray(blank.answer) ? blank.answer : [blank.answer];
+        correct = answers.map(a => a.trim().toLowerCase()).includes(normVal);
+      } else if (blank.type === 'choice') {
+        correct = (inputVal === blank.answer);
+      }
+
+      data.attempts++;
+      feedbackEl.className = 'w-step-feedback';
+
+      if (correct) {
+        data.resolved = true;
+        elementToStyle.classList.add('correct');
+        elementToStyle.classList.remove('wrong');
+        elementToStyle.setAttribute('disabled', 'true');
+        feedbackEl.innerHTML = blank.feedback_right || 'Correct!';
+        feedbackEl.classList.add('correct');
+        if (afterResolve) afterResolve(true);
+      } else {
+        elementToStyle.classList.add('wrong');
+        feedbackEl.innerHTML = blank.feedback_wrong || 'Incorrect. Try again.';
+        feedbackEl.classList.add('wrong');
+        
+        if (data.attempts >= 3) {
+          data.resolved = true;
+          elementToStyle.classList.remove('wrong');
+          elementToStyle.classList.add('correct');
+          elementToStyle.setAttribute('disabled', 'true');
+          
+          if (blank.type === 'numeric' || blank.type === 'text') {
+            elementToStyle.value = Array.isArray(blank.answer) ? blank.answer[0] : blank.answer;
+          } else if (blank.type === 'choice') {
+            const opts = elementToStyle.querySelectorAll('.w-blank-opt');
+            opts.forEach(o => {
+              o.setAttribute('disabled', 'true');
+              if (o.textContent === blank.answer) o.classList.add('correct');
+            });
+          }
+          feedbackEl.innerHTML = `${blank.feedback_wrong} (Correct answer: ${Array.isArray(blank.answer) ? blank.answer[0] : blank.answer})`;
+          feedbackEl.className = 'w-step-feedback correct';
+          if (afterResolve) afterResolve(true);
+        } else {
+          if (afterResolve) afterResolve(false);
+        }
+      }
+    };
+
+    if (config.yours.checkMode !== 'all') {
+      setTimeout(() => {
+        el.querySelectorAll('.w-step-check-btn').forEach(btn => {
+          const bIdx = parseInt(btn.dataset.blankIdx);
+          const parent = btn.closest('.step-work');
+          const feedbackEl = parent.querySelector('.w-step-feedback');
+          
+          btn.addEventListener('click', () => {
+            const blank = blanksData[bIdx].config;
+            let val = '';
+            let styleTarget = null;
+            
+            if (blank.type === 'numeric' || blank.type === 'text') {
+              styleTarget = parent.querySelector('.w-blank-input');
+              val = styleTarget.value;
+            } else if (blank.type === 'choice') {
+              styleTarget = parent.querySelector('.w-blank-choices');
+              const selected = styleTarget.querySelector('.w-blank-opt.selected');
+              val = selected ? selected.textContent : '';
+            }
+
+            evalBlank(bIdx, val, styleTarget, feedbackEl, (resolved) => {
+              if (resolved) {
+                btn.style.display = 'none';
+              }
+              if (blanksData.every(b => b.resolved)) {
+                markCheckpointCompleted('faded-example', widgetIdx);
+                const resetBtn = el.querySelector('.w-btn-reset');
+                if (resetBtn) resetBtn.style.display = '';
+              }
+            });
+          });
+        });
+      }, 0);
+    }
+
+    const { checkBtn, resetBtn, feedback } = createWidgetControls(el,
+      (cBtn, rBtn, fb) => {
+        let allCorrect = true;
+        blanksData.forEach((data, bIdx) => {
+          if (data.resolved) return;
+          const blank = data.config;
+          const li = yoursSteps.children[data.stepIdx];
+          const feedbackEl = li.querySelector('.w-step-feedback');
+          let val = '';
+          let styleTarget = null;
+
+          if (blank.type === 'numeric' || blank.type === 'text') {
+            styleTarget = li.querySelector('.w-blank-input');
+            val = styleTarget.value;
+          } else if (blank.type === 'choice') {
+            styleTarget = li.querySelector('.w-blank-choices');
+            const selected = styleTarget.querySelector('.w-blank-opt.selected');
+            val = selected ? selected.textContent : '';
+          }
+
+          evalBlank(bIdx, val, styleTarget, feedbackEl, (resolved) => {
+            if (!resolved) allCorrect = false;
+          });
+        });
+
+        if (blanksData.every(b => b.resolved)) {
+          cBtn.style.display = 'none';
+          rBtn.style.display = '';
+          fb.textContent = 'All steps resolved.';
+          fb.className = 'w-feedback correct';
+          markCheckpointCompleted('faded-example', widgetIdx);
+        } else {
+          fb.textContent = 'Some steps need correction. Keep trying!';
+          fb.className = 'w-feedback wrong';
+        }
+      },
+      (cBtn, rBtn, fb) => {
+        blanksData.forEach(data => {
+          data.attempts = 0;
+          data.resolved = false;
+          const li = yoursSteps.children[data.stepIdx];
+          const feedbackEl = li.querySelector('.w-step-feedback');
+          if (feedbackEl) {
+            feedbackEl.textContent = '';
+            feedbackEl.className = 'w-step-feedback';
+          }
+          const checkBtn = li.querySelector('.w-step-check-btn');
+          if (checkBtn) checkBtn.style.display = '';
+
+          const input = li.querySelector('.w-blank-input');
+          if (input) {
+            input.value = '';
+            input.removeAttribute('disabled');
+            input.className = 'w-blank-input';
+          }
+          const choiceContainer = li.querySelector('.w-blank-choices');
+          if (choiceContainer) {
+            choiceContainer.removeAttribute('disabled');
+            const opts = choiceContainer.querySelectorAll('.w-blank-opt');
+            opts.forEach(o => {
+              o.removeAttribute('disabled');
+              o.classList.remove('selected', 'correct', 'wrong');
+            });
+          }
+        });
+        if (config.yours.checkMode === 'all') {
+          cBtn.style.display = '';
+        }
+      }
+    );
+
+    if (config.yours.checkMode !== 'all') {
+      checkBtn.style.display = 'none';
+    }
+  }
+
+  // --- 3. Fillable Scaffold Widget ---
+  function initScaffold(el, config, widgetIdx) {
+    const mode = config.mode || 'free';
+
+    const workspace = document.createElement('div');
+    workspace.className = 'w-workspace';
+    el.appendChild(workspace);
+
+    if (mode === 'bank') {
+      const bankDiv = document.createElement('div');
+      bankDiv.className = 'w-bank';
+      bankDiv.setAttribute('role', 'list');
+      bankDiv.setAttribute('aria-label', 'Statement bank');
+      workspace.appendChild(bankDiv);
+
+      const slotsContainer = document.createElement('div');
+      slotsContainer.className = 'w-slots';
+      workspace.appendChild(slotsContainer);
+
+      let activeCardIdx = null;
+      let slotAssignments = {};
+
+      const renderBank = () => {
+        bankDiv.innerHTML = '';
+        config.bank.forEach((item, cIdx) => {
+          if (Object.values(slotAssignments).includes(cIdx)) return;
+
+          const card = document.createElement('div');
+          card.className = 'w-card';
+          card.textContent = item.text;
+          card.setAttribute('role', 'listitem');
+          card.setAttribute('tabindex', '0');
+          if (activeCardIdx === cIdx) card.classList.add('selected');
+
+          card.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (activeCardIdx === cIdx) {
+              card.classList.remove('selected');
+              activeCardIdx = null;
+            } else {
+              $$('.w-card', bankDiv).forEach(c => c.classList.remove('selected'));
+              card.classList.add('selected');
+              activeCardIdx = cIdx;
+            }
+          });
+          bankDiv.appendChild(card);
+        });
+      };
+
+      const renderSlots = () => {
+        slotsContainer.innerHTML = '';
+        config.slots.forEach((slot, sIdx) => {
+          if (sIdx > 0 && config.chain) {
+            const arrow = document.createElement('div');
+            arrow.innerHTML = `<svg class="w-chain-arrow" viewBox="0 0 24 24"><path d="M12 4v16m0 0l-4-4m4 4l4-4" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>`;
+            slotsContainer.appendChild(arrow);
+          }
+
+          const row = document.createElement('div');
+          row.className = 'w-slot-row';
+
+          const label = document.createElement('span');
+          label.className = 'w-slot-label';
+          label.textContent = slot.label;
+          row.appendChild(label);
+
+          const slotBox = document.createElement('div');
+          slotBox.className = 'w-slot';
+          slotBox.setAttribute('role', 'region');
+          slotBox.setAttribute('aria-label', `Target slot for ${slot.label}`);
+          
+          const assignedCardIdx = slotAssignments[slot.id];
+          if (assignedCardIdx !== undefined && assignedCardIdx !== null) {
+            slotBox.textContent = config.bank[assignedCardIdx].text;
+            slotBox.style.cursor = 'pointer';
+            slotBox.addEventListener('click', () => {
+              if (el.dataset.committed === 'true') return;
+              delete slotAssignments[slot.id];
+              renderBank();
+              renderSlots();
+            });
+          } else {
+            slotBox.innerHTML = '<span style="color:var(--ink-mute); font-style:italic; font-size:0.9rem;">Tap a card, then tap here to place</span>';
+            slotBox.addEventListener('click', () => {
+              if (el.dataset.committed === 'true') return;
+              if (activeCardIdx !== null) {
+                Object.keys(slotAssignments).forEach(key => {
+                  if (slotAssignments[key] === activeCardIdx) delete slotAssignments[key];
+                });
+                slotAssignments[slot.id] = activeCardIdx;
+                activeCardIdx = null;
+                renderBank();
+                renderSlots();
+              }
+            });
+          }
+
+          row.appendChild(slotBox);
+          slotsContainer.appendChild(row);
+        });
+      };
+
+      const { checkBtn, resetBtn, feedback } = createWidgetControls(el,
+        (cBtn, rBtn, fb) => {
+          const filled = config.slots.every(slot => slotAssignments[slot.id] !== undefined);
+          if (!filled) {
+            fb.textContent = 'Place all statements before checking.';
+            fb.className = 'w-feedback wrong';
+            return;
+          }
+
+          el.dataset.committed = 'true';
+          cBtn.style.display = 'none';
+          rBtn.style.display = '';
+
+          let correctCount = 0;
+          config.slots.forEach((slot, sIdx) => {
+            const cardIdx = slotAssignments[slot.id];
+            const card = config.bank[cardIdx];
+            const isCorrect = (card.slot === slot.id);
+            const slotEl = slotsContainer.querySelectorAll('.w-slot')[sIdx];
+            
+            if (isCorrect) {
+              slotEl.classList.add('correct');
+              correctCount++;
+            } else {
+              slotEl.classList.add('wrong');
+              fb.innerHTML = card.feedback || 'This statement belongs elsewhere.';
+              fb.className = 'w-feedback wrong';
+              setTimeout(() => {
+                if (slotEl) {
+                  delete slotAssignments[slot.id];
+                  slotEl.classList.remove('wrong');
+                  renderBank();
+                  renderSlots();
+                  rBtn.style.display = 'none';
+                  cBtn.style.display = '';
+                  el.removeAttribute('data-committed');
+                }
+              }, 2500);
+            }
+          });
+
+          if (correctCount === config.slots.length) {
+            fb.textContent = 'All statements placed correctly!';
+            fb.className = 'w-feedback correct';
+            markCheckpointCompleted('scaffold', widgetIdx);
+          }
+        },
+        (cBtn, rBtn, fb) => {
+          el.removeAttribute('data-committed');
+          activeCardIdx = null;
+          slotAssignments = {};
+          renderBank();
+          renderSlots();
+        }
+      );
+
+      renderBank();
+      renderSlots();
+
+    } else if (mode === 'free') {
+      const slotsContainer = document.createElement('div');
+      slotsContainer.className = 'w-slots';
+      workspace.appendChild(slotsContainer);
+
+      config.slots.forEach((slot, sIdx) => {
+        const item = document.createElement('div');
+        item.className = 'w-scaffold-free-slot';
+        item.innerHTML = `
+          <label>${slot.label}</label>
+          <textarea class="w-textarea" placeholder="Write your explanation segment..."></textarea>
+          <div class="w-reveal-area" style="display: none;"></div>
+        `;
+        slotsContainer.appendChild(item);
+      });
+
+      const textareas = $$('.w-textarea', slotsContainer);
+
+      const { checkBtn, resetBtn, feedback } = createWidgetControls(el,
+        (cBtn, rBtn, fb) => {
+          let filled = true;
+          textareas.forEach(ta => {
+            if (ta.value.trim().length < 10) filled = false;
+          });
+          if (!filled) {
+            fb.textContent = 'Write a complete response in all boxes before comparing.';
+            fb.className = 'w-feedback wrong';
+            return;
+          }
+
+          cBtn.style.display = 'none';
+          rBtn.style.display = '';
+          fb.textContent = 'Excellent. Compare each of your points with the model answers shown below.';
+          fb.className = 'w-feedback correct';
+
+          config.slots.forEach((slot, sIdx) => {
+            const ta = textareas[sIdx];
+            ta.setAttribute('disabled', 'true');
+            const reveal = ta.nextElementSibling;
+            reveal.innerHTML = `<h4>Model Answer</h4><p>${slot.model}</p>`;
+            reveal.style.display = 'block';
+            reveal.classList.add('show');
+          });
+          markCheckpointCompleted('scaffold', widgetIdx);
+        },
+        (cBtn, rBtn, fb) => {
+          textareas.forEach(ta => {
+            ta.removeAttribute('disabled');
+            ta.value = '';
+            const reveal = ta.nextElementSibling;
+            reveal.style.display = 'none';
+            reveal.classList.remove('show');
+            reveal.innerHTML = '';
+          });
+        }
+      );
+      checkBtn.textContent = 'Compare with model';
+
+    } else if (mode === 'table') {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'w-table-wrapper';
+      
+      const tbl = document.createElement('table');
+      tbl.className = 'w-table';
+      wrapper.appendChild(tbl);
+      workspace.appendChild(wrapper);
+
+      const thead = document.createElement('thead');
+      const headerRow = document.createElement('tr');
+      config.table.headers.forEach(h => {
+        headerRow.innerHTML += `<th>${h}</th>`;
+      });
+      thead.appendChild(headerRow);
+      tbl.appendChild(thead);
+
+      const tbody = document.createElement('tbody');
+      tbl.appendChild(tbody);
+
+      let tableBlanks = [];
+
+      config.table.rows.forEach((row, rIdx) => {
+        const tr = document.createElement('tr');
+        row.forEach((cell, cIdx) => {
+          const td = document.createElement('td');
+          if (cell.given !== undefined) {
+            td.innerHTML = cell.given;
+          } else if (cell.blank) {
+            const bIdx = tableBlanks.length;
+            tableBlanks.push({
+              config: cell.blank,
+              attempts: 0,
+              resolved: false,
+              tdElement: td
+            });
+            td.innerHTML = `<input class="w-blank-input" type="text" style="width: 100%;" data-tbl-blank-idx="${bIdx}">`;
+          }
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+
+      const { checkBtn, resetBtn, feedback } = createWidgetControls(el,
+        (cBtn, rBtn, fb) => {
+          let allCorrect = true;
+          tableBlanks.forEach((data, bIdx) => {
+            if (data.resolved) return;
+            const blank = data.config;
+            const input = data.tdElement.querySelector('.w-blank-input');
+            const val = input.value;
+            let correct = false;
+
+            if (blank.type === 'numeric') {
+              const fVal = parseFloat(val);
+              if (!isNaN(fVal)) {
+                correct = Math.abs(fVal - blank.answer) <= (blank.tol || 0.001);
+              }
+            } else if (blank.type === 'text') {
+              const normVal = val.trim().toLowerCase();
+              const answers = Array.isArray(blank.answer) ? blank.answer : [blank.answer];
+              correct = answers.map(a => a.trim().toLowerCase()).includes(normVal);
+            }
+
+            data.attempts++;
+            input.className = 'w-blank-input';
+
+            if (correct) {
+              data.resolved = true;
+              input.classList.add('correct');
+              input.setAttribute('disabled', 'true');
+            } else {
+              input.classList.add('wrong');
+              allCorrect = false;
+
+              if (data.attempts >= 3) {
+                data.resolved = true;
+                input.classList.remove('wrong');
+                input.classList.add('correct');
+                input.setAttribute('disabled', 'true');
+                input.value = Array.isArray(blank.answer) ? blank.answer[0] : blank.answer;
+              }
+            }
+          });
+
+          if (tableBlanks.every(b => b.resolved)) {
+            cBtn.style.display = 'none';
+            rBtn.style.display = '';
+            fb.textContent = 'Table complete!';
+            fb.className = 'w-feedback correct';
+            markCheckpointCompleted('scaffold', widgetIdx);
+          } else {
+            fb.textContent = 'Correct the highlighted cells and try again.';
+            fb.className = 'w-feedback wrong';
+          }
+        },
+        (cBtn, rBtn, fb) => {
+          tableBlanks.forEach(data => {
+            data.attempts = 0;
+            data.resolved = false;
+            const input = data.tdElement.querySelector('.w-blank-input');
+            input.value = '';
+            input.removeAttribute('disabled');
+            input.className = 'w-blank-input';
+          });
+        }
+      );
+    }
+  }
+
+  // --- 4. Step-Through Builder Widget ---
+  function initStepBuilder(el, config, widgetIdx) {
+    const workspace = document.createElement('div');
+    workspace.className = 'w-workspace';
+    el.appendChild(workspace);
+
+    const qBox = document.createElement('div');
+    qBox.className = 'w-step-builder-prompt';
+    workspace.appendChild(qBox);
+
+    const grid = document.createElement('div');
+    grid.className = 'w-options-grid';
+    workspace.appendChild(grid);
+
+    const revealArea = document.createElement('div');
+    revealArea.className = 'w-reveal-area';
+    revealArea.style.display = 'none';
+    el.appendChild(revealArea);
+
+    let currentStep = 0;
+    let attempts = 0;
+
+    const svgContainer = config.diagramId ? document.getElementById(config.diagramId) : el.closest('section').querySelector('.diagram');
+    const updateSVGState = (stateId) => {
+      if (!svgContainer) return;
+      const layers = svgContainer.querySelectorAll('[data-step], .svg-step-layer');
+      layers.forEach(l => {
+        l.style.display = 'none';
+        l.style.opacity = '0';
+      });
+
+      if (stateId) {
+        const target = svgContainer.querySelector(`#${stateId}`) || svgContainer.querySelector(`.${stateId}`);
+        if (target) {
+          target.style.display = '';
+          target.style.opacity = '1';
+        }
+      }
+    };
+
+    const renderStep = () => {
+      const step = config.steps[currentStep];
+      updateSVGState(step.state);
+      attempts = 0;
+
+      qBox.innerHTML = `
+        <div class="w-drill-status">
+          <span class="w-drill-progress">Step ${currentStep + 1} of ${config.steps.length}</span>
+        </div>
+        <p>${step.question}</p>
+      `;
+
+      grid.innerHTML = '';
+      step.options.forEach((opt, oIdx) => {
+        const btn = document.createElement('button');
+        btn.className = 'w-opt';
+        btn.type = 'button';
+        btn.innerHTML = opt.label;
+        btn.addEventListener('click', () => {
+          const ok = opt.correct;
+          btn.className = 'w-opt';
+          
+          if (ok) {
+            btn.classList.add('correct');
+            feedback.innerHTML = opt.feedback || 'Correct!';
+            feedback.className = 'w-feedback correct';
+            $$('.w-opt', grid).forEach(b => b.setAttribute('disabled', 'true'));
+            
+            if (currentStep < config.steps.length - 1) {
+              checkBtn.style.display = '';
+              checkBtn.textContent = 'Continue';
+            } else {
+              checkBtn.style.display = 'none';
+              resetBtn.style.display = '';
+              if (config.finale) {
+                revealArea.innerHTML = config.finale;
+                revealArea.style.display = 'block';
+                revealArea.classList.add('show');
+              }
+              markCheckpointCompleted('step-builder', widgetIdx);
+            }
+          } else {
+            btn.classList.add('wrong');
+            feedback.innerHTML = opt.feedback;
+            feedback.className = 'w-feedback wrong';
+            attempts++;
+
+            if (attempts >= 2) {
+              step.options.forEach((o, idx) => {
+                if (o.correct) {
+                  grid.children[idx].classList.add('correct');
+                  feedback.innerHTML = `${opt.feedback} Let's move forward.`;
+                  feedback.className = 'w-feedback correct';
+                }
+              });
+              $$('.w-opt', grid).forEach(b => b.setAttribute('disabled', 'true'));
+              
+              if (currentStep < config.steps.length - 1) {
+                checkBtn.style.display = '';
+                checkBtn.textContent = 'Continue';
+              } else {
+                checkBtn.style.display = 'none';
+                resetBtn.style.display = '';
+                if (config.finale) {
+                  revealArea.innerHTML = config.finale;
+                  revealArea.style.display = 'block';
+                  revealArea.classList.add('show');
+                }
+                markCheckpointCompleted('step-builder', widgetIdx);
+              }
+            }
+          }
+        });
+        grid.appendChild(btn);
+      });
+    };
+
+    const { checkBtn, resetBtn, feedback } = createWidgetControls(el,
+      (cBtn, rBtn, fb) => {
+        currentStep++;
+        cBtn.style.display = 'none';
+        fb.textContent = '';
+        fb.className = 'w-feedback';
+        renderStep();
+      },
+      (cBtn, rBtn, fb) => {
+        currentStep = 0;
+        attempts = 0;
+        revealArea.style.display = 'none';
+        revealArea.classList.remove('show');
+        revealArea.innerHTML = '';
+        renderStep();
+      }
+    );
+    checkBtn.style.display = 'none';
+    renderStep();
+  }
+
+  /* ============================================================
+     MOTION PRIMITIVES — STEP, SCRUB, ZOOM CONTROLLERS
+     ============================================================ */
+
+  // Global registries for scrub redraw functions
+  window.GC_SCRUB_FN = window.GC_SCRUB_FN || {};
+
+  function initMotionPrimitives() {
+    // 1. Step Controller (data-motion="step")
+    $$('[data-motion="step"]').forEach((el, idx) => {
+      if (el.dataset.motionInitialized) return;
+      el.dataset.motionInitialized = 'true';
+      initStepPrimitive(el, idx);
+    });
+
+    // 2. Scrub Controller (data-motion="scrub")
+    $$('[data-motion="scrub"]').forEach((el, idx) => {
+      if (el.dataset.motionInitialized) return;
+      el.dataset.motionInitialized = 'true';
+      initScrubPrimitive(el, idx);
+    });
+
+    // 3. Zoom Stage (data-motion="zoom")
+    $$('[data-motion="zoom"]').forEach((el, idx) => {
+      if (el.dataset.motionInitialized) return;
+      el.dataset.motionInitialized = 'true';
+      initZoomPrimitive(el, idx);
+    });
+  }
+
+  // --- 1. Step controller implementation ---
+  function initStepPrimitive(el, idx) {
+    const stepCount = parseInt(el.dataset.stepCount) || 1;
+    const stepStart = parseInt(el.dataset.stepStart) || 1;
+    const labelsStr = el.dataset.stepLabels || '';
+    const labels = labelsStr ? labelsStr.split('|') : [];
+
+    el.classList.add('step-container');
+    let currentStep = stepStart;
+
+    // Render controls panel at the bottom
+    const controls = document.createElement('div');
+    controls.className = 'step-controls';
+    controls.setAttribute('role', 'toolbar');
+    
+    let dotsHtml = '';
+    for (let i = 1; i <= stepCount; i++) {
+      dotsHtml += `<span class="step-dot" role="tab" aria-selected="${i === currentStep}" data-step-dot-idx="${i}" tabindex="0"></span>`;
+    }
+
+    controls.innerHTML = `
+      <button class="step-btn step-prev" type="button" aria-label="Previous step">&larr;</button>
+      <div class="step-dots" role="tablist">
+        ${dotsHtml}
+      </div>
+      <button class="step-btn step-next" type="button" aria-label="Next step">&rarr;</button>
+      <span class="step-label-text"></span>
+    `;
+    el.appendChild(controls);
+
+    const prevBtn = $('.step-prev', controls);
+    const nextBtn = $('.step-next', controls);
+    const labelText = $('.step-label-text', controls);
+    const dots = $$('.step-dot', controls);
+
+    const updateStepState = (newStep) => {
+      currentStep = Math.max(1, Math.min(stepCount, newStep));
+
+      // Toggle active classes on children
+      const layers = el.querySelectorAll('[data-step]');
+      layers.forEach(l => {
+        const stepNum = parseInt(l.dataset.step);
+        if (stepNum === currentStep) {
+          l.classList.add('active');
+        } else {
+          l.classList.remove('active');
+        }
+      });
+
+      // Update dots
+      dots.forEach((dot, dIdx) => {
+        if (dIdx + 1 === currentStep) {
+          dot.classList.add('active');
+          dot.setAttribute('aria-selected', 'true');
+        } else {
+          dot.classList.remove('active');
+          dot.setAttribute('aria-selected', 'false');
+        }
+      });
+
+      // Update button disabled state
+      prevBtn.disabled = (currentStep === 1);
+      nextBtn.disabled = (currentStep === stepCount);
+
+      // Update label
+      if (labels[currentStep - 1]) {
+        labelText.textContent = labels[currentStep - 1];
+      } else {
+        labelText.textContent = `Step ${currentStep} of ${stepCount}`;
+      }
+
+      markCheckpointCompleted('step-motion', idx);
+    };
+
+    // Click handlers
+    prevBtn.addEventListener('click', () => updateStepState(currentStep - 1));
+    nextBtn.addEventListener('click', () => updateStepState(currentStep + 1));
+    
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const targetStep = parseInt(dot.dataset.stepDotIdx);
+        updateStepState(targetStep);
+      });
+      dot.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          updateStepState(parseInt(dot.dataset.stepDotIdx));
+        }
+      });
+    });
+
+    // Keyboard navigation on container
+    el.setAttribute('tabindex', '0');
+    el.addEventListener('keydown', (e) => {
+      if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        updateStepState(currentStep - 1);
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        updateStepState(currentStep + 1);
+      }
+    });
+
+    // Initial state setup
+    updateStepState(currentStep);
+  }
+
+  // --- 2. Scrub controller implementation ---
+  function initScrubPrimitive(el, idx) {
+    const fnName = el.dataset.scrubFn;
+    const min = parseFloat(el.dataset.scrubMin) || 0;
+    const max = parseFloat(el.dataset.scrubMax) || 100;
+    const step = parseFloat(el.dataset.scrubStep) || 1;
+    const valInitial = parseFloat(el.dataset.scrubValue) || min;
+    const label = el.dataset.scrubLabel || '';
+    const marksStr = el.dataset.scrubMarks || '';
+    const targetVal = el.dataset.scrubTarget ? parseFloat(el.dataset.scrubTarget) : null;
+
+    el.classList.add('scrub-container');
+
+    // Label and Readout header
+    const labelRow = document.createElement('div');
+    labelRow.className = 'scrub-label-row';
+    labelRow.innerHTML = `
+      <span class="scrub-label">${label}</span>
+      <span class="scrub-value-readout">${valInitial.toFixed(2)}</span>
+    `;
+    el.appendChild(labelRow);
+
+    const valueReadout = $('.scrub-value-readout', labelRow);
+
+    // Slider wrapper
+    const wrapper = document.createElement('div');
+    wrapper.className = 'scrub-slider-wrapper';
+    
+    const slider = document.createElement('input');
+    slider.type = 'range';
+    slider.className = 'scrub-slider';
+    slider.min = min;
+    slider.max = max;
+    slider.step = step;
+    slider.value = valInitial;
+    wrapper.appendChild(slider);
+    el.appendChild(wrapper);
+
+    // Labeled tick marks
+    if (marksStr) {
+      const marksDiv = document.createElement('div');
+      marksDiv.className = 'scrub-marks';
+      const marks = marksStr.split('|');
+      marks.forEach(m => {
+        const parts = m.split(':');
+        const mVal = parseFloat(parts[0]);
+        const mLabel = parts[1] || '';
+        const pct = ((mVal - min) / (max - min)) * 100;
+
+        const markSpan = document.createElement('span');
+        markSpan.className = 'scrub-mark';
+        markSpan.textContent = mLabel;
+        markSpan.style.left = `${pct}%`;
+        marksDiv.appendChild(markSpan);
+      });
+      el.appendChild(marksDiv);
+    }
+
+    // Target task prompt
+    let targetMsg = null;
+    if (targetVal !== null) {
+      targetMsg = document.createElement('div');
+      targetMsg.className = 'scrub-target-msg';
+      targetMsg.innerHTML = `Target: Match the value <b>${targetVal.toFixed(2)}</b> by dragging the slider.`;
+      el.appendChild(targetMsg);
+    }
+
+    const handleScrubUpdate = (val) => {
+      valueReadout.textContent = val.toFixed(2);
+
+      // Run registered draw function
+      if (fnName && window.GC_SCRUB_FN[fnName]) {
+        try {
+          window.GC_SCRUB_FN[fnName](el, val);
+        } catch (e) {
+          console.error(`Error in scrub draw function '${fnName}':`, e);
+        }
+      }
+
+      // Check target threshold (within 5% of range tolerance)
+      if (targetVal !== null) {
+        const tolerance = (max - min) * 0.05;
+        const matched = Math.abs(val - targetVal) <= tolerance;
+
+        if (matched) {
+          slider.classList.add('at-target');
+          if (targetMsg) {
+            targetMsg.textContent = `Target matched! Value resolved: ${val.toFixed(2)}`;
+            targetMsg.classList.add('completed');
+          }
+          markCheckpointCompleted('scrub-motion', idx);
+        } else {
+          slider.classList.remove('at-target');
+          if (targetMsg) {
+            targetMsg.innerHTML = `Target: Match the value <b>${targetVal.toFixed(2)}</b> by dragging the slider.`;
+            targetMsg.classList.remove('completed');
+          }
+        }
+      }
+    };
+
+    slider.addEventListener('input', (e) => {
+      const val = parseFloat(e.target.value);
+      handleScrubUpdate(val);
+    });
+
+    slider.addEventListener('keydown', (e) => {
+      if (e.key === 'Home') {
+        slider.value = min;
+        handleScrubUpdate(min);
+      } else if (e.key === 'End') {
+        slider.value = max;
+        handleScrubUpdate(max);
+      }
+    });
+
+    handleScrubUpdate(valInitial);
+  }
+
+  // --- 3. Zoom stage implementation ---
+  function initZoomPrimitive(el, idx) {
+    const levelsCount = parseInt(el.dataset.zoomLevels) || 2;
+    const labelsStr = el.dataset.zoomLabels || '';
+    const labels = labelsStr ? labelsStr.split('|') : [];
+    const anchorStr = el.dataset.zoomAnchor || '50,50,15';
+    const anchor = anchorStr.split(',').map(parseFloat);
+
+    el.classList.add('zoom-stage');
+
+    const layers = {
+      macro: el.querySelector('[data-zoom-level="macro"]'),
+      meso: el.querySelector('[data-zoom-level="meso"]'),
+      particulate: el.querySelector('[data-zoom-level="particulate"]')
+    };
+
+    if (layers.macro) {
+      const svg = layers.macro.querySelector('svg');
+      if (svg) {
+        const zoomRing = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        zoomRing.setAttribute('cx', anchor[0]);
+        zoomRing.setAttribute('cy', anchor[1]);
+        zoomRing.setAttribute('r', anchor[2] || 15);
+        zoomRing.setAttribute('class', 'zoom-ring');
+        zoomRing.style.transformOrigin = `${anchor[0]}px ${anchor[1]}px`;
+        svg.appendChild(zoomRing);
+      }
+    }
+
+    const rail = document.createElement('div');
+    rail.className = 'zoom-rail';
+    rail.setAttribute('role', 'tablist');
+    rail.setAttribute('aria-label', 'Scale levels');
+
+    const levelKeys = levelsCount === 3 ? ['macro', 'meso', 'particulate'] : ['macro', 'particulate'];
+    const defaultLabels = { macro: '🔍 Out', meso: '🔎 Mid', particulate: '🔬 In' };
+
+    levelKeys.forEach((key, lIdx) => {
+      const btn = document.createElement('button');
+      btn.className = 'zoom-rail-btn';
+      btn.type = 'button';
+      btn.textContent = labels[lIdx] || defaultLabels[key];
+      btn.setAttribute('role', 'tab');
+      btn.setAttribute('aria-selected', lIdx === 0 ? 'true' : 'false');
+      btn.dataset.zoomKey = key;
+
+      btn.addEventListener('click', () => {
+        updateZoomLevel(key);
+      });
+      rail.appendChild(btn);
+    });
+    el.appendChild(rail);
+
+    const updateZoomLevel = (activeKey) => {
+      levelKeys.forEach(key => {
+        const layer = layers[key];
+        if (!layer) return;
+
+        const btn = rail.querySelector(`[data-zoom-key="${key}"]`);
+
+        if (key === activeKey) {
+          layer.classList.add('active');
+          if (btn) {
+            btn.classList.add('active');
+            btn.setAttribute('aria-selected', 'true');
+          }
+        } else {
+          layer.classList.remove('active');
+          if (btn) {
+            btn.classList.remove('active');
+            btn.setAttribute('aria-selected', 'false');
+          }
+        }
+      });
+
+      if (activeKey === 'particulate' && layers.macro) {
+        const svg = layers.macro.querySelector('svg');
+        if (svg) {
+          const factor = 4;
+          svg.style.transformOrigin = `${anchor[0]}px ${anchor[1]}px`;
+          svg.style.transform = `scale(${factor})`;
+        }
+      } else if (layers.macro) {
+        const svg = layers.macro.querySelector('svg');
+        if (svg) {
+          svg.style.transform = 'none';
+        }
+      }
+
+      markCheckpointCompleted('zoom-motion', idx);
+    };
+
+    updateZoomLevel('macro');
+  }
+
+  // Register dummy scrub drawing functions
+  window.GC_SCRUB_FN['dummy-scale'] = function (container, value) {
+    const svg = container.querySelector('svg');
+    const shape = svg ? svg.querySelector('.scrub-shape') : null;
+    if (shape) {
+      shape.setAttribute('transform', `scale(${value})`);
+      shape.style.transformOrigin = '50px 50px';
+    }
+  };
+
+  window.GC_SCRUB_FN['den-cloud'] = function (container, value) {
+    const svg = container.querySelector('svg');
+    const atomL = svg ? svg.querySelector('.atom-l') : null;
+    const atomR = svg ? svg.querySelector('.atom-r') : null;
+    const cloud = svg ? svg.querySelector('.cloud-gradient') : null;
+    
+    if (cloud) {
+      const shift = 50 + (value / 3.5) * 30;
+      cloud.setAttribute('cx', `${shift}%`);
+    }
+    if (atomL && atomR) {
+      const chargeL = svg.querySelector('.charge-l');
+      const chargeR = svg.querySelector('.charge-r');
+      if (chargeL && chargeR) {
+        if (value < 0.5) {
+          chargeL.textContent = '';
+          chargeR.textContent = '';
+        } else if (value < 1.7) {
+          chargeL.textContent = 'δ+';
+          chargeR.textContent = 'δ-';
+        } else {
+          chargeL.textContent = '+';
+          chargeR.textContent = '-';
+        }
+      }
+    }
+  };
+
+  // Initialize widgets, motion primitives, and tooltips
+  initWidgets();
+  initMotionPrimitives();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initGlossaryTooltips);
+  } else {
+    initGlossaryTooltips();
+  }
+>>>>>>> temp-interactives
 })();

@@ -13,6 +13,7 @@
 
   /* accents — ONE primary accent (vermilion). green = "correct"/positive only. */
   --accent:#D6452A; --accent-soft:#E68A77; --good:#2E7D57; --good-soft:#6FAF8F;
+  --green: var(--good); --green-soft: var(--good-soft);
 
   /* diagram + heat-map families */
   --nucleus:#D6452A; --electron:#2E7D57; --shell:rgba(22,32,28,.35);
@@ -35,6 +36,7 @@
   --paper:#131A17; --paper-2:#18211D; --paper-3:#1F2A25; --card:#1B2420;
   --ink:#E7EDE6; --ink-soft:#C3CCC2; --ink-mute:#8A948B;
   --accent:#F26B4E; --accent-soft:#9E4636; --good:#5FB088; --good-soft:#3A6B53;
+  --green: var(--good); --green-soft: var(--good-soft);
   --nucleus:#F26B4E; --electron:#5FB088; --shell:rgba(231,237,230,.32);
   --cool:#6B9BD0; --hot:#F26B4E; --water:#6B9BD0;
   --grid:rgba(231,237,230,.012); --grid-bold:rgba(231,237,230,.025);
