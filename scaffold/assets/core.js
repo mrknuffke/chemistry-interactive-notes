@@ -263,18 +263,18 @@
       }, 300);
     }
 
-    $$('.diagram svg').forEach(svgEl => {
-      svgEl.addEventListener('click', (e) => {
+    $$('.diagram svg, .diagram img').forEach(mediaEl => {
+      mediaEl.addEventListener('click', (e) => {
         e.stopPropagation();
-        
-        // Clone SVG and insert into content
-        const clone = svgEl.cloneNode(true);
+
+        // Clone the diagram (SVG or image) and insert into content
+        const clone = mediaEl.cloneNode(true);
         clone.removeAttribute('style'); // Clear any local styling
         content.innerHTML = '';
         content.appendChild(clone);
 
         // Find caption if available
-        const parent = svgEl.closest('.diagram');
+        const parent = mediaEl.closest('.diagram');
         const capEl = parent ? $('.diagram-cap', parent) : null;
         if (capEl) {
           cap.innerHTML = capEl.innerHTML;
@@ -631,14 +631,22 @@
       workspace.appendChild(textarea);
 
       const minChars = config.minChars || 25;
-      const counter = document.createElement('div');
-      counter.className = 'w-char-count';
-      counter.textContent = `0 / ${minChars} characters`;
-      workspace.appendChild(counter);
+      const hint = document.createElement('div');
+      hint.className = 'w-progress-hint';
+      workspace.appendChild(hint);
 
       textarea.addEventListener('input', () => {
         const len = textarea.value.trim().length;
-        counter.textContent = `${len} / ${minChars} characters`;
+        if (len === 0) {
+          hint.textContent = '';
+          hint.classList.remove('ready');
+        } else if (len < minChars) {
+          hint.textContent = 'Keep going…';
+          hint.classList.remove('ready');
+        } else {
+          hint.textContent = 'Ready';
+          hint.classList.add('ready');
+        }
         if (len >= minChars) {
           checkBtn.removeAttribute('disabled');
         } else {
@@ -668,7 +676,8 @@
         (cBtn, rBtn, fb) => {
           textarea.removeAttribute('disabled');
           textarea.value = '';
-          counter.textContent = `0 / ${minChars} characters`;
+          hint.textContent = '';
+          hint.classList.remove('ready');
           cBtn.setAttribute('disabled', 'true');
           revealArea.style.display = 'none';
           revealArea.classList.remove('show');
@@ -1556,6 +1565,33 @@
     const labels = labelsStr ? labelsStr.split('|') : [];
 
     el.classList.add('step-container');
+
+    // Build a fixed-height stage so all frames crossfade in the same spot
+    // instead of stacking in normal document flow. Measure each frame's
+    // natural height BEFORE moving it (while still in flow, unstyled),
+    // then move every frame into the stage and size the stage to the
+    // tallest one so the frame never jumps or reserves extra dead space.
+    const frames = Array.from(el.querySelectorAll('[data-step]'));
+    const stage = document.createElement('div');
+    stage.className = 'step-stage';
+    el.insertBefore(stage, el.firstChild);
+
+    let maxHeight = 0;
+    const oldParents = new Set();
+    frames.forEach(f => {
+      maxHeight = Math.max(maxHeight, f.getBoundingClientRect().height);
+      if (f.parentElement && f.parentElement !== el) oldParents.add(f.parentElement);
+      stage.appendChild(f);
+    });
+    if (maxHeight > 0) stage.style.height = `${Math.ceil(maxHeight)}px`;
+
+    // Clean up now-empty wrapper elements the frames used to live in.
+    oldParents.forEach(p => {
+      if (p !== stage && !p.contains(stage) && p.children.length === 0 && !p.textContent.trim()) {
+        p.remove();
+      }
+    });
+
     let currentStep = stepStart;
 
     // Render controls panel at the bottom
@@ -1790,6 +1826,13 @@
       meso: el.querySelector('[data-zoom-level="meso"]'),
       particulate: el.querySelector('[data-zoom-level="particulate"]')
     };
+
+    // Each level must carry this class so the CSS absolute-position +
+    // opacity/visibility crossfade rules actually apply — without it every
+    // level renders in normal flow at full opacity (they just stack).
+    Object.values(layers).forEach(layer => {
+      if (layer) layer.classList.add('zoom-level-layer');
+    });
 
     if (layers.macro) {
       const svg = layers.macro.querySelector('svg');

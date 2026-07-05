@@ -275,12 +275,11 @@
       </p>
 
       <!-- V-11a-02: Energy Crossover Step Interactive -->
-      <!-- V-11a-02: Energy Crossover Grid -->
       <h4 class="reveal" style="margin-top: 2.5rem; color: var(--accent);">Visualizing the crossover</h4>
       
-      <div class="crossover-grid reveal" style="display: flex; flex-wrap: wrap; gap: 1.2rem; margin: 1.5rem 0; justify-content: center;">
+      <div class="reveal" data-motion="step" data-step-count="4" data-step-labels="Argon (Ar) &mdash; shell 3 pauses at 8|Potassium (K) &mdash; electron 19 takes 4s|Calcium (Ca) &mdash; 4s fills|Scandium (Sc) &mdash; 3d finally opens" style="max-width: 460px; margin: 1.5rem auto;">
         <!-- Argon -->
-        <div class="diagram" style="flex: 1 1 230px; max-width: 280px; min-width: 220px; text-align: center;">
+        <div class="diagram" data-step="1" style="max-width: 460px; margin: 0 auto; text-align: center;">
           <svg viewBox="0 0 240 145" style="width: 100%; border: 1px solid var(--hair-soft); background: var(--paper-2); border-radius: 4px;">
             <!-- Backdrop energy line -->
             <line x1="80" y1="10" x2="80" y2="135" stroke="var(--hair-soft)" stroke-width="1"/>
@@ -360,7 +359,7 @@
         </div>
 
         <!-- Potassium -->
-        <div class="diagram" style="flex: 1 1 230px; max-width: 280px; min-width: 220px; text-align: center;">
+        <div class="diagram" data-step="2" style="max-width: 460px; margin: 0 auto; text-align: center;">
           <svg viewBox="0 0 240 145" style="width: 100%; border: 1px solid var(--hair-soft); background: var(--paper-2); border-radius: 4px;">
             <!-- Backdrop energy line -->
             <line x1="80" y1="10" x2="80" y2="135" stroke="var(--hair-soft)" stroke-width="1"/>
@@ -443,7 +442,7 @@
         </div>
 
         <!-- Calcium -->
-        <div class="diagram" style="flex: 1 1 230px; max-width: 280px; min-width: 220px; text-align: center;">
+        <div class="diagram" data-step="3" style="max-width: 460px; margin: 0 auto; text-align: center;">
           <svg viewBox="0 0 240 145" style="width: 100%; border: 1px solid var(--hair-soft); background: var(--paper-2); border-radius: 4px;">
             <!-- Backdrop energy line -->
             <line x1="80" y1="10" x2="80" y2="135" stroke="var(--hair-soft)" stroke-width="1"/>
@@ -527,7 +526,7 @@
         </div>
 
         <!-- Scandium -->
-        <div class="diagram" style="flex: 1 1 230px; max-width: 280px; min-width: 220px; text-align: center;">
+        <div class="diagram" data-step="4" style="max-width: 460px; margin: 0 auto; text-align: center;">
           <svg viewBox="0 0 240 145" style="width: 100%; border: 1px solid var(--hair-soft); background: var(--paper-2); border-radius: 4px;">
             <!-- Backdrop energy line -->
             <line x1="80" y1="10" x2="80" y2="135" stroke="var(--hair-soft)" stroke-width="1"/>
@@ -643,7 +642,7 @@
                   "prompt": "Choose which shell to place these next two electrons in:",
                   "answer": "shell 4",
                   "options": [
-                    "shell 3 (it can hold 18)",
+                    "shell 3",
                     "shell 4"
                   ],
                   "feedback_wrong": "It can, eventually — but the 3d region of shell 3 sits above 4s in energy right now. Lowest vacancy wins. They go to shell 4.",
@@ -664,7 +663,7 @@
                 "blank": {
                   "type": "numeric",
                   "answer": 2,
-                  "prompt": "Number of valence electrons",
+                  "prompt": "# valence electrons",
                   "feedback_wrong": "Valence = outer shell count only. Shell 4 holds 2. The 8 underneath are locked away."
                 }
               },
@@ -881,9 +880,9 @@
             <span class="st-meta" id="stMeta">S · Z = 16</span>
           </div>
           <div class="st-fields">
-            <label>Shell configuration <input id="stConfig" type="text" autocomplete="off" spellcheck="false"
+            <label><span>Shell configuration</span> <input id="stConfig" type="text" autocomplete="off" spellcheck="false"
                 placeholder="e.g. 2, 8, 7"></label>
-            <label>Valence electrons <input id="stValence" type="text" autocomplete="off" inputmode="numeric"
+            <label><span>Valence electrons</span> <input id="stValence" type="text" autocomplete="off" inputmode="numeric"
                 placeholder="?"></label>
           </div>
           <div class="actions">
@@ -924,13 +923,19 @@
         <button class="btn" data-recall-check>Check</button>
         <button class="btn ghost" data-recall-reveal>Reveal</button>
         <button class="btn ghost" data-recall-reset>Reset</button>
-        <span class="feedback" data-recall-feedback>  <!-- 08 SELF EXPLAIN -->
+        <span class="feedback" data-recall-feedback></span>
+      </div>
+      <div class="next-cue"><button class="next-btn" data-next>Explain it to yourself <span class="chev">↓</span></button></div>
+    </div>
+  </section>
+
+  <!-- 08 SELF EXPLAIN -->
   <section id="s-selfx" data-toc="Self-explain">
     <div class="narrow">
       <div class="section-tag reveal"><span class="num">08</span><span class="label label-accent">Explain it to yourself</span></div>
       
       <!-- V-11a-04: same-valence row -->
-      <div style="max-width: 480px; margin: 1.5rem auto 0.5rem; text-align: center;" class="reveal">
+      <div class="diagram reveal" style="max-width: 480px; margin: 1.5rem auto 0.5rem; text-align: center;">
         <svg viewBox="0 0 320 120" style="width: 100%; border: 1px solid var(--hair-soft); background: var(--paper-2); border-radius: 4px;">
           <!-- Lithium (2, 1) -->
           <g transform="translate(55, 55)">

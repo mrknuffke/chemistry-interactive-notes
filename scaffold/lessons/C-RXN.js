@@ -298,8 +298,9 @@ document.addEventListener("DOMContentLoaded", () => {
       rightMass += coefficients[p.key] * p.mass;
     });
 
-    // Calculate Tilt Angle in radians
-    const diff = leftMass - rightMass;
+    // Calculate Tilt Angle in radians. Heavier side must sink (larger SVG y),
+    // so a heavier left pan needs a NEGATIVE diff here (see lx/ly/rx/ry below).
+    const diff = rightMass - leftMass;
     const maxDiff = 120; // scale factor
     const maxAngleDeg = 14; // max tilt degrees
     const tiltDeg = Math.max(-maxAngleDeg, Math.min(maxAngleDeg, (diff / maxDiff) * maxAngleDeg));

@@ -4,6 +4,11 @@
    Lesson-specific styling should be rare; prefer extending here.
    ============================================================ */
 
+/* ---- utilities ---- */
+/* Wrap a chemical formula (e.g. "CO<sub>2</sub>") in .formula anywhere it sits
+   inside a flex/grid ancestor, so the subscript can't be torn onto its own line. */
+.formula{white-space:nowrap;}
+
 /* ---- section shells ---- */
 section{position:relative;z-index:2;padding:var(--beat) var(--gutter);}
 .wrap{max-width:78rem;margin:0 auto;width:100%;}
@@ -207,7 +212,7 @@ strong.term{font-weight:700;color:var(--ink);border-bottom:1.5px dashed var(--ac
    ALWAYS include a legend; ALWAYS conserve particles before/after.
    ====================================================== */
 .diagram{margin:1.5rem 0;}
-.diagram svg{width:100%;height:auto;display:block;}
+.diagram svg,.diagram img{width:100%;height:auto;display:block;}
 .diagram-cap{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mute);text-align:center;margin-top:.7rem;}
 .lever-svg{max-width:300px;margin:0 auto;}
 .d-particle{fill:var(--electron);stroke:var(--ink);stroke-width:1.2;}
@@ -265,15 +270,18 @@ strong.term{font-weight:700;color:var(--ink);border-bottom:1.5px dashed var(--ac
 .fo-note{font-size:.95rem;color:var(--ink-mute);margin-top:.4rem;max-width:none;}
 
 /* ---- diagram lightbox overlay ---- */
-.diagram svg {
+.diagram svg,
+.diagram img {
   cursor: zoom-in;
   transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.22s ease;
 }
-.diagram svg:hover {
+.diagram svg:hover,
+.diagram img:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
 }
-:root.dark .diagram svg:hover {
+:root.dark .diagram svg:hover,
+:root.dark .diagram img:hover {
   box-shadow: 0 6px 20px rgba(255, 255, 255, 0.015);
 }
 
@@ -1141,17 +1149,23 @@ strong.term{font-weight:700;color:var(--ink);border-bottom:1.5px dashed var(--ac
   background: var(--paper-2);
   color: var(--ink-soft);
 }
-.w-char-count {
+.w-progress-hint {
   font-family: var(--mono);
   font-size: 0.65rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: var(--ink-mute);
   text-align: right;
   margin-top: 0.35rem;
+  min-height: 1em;
+}
+.w-progress-hint.ready {
+  color: var(--accent);
 }
 .w-reveal-area {
   margin-top: 1.25rem;
   padding: 1.25rem;
-  border-left: 3px solid var(--accent);
+  border-left: 3px solid var(--good);
   background: var(--paper-2);
   border-radius: 0 4px 4px 0;
 }
@@ -1161,7 +1175,7 @@ strong.term{font-weight:700;color:var(--ink);border-bottom:1.5px dashed var(--ac
 }
 .w-reveal-area h4 {
   font-family: var(--display);
-  color: var(--accent);
+  color: var(--good);
   margin-top: 0;
   margin-bottom: 0.6rem;
   font-size: 0.95rem;
@@ -1488,15 +1502,23 @@ strong.term{font-weight:700;color:var(--ink);border-bottom:1.5px dashed var(--ac
 /* --- 1. Step Controller --- */
 .step-container {
   position: relative;
+}
+.step-stage {
+  position: relative;
   overflow: hidden;
 }
-.step-container [data-step] {
+.step-stage [data-step] {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.25s ease, visibility 0.25s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
   pointer-events: none;
 }
-.step-container [data-step].active {
+.step-stage [data-step].active {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
@@ -1739,7 +1761,7 @@ strong.term{font-weight:700;color:var(--ink);border-bottom:1.5px dashed var(--ac
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .step-container [data-step],
+  .step-stage [data-step],
   .zoom-level-layer {
     transition: none !important;
   }
