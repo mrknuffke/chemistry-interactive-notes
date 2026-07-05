@@ -23,6 +23,8 @@ In this partnership:
 
 By offloading direct code generation and layout assembly to the AI, this workflow enables rapid, design-forward iteration while ensuring that pedagogical integrity and chemical correctness remain firmly guided by the human educator.
 
+To maintain high development quality and limit AI-introduced bugs, we follow strict [Behavioral Guidelines](CLAUDE.md#1-behavioral-guidelines-reduce-common-llm-coding-mistakes) covering simplicity, surgical edits, and verification loops.
+
 ---
 
 ## 🚀 Quick Start (Local Development)
@@ -30,37 +32,40 @@ By offloading direct code generation and layout assembly to the AI, this workflo
 To run the site locally, start a static web server from the project directory:
 
 ```bash
-# Using Python 3
+# Using Python 3 (runs from repo root)
 python3 -m http.server 8000
 ```
 Then open your browser to: **[http://localhost:8000/scaffold/](http://localhost:8000/scaffold/)**
 
-Alternatively, you can navigate into the `scaffold/` directory and run a server there:
+*Note: If port 8000 is already in use on your system, you can use another port (e.g., `8080`):*
 ```bash
-cd scaffold
-python3 -m http.server 8000
-# Then open: http://localhost:8000/
+python3 -m http.server 8080
 ```
+*And open: [http://localhost:8080/scaffold/](http://localhost:8080/scaffold/)*
 
 ---
 
 ## 📂 Project Structure
 
+All developer documentation, logs, contracts, and expansion drafts live in the project root. The `scaffold/` directory contains only the functional codebase of the textbook that gets deployed to production.
+
 ```
 ├── .github/workflows/
 │   └── deploy.yml       # GitHub Actions deploy configuration (deploys scaffold/ to GitHub Pages)
-├── scaffold/            # The textbook source files
-│   ├── assets/          # Global styles & shared behaviors
-│   │   ├── tokens.css     # Theme colors, dark mode, layout units, fonts
-│   │   ├── components.css # Shared interactive widget and particle diagram layout CSS
-│   │   ├── core.js        # Navigation, TOC, light/dark toggles, retrieval validation
-│   │   └── elements.js    # Verified elements Z=1 to 36 chemistry data
-│   ├── lessons/         # HTML pages & JS for individual lessons
-│   ├── References/      # Curated review sheets (source of truth) and diagram conventions
-│   ├── index.html       # Homepage & TOC of the interactive text
-│   └── lessons.json     # Metadata catalog of lessons
-├── LICENSE              # CC BY-NC-SA 4.0 License Text
+├── scaffold/            # Production web app codebase (served at site root)
+│   ├── assets/          # Global styles, fonts, and shared behaviors (core.js, glossary.js)
+│   ├── lessons/         # HTML pages and interactivity JS files per lesson
+│   ├── References/      # Authoritative review sheets and convention posters
+│   ├── index.html       # Student home dashboard & search index page
+│   └── lessons.json     # Manifest metadata matching lessons to curriculum targets
 ├── CLAUDE.md            # Guidelines, coding conventions, and developer guidelines
+├── BUILDING.md          # Step-by-step checklist for building a lesson
+├── BUILD_PLAN.md        # Session roadmap sequence for development
+├── VOICE.md             # Tone and widget feedback writing contract
+├── INTERACTION_SPEC.md  # Detailed specifications for widgets & interactive behaviors
+├── Diagram_Inventory_v2.md Spec detail inventory for lesson diagrams
+├── Content_Expansion_v2.md Text drafts database for updates
+├── LICENSE              # CC BY-NC-SA 4.0 License Text
 └── README.md            # This file
 ```
 
@@ -68,11 +73,11 @@ python3 -m http.server 8000
 
 ## 📝 Editing & Developing Lessons
 
-Please consult **[scaffold/BUILDING.md](file:///Users/davidknuffke/Library/CloudStorage/Dropbox/Projects/Chemistry%20Interactive%20Notes/scaffold/BUILDING.md)** and **[CLAUDE.md](file:///Users/davidknuffke/Library/CloudStorage/Dropbox/Projects/Chemistry%20Interactive%20Notes/CLAUDE.md)** for detailed rules on styling, writing voice, and pedagogical rules before adding or modifying lessons.
+Please consult **[BUILDING.md](BUILDING.md)** and **[CLAUDE.md](CLAUDE.md)** for detailed rules on styling, writing voice, and pedagogical rules before adding or modifying lessons.
 
 *   **Pedagogy First:** Weave diagrams, active recall, self-explain prompts, and exam questions directly into sections.
 *   **Chemistry Integrity:** Never trust memory; cross-reference calculations against the review sheets in `scaffold/References/`.
-*   **No LaTeX:** Format equations and math using standard semantic tags like `<sub>`, `<sup>`, and entities (`&Delta;`).
+*   **No LaTeX:** Format equations and math using standard semantic HTML tags like `<sub>`, `<sup>`, and entities (`&Delta;`).
 *   **Rendering Checks:** Verify both light and dark modes before submitting changes.
 
 ---
@@ -104,4 +109,3 @@ Under the following terms:
 *   **Attribution** — You must give appropriate credit, provide a link to the license, and indicate if changes were made.
 *   **NonCommercial** — You may not use the material for commercial purposes.
 *   **ShareAlike** — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
-

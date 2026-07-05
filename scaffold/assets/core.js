@@ -1915,5 +1915,4 @@
   } else {
     initGlossaryTooltips();
   }
->>>>>>> temp-interactives
 })();
