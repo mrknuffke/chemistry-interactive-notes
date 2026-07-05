@@ -13,7 +13,7 @@
 4. **Feedback teaches.** Every wrong-choice feedback string is authored content (see VOICE.md Rule 10), passed in config — never a generic default.
 5. **Keyboard and touch parity.** Every control operable by keyboard (arrow keys advance steps and scrubs; Enter commits) and by tap. Focus states use the existing token styles.
 6. **No persistence.** State is in-memory per page load. No localStorage, no cookies. A review page should be safely re-doable from scratch every visit — resetting on reload is a feature, not a bug. (If persistence is ever wanted, it's a separate decision; do not add it opportunistically.)
-7. **Green = correct only.** Existing color rule holds inside widgets: green appears exclusively for verified-correct states; vermilion is the accent and attention color; incorrect states use vermilion outline + feedback text, never red fills that read as punishment.
+7. **Green = correct only.** Existing color rule holds inside widgets: green appears exclusively for verified-correct states; vermilion is the accent and attention color; incorrect states use vermilion outline + feedback text, never red fills that read as punishment. This extends to **revealed-answer boxes**: `.w-reveal-area` (the model-answer/explanation panel every commit-reveal widget shows after commit) and `.scheme-card` (the exam mark-scheme reveal) share one green-bordered pattern — a revealed correct answer is a positive state, not a neutral or attention-getting one. Don't style a static "worked answer" box in vermilion; it reads as an error to students even when nothing is wrong.
 
 ---
 
@@ -42,13 +42,26 @@ Rules of assignment:
 
 ### 2.1 Step controller — `data-motion="step"`
 
-Container holds N state layers (SVG groups or stacked elements), each tagged `data-step="1"…"N"`.
+Container holds N state layers (SVG groups or stacked elements), each tagged `data-step="1"…"N"`, authored as **direct children** of the `data-motion="step"` element (don't wrap them in an intermediate flex/sizing div — `core.js` normalizes into its own stage regardless, but starting clean avoids leftover styling on an emptied wrapper).
+
+**This is the only approved way to sequence a diagram.** Never show every frame at once in a `flex-wrap`/grid layout with opacity toggling — frames must occupy the *same physical space* and crossfade, never stack side-by-side or reserve dead space when hidden.
+
+Mechanism: on init, `core.js` measures each frame's natural height (while still in normal flow, before any positioning is applied), moves all frames into an internal `.step-stage` wrapper sized to the tallest frame, and switches every frame to `position:absolute; inset:0` so exactly one is visible at a time in that fixed-height stage. The step-controls bar (prev/next, dots, label) renders below the stage as a normal in-flow element.
 
 Controls rendered by core.js: prev / next buttons, progress dots (one per state, current filled), optional per-step label line. Keyboard: ← →. On mobile, buttons are the primary control (no swipe requirement).
 
 Config via data attributes: `data-step-count`, `data-step-start` (default 1), `data-step-labels` (optional, `|`-separated).
 
-Transition: 200 ms crossfade between layers; instant swap under reduced motion. States must each be complete and honest on their own — a student who screenshots step 3 gets a correct diagram.
+Transition: crossfade between layers (opacity + visibility, ~300 ms); instant swap under reduced motion. States must each be complete and honest on their own — a student who screenshots step 3 gets a correct diagram.
+
+Minimal example:
+```html
+<div data-motion="step" data-step-count="3" data-step-labels="before|during|after" style="max-width:540px;margin:2rem auto;">
+  <div data-step="1"><svg …>…</svg></div>
+  <div data-step="2"><svg …>…</svg></div>
+  <div data-step="3"><svg …>…</svg></div>
+</div>
+```
 
 ### 2.2 Scrub controller — `data-motion="scrub"`
 
@@ -70,6 +83,8 @@ Rule: the particulate layer is a full citizen of the particle conventions — le
 
 Config: `data-zoom-levels` (2 or 3), `data-zoom-labels`, `data-zoom-anchor` (x,y,r on the macro viewBox).
 
+**Rail label constraint:** the rail buttons are 32px circles — `data-zoom-labels` entries must be a single glyph, digit, or 2–3 character abbreviation (e.g. "1×", "4×", "•••"), never a phrase. Put the descriptive phrase (e.g. "in the spoon") in the caption/prose beside the stage instead; long text in `data-zoom-labels` overflows the circle illegibly.
+
 ---
 
 ## 3 · Widget framework
@@ -82,7 +97,7 @@ All four widgets share a shell: a `<section>`-level container `data-widget="…"
 
 **Modes:**
 - `choice` — 2–5 options rendered as buttons. Reveal is locked until one is selected. On reveal: the chosen option is marked, the correct option is marked (green), and the feedback string **for the chosen option** renders above the general reveal text. Every option, including the correct one, has its own feedback string in config.
-- `free` — a textarea with `minChars` (default 25). Reveal button stays disabled (with a quiet hint: "write your answer first — even a rough one") until threshold met. On reveal: student text remains visible above the model text so they can compare line by line. This mode also replaces the existing self-explain "compare with model answer" pattern, unifying it.
+- `free` — a textarea with `minChars` (default 25). Reveal button stays disabled until threshold met. **The gate must never surface as a character count or cap** ("12 / 30 characters" reads as a restriction) — show a soft, non-numeric hint instead (`w-progress-hint`: empty while untouched, "Keep going…" below threshold, "Ready" once met). On reveal: student text remains visible above the model text so they can compare line by line. This mode also replaces the existing self-explain "compare with model answer" pattern, unifying it.
 - `drill` — a sequence of `choice` items presented one at a time with a running tally (n of N). Used for classification practice (e.g., reaction types). Tally is session-only.
 
 **Config schema (choice):**

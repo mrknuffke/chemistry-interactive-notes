@@ -2,6 +2,8 @@
 
 Read `CLAUDE.md` first — it is the contract. All code changes should strictly adhere to the [LLM Behavioral Guidelines](CLAUDE.md#1-behavioral-guidelines-reduce-common-llm-coding-mistakes). This file is the checkable build loop for building or updating a lesson. `lessons/1-1b_*` and `lessons/1-1a_*` (inside `scaffold/lessons/`) are the two worked exemplars: match them. Work **one lesson at a time**.
 
+**Handoff note (for whichever model picks this up next — Sonnet, Gemini, or otherwise):** `lessons/1-1b_periodic-trends-reactivity.html` is the most consistently-executed page in the repo; when a rule below is ambiguous, open it and match what it does. The six invariants that have been violated more than once historically and are now non-negotiable: (1) sequence diagrams only with `data-motion="step"`, never a show-all grid; (2) every diagram lives in `.diagram` and is lightboxable; (3) free-text commit gates never show a character count/cap; (4) formulas never break mid-formula across a line; (5) green means correct/positive only, including on revealed-answer boxes; (6) every defined term is `<strong class="term">` with a slug in `glossary.js`. See `REMEDIATION_PLAN.md` (root) for the incident history behind each of these.
+
 ---
 
 ## Before Writing
@@ -36,3 +38,8 @@ Read `CLAUDE.md` first — it is the contract. All code changes should strictly 
 - [ ] **Verify every value** that reaches a student (configs, ΔEN, molar masses, balanced equations). Check it — don't trust a plausible number.
 - [ ] Open the lesson file in a browser (using a local server) and test it thoroughly in both **light and dark modes**. Ensure all interactive widgets, layouts, and animations display correctly.
 - [ ] No console errors or warnings in the browser developer tools.
+- [ ] **Glossary coverage:** every `<strong class="term">` in the file has a matching (or `data-term`-overridden) key in `glossary.js`, and every concept the lesson newly introduces by name is wrapped once at its first substantive mention.
+- [ ] **Lightbox coverage:** every static diagram (SVG or image) sits inside `<div class="diagram">` so `core.js`'s click-to-zoom binds to it. Click each one and confirm the lightbox opens with a caption.
+- [ ] **Formula nowrap:** any chemical formula with a `<sub>` that lives inside a flex or grid container (e.g. `.st-fields label`) is wrapped in a `<span>` or `.formula` so it can't be torn across lines by the container's anonymous-item behavior.
+- [ ] **No sequential diagram grids:** any "click through frames" diagram uses `data-motion="step"` (INTERACTION_SPEC.md §2.1) — never a `flex-wrap` grid showing every frame at once.
+- [ ] **Color discipline:** green appears only on verified-correct states and revealed-answer boxes; nothing uses red fill for a wrong answer or vermilion for a "here's the correct answer" reveal.

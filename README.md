@@ -59,8 +59,11 @@ All developer documentation, logs, contracts, and expansion drafts live in the p
 │   ├── index.html       # Student home dashboard & search index page
 │   └── lessons.json     # Manifest metadata matching lessons to curriculum targets
 ├── CLAUDE.md            # Guidelines, coding conventions, and developer guidelines
+├── TODO.md              # Single board of outstanding work — start here each session
 ├── BUILDING.md          # Step-by-step checklist for building a lesson
-├── BUILD_PLAN.md        # Session roadmap sequence for development
+├── BUILD_PLAN.md        # Original build-session roadmap (historical; all 11 lessons now built)
+├── REMEDIATION_PLAN.md  # Record of the latest repo-wide consistency/bug-fix pass
+├── PDF_EXPORT_PLAN.md   # Plan for pretty PDF printouts of lessons (not yet implemented)
 ├── VOICE.md             # Tone and widget feedback writing contract
 ├── INTERACTION_SPEC.md  # Detailed specifications for widgets & interactive behaviors
 ├── Diagram_Inventory_v2.md Spec detail inventory for lesson diagrams

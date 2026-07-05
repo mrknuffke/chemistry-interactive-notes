@@ -1,6 +1,8 @@
 # BUILD_PLAN.md — Session Sequencing & Prompts
 ## Chemistry Interactive Notes · v2 implementation
 
+**Status: all 11 lesson files below now exist and have full content (confirmed 2026-07-05).** This document tracks the *original construction* sequencing and is kept for history — every session's file now exists, so this table is no longer a live to-do list for "does the file exist." It is **not** a record of current bug/polish status: for that, see `REMEDIATION_PLAN.md` at the repo root, which tracks a full consistency/bug-fix pass completed 2026-07-05 across every lesson. The "Open questions" and "QA gates" below have not been re-audited item-by-item since the original build — treat them as historical unless you're specifically re-verifying one.
+
 **Project knowledge to load before every session:** CLAUDE.md · BUILDING.md · VOICE.md · INTERACTION_SPEC.md · Content_Expansion_v2.md · Diagram_Inventory_v2.md. (The two v1 documents are superseded — remove them from project knowledge so Claude Code can't consume stale specs.)
 
 ---
@@ -13,17 +15,17 @@
 | ~~1~~ | ~~Widget framework~~ | ~~0~~ | ~~The four widgets (commit-reveal, faded-example, scaffold, step-builder) in core.js/components.css + `_widget-test.html`. Every lesson session consumes these.~~ |
 | ~~2~~ | ~~Motion primitives~~ | ~~1~~ | ~~Step, scrub, zoom in core.js + additions to the test page. Separated from Session 1 so each session has one definition of done.~~ |
 | ~~3~~ | ~~Lesson 2-7a~~ | ~~1, 2~~ | ~~First lesson pass; exercises zoom (T3), faded example, scaffold ledger, and a gate — a full-spectrum shakedown of the infrastructure on the highest-priority lesson.~~ |
-| 4 | Lesson 1-1a | 1, 2 | Steppable visuals + faded example + gates. |
-| 5 | Lesson C-RXN | 1, 2 | Both resolved decisions land here: tabbed types card + gated balancing step-builder + classify drill. |
-| 6 | Lesson 1-3a | 1, 2 | The other gated step-builder (CO₂) + the NCl₃ faded example. |
-| 7 | Lesson 1-2a | 1, 2 | The ΔEN scrub (T2 signature) + faded exam. |
-| 8 | Lesson 1-3b | 1, 2 | Water-bead zoom + gated predicts. |
-| 9 | Lesson 2-2a | 1, 2 | Tawa zoom (two-target — the most complex T3) + T1 upgrade of closed/open. Deliberately after two simpler zooms have shaken out the zoom stage. |
-| 10 | Lesson 2-7b | 1, 2 | Small session: faded chain + conditional hub visual. |
-| 11 | Lesson 2-7c | 1, 2 | BCA scaffold + gated drill; simulator untouched. |
+| ~~4~~ | ~~Lesson 1-1a~~ | ~~1, 2~~ | ~~Steppable visuals + faded example + gates. File exists; polish tracked in REMEDIATION_PLAN.md.~~ |
+| ~~5~~ | ~~Lesson C-RXN~~ | ~~1, 2~~ | ~~Both resolved decisions land here: tabbed types card + gated balancing step-builder + classify drill. File exists; polish tracked in REMEDIATION_PLAN.md.~~ |
+| ~~6~~ | ~~Lesson 1-3a~~ | ~~1, 2~~ | ~~The other gated step-builder (CO₂) + the NCl₃ faded example. File exists.~~ |
+| ~~7~~ | ~~Lesson 1-2a~~ | ~~1, 2~~ | ~~The ΔEN scrub (T2 signature) + faded exam. File exists.~~ |
+| ~~8~~ | ~~Lesson 1-3b~~ | ~~1, 2~~ | ~~Water-bead zoom + gated predicts. File exists.~~ |
+| ~~9~~ | ~~Lesson 2-2a~~ | ~~1, 2~~ | ~~Tawa zoom (two-target — the most complex T3) + T1 upgrade of closed/open. File exists.~~ |
+| ~~10~~ | ~~Lesson 2-7b~~ | ~~1, 2~~ | ~~Small session: faded chain + conditional hub visual. File exists.~~ |
+| ~~11~~ | ~~Lesson 2-7c~~ | ~~1, 2~~ | ~~BCA scaffold + gated drill; simulator untouched. File exists.~~ |
 | ~~12~~ | ~~Lesson 1-1b~~ | ~~1, 2~~ | ~~GHS zoom (⚑ pictogram check first) + gated predicts.~~ |
-| 13 | Lesson C-SPA | 1, 2 | Exam scaffold + explorer refactor to bank-mode scaffold. Prata zoom only if ⚑ mechanism is signed off by then; otherwise skip it and leave a TODO. |
-| 14 | Lesson 1-2b | 1, 2, ⚑ | Last, because existence and section IDs are unverified. If the file doesn't exist, this becomes a creation session seeded by the 1-2b block of Content_Expansion_v2.md. |
+| ~~13~~ | ~~Lesson C-SPA~~ | ~~1, 2~~ | ~~Exam scaffold + explorer refactor to bank-mode scaffold. File exists.~~ |
+| 14 | Lesson 1-2b | 1, 2, ⚑ | **Still not built** — `scaffold/lessons/1-2b_*` does not exist (confirmed 2026-07-05). Last, because existence and section IDs are unverified. This becomes a creation session seeded by the 1-2b block of Content_Expansion_v2.md. |
 
 Sessions 3–14 are independent of each other; reorder freely after Session 2 if a sign-off unblocks early.
 

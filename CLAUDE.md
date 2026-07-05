@@ -1,5 +1,7 @@
 # CLAUDE.md — Behavioral Guidelines & Project Contract
 
+> **New session? Read [`TODO.md`](TODO.md) first** — it's the current, single source of truth for what's left to do (PDF export, the unresolved 1-2b lesson). All 11 manifest lessons are built and a full consistency/bug-fix pass is done (see `REMEDIATION_PLAN.md`).
+
 ## 1. Behavioral Guidelines (Reduce common LLM coding mistakes)
 
 **Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
@@ -76,6 +78,10 @@ This repo builds a set of **interactive HTML review pages** for a high-school Ge
 9. **Follow the VOICE.md Prose Contract:** All student-facing text must follow the rules in `VOICE.md` (root directory): use second person ("you"), predict specific misconceptions by name, concrete before abstract, short declaratives, no throat-clearing, and describe consequences rather than just definitions. Widget feedback must explain the temptation of the incorrect choice, never just say "incorrect". Run the `VOICE.md` §6 QA pass (read aloud, check banned words, check misconceptions) before declaring any page done.
 10. **Gated Interaction Contract (INTERACTION_SPEC.md):** Commit-before-reveal is mandatory on all widgets and predict prompts. Never let the student see the answer or proceed without committing an answer first. Parity for keyboard and touch, no persistence of state on reload. Green means correct/positive only; incorrect uses vermilion outline/text, never red fill. Follow the widget config patterns and motion controller specifications defined in `INTERACTION_SPEC.md` (root directory).
 11. **Session Sequence & QA Gates:** Develop files strictly in the session sequence and using the QA gates and prompts specified in `BUILD_PLAN.md` (root directory).
+12. **Sequenced diagrams use the step motion primitive only.** Any "click through frames" diagram must use `data-motion="step"` (see `INTERACTION_SPEC.md`), which crossfades one frame in place inside a fixed-height stage. Never show every frame at once in a `flex-wrap` grid — that stacks/scatters frames instead of replacing them and was a repeated bug.
+13. **Every diagram is lightboxable.** Wrap every static diagram (SVG or image) in `<div class="diagram">...<div class="diagram-cap">...</div></div>`. `core.js` binds a click-to-zoom lightbox to anything matching `.diagram svg, .diagram img` — a diagram outside that wrapper silently gets no lightbox.
+14. **Free-text gates never show a character cap.** Commit-before-reveal free-response widgets (`mode: "free"`) enforce a minimum length before enabling the check button, but the UI must never display a number or a cap (no "12 / 30 characters"). Show a soft, non-numeric progress hint instead (see `core.js`'s `w-progress-hint`).
+15. **Chemical formulas never break across a line.** Never place a `<sub>`-bearing formula as the sole content of a flex or grid item without wrapping it — flex/grid containers turn each inline run (including a bare `<sub>`) into its own item, tearing "CO<sub>2</sub>" onto multiple lines. Wrap inline formulas in a `<span>` (or `.formula` for pure nowrap) before they sit inside `.st-fields label` or similar flex containers.
 
 ---
 
@@ -84,14 +90,18 @@ This repo builds a set of **interactive HTML review pages** for a high-school Ge
 ### Root Planning & Guidelines Directory
 ```
 CLAUDE.md               Behavioral guidelines & design constraints
+TODO.md                 ← START HERE each session: the single board of outstanding work
 README.md               Comprehensive project context, setup, and deployment notes
 BUILDING.md             Step-by-step checklist for building a lesson
-BUILD_PLAN.md           Roadmap sequence for development sessions
+BUILD_PLAN.md           Original build-session roadmap (historical — all 11 files now exist)
+REMEDIATION_PLAN.md     Record of the 2026-07-05 repo-wide consistency/bug-fix pass
+PDF_EXPORT_PLAN.md      Implementation plan for pretty PDF printouts of lessons (not yet built)
 VOICE.md                Pedagogical tone and feedback text style contract
 INTERACTION_SPEC.md     Specifications for retrieval widgets and motion controllers
-Diagram_Inventory_v2.md SVG design details and particle diagram counts
-Content_Expansion_v2.md Draft text/copy database for content updates
+Diagram_Inventory_v2.md SVG design details and particle diagram counts (still feeds the unbuilt 1-2b)
+Content_Expansion_v2.md Draft text/copy database (still feeds the unbuilt 1-2b; otherwise superseded by the built lessons)
 ```
+`Ongoing Work/` is the voice-note feedback staging folder (see the Voice Note Feedback Workflow above) — it should otherwise stay empty. A stale, out-of-sync duplicate of five of the docs above once lived there (leftover from an incomplete doc-consolidation merge) and has been removed; don't recreate it there. An orphaned `content_audit.md` content-gap snapshot has likewise been removed — re-run a fresh audit if one is needed rather than trusting an old one.
 
 ### Scaffold Web App Directory (`scaffold/`)
 ```
@@ -100,7 +110,7 @@ scaffold/
     tokens.css       design tokens: fonts, colors, base type, grid bg, dark mode
     components.css   shared component library (frame, widgets, diagram conventions)
     core.js          shared behaviors (theme, TOC, nav, reveal, retrieval widgets, glossary tooltips)
-    glossary.js      window.GC_GLOSSARY — 62 term definitions; drives hover tooltips on <strong class="term">
+    glossary.js      window.GC_GLOSSARY — 80 term definitions (check count on edit — this drifts); drives hover tooltips on <strong class="term">
     elements.js      window.GC_ELEMENTS — canonical periodic data (Z=1..36); read from here, never retype
   lessons/
     <id>_<slug>.html one file per lesson; links ../assets/*, plus its own <id>.js
@@ -118,9 +128,11 @@ Lesson HTML should be **mostly content**. Shared CSS/JS lives in `assets/`. If y
 
 Built from the review-sheet sub-targets, with shared chemistry deduplicated into canonical files.
 
+**All 11 files below are built and exist in `scaffold/lessons/`** (confirmed 2026-07-05). `1-2b` (bonding, PS1-2.b — see BUILD_PLAN.md) is a separate, later addition that does **not** exist yet; it is not part of this 11-file manifest. Current bug/polish status across all 11 lives in `REMEDIATION_PLAN.md` at the repo root, not here — this section is about scope/coverage, not QA state.
+
 **Unit-1-specific**
 - `1-1a` Atomic Structure & Electron Configuration — PS1-1.2, .3
-- `1-1b` Periodic Trends & Reactivity — PS1-1.1, .4, .5   ← REFERENCE BUILD (done)
+- `1-1b` Periodic Trends & Reactivity — PS1-1.1, .4, .5   ← REFERENCE BUILD (match this one's discipline)
 - `1-2a` Bonding & Electronegativity — PS1-2.1
 - `1-3a` Lewis Structures — PS1-3.4 (Lewis only; **no VSEPR headline**)
 - `1-3b` IMFs & Properties — PS1-3.5 (+ HS-PS1-3 investigation coda)
