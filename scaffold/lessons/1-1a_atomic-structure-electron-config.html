@@ -48,7 +48,7 @@
       <p class="lede">Fluorine (configuration <span class="chem">2, 7</span>) will tear an electron off almost anything it touches. Add one electron and you get the configuration of neon (<span class="chem">2, 8</span>) — which does essentially nothing. The two are neighbors, one electron apart, and that single electron — and the shell it sits in — is the whole story. This page is about reading an atom from its structure: <em>building</em> its shells, <em>writing</em> its configuration, and <em>counting</em> the few electrons that actually do chemistry.</p>
       
       <!-- SVG Fluorine vs Neon V-11a-01 -->
-      <div style="max-width: 580px; margin: 2rem auto 0.5rem; text-align: center;" class="reveal">
+      <div style="max-width: 580px; margin: 2rem auto 0.5rem; text-align: center;" class="diagram reveal">
         <svg viewBox="0 0 300 130" style="width: 100%; border: 1px solid var(--hair-soft); background: var(--paper-2); border-radius: 4px;">
           <!-- Left side: Fluorine -->
           <g transform="translate(75, 60)">
@@ -101,10 +101,10 @@
             <text x="0" y="55" font-family="var(--display)" font-size="7" font-weight="700" text-anchor="middle">Neon (2, 8)</text>
           </g>
         </svg>
-        <p style="font-size:0.75rem; font-style:italic; color:var(--ink-mute); margin-top:0.3rem;">
+        <div class="diagram-cap">
           ● core electrons &middot; <span style="color:var(--accent);">● valence electrons</span> &middot; <span style="border: 1px dashed var(--accent); border-radius: 50%; width: 5px; height: 5px; display: inline-block; vertical-align: middle;"></span> unfilled gap <br>
           one electron separates reactive from inert
-        </p>
+        </div>
       </div>
 
       <div class="meta-strip">
@@ -261,6 +261,11 @@
       <div class="section-tag reveal"><span class="num">03</span><span class="label label-accent">The wrinkle from calcium onward</span></div>
       <h2 class="reveal">After calcium, the next electrons don't go where you'd guess.</h2>
       
+      <div class="callout reveal" style="border-left-color: var(--accent); margin-top: 1rem;">
+        <div class="label" style="color: var(--accent);">Beyond assessment boundary</div>
+        <p>The details of transition metal electron configurations (including the energy crossover from potassium onward and the chromium/copper exceptions) are <strong>beyond the assessment boundary</strong> for general chemistry. You will not be tested on predicting these anomalies, but they are explained here to clarify how the rest of the periodic table fills.</p>
+      </div>
+      
       <p class="step reveal" style="margin-top:1.5rem;">The first three shells fill in the tidy way you'd expect: <span class="chem">2</span>, then <span class="chem">8</span>, then <span class="chem">8</span> — taking you from hydrogen to argon. But the third shell isn't actually full at 8; it can hold up to <strong>18</strong>. So why does potassium start a fourth shell before the third is finished?</p>
       
       <p class="step reveal">Because at that point the fourth shell sits at <em>slightly lower energy</em> than the rest of the third, so the next electrons go there first. Potassium and calcium open shell four (<span class="chem">…8, 1</span> and <span class="chem">…8, 2</span>). Only then does the third shell go back and fill from 8 up to 18 — that whole stretch is the transition metals — before the fourth shell picks up again at gallium.</p>
@@ -270,29 +275,52 @@
       </p>
 
       <!-- V-11a-02: Energy Crossover Step Interactive -->
-      <h4 class="reveal" style="margin-top: 2rem; color: var(--accent);">Visualizing the crossover</h4>
-      <div data-motion="step" data-step-count="4" data-step-start="1" data-step-labels="argon: shell 3 pauses at 8|potassium: electron 19 takes 4s|calcium: 4s fills|scandium: 3d finally opens &mdash; the transition metals begin" style="max-width: 520px; margin: 1.5rem auto;" class="reveal">
-        <!-- Step 1: Argon -->
-        <div data-step="1" style="width:100%;">
+      <!-- V-11a-02: Energy Crossover Grid -->
+      <h4 class="reveal" style="margin-top: 2.5rem; color: var(--accent);">Visualizing the crossover</h4>
+      
+      <div class="crossover-grid reveal" style="display: flex; flex-wrap: wrap; gap: 1.2rem; margin: 1.5rem 0; justify-content: center;">
+        <!-- Argon -->
+        <div class="diagram" style="flex: 1 1 230px; max-width: 280px; min-width: 220px; text-align: center;">
           <svg viewBox="0 0 240 145" style="width: 100%; border: 1px solid var(--hair-soft); background: var(--paper-2); border-radius: 4px;">
             <!-- Backdrop energy line -->
             <line x1="80" y1="10" x2="80" y2="135" stroke="var(--hair-soft)" stroke-width="1"/>
             <!-- Rung labels and lines -->
             <line x1="65" y1="20" x2="95" y2="20" stroke="var(--ink-mute)" stroke-width="1"/>
             <text x="50" y="23" font-family="var(--mono)" font-size="7" fill="var(--ink-mute)">4p</text>
-            <line x1="65" y1="35" x2="95" y2="35" stroke="var(--ink-mute)" stroke-width="1"/>
+            
+            <!-- 3d (5 orbital segments) -->
+            <line x1="65" y1="35" x2="69" y2="35" stroke="var(--ink-mute)" stroke-width="1"/>
+            <line x1="71" y1="35" x2="75" y2="35" stroke="var(--ink-mute)" stroke-width="1"/>
+            <line x1="77" y1="35" x2="81" y2="35" stroke="var(--ink-mute)" stroke-width="1"/>
+            <line x1="83" y1="35" x2="87" y2="35" stroke="var(--ink-mute)" stroke-width="1"/>
+            <line x1="89" y1="35" x2="93" y2="35" stroke="var(--ink-mute)" stroke-width="1"/>
             <text x="50" y="38" font-family="var(--mono)" font-size="7" fill="var(--ink-mute)">3d</text>
+            
+            <!-- 4s -->
             <line x1="65" y1="50" x2="95" y2="50" stroke="var(--ink-mute)" stroke-width="1"/>
             <text x="50" y="53" font-family="var(--mono)" font-size="7" fill="var(--ink-mute)">4s</text>
-            <line x1="65" y1="65" x2="95" y2="65" stroke="var(--ink)" stroke-width="1.2"/>
+            
+            <!-- 3p (3 orbital segments) -->
+            <line x1="65" y1="65" x2="73" y2="65" stroke="var(--ink)" stroke-width="1.2"/>
+            <line x1="76" y1="65" x2="84" y2="65" stroke="var(--ink)" stroke-width="1.2"/>
+            <line x1="87" y1="65" x2="95" y2="65" stroke="var(--ink)" stroke-width="1.2"/>
             <text x="50" y="68" font-family="var(--mono)" font-size="7" fill="var(--ink)">3p</text>
+            
+            <!-- 3s -->
             <line x1="65" y1="80" x2="95" y2="80" stroke="var(--ink)" stroke-width="1.2"/>
             <text x="50" y="83" font-family="var(--mono)" font-size="7" fill="var(--ink)">3s</text>
-            <!-- Core rungs -->
-            <line x1="65" y1="95" x2="95" y2="95" stroke="var(--ink)" stroke-width="1"/>
+            
+            <!-- 2p (3 orbital segments) -->
+            <line x1="65" y1="95" x2="73" y2="95" stroke="var(--ink)" stroke-width="1"/>
+            <line x1="76" y1="95" x2="84" y2="95" stroke="var(--ink)" stroke-width="1"/>
+            <line x1="87" y1="95" x2="95" y2="95" stroke="var(--ink)" stroke-width="1"/>
             <text x="50" y="98" font-family="var(--mono)" font-size="6" fill="var(--ink-soft)">2p</text>
+            
+            <!-- 2s -->
             <line x1="65" y1="110" x2="95" y2="110" stroke="var(--ink)" stroke-width="1"/>
             <text x="50" y="113" font-family="var(--mono)" font-size="6" fill="var(--ink-soft)">2s</text>
+            
+            <!-- 1s -->
             <line x1="65" y1="125" x2="95" y2="125" stroke="var(--ink)" stroke-width="1"/>
             <text x="50" y="128" font-family="var(--mono)" font-size="6" fill="var(--ink-soft)">1s</text>
 
@@ -301,51 +329,78 @@
             <text x="130" y="46" font-family="var(--mono)" font-size="6" fill="var(--accent)" font-weight="700">crossover</text>
 
             <!-- Argon electrons: 18 placed -->
-            <circle cx="73" cy="125" r="2" fill="var(--ink-mute)"/>
-            <circle cx="87" cy="125" r="2" fill="var(--ink-mute)"/>
-            <circle cx="73" cy="110" r="2" fill="var(--ink-mute)"/>
-            <circle cx="87" cy="110" r="2" fill="var(--ink-mute)"/>
-            <circle cx="70" cy="95" r="2" fill="var(--ink-mute)"/>
-            <circle cx="77" cy="95" r="2" fill="var(--ink-mute)"/>
-            <circle cx="83" cy="95" r="2" fill="var(--ink-mute)"/>
-            <circle cx="90" cy="95" r="2" fill="var(--ink-mute)"/>
-            <circle cx="77" cy="98" r="1.5" fill="var(--ink-mute)"/>
-            <circle cx="83" cy="98" r="1.5" fill="var(--ink-mute)"/>
-            <circle cx="73" cy="80" r="2" fill="var(--ink)"/>
-            <circle cx="87" cy="80" r="2" fill="var(--ink)"/>
-            <circle cx="70" cy="65" r="2" fill="var(--ink)"/>
-            <circle cx="77" cy="65" r="2" fill="var(--ink)"/>
-            <circle cx="83" cy="65" r="2" fill="var(--ink)"/>
-            <circle cx="90" cy="65" r="2" fill="var(--ink)"/>
-            <circle cx="77" cy="68" r="1.5" fill="var(--ink)"/>
-            <circle cx="83" cy="68" r="1.5" fill="var(--ink)"/>
+            <!-- 1s -->
+            <circle cx="74" cy="125" r="2" fill="var(--ink-mute)"/>
+            <circle cx="86" cy="125" r="2" fill="var(--ink-mute)"/>
+            <!-- 2s -->
+            <circle cx="74" cy="110" r="2" fill="var(--ink-mute)"/>
+            <circle cx="86" cy="110" r="2" fill="var(--ink-mute)"/>
+            <!-- 2p (paired on orbital segments) -->
+            <circle cx="67" cy="95" r="2" fill="var(--ink-mute)"/>
+            <circle cx="71" cy="95" r="2" fill="var(--ink-mute)"/>
+            <circle cx="78" cy="95" r="2" fill="var(--ink-mute)"/>
+            <circle cx="82" cy="95" r="2" fill="var(--ink-mute)"/>
+            <circle cx="89" cy="95" r="2" fill="var(--ink-mute)"/>
+            <circle cx="93" cy="95" r="2" fill="var(--ink-mute)"/>
+            <!-- 3s -->
+            <circle cx="74" cy="80" r="2" fill="var(--ink)"/>
+            <circle cx="86" cy="80" r="2" fill="var(--ink)"/>
+            <!-- 3p (paired on orbital segments) -->
+            <circle cx="67" cy="65" r="2" fill="var(--ink)"/>
+            <circle cx="71" cy="65" r="2" fill="var(--ink)"/>
+            <circle cx="78" cy="65" r="2" fill="var(--ink)"/>
+            <circle cx="82" cy="65" r="2" fill="var(--ink)"/>
+            <circle cx="89" cy="65" r="2" fill="var(--ink)"/>
+            <circle cx="93" cy="65" r="2" fill="var(--ink)"/>
 
             <text x="180" y="80" font-family="var(--display)" font-size="10" font-weight="700" fill="var(--ink)">Argon (Ar)</text>
             <text x="180" y="95" font-family="var(--mono)" font-size="8" fill="var(--accent)">2, 8, 8</text>
           </svg>
+          <div class="diagram-cap">Argon (Ar)<br><span style="font-size:0.6rem;text-transform:none;">shell 3 pauses at 8</span></div>
         </div>
 
-        <!-- Step 2: Potassium -->
-        <div data-step="2" style="width:100%;">
+        <!-- Potassium -->
+        <div class="diagram" style="flex: 1 1 230px; max-width: 280px; min-width: 220px; text-align: center;">
           <svg viewBox="0 0 240 145" style="width: 100%; border: 1px solid var(--hair-soft); background: var(--paper-2); border-radius: 4px;">
             <!-- Backdrop energy line -->
             <line x1="80" y1="10" x2="80" y2="135" stroke="var(--hair-soft)" stroke-width="1"/>
             <!-- Rung labels and lines -->
             <line x1="65" y1="20" x2="95" y2="20" stroke="var(--ink-mute)" stroke-width="1"/>
             <text x="50" y="23" font-family="var(--mono)" font-size="7" fill="var(--ink-mute)">4p</text>
-            <line x1="65" y1="35" x2="95" y2="35" stroke="var(--ink-mute)" stroke-width="1"/>
+            
+            <!-- 3d (5 segments) -->
+            <line x1="65" y1="35" x2="69" y2="35" stroke="var(--ink-mute)" stroke-width="1"/>
+            <line x1="71" y1="35" x2="75" y2="35" stroke="var(--ink-mute)" stroke-width="1"/>
+            <line x1="77" y1="35" x2="81" y2="35" stroke="var(--ink-mute)" stroke-width="1"/>
+            <line x1="83" y1="35" x2="87" y2="35" stroke="var(--ink-mute)" stroke-width="1"/>
+            <line x1="89" y1="35" x2="93" y2="35" stroke="var(--ink-mute)" stroke-width="1"/>
             <text x="50" y="38" font-family="var(--mono)" font-size="7" fill="var(--ink-mute)">3d</text>
+            
+            <!-- 4s -->
             <line x1="65" y1="50" x2="95" y2="50" stroke="var(--ink)" stroke-width="1.2"/>
             <text x="50" y="53" font-family="var(--mono)" font-size="7" fill="var(--ink)" font-weight="700">4s</text>
-            <line x1="65" y1="65" x2="95" y2="65" stroke="var(--ink)" stroke-width="1"/>
+            
+            <!-- 3p (3 segments) -->
+            <line x1="65" y1="65" x2="73" y2="65" stroke="var(--ink)" stroke-width="1"/>
+            <line x1="76" y1="65" x2="84" y2="65" stroke="var(--ink)" stroke-width="1"/>
+            <line x1="87" y1="65" x2="95" y2="65" stroke="var(--ink)" stroke-width="1"/>
             <text x="50" y="68" font-family="var(--mono)" font-size="7" fill="var(--ink-mute)">3p</text>
+            
+            <!-- 3s -->
             <line x1="65" y1="80" x2="95" y2="80" stroke="var(--ink)" stroke-width="1"/>
             <text x="50" y="83" font-family="var(--mono)" font-size="7" fill="var(--ink-mute)">3s</text>
-            <!-- Core rungs -->
-            <line x1="65" y1="95" x2="95" y2="95" stroke="var(--ink)" stroke-width="1"/>
+            
+            <!-- 2p (3 segments) -->
+            <line x1="65" y1="95" x2="73" y2="95" stroke="var(--ink)" stroke-width="1"/>
+            <line x1="76" y1="95" x2="84" y2="95" stroke="var(--ink)" stroke-width="1"/>
+            <line x1="87" y1="95" x2="95" y2="95" stroke="var(--ink)" stroke-width="1"/>
             <text x="50" y="98" font-family="var(--mono)" font-size="6" fill="var(--ink-soft)">2p</text>
+            
+            <!-- 2s -->
             <line x1="65" y1="110" x2="95" y2="110" stroke="var(--ink)" stroke-width="1"/>
             <text x="50" y="113" font-family="var(--mono)" font-size="6" fill="var(--ink-soft)">2s</text>
+            
+            <!-- 1s -->
             <line x1="65" y1="125" x2="95" y2="125" stroke="var(--ink)" stroke-width="1"/>
             <text x="50" y="128" font-family="var(--mono)" font-size="6" fill="var(--ink-soft)">1s</text>
 
@@ -354,54 +409,81 @@
             <text x="130" y="46" font-family="var(--mono)" font-size="6" fill="var(--accent)" font-weight="700">crossover</text>
 
             <!-- Core electrons -->
-            <circle cx="73" cy="125" r="2" fill="var(--ink-mute)"/>
-            <circle cx="87" cy="125" r="2" fill="var(--ink-mute)"/>
-            <circle cx="73" cy="110" r="2" fill="var(--ink-mute)"/>
-            <circle cx="87" cy="110" r="2" fill="var(--ink-mute)"/>
-            <circle cx="70" cy="95" r="2" fill="var(--ink-mute)"/>
-            <circle cx="77" cy="95" r="2" fill="var(--ink-mute)"/>
-            <circle cx="83" cy="95" r="2" fill="var(--ink-mute)"/>
-            <circle cx="90" cy="95" r="2" fill="var(--ink-mute)"/>
-            <circle cx="77" cy="98" r="1.5" fill="var(--ink-mute)"/>
-            <circle cx="83" cy="98" r="1.5" fill="var(--ink-mute)"/>
-            <circle cx="73" cy="80" r="2" fill="var(--ink-mute)"/>
-            <circle cx="87" cy="80" r="2" fill="var(--ink-mute)"/>
-            <circle cx="70" cy="65" r="2" fill="var(--ink-mute)"/>
-            <circle cx="77" cy="65" r="2" fill="var(--ink-mute)"/>
-            <circle cx="83" cy="65" r="2" fill="var(--ink-mute)"/>
-            <circle cx="90" cy="65" r="2" fill="var(--ink-mute)"/>
-            <circle cx="77" cy="68" r="1.5" fill="var(--ink-mute)"/>
-            <circle cx="83" cy="68" r="1.5" fill="var(--ink-mute)"/>
+            <!-- 1s -->
+            <circle cx="74" cy="125" r="2" fill="var(--ink-mute)"/>
+            <circle cx="86" cy="125" r="2" fill="var(--ink-mute)"/>
+            <!-- 2s -->
+            <circle cx="74" cy="110" r="2" fill="var(--ink-mute)"/>
+            <circle cx="86" cy="110" r="2" fill="var(--ink-mute)"/>
+            <!-- 2p -->
+            <circle cx="67" cy="95" r="2" fill="var(--ink-mute)"/>
+            <circle cx="71" cy="95" r="2" fill="var(--ink-mute)"/>
+            <circle cx="78" cy="95" r="2" fill="var(--ink-mute)"/>
+            <circle cx="82" cy="95" r="2" fill="var(--ink-mute)"/>
+            <circle cx="89" cy="95" r="2" fill="var(--ink-mute)"/>
+            <circle cx="93" cy="95" r="2" fill="var(--ink-mute)"/>
+            <!-- 3s -->
+            <circle cx="74" cy="80" r="2" fill="var(--ink-mute)"/>
+            <circle cx="86" cy="80" r="2" fill="var(--ink-mute)"/>
+            <!-- 3p -->
+            <circle cx="67" cy="65" r="2" fill="var(--ink-mute)"/>
+            <circle cx="71" cy="65" r="2" fill="var(--ink-mute)"/>
+            <circle cx="78" cy="65" r="2" fill="var(--ink-mute)"/>
+            <circle cx="82" cy="65" r="2" fill="var(--ink-mute)"/>
+            <circle cx="89" cy="65" r="2" fill="var(--ink-mute)"/>
+            <circle cx="93" cy="65" r="2" fill="var(--ink-mute)"/>
 
             <!-- Potassium 19th electron on 4s -->
-            <circle cx="73" cy="50" r="2.5" fill="var(--accent)"/>
+            <circle cx="80" cy="50" r="2.5" fill="var(--accent)"/>
 
             <text x="180" y="80" font-family="var(--display)" font-size="10" font-weight="700" fill="var(--ink)">Potassium (K)</text>
             <text x="180" y="95" font-family="var(--mono)" font-size="8" fill="var(--accent)">2, 8, 8, 1</text>
           </svg>
+          <div class="diagram-cap">Potassium (K)<br><span style="font-size:0.6rem;text-transform:none;">electron 19 takes 4s</span></div>
         </div>
 
-        <!-- Step 3: Calcium -->
-        <div data-step="3" style="width:100%;">
+        <!-- Calcium -->
+        <div class="diagram" style="flex: 1 1 230px; max-width: 280px; min-width: 220px; text-align: center;">
           <svg viewBox="0 0 240 145" style="width: 100%; border: 1px solid var(--hair-soft); background: var(--paper-2); border-radius: 4px;">
             <!-- Backdrop energy line -->
             <line x1="80" y1="10" x2="80" y2="135" stroke="var(--hair-soft)" stroke-width="1"/>
             <!-- Rung labels and lines -->
             <line x1="65" y1="20" x2="95" y2="20" stroke="var(--ink-mute)" stroke-width="1"/>
             <text x="50" y="23" font-family="var(--mono)" font-size="7" fill="var(--ink-mute)">4p</text>
-            <line x1="65" y1="35" x2="95" y2="35" stroke="var(--ink-mute)" stroke-width="1"/>
+            
+            <!-- 3d (5 segments) -->
+            <line x1="65" y1="35" x2="69" y2="35" stroke="var(--ink-mute)" stroke-width="1"/>
+            <line x1="71" y1="35" x2="75" y2="35" stroke="var(--ink-mute)" stroke-width="1"/>
+            <line x1="77" y1="35" x2="81" y2="35" stroke="var(--ink-mute)" stroke-width="1"/>
+            <line x1="83" y1="35" x2="87" y2="35" stroke="var(--ink-mute)" stroke-width="1"/>
+            <line x1="89" y1="35" x2="93" y2="35" stroke="var(--ink-mute)" stroke-width="1"/>
             <text x="50" y="38" font-family="var(--mono)" font-size="7" fill="var(--ink-mute)">3d</text>
+            
+            <!-- 4s -->
             <line x1="65" y1="50" x2="95" y2="50" stroke="var(--ink)" stroke-width="1.2"/>
             <text x="50" y="53" font-family="var(--mono)" font-size="7" fill="var(--ink)" font-weight="700">4s</text>
-            <line x1="65" y1="65" x2="95" y2="65" stroke="var(--ink)" stroke-width="1"/>
+            
+            <!-- 3p (3 segments) -->
+            <line x1="65" y1="65" x2="73" y2="65" stroke="var(--ink)" stroke-width="1"/>
+            <line x1="76" y1="65" x2="84" y2="65" stroke="var(--ink)" stroke-width="1"/>
+            <line x1="87" y1="65" x2="95" y2="65" stroke="var(--ink)" stroke-width="1"/>
             <text x="50" y="68" font-family="var(--mono)" font-size="7" fill="var(--ink-mute)">3p</text>
+            
+            <!-- 3s -->
             <line x1="65" y1="80" x2="95" y2="80" stroke="var(--ink)" stroke-width="1"/>
             <text x="50" y="83" font-family="var(--mono)" font-size="7" fill="var(--ink-mute)">3s</text>
-            <!-- Core rungs -->
-            <line x1="65" y1="95" x2="95" y2="95" stroke="var(--ink)" stroke-width="1"/>
+            
+            <!-- 2p (3 segments) -->
+            <line x1="65" y1="95" x2="73" y2="95" stroke="var(--ink)" stroke-width="1"/>
+            <line x1="76" y1="95" x2="84" y2="95" stroke="var(--ink)" stroke-width="1"/>
+            <line x1="87" y1="95" x2="95" y2="95" stroke="var(--ink)" stroke-width="1"/>
             <text x="50" y="98" font-family="var(--mono)" font-size="6" fill="var(--ink-soft)">2p</text>
+            
+            <!-- 2s -->
             <line x1="65" y1="110" x2="95" y2="110" stroke="var(--ink)" stroke-width="1"/>
             <text x="50" y="113" font-family="var(--mono)" font-size="6" fill="var(--ink-soft)">2s</text>
+            
+            <!-- 1s -->
             <line x1="65" y1="125" x2="95" y2="125" stroke="var(--ink)" stroke-width="1"/>
             <text x="50" y="128" font-family="var(--mono)" font-size="6" fill="var(--ink-soft)">1s</text>
 
@@ -410,55 +492,82 @@
             <text x="130" y="46" font-family="var(--mono)" font-size="6" fill="var(--accent)" font-weight="700">crossover</text>
 
             <!-- Core electrons -->
-            <circle cx="73" cy="125" r="2" fill="var(--ink-mute)"/>
-            <circle cx="87" cy="125" r="2" fill="var(--ink-mute)"/>
-            <circle cx="73" cy="110" r="2" fill="var(--ink-mute)"/>
-            <circle cx="87" cy="110" r="2" fill="var(--ink-mute)"/>
-            <circle cx="70" cy="95" r="2" fill="var(--ink-mute)"/>
-            <circle cx="77" cy="95" r="2" fill="var(--ink-mute)"/>
-            <circle cx="83" cy="95" r="2" fill="var(--ink-mute)"/>
-            <circle cx="90" cy="95" r="2" fill="var(--ink-mute)"/>
-            <circle cx="77" cy="98" r="1.5" fill="var(--ink-mute)"/>
-            <circle cx="83" cy="98" r="1.5" fill="var(--ink-mute)"/>
-            <circle cx="73" cy="80" r="2" fill="var(--ink-mute)"/>
-            <circle cx="87" cy="80" r="2" fill="var(--ink-mute)"/>
-            <circle cx="70" cy="65" r="2" fill="var(--ink-mute)"/>
-            <circle cx="77" cy="65" r="2" fill="var(--ink-mute)"/>
-            <circle cx="83" cy="65" r="2" fill="var(--ink-mute)"/>
-            <circle cx="90" cy="65" r="2" fill="var(--ink-mute)"/>
-            <circle cx="77" cy="68" r="1.5" fill="var(--ink-mute)"/>
-            <circle cx="83" cy="68" r="1.5" fill="var(--ink-mute)"/>
+            <!-- 1s -->
+            <circle cx="74" cy="125" r="2" fill="var(--ink-mute)"/>
+            <circle cx="86" cy="125" r="2" fill="var(--ink-mute)"/>
+            <!-- 2s -->
+            <circle cx="74" cy="110" r="2" fill="var(--ink-mute)"/>
+            <circle cx="86" cy="110" r="2" fill="var(--ink-mute)"/>
+            <!-- 2p -->
+            <circle cx="67" cy="95" r="2" fill="var(--ink-mute)"/>
+            <circle cx="71" cy="95" r="2" fill="var(--ink-mute)"/>
+            <circle cx="78" cy="95" r="2" fill="var(--ink-mute)"/>
+            <circle cx="82" cy="95" r="2" fill="var(--ink-mute)"/>
+            <circle cx="89" cy="95" r="2" fill="var(--ink-mute)"/>
+            <circle cx="93" cy="95" r="2" fill="var(--ink-mute)"/>
+            <!-- 3s -->
+            <circle cx="74" cy="80" r="2" fill="var(--ink-mute)"/>
+            <circle cx="86" cy="80" r="2" fill="var(--ink-mute)"/>
+            <!-- 3p -->
+            <circle cx="67" cy="65" r="2" fill="var(--ink-mute)"/>
+            <circle cx="71" cy="65" r="2" fill="var(--ink-mute)"/>
+            <circle cx="78" cy="65" r="2" fill="var(--ink-mute)"/>
+            <circle cx="82" cy="65" r="2" fill="var(--ink-mute)"/>
+            <circle cx="89" cy="65" r="2" fill="var(--ink-mute)"/>
+            <circle cx="93" cy="65" r="2" fill="var(--ink-mute)"/>
 
             <!-- Calcium 19th & 20th electrons on 4s -->
-            <circle cx="73" cy="50" r="2.5" fill="var(--accent)"/>
-            <circle cx="87" cy="50" r="2.5" fill="var(--accent)"/>
+            <circle cx="74" cy="50" r="2.5" fill="var(--accent)"/>
+            <circle cx="86" cy="50" r="2.5" fill="var(--accent)"/>
 
             <text x="180" y="80" font-family="var(--display)" font-size="10" font-weight="700" fill="var(--ink)">Calcium (Ca)</text>
             <text x="180" y="95" font-family="var(--mono)" font-size="8" fill="var(--accent)">2, 8, 8, 2</text>
           </svg>
+          <div class="diagram-cap">Calcium (Ca)<br><span style="font-size:0.6rem;text-transform:none;">4s fills</span></div>
         </div>
 
-        <!-- Step 4: Scandium -->
-        <div data-step="4" style="width:100%;">
+        <!-- Scandium -->
+        <div class="diagram" style="flex: 1 1 230px; max-width: 280px; min-width: 220px; text-align: center;">
           <svg viewBox="0 0 240 145" style="width: 100%; border: 1px solid var(--hair-soft); background: var(--paper-2); border-radius: 4px;">
             <!-- Backdrop energy line -->
             <line x1="80" y1="10" x2="80" y2="135" stroke="var(--hair-soft)" stroke-width="1"/>
             <!-- Rung labels and lines -->
             <line x1="65" y1="20" x2="95" y2="20" stroke="var(--ink-mute)" stroke-width="1"/>
             <text x="50" y="23" font-family="var(--mono)" font-size="7" fill="var(--ink-mute)">4p</text>
-            <line x1="65" y1="35" x2="95" y2="35" stroke="var(--ink)" stroke-width="1.2"/>
+            
+            <!-- 3d (5 segments, active rung) -->
+            <line x1="65" y1="35" x2="69" y2="35" stroke="var(--ink)" stroke-width="1.2"/>
+            <line x1="71" y1="35" x2="75" y2="35" stroke="var(--ink)" stroke-width="1.2"/>
+            <line x1="77" y1="35" x2="81" y2="35" stroke="var(--ink)" stroke-width="1.2"/>
+            <line x1="83" y1="35" x2="87" y2="35" stroke="var(--ink)" stroke-width="1.2"/>
+            <line x1="89" y1="35" x2="93" y2="35" stroke="var(--ink)" stroke-width="1.2"/>
             <text x="50" y="38" font-family="var(--mono)" font-size="7" fill="var(--ink)" font-weight="700">3d</text>
+            
+            <!-- 4s -->
             <line x1="65" y1="50" x2="95" y2="50" stroke="var(--ink)" stroke-width="1"/>
             <text x="50" y="53" font-family="var(--mono)" font-size="7" fill="var(--ink-mute)">4s</text>
-            <line x1="65" y1="65" x2="95" y2="65" stroke="var(--ink)" stroke-width="1"/>
+            
+            <!-- 3p (3 segments) -->
+            <line x1="65" y1="65" x2="73" y2="65" stroke="var(--ink)" stroke-width="1"/>
+            <line x1="76" y1="65" x2="84" y2="65" stroke="var(--ink)" stroke-width="1"/>
+            <line x1="87" y1="65" x2="95" y2="65" stroke="var(--ink)" stroke-width="1"/>
             <text x="50" y="68" font-family="var(--mono)" font-size="7" fill="var(--ink-mute)">3p</text>
+            
+            <!-- 3s -->
             <line x1="65" y1="80" x2="95" y2="80" stroke="var(--ink)" stroke-width="1"/>
             <text x="50" y="83" font-family="var(--mono)" font-size="7" fill="var(--ink-mute)">3s</text>
-            <!-- Core rungs -->
-            <line x1="65" y1="95" x2="95" y2="95" stroke="var(--ink)" stroke-width="1"/>
+            
+            <!-- 2p (3 segments) -->
+            <line x1="65" y1="95" x2="73" y2="95" stroke="var(--ink)" stroke-width="1"/>
+            <line x1="76" y1="95" x2="84" y2="95" stroke="var(--ink)" stroke-width="1"/>
+            <line x1="87" y1="95" x2="95" y2="95" stroke="var(--ink)" stroke-width="1"/>
             <text x="50" y="98" font-family="var(--mono)" font-size="6" fill="var(--ink-soft)">2p</text>
+            
+            <!-- 2s -->
             <line x1="65" y1="110" x2="95" y2="110" stroke="var(--ink)" stroke-width="1"/>
             <text x="50" y="113" font-family="var(--mono)" font-size="6" fill="var(--ink-soft)">2s</text>
+            
+            <!-- 1s -->
             <line x1="65" y1="125" x2="95" y2="125" stroke="var(--ink)" stroke-width="1"/>
             <text x="50" y="128" font-family="var(--mono)" font-size="6" fill="var(--ink-soft)">1s</text>
 
@@ -467,35 +576,41 @@
             <text x="130" y="46" font-family="var(--mono)" font-size="6" fill="var(--accent)" font-weight="700">crossover</text>
 
             <!-- Core electrons -->
-            <circle cx="73" cy="125" r="2" fill="var(--ink-mute)"/>
-            <circle cx="87" cy="125" r="2" fill="var(--ink-mute)"/>
-            <circle cx="73" cy="110" r="2" fill="var(--ink-mute)"/>
-            <circle cx="87" cy="110" r="2" fill="var(--ink-mute)"/>
-            <circle cx="70" cy="95" r="2" fill="var(--ink-mute)"/>
-            <circle cx="77" cy="95" r="2" fill="var(--ink-mute)"/>
-            <circle cx="83" cy="95" r="2" fill="var(--ink-mute)"/>
-            <circle cx="90" cy="95" r="2" fill="var(--ink-mute)"/>
-            <circle cx="77" cy="98" r="1.5" fill="var(--ink-mute)"/>
-            <circle cx="83" cy="98" r="1.5" fill="var(--ink-mute)"/>
-            <circle cx="73" cy="80" r="2" fill="var(--ink-mute)"/>
-            <circle cx="87" cy="80" r="2" fill="var(--ink-mute)"/>
-            <circle cx="70" cy="65" r="2" fill="var(--ink-mute)"/>
-            <circle cx="77" cy="65" r="2" fill="var(--ink-mute)"/>
-            <circle cx="83" cy="65" r="2" fill="var(--ink-mute)"/>
-            <circle cx="90" cy="65" r="2" fill="var(--ink-mute)"/>
-            <circle cx="77" cy="68" r="1.5" fill="var(--ink-mute)"/>
-            <circle cx="83" cy="68" r="1.5" fill="var(--ink-mute)"/>
+            <!-- 1s -->
+            <circle cx="74" cy="125" r="2" fill="var(--ink-mute)"/>
+            <circle cx="86" cy="125" r="2" fill="var(--ink-mute)"/>
+            <!-- 2s -->
+            <circle cx="74" cy="110" r="2" fill="var(--ink-mute)"/>
+            <circle cx="86" cy="110" r="2" fill="var(--ink-mute)"/>
+            <!-- 2p -->
+            <circle cx="67" cy="95" r="2" fill="var(--ink-mute)"/>
+            <circle cx="71" cy="95" r="2" fill="var(--ink-mute)"/>
+            <circle cx="78" cy="95" r="2" fill="var(--ink-mute)"/>
+            <circle cx="82" cy="95" r="2" fill="var(--ink-mute)"/>
+            <circle cx="89" cy="95" r="2" fill="var(--ink-mute)"/>
+            <circle cx="93" cy="95" r="2" fill="var(--ink-mute)"/>
+            <!-- 3s -->
+            <circle cx="74" cy="80" r="2" fill="var(--ink-mute)"/>
+            <circle cx="86" cy="80" r="2" fill="var(--ink-mute)"/>
+            <!-- 3p -->
+            <circle cx="67" cy="65" r="2" fill="var(--ink-mute)"/>
+            <circle cx="71" cy="65" r="2" fill="var(--ink-mute)"/>
+            <circle cx="78" cy="65" r="2" fill="var(--ink-mute)"/>
+            <circle cx="82" cy="65" r="2" fill="var(--ink-mute)"/>
+            <circle cx="89" cy="65" r="2" fill="var(--ink-mute)"/>
+            <circle cx="93" cy="65" r="2" fill="var(--ink-mute)"/>
 
-            <!-- 2 on 4s -->
-            <circle cx="73" cy="50" r="2" fill="var(--ink-mute)"/>
-            <circle cx="87" cy="50" r="2" fill="var(--ink-mute)"/>
+            <!-- 2 on 4s (now core energy) -->
+            <circle cx="74" cy="50" r="2" fill="var(--ink-mute)"/>
+            <circle cx="86" cy="50" r="2" fill="var(--ink-mute)"/>
 
-            <!-- Scandium 21st electron goes to 3d -->
-            <circle cx="73" cy="35" r="2.5" fill="var(--accent)"/>
+            <!-- Scandium 21st electron goes to 3d Segment 1 -->
+            <circle cx="67" cy="35" r="2.5" fill="var(--accent)"/>
 
             <text x="180" y="80" font-family="var(--display)" font-size="10" font-weight="700" fill="var(--ink)">Scandium (Sc)</text>
             <text x="180" y="95" font-family="var(--mono)" font-size="8" fill="var(--accent)">2, 8, 9, 2</text>
           </svg>
+          <div class="diagram-cap">Scandium (Sc)<br><span style="font-size:0.6rem;text-transform:none;">3d finally opens &mdash; transition metals begin</span></div>
         </div>
       </div>
 
@@ -525,6 +640,7 @@
                 "label": "4. Place electrons 19 and 20",
                 "blank": {
                   "type": "choice",
+                  "prompt": "Choose which shell to place these next two electrons in:",
                   "answer": "shell 4",
                   "options": [
                     "shell 3 (it can hold 18)",
@@ -915,7 +1031,7 @@
       <h2 class="reveal">Write your answer first. <em>Then</em> grade yourself.</h2>
       
       <!-- V-11a-05: Element X Bohr Model -->
-      <div style="max-width: 360px; margin: 1.5rem auto 0.5rem; text-align: center;" class="reveal">
+      <div style="max-width: 360px; margin: 1.5rem auto 0.5rem; text-align: center;" class="diagram reveal">
         <svg viewBox="0 0 200 130" style="width: 100%; border: 1px solid var(--hair-soft); background: var(--paper-2); border-radius: 4px;">
           <g transform="translate(100, 60)">
             <!-- Shells -->
@@ -951,10 +1067,10 @@
             <text x="0" y="52" font-family="var(--display)" font-size="7" font-weight="700" text-anchor="middle">Element X (2, 8, 7)</text>
           </g>
         </svg>
-        <p style="font-size:0.75rem; font-style:italic; color:var(--ink-mute); margin-top:0.3rem;">
+        <div class="diagram-cap">
           &bull; core electrons &middot; <span style="color:var(--accent);">&bull; valence electrons</span> &middot; <span style="border: 1px dashed var(--accent); border-radius: 50%; width: 5px; height: 5px; display: inline-block; vertical-align: middle;"></span> unfilled gap <br>
           7 valence electrons &mdash; one short of a full shell of 8
-        </p>
+        </div>
       </div>
 
       <div class="exam-frame reveal" style="margin-top: 1.5rem;">
@@ -981,10 +1097,10 @@
     </p>
   </div>
 
-  <script src="../assets/core.js"></script>
-  <script src="../assets/glossary.js"></script>
-  <script src="../assets/elements.js"></script>
-  <script src="1-1a.js"></script>
+  <script src="../assets/core.js?v=9999"></script>
+  <script src="../assets/glossary.js?v=9999"></script>
+  <script src="../assets/elements.js?v=9999"></script>
+  <script src="1-1a.js?v=9999"></script>
 </body>
 
 </html>

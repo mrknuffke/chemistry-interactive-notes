@@ -9,10 +9,10 @@
 
 | # | Session | Depends on | Why this position |
 |---|---|---|---|
-| 0 | Glossary / tooltip infrastructure | — | Already drafted (existing session prompt + 50+ definitions). Run first; lesson sessions assume tooltips exist. Add the six 2-7c terms noted at the end of Content_Expansion_v2.md. |
-| 1 | Widget framework | 0 | The four widgets (commit-reveal, faded-example, scaffold, step-builder) in core.js/components.css + `_widget-test.html`. Every lesson session consumes these. |
-| 2 | Motion primitives | 1 | Step, scrub, zoom in core.js + additions to the test page. Separated from Session 1 so each session has one definition of done. |
-| 3 | Lesson 2-7a | 1, 2 | First lesson pass; exercises zoom (T3), faded example, scaffold ledger, and a gate — a full-spectrum shakedown of the infrastructure on the highest-priority lesson. |
+| ~~0~~ | ~~Glossary / tooltip infrastructure~~ | ~~—~~ | ~~Already drafted (existing session prompt + 50+ definitions). Run first; lesson sessions assume tooltips exist. Add the six 2-7c terms noted at the end of Content_Expansion_v2.md.~~ |
+| ~~1~~ | ~~Widget framework~~ | ~~0~~ | ~~The four widgets (commit-reveal, faded-example, scaffold, step-builder) in core.js/components.css + `_widget-test.html`. Every lesson session consumes these.~~ |
+| ~~2~~ | ~~Motion primitives~~ | ~~1~~ | ~~Step, scrub, zoom in core.js + additions to the test page. Separated from Session 1 so each session has one definition of done.~~ |
+| ~~3~~ | ~~Lesson 2-7a~~ | ~~1, 2~~ | ~~First lesson pass; exercises zoom (T3), faded example, scaffold ledger, and a gate — a full-spectrum shakedown of the infrastructure on the highest-priority lesson.~~ |
 | 4 | Lesson 1-1a | 1, 2 | Steppable visuals + faded example + gates. |
 | 5 | Lesson C-RXN | 1, 2 | Both resolved decisions land here: tabbed types card + gated balancing step-builder + classify drill. |
 | 6 | Lesson 1-3a | 1, 2 | The other gated step-builder (CO₂) + the NCl₃ faded example. |
@@ -21,7 +21,7 @@
 | 9 | Lesson 2-2a | 1, 2 | Tawa zoom (two-target — the most complex T3) + T1 upgrade of closed/open. Deliberately after two simpler zooms have shaken out the zoom stage. |
 | 10 | Lesson 2-7b | 1, 2 | Small session: faded chain + conditional hub visual. |
 | 11 | Lesson 2-7c | 1, 2 | BCA scaffold + gated drill; simulator untouched. |
-| 12 | Lesson 1-1b | 1, 2 | GHS zoom (⚑ pictogram check first) + gated predicts. |
+| ~~12~~ | ~~Lesson 1-1b~~ | ~~1, 2~~ | ~~GHS zoom (⚑ pictogram check first) + gated predicts.~~ |
 | 13 | Lesson C-SPA | 1, 2 | Exam scaffold + explorer refactor to bank-mode scaffold. Prata zoom only if ⚑ mechanism is signed off by then; otherwise skip it and leave a TODO. |
 | 14 | Lesson 1-2b | 1, 2, ⚑ | Last, because existence and section IDs are unverified. If the file doesn't exist, this becomes a creation session seeded by the 1-2b block of Content_Expansion_v2.md. |
 

@@ -46,6 +46,13 @@ For multi-step tasks, state a brief plan:
 3. [Step] → verify: [check]
 ```
 
+### Voice Note Feedback Workflow
+**Automate transcription, verify changes, and clean up audio files.**
+When the user points to an audio feedback file (e.g. `.m4a`, `.mp3`, `.wav`) under `Ongoing Work/` or mentions one:
+1. **Transcribe**: Set up and execute a local Python script using `openai-whisper` and `imageio-ffmpeg` (with `ssl._create_default_https_context = ssl._create_unverified_context` to bypass macOS certificate checks).
+2. **Operationalize**: Transcribe the file, review the transcript, create a concrete implementation plan, and obtain user sign-off.
+3. **Clean Up**: Delete the audio feedback file immediately after the changes have been implemented and verified. Never leave audio files in the repository.
+
 ---
 
 ## 2. Project Contract (Chemistry Interactive Text)

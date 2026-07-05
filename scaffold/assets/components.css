@@ -1252,8 +1252,14 @@ strong.term{font-weight:700;color:var(--ink);border-bottom:1.5px dashed var(--ac
   background: var(--paper);
   color: var(--ink);
   border-radius: 4px;
-  width: 120px;
+  width: 220px;
+  max-width: 100%;
   box-sizing: border-box;
+}
+.w-blank-prompt {
+  font-size: 0.85rem;
+  margin-bottom: 0.4rem;
+  color: var(--ink-soft);
 }
 .w-blank-input:focus {
   outline: none;

@@ -847,7 +847,8 @@
         if (blank.type === 'numeric' || blank.type === 'text') {
           inputHtml = `<input class="w-blank-input" type="text" placeholder="${blank.prompt || ''}" data-blank-idx="${bIdx}">`;
         } else if (blank.type === 'choice') {
-          inputHtml = `<div class="w-blank-choices" data-blank-idx="${bIdx}">`;
+          const promptHtml = blank.prompt ? `<div class="w-blank-prompt">${blank.prompt}</div>` : '';
+          inputHtml = `${promptHtml}<div class="w-blank-choices" data-blank-idx="${bIdx}">`;
           blank.options.forEach(opt => {
             inputHtml += `<button class="w-blank-opt" type="button">${opt}</button>`;
           });
