@@ -64,6 +64,7 @@ All developer documentation, logs, contracts, and expansion drafts live in the p
 ├── BUILD_PLAN.md        # Original build-session roadmap (historical; all 12 lessons now built)
 ├── REMEDIATION_PLAN.md  # Record of the latest repo-wide consistency/bug-fix pass
 ├── PDF_EXPORT_PLAN.md   # PDF/print export plan and spec (built and verified 2026-07-06)
+├── REVISION_PLAN.md     # Priority next work: design-level revision pass (figures, motion, interaction variety, persistence)
 ├── LESSON_1-2B_PLAN.md  # Build plan for the 1-2b lesson (historical; built 2026-07-05)
 ├── VOICE.md             # Tone and widget feedback writing contract
 ├── INTERACTION_SPEC.md  # Detailed specifications for widgets & interactive behaviors

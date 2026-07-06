@@ -1,6 +1,6 @@
 # CLAUDE.md — Behavioral Guidelines & Project Contract
 
-> **New session? Read [`TODO.md`](TODO.md) first** — it's the current, single source of truth for what's left to do. All 12 manifest lessons — including `1-2b`, built 2026-07-05 per `LESSON_1-2B_PLAN.md` — are built, a full consistency/bug-fix pass is done (see `REMEDIATION_PLAN.md`), and PDF/print export is built and verified (see `PDF_EXPORT_PLAN.md`).
+> **New session? Read [`TODO.md`](TODO.md) first** — it's the current, single source of truth for what's left to do. All 12 manifest lessons — including `1-2b`, built 2026-07-05 per `LESSON_1-2B_PLAN.md` — are built, a full consistency/bug-fix pass is done (see `REMEDIATION_PLAN.md`), and PDF/print export is built and verified (see `PDF_EXPORT_PLAN.md`). **The priority next work is the design-level revision pass in [`REVISION_PLAN.md`](REVISION_PLAN.md)** — a shared figure system, deploying the underused motion primitives, breaking the repetitive produce→reveal interaction pattern, and making lessons re-enterable.
 
 ## 1. Behavioral Guidelines (Reduce common LLM coding mistakes)
 
@@ -96,6 +96,7 @@ BUILDING.md             Step-by-step checklist for building a lesson
 BUILD_PLAN.md           Original build-session roadmap (historical — all 12 files now exist)
 REMEDIATION_PLAN.md     Record of the 2026-07-05 repo-wide consistency/bug-fix pass
 PDF_EXPORT_PLAN.md      PDF/print export plan and spec — built and verified 2026-07-06
+REVISION_PLAN.md        ← PRIORITY: design-level revision pass (figure system, motion, interaction variety, persistence) — proposed, not yet started
 LESSON_1-2B_PLAN.md     Build plan for the 1-2b lesson (historical — built and QA'd 2026-07-05)
 VOICE.md                Pedagogical tone and feedback text style contract
 INTERACTION_SPEC.md     Specifications for retrieval widgets and motion controllers

@@ -16,6 +16,8 @@ All ideas must respect the project ethos: **zero-build, shared-asset, no backend
 
 ## 1. Progress / memory layer  ⭐ recommended first
 
+**Promoted to committed work:** `REVISION_PLAN.md` Phase 4 pulls the persistence/resume slice of this item (not the full dashboard/scheduling scope below) out of backlog status, contingent on the author sign-off in that doc's §7 item 4 (target surface: GitHub Pages only, or also inside a Claude artifact). Check `REVISION_PLAN.md` before starting this.
+
 **The core gap:** by design, widget state dies on reload (`INTERACTION_SPEC.md`). That keeps a single widget honest, but it means the site has *no memory of the learner* — the biggest miss for material studied outside class after first exposure.
 
 Keep the per-widget "no persistence on reload" rule intact (a widget still resets so you can't peek at an answer). Add a **separate, opt-in progress record** — the two aren't in conflict: one prevents peeking, the other tracks that you eventually got it right.
