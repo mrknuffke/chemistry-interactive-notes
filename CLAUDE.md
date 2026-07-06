@@ -1,6 +1,6 @@
 # CLAUDE.md — Behavioral Guidelines & Project Contract
 
-> **New session? Read [`TODO.md`](TODO.md) first** — it's the current, single source of truth for what's left to do. All 12 manifest lessons — including `1-2b`, built 2026-07-05 per `LESSON_1-2B_PLAN.md` — are built, a full consistency/bug-fix pass is done (see `REMEDIATION_PLAN.md`), and PDF/print export is built and verified (see `PDF_EXPORT_PLAN.md`). **The priority next work is the design-level revision pass in [`REVISION_PLAN.md`](REVISION_PLAN.md)** — a shared figure system, deploying the underused motion primitives, breaking the repetitive produce→reveal interaction pattern, and making lessons re-enterable.
+> **New session? Read [`TODO.md`](TODO.md) first** — it's the current, single source of truth for what's left to do. All 12 manifest lessons are built, a full consistency/bug-fix pass is done, and PDF/print export is built and verified (see [`CHANGELOG.md`](CHANGELOG.md) for the dated history of all three). **The priority next work is the design-level revision pass in [`REVISION_PLAN.md`](REVISION_PLAN.md)** — a shared figure system, deploying the underused motion primitives, breaking the repetitive produce→reveal interaction pattern, and making lessons re-enterable.
 
 ## 1. Behavioral Guidelines (Reduce common LLM coding mistakes)
 
@@ -72,12 +72,12 @@ This repo builds a set of **interactive HTML review pages** for a high-school Ge
 3. **Render before declaring done.** Most quality bugs are visual (a glitchy glyph, dead space, an arrow that's the wrong color, a misleading particle diagram). Open and test the page in a browser (light and dark mode) to actually check the output.
 4. **Adhere to the particle-diagram conventions** in `References/` (see below). Diagrams must be chemically honest — a diagram that only *looks* energetic is worse than no diagram.
 5. **One accent.** Vermilion is the only accent color. Green means "correct/positive" only. Cool→hot blue/red is for sequential heat-maps only. Don't introduce new hues.
-6. **Concept-before-definition & term styling:** Always explain a concept in plain English *before* introducing/naming the term. Wrap defined terms in `<strong class="term">` — this applies the dashed vermilion underline AND triggers a hover/tap tooltip from `glossary.js` when the text slug matches a `GC_GLOSSARY` key. Add `data-term="slug"` to override the auto-slug when the visible text doesn't normalize cleanly. When you introduce a new defined term in a lesson, add it to `assets/glossary.js` too.
+6. **Concept-before-definition & term styling:** Always explain a concept in plain English *before* introducing/naming the term. Wrap defined terms in `<strong class="term">` — this applies the dashed vermilion underline AND triggers a hover/tap tooltip from `glossary.js` when the text slug matches a `GC_GLOSSARY` key. Add `data-term="slug"` to override the auto-slug when the visible text doesn't normalize cleanly. When you introduce a new defined term in a lesson, add it to `assets/glossary.js` too. A mismatched slug (auto-generated or a stale `data-term` override) is a **silent no-op** — no error, just no tooltip — so after adding or editing a term, verify the slug actually resolves against `glossary.js` rather than assuming it does.
 7. **No LaTeX formatting:** Never use LaTeX formatting syntax (like $H_2$, $O_2$, or $\Delta EN$) in HTML content. Instead, use HTML tags (e.g., `H<sub>2</sub>`, `O<sub>2</sub>`, `&Delta;EN`) to ensure proper, clean rendering in the browser without any math engines.
 8. **Keep storylines/contexts light and tangential:** Focus heavily on the core chemistry, not the storylines. The storylines (e.g. roti prata, tawa) are tangential and can be referenced briefly, but always in a general way that works for any student, even if they are unfamiliar with the specific story context. Do not let contexts overwhelm chemical explanations.
 9. **Follow the VOICE.md Prose Contract:** All student-facing text must follow the rules in `VOICE.md` (root directory): use second person ("you"), predict specific misconceptions by name, concrete before abstract, short declaratives, no throat-clearing, and describe consequences rather than just definitions. Widget feedback must explain the temptation of the incorrect choice, never just say "incorrect". Run the `VOICE.md` §6 QA pass (read aloud, check banned words, check misconceptions) before declaring any page done.
 10. **Gated Interaction Contract (INTERACTION_SPEC.md):** Commit-before-reveal is mandatory on all widgets and predict prompts. Never let the student see the answer or proceed without committing an answer first. Parity for keyboard and touch, no persistence of state on reload. Green means correct/positive only; incorrect uses vermilion outline/text, never red fill. Follow the widget config patterns and motion controller specifications defined in `INTERACTION_SPEC.md` (root directory).
-11. **Session Sequence & QA Gates:** Develop files strictly in the session sequence and using the QA gates and prompts specified in `BUILD_PLAN.md` (root directory).
+11. **QA Gates:** Every ⚑ chemistry item verified before build; no reveal reachable without a commit; a reduced-motion pass; a `VOICE.md` §6 pass; screenshots reviewed at both widths before a session closes. (Historical session-by-session sequencing lived in the now-retired `BUILD_PLAN.md` — see `CHANGELOG.md` — but the gates themselves are still binding on any new work.)
 12. **Sequenced diagrams use the step motion primitive only.** Any "click through frames" diagram must use `data-motion="step"` (see `INTERACTION_SPEC.md`), which crossfades one frame in place inside a fixed-height stage. Never show every frame at once in a `flex-wrap` grid — that stacks/scatters frames instead of replacing them and was a repeated bug.
 13. **Every diagram is lightboxable.** Wrap every static diagram (SVG or image) in `<div class="diagram">...<div class="diagram-cap">...</div></div>`. `core.js` binds a click-to-zoom lightbox to anything matching `.diagram svg, .diagram img` — a diagram outside that wrapper silently gets no lightbox.
 14. **Free-text gates never show a character cap.** Commit-before-reveal free-response widgets (`mode: "free"`) enforce a minimum length before enabling the check button, but the UI must never display a number or a cap (no "12 / 30 characters"). Show a soft, non-numeric progress hint instead (see `core.js`'s `w-progress-hint`).
@@ -91,17 +91,17 @@ This repo builds a set of **interactive HTML review pages** for a high-school Ge
 ```
 CLAUDE.md               Behavioral guidelines & design constraints
 TODO.md                 ← START HERE each session: the single board of outstanding work
+CHANGELOG.md            Dated, one-line log of what shipped — add an entry every time you push to GitHub
 README.md               Comprehensive project context, setup, and deployment notes
 BUILDING.md             Step-by-step checklist for building a lesson
-BUILD_PLAN.md           Original build-session roadmap (historical — all 12 files now exist)
-REMEDIATION_PLAN.md     Record of the 2026-07-05 repo-wide consistency/bug-fix pass
-PDF_EXPORT_PLAN.md      PDF/print export plan and spec — built and verified 2026-07-06
 REVISION_PLAN.md        ← PRIORITY: design-level revision pass (figure system, motion, interaction variety, persistence) — proposed, not yet started
-LESSON_1-2B_PLAN.md     Build plan for the 1-2b lesson (historical — built and QA'd 2026-07-05)
+DIAGRAM_STANDARDIZATION.md  Diagram retrofit: SVG containment + shared --dia-* token layer + renderers — proposed, not yet started; adjacent to REVISION_PLAN Phase 1 (see its §Relationship for the sequencing call)
 VOICE.md                Pedagogical tone and feedback text style contract
 INTERACTION_SPEC.md     Specifications for retrieval widgets and motion controllers
 ```
-`Ongoing Work/` is the voice-note feedback staging folder (see the Voice Note Feedback Workflow above) — it should otherwise stay empty. A stale, out-of-sync duplicate of five of the docs above once lived there (leftover from an incomplete doc-consolidation merge) and has been removed; don't recreate it there. An orphaned `content_audit.md` content-gap snapshot has likewise been removed — re-run a fresh audit if one is needed rather than trusting an old one. `Diagram_Inventory_v2.md` and `Content_Expansion_v2.md` (the 1-2b seed docs) have been retired now that 1-2b is built — don't recreate them.
+`Ongoing Work/` is the voice-note feedback staging folder (see the Voice Note Feedback Workflow above) — it should otherwise stay empty. A stale, out-of-sync duplicate of five of the docs above once lived there (leftover from an incomplete doc-consolidation merge) and has been removed; don't recreate it there. An orphaned `content_audit.md` content-gap snapshot has likewise been removed — re-run a fresh audit if one is needed rather than trusting an old one. `Diagram_Inventory_v2.md` and `Content_Expansion_v2.md` (the 1-2b seed docs) have been retired now that 1-2b is built — don't recreate them. `BUILD_PLAN.md`, `LESSON_1-2B_PLAN.md`, `REMEDIATION_PLAN.md`, and `PDF_EXPORT_PLAN.md` have likewise been retired now that their work is done and their durable facts migrated into this file, `INTERACTION_SPEC.md`, and `BUILDING.md` — see `CHANGELOG.md` for what each covered; don't recreate them.
+
+**Update `CHANGELOG.md` every time you push to the GitHub repo** (every push to `main` triggers the live-site deploy — see `README.md` §Automated Publishing). Add one dated line summarizing what the push contains before or as part of that push. This is separate from `TODO.md` (current/outstanding work): the changelog is a append-only historical record, never edited after the fact.
 
 ### Scaffold Web App Directory (`scaffold/`)
 ```
@@ -128,7 +128,7 @@ Lesson HTML should be **mostly content**. Shared CSS/JS lives in `assets/`. If y
 
 Built from the review-sheet sub-targets, with shared chemistry deduplicated into canonical files.
 
-**All 12 files below are built and exist in `scaffold/lessons/`** (confirmed 2026-07-05, `1-2b` added 2026-07-05 per author decision — see `LESSON_1-2B_PLAN.md`). Current bug/polish status lives in `REMEDIATION_PLAN.md` at the repo root, not here — this section is about scope/coverage, not QA state.
+**All 12 files below are built and exist in `scaffold/lessons/`** (confirmed 2026-07-05; see `CHANGELOG.md` for the build-order and bug-fix-pass history). This section is about scope/coverage, not QA state.
 
 **Unit-1-specific**
 - `1-1a` Atomic Structure & Electron Configuration — PS1-1.2, .3

@@ -1953,7 +1953,7 @@
   };
 
   /* ============================================================
-     PRINT / PDF EXPORT — see PDF_EXPORT_PLAN.md
+     PRINT / PDF EXPORT — see INTERACTION_SPEC.md §3.5
      ============================================================ */
 
   function firstAnswer(answer) {

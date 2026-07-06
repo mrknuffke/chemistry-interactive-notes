@@ -1,7 +1,7 @@
 # INTERACTION_SPEC.md — Widgets & Motion Primitives
 ## Chemistry Interactive Notes · core.js infrastructure contract
 
-**Status:** Build contract for two infrastructure sessions (see BUILD_PLAN.md). Everything here lives in shared assets (`core.js`, `components.css`), is driven by data attributes and embedded JSON config, and contains zero lesson-specific logic. Lessons consume; they never define behavior inline. This document is the single source of truth for interaction behavior. Visual specs live in Diagram_Inventory_v2.md; student-facing strings live in Content_Expansion_v2.md.
+**Status:** Build contract for the widget/motion infrastructure (built; see `CHANGELOG.md` for when). Everything here lives in shared assets (`core.js`, `components.css`), is driven by data attributes and embedded JSON config, and contains zero lesson-specific logic. Lessons consume; they never define behavior inline. This document is the single source of truth for interaction behavior.
 
 ---
 
@@ -182,6 +182,16 @@ Each blank checks individually on commit (per-step "Check" or a single "Check al
   "finale": "…text shown on completion…"
 }
 ```
+
+---
+
+### 3.5 Print/PDF contract (all widgets)
+
+Every lesson prints to a clean PDF via ⌘P / the topbar Print button (built 2026-07-06, see `CHANGELOG.md`). The print path lives entirely in `scaffold/assets/components.css` (`@media print` block) and `scaffold/assets/core.js` (a `beforeprint`/`afterprint` hook) — no lesson HTML is touched.
+
+**Binding rule for any new widget type:** `core.js`'s `renderWidgetPrint(el)` dispatches on `el.dataset.widget` (+ `config.mode`) to render a static, already-unrolled `.print-only` block from the widget's `.w-config` JSON — because gated reveal/model/answer content isn't in the DOM until the student commits, and the print path must never call `markCheckpointCompleted` or otherwise drive the live widget. **If you add a fifth widget type or a new mode, add a matching case to `renderWidgetPrint`** — otherwise that widget silently prints blank chrome instead of its answer.
+
+**Known accepted gap:** bespoke per-lesson interactives built outside this widget/motion framework (e.g. C-RXN's hand-built equation balancer, Bohr-model builders, trend explorers) print their live control chrome as-is rather than unrolling, since fixing that would mean touching per-lesson JS. Not a regression — these controls were never gated content — but keep it in mind if a bespoke interactive ever needs to carry answer-bearing state.
 
 ---
 

@@ -1,8 +1,8 @@
 # FEATURES.md — Feature Backlog / Ideas Board
 
-**Purpose:** the running list of *net-new capabilities* being considered for the site — the "what would make it more captivating and more useful" ideas. This is a backlog, not a commitment: nothing here is approved or scoped for build yet. When an item is picked up, spin it into its own `*_PLAN.md` (like `PDF_EXPORT_PLAN.md`) and move the status here.
+**Purpose:** the running list of *net-new capabilities* being considered for the site — the "what would make it more captivating and more useful" ideas. This is a backlog, not a commitment: nothing here is approved or scoped for build yet. When an item is picked up, spin it into its own `*_PLAN.md` and move the status here; once built, retire that plan doc and log it in `CHANGELOG.md` (see, e.g., the retired `PDF_EXPORT_PLAN.md`).
 
-> Distinct from [`TODO.md`](TODO.md) (outstanding work on the *existing* 12 lessons) and `REMEDIATION_PLAN.md` (the completed bug pass). This file is forward-looking scope.
+> Distinct from [`TODO.md`](TODO.md) (outstanding work on the *existing* 12 lessons) and `CHANGELOG.md` (completed work, including the past bug-fix pass). This file is forward-looking scope.
 
 All ideas must respect the project ethos: **zero-build, shared-asset, no backend, local-only (localStorage).** No new hues, one accent (see `CLAUDE.md` §3).
 
@@ -38,7 +38,7 @@ Keep the per-widget "no persistence on reload" rule intact (a widget still reset
 
 ## 3. More useful
 
-- **3.1 — PDF / print export.** Already on the board with a written spec: [`PDF_EXPORT_PLAN.md`](PDF_EXPORT_PLAN.md). Genuinely useful for offline/paper studiers.
+- ~~**3.1 — PDF / print export.**~~ Done — built and verified 2026-07-06 (see `CHANGELOG.md`; contract lives in `INTERACTION_SPEC.md` §3.5).
 - **3.2 — Content search (not just titles).** The index has a search portal; if it indexes glossary terms and section text, it becomes a reference students reach for mid-homework.
 - **3.3 — Per-lesson "exam-only" cram view.** Collapse a lesson to just its constructed-response items + mark schemes.
 

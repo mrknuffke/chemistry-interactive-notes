@@ -2,7 +2,7 @@
 
 **Status: proposed. Figure tiers now decided (§1); remaining author calls in §7. Phase 1 is unblocked and ready to run.**
 **Author of plan:** Opus (claude.ai), 2026-07-06. **Intended executor:** Claude Code, lesson-by-lesson, in the phase order below.
-**Reads before this:** `REMEDIATION_PLAN.md` (the bug pass this builds on top of), `VOICE.md`, `INTERACTION_SPEC.md`, `CLAUDE.md`.
+**Reads before this:** `CHANGELOG.md` (the bug-fix pass this builds on top of, and how its invariants ended up in `CLAUDE.md`/`INTERACTION_SPEC.md`), `VOICE.md`, `INTERACTION_SPEC.md`, `CLAUDE.md`.
 
 ---
 
@@ -40,6 +40,8 @@ You said "break the loops." There are four, and the plan is organised around the
 ---
 
 ## 1. Phase 1 — The figure system (do this first: highest leverage, lowest risk)
+
+> **Overlaps `DIAGRAM_STANDARDIZATION.md` — read this before running Phase 1.** That plan retrofits figure *internals* (SVG containment, a shared `--dia-*` token layer, one coordinate unit, renderers); this Phase 1 governs figure *width* (the `.figure--*` wrapper tiers below). They touch the same wrappers from opposite sides. Resolve the sequencing decision in `DIAGRAM_STANDARDIZATION.md` §Relationship (which figure pass runs first, or whether they merge) before rewriting any wrapper, so the same markup isn't rewritten twice.
 
 **Why first.** It is a pure shared-asset refactor. It touches `tokens.css` + `components.css` + a mechanical wrapper swap in the lesson HTML. It cannot break interactive logic. And it is the single biggest lever on the exact complaint you named out loud (random sizes, inconsistent formatting) — the same way the flex fix in the bug pass killed one class of problem everywhere at once.
 
@@ -153,7 +155,7 @@ Primitive (replace the six wrappers in `components.css`):
 
 **The point.** Right now the only way to use a lesson is to read it end to end. Notes get *returned to*. This phase makes each lesson re-enterable in three ways:
 
-- **A one-screen synopsis** at the top of every lesson (collapsed by default): the 3–5 load-bearing claims, the single most important figure, and the retrieval checklist. A returning student hits this without re-reading the narration. This is also the seed of the PDF export already spec'd in `PDF_EXPORT_PLAN.md` — same content, two surfaces.
+- **A one-screen synopsis** at the top of every lesson (collapsed by default): the 3–5 load-bearing claims, the single most important figure, and the retrieval checklist. A returning student hits this without re-reading the narration. This is also the seed of the already-built PDF export (`INTERACTION_SPEC.md` §3.5) — same content, two surfaces.
 - **A "quick check" path**: a control that jumps straight to the retrieval tasks and skips the prose, for the 2nd+ visit. The narration is for first exposure; the retrieval is for every visit after.
 - **A persistence / resume layer**: make the existing 0/4 checkpoints actually persist per lesson (they currently reset), so a student can leave, come back, resume, and *see what they have not yet retrieved*. This is the single change that turns the whole retrieval architecture from fire-once into spaced. It is item 1 in `FEATURES.md`'s backlog — this plan promotes it to committed work because without it the pedagogical thesis does not hold.
 
@@ -183,7 +185,7 @@ With the figure system (Phase 1) and motion (Phase 2) in place, do a per-lesson 
 
 ## 6. Phase 6 — Finish 1-2b, then a final coherence sweep
 
-- **Build 1-2b** (molecular polarity) — the one real content gap. `LESSON_1-2B_PLAN.md` + the still-live 1-2b blocks in `Content_Expansion_v2.md` / `Diagram_Inventory_v2.md` are the source. Build it *natively to the new standard* (figure system, motion, verb budget, synopsis) so it never needs a retrofit.
+- ~~**Build 1-2b** (molecular polarity)~~ — done; 1-2b shipped 2026-07-05 (see `CHANGELOG.md`), before this revision pass was proposed. It was **not** built natively to the new standard (figure system, motion, verb budget, synopsis), so it still needs the retrofit sweep below like every other lesson — it isn't exempt.
 - **Final sweep:** render all 12 in light + dark, confirm the figure system is uniform, confirm every lesson meets the verb budget and the motion floor, confirm the synopsis + persistence work everywhere. Then commit — note nothing has been committed since the remediation pass either, so this is also the moment to land that work.
 
 ---
