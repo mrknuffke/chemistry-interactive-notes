@@ -1952,6 +1952,357 @@
     }
   };
 
+  /* ============================================================
+     PRINT / PDF EXPORT — see PDF_EXPORT_PLAN.md
+     ============================================================ */
+
+  function firstAnswer(answer) {
+    return Array.isArray(answer) ? answer[0] : answer;
+  }
+
+  function makePrintOnly(tag, className) {
+    const node = document.createElement(tag);
+    node.className = 'print-only' + (className ? ' ' + className : '');
+    return node;
+  }
+
+  function renderPrintOption(opt) {
+    const item = document.createElement('div');
+    item.className = 'w-print-item';
+    const optEl = document.createElement('div');
+    optEl.className = 'w-opt correct';
+    optEl.innerHTML = '✓ ' + opt.label;
+    item.appendChild(optEl);
+    if (opt.feedback) {
+      const fb = document.createElement('div');
+      fb.className = 'w-print-feedback';
+      fb.innerHTML = opt.feedback;
+      item.appendChild(fb);
+    }
+    return item;
+  }
+
+  // Resolve any [data-widget] found inside HTML this print pass injects
+  // (a widget's `reveal`/`finale` config can itself contain a nested widget).
+  function resolveNestedWidgetsForPrint(container) {
+    $$('[data-widget]', container).forEach(nested => {
+      const printBlock = renderWidgetPrint(nested);
+      if (printBlock) nested.replaceWith(printBlock);
+    });
+  }
+
+  // Pure renderer: reads a widget's .w-config JSON and returns a detached
+  // .print-only block with its prompt/answer/model content unrolled.
+  // Never touches the widget's live DOM and never marks a checkpoint.
+  function renderWidgetPrint(el) {
+    const configEl = $('.w-config', el);
+    if (!configEl) return null;
+    let config;
+    try { config = JSON.parse(configEl.textContent); } catch (e) { return null; }
+
+    const type = el.dataset.widget;
+    const block = makePrintOnly('div', 'w-print-static');
+
+    const appendRevealHtml = (html) => {
+      if (!html) return;
+      const wrap = document.createElement('div');
+      wrap.innerHTML = html;
+      resolveNestedWidgetsForPrint(wrap);
+      block.appendChild(wrap);
+    };
+
+    if (type === 'commit-reveal') {
+      const mode = config.mode || 'choice';
+      const prompt = document.createElement('div');
+      prompt.className = 'w-prompt';
+      prompt.innerHTML = config.prompt || '';
+      block.appendChild(prompt);
+
+      if (mode === 'choice') {
+        (config.options || []).filter(o => o.correct).forEach(opt => block.appendChild(renderPrintOption(opt)));
+        appendRevealHtml(config.reveal);
+      } else if (mode === 'free') {
+        const label = document.createElement('div');
+        label.className = 'w-print-label';
+        label.textContent = 'Model answer';
+        block.appendChild(label);
+        appendRevealHtml(config.reveal);
+      } else if (mode === 'drill') {
+        (config.items || []).forEach(item => {
+          const q = document.createElement('div');
+          q.className = 'w-print-item';
+          q.innerHTML = '<p>' + item.prompt + '</p>';
+          block.appendChild(q);
+          const correctOpt = (item.options || []).find(o => o.correct);
+          if (correctOpt) block.appendChild(renderPrintOption(correctOpt));
+        });
+        appendRevealHtml(config.reveal);
+      }
+    } else if (type === 'faded-example') {
+      const label = document.createElement('div');
+      label.className = 'w-print-label';
+      label.textContent = (config.yours && config.yours.title) || 'Your steps';
+      block.appendChild(label);
+
+      const ol = document.createElement('ol');
+      ol.className = 'faded-steps';
+      ((config.yours && config.yours.steps) || []).forEach(step => {
+        const li = document.createElement('li');
+        const labelHtml = '<span class="step-label">' + step.label + '</span>';
+        if (step.given !== undefined) {
+          li.innerHTML = labelHtml + '<div class="step-work">' + step.given + '</div>';
+        } else if (step.blank) {
+          const blank = step.blank;
+          const answerText = blank.type === 'choice' ? blank.answer : firstAnswer(blank.answer);
+          li.innerHTML = labelHtml;
+          const work = document.createElement('div');
+          work.className = 'step-work';
+          const ansSpan = document.createElement('span');
+          ansSpan.className = 'w-opt correct';
+          ansSpan.textContent = answerText;
+          work.appendChild(ansSpan);
+          li.appendChild(work);
+        }
+        ol.appendChild(li);
+      });
+      block.appendChild(ol);
+    } else if (type === 'scaffold') {
+      const mode = config.mode || 'free';
+      if (mode === 'bank') {
+        (config.slots || []).forEach(slot => {
+          const card = (config.bank || []).find(c => c.slot === slot.id);
+          const item = document.createElement('div');
+          item.className = 'w-print-item';
+          const labelDiv = document.createElement('div');
+          labelDiv.className = 'w-print-label';
+          labelDiv.textContent = slot.label;
+          const ansDiv = document.createElement('div');
+          ansDiv.className = 'w-opt correct';
+          ansDiv.textContent = card ? card.text : '';
+          item.appendChild(labelDiv);
+          item.appendChild(ansDiv);
+          block.appendChild(item);
+        });
+      } else if (mode === 'table') {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'w-table-wrapper';
+        const tbl = document.createElement('table');
+        tbl.className = 'w-table';
+        const thead = document.createElement('thead');
+        const headerRow = document.createElement('tr');
+        (config.table.headers || []).forEach(h => { headerRow.innerHTML += '<th>' + h + '</th>'; });
+        thead.appendChild(headerRow);
+        tbl.appendChild(thead);
+        const tbody = document.createElement('tbody');
+        (config.table.rows || []).forEach(row => {
+          const tr = document.createElement('tr');
+          row.forEach(cell => {
+            const td = document.createElement('td');
+            if (cell.given !== undefined) {
+              td.innerHTML = cell.given;
+            } else if (cell.blank) {
+              const span = document.createElement('span');
+              span.className = 'w-opt correct';
+              span.textContent = firstAnswer(cell.blank.answer);
+              td.appendChild(span);
+            }
+            tr.appendChild(td);
+          });
+          tbody.appendChild(tr);
+        });
+        tbl.appendChild(tbody);
+        wrapper.appendChild(tbl);
+        block.appendChild(wrapper);
+      } else {
+        (config.slots || []).forEach(slot => {
+          const item = document.createElement('div');
+          item.className = 'w-print-item';
+          const labelDiv = document.createElement('div');
+          labelDiv.className = 'w-print-label';
+          labelDiv.textContent = slot.label;
+          const modelP = document.createElement('p');
+          modelP.innerHTML = slot.model;
+          item.appendChild(labelDiv);
+          item.appendChild(modelP);
+          block.appendChild(item);
+        });
+      }
+    } else if (type === 'step-builder') {
+      (config.steps || []).forEach(step => {
+        const q = document.createElement('div');
+        q.className = 'w-print-item';
+        q.innerHTML = '<p>' + step.question + '</p>';
+        block.appendChild(q);
+        const correctOpt = (step.options || []).find(o => o.correct);
+        if (correctOpt) block.appendChild(renderPrintOption(correctOpt));
+      });
+      appendRevealHtml(config.finale);
+    } else {
+      return null;
+    }
+
+    return block;
+  }
+
+  function buildGlossaryAppendix() {
+    if (typeof window.GC_GLOSSARY === 'undefined') return null;
+
+    const getSlug = el => {
+      if (el.dataset.term) return el.dataset.term;
+      return el.textContent
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .trim()
+        .replace(/\s+/g, '-');
+    };
+
+    const seen = new Map();
+    $$('strong.term').forEach(el => {
+      const slug = getSlug(el);
+      const entry = window.GC_GLOSSARY[slug];
+      if (entry && !seen.has(slug)) seen.set(slug, entry);
+    });
+    if (seen.size === 0) return null;
+
+    const entries = [...seen.values()].sort((a, b) => a.term.localeCompare(b.term));
+    const section = makePrintOnly('section', 'print-glossary');
+    const h2 = document.createElement('h2');
+    h2.textContent = 'Key terms in this lesson';
+    section.appendChild(h2);
+    const dl = document.createElement('dl');
+    entries.forEach(entry => {
+      const dt = document.createElement('dt');
+      dt.textContent = entry.term;
+      const dd = document.createElement('dd');
+      dd.textContent = entry.definition;
+      if (entry.example) {
+        const em = document.createElement('em');
+        em.textContent = entry.example;
+        dd.appendChild(em);
+      }
+      dl.appendChild(dt);
+      dl.appendChild(dd);
+    });
+    section.appendChild(dl);
+    return section;
+  }
+
+  let printPrepared = false;
+  const printUndo = []; // stack of undo functions; restore runs them in reverse
+
+  function preparePrint() {
+    if (printPrepared) return; // beforeprint AND matchMedia can both fire
+    printPrepared = true;
+
+    // 1. activate the widget-hiding / print-only CSS gate
+    document.body.classList.add('gc-printing');
+    printUndo.push(() => document.body.classList.remove('gc-printing'));
+
+    // 2. force light mode (never touch localStorage)
+    if (document.documentElement.classList.contains('dark')) {
+      document.documentElement.classList.remove('dark');
+      printUndo.push(() => document.documentElement.classList.add('dark'));
+    }
+
+    // 3. print header
+    const header = makePrintOnly('div', 'print-header');
+    header.textContent = currentLesson ? (currentLesson.id + ' · ' + currentLesson.title) : document.title;
+    document.body.insertBefore(header, document.body.firstChild);
+    printUndo.push(() => header.remove());
+
+    // 4. fill empty recall blanks (leave student-entered values alone)
+    $$('.recall .blank').forEach(b => {
+      if (b.value) return;
+      b.value = b.dataset.answer.split('|')[0].replace(/-/g, ' ');
+      b.classList.add('shown');
+      printUndo.push(() => {
+        b.value = '';
+        b.classList.remove('shown');
+      });
+    });
+
+    // 5. open faded-example model panels (real <details>, CSS can't do this)
+    $$('details.faded-model-collapsible').forEach(d => {
+      if (d.open) return;
+      d.open = true;
+      printUndo.push(() => { d.open = false; });
+    });
+
+    // 6. one static print block per widget
+    $$('[data-widget]').forEach(el => {
+      const printBlock = renderWidgetPrint(el);
+      if (!printBlock) return;
+      el.appendChild(printBlock);
+      printUndo.push(() => printBlock.remove());
+    });
+
+    // 7. caption step & zoom frames (after 6, so nested reveal content is covered)
+    $$('[data-motion="step"]').forEach(container => {
+      const labels = (container.dataset.stepLabels || '').split('|').filter(Boolean);
+      $$('[data-step]', container).forEach(frame => {
+        const stepNum = parseInt(frame.dataset.step, 10);
+        const label = labels[stepNum - 1] || ('Step ' + stepNum);
+        const cap = makePrintOnly('div', 'print-step-caption');
+        cap.textContent = 'Step ' + stepNum + ' — ' + label;
+        frame.insertBefore(cap, frame.firstChild);
+        printUndo.push(() => cap.remove());
+      });
+    });
+
+    $$('[data-motion="zoom"]').forEach(container => {
+      const labels = (container.dataset.zoomLabels || '').split('|').filter(Boolean);
+      const defaultLabels = { macro: 'Out', meso: 'Mid', particulate: 'In' };
+      ['macro', 'meso', 'particulate'].forEach((key, i) => {
+        const layer = container.querySelector('[data-zoom-level="' + key + '"]');
+        if (!layer) return;
+        const cap = makePrintOnly('div', 'print-zoom-caption');
+        cap.textContent = labels[i] || defaultLabels[key];
+        layer.insertBefore(cap, layer.firstChild);
+        printUndo.push(() => cap.remove());
+      });
+    });
+
+    // 8. glossary appendix
+    const appendix = buildGlossaryAppendix();
+    if (appendix) {
+      const footer = $('.footer');
+      if (footer) footer.parentNode.insertBefore(appendix, footer);
+      else document.body.appendChild(appendix);
+      printUndo.push(() => appendix.remove());
+    }
+  }
+
+  function restoreAfterPrint() {
+    if (!printPrepared) return;
+    printPrepared = false;
+    while (printUndo.length) printUndo.pop()();
+  }
+
+  window.addEventListener('beforeprint', preparePrint);
+  window.addEventListener('afterprint', restoreAfterPrint);
+  (function () {
+    const pmq = window.matchMedia('print');
+    const onChange = m => { if (m.matches) preparePrint(); else restoreAfterPrint(); };
+    if (pmq.addEventListener) pmq.addEventListener('change', onChange);
+    else if (pmq.addListener) pmq.addListener(onChange);
+  })();
+
+  /* ---- topbar print button ---- */
+  (function () {
+    const right = $('.topbar-right');
+    if (!right) return;
+    const btn = document.createElement('button');
+    btn.className = 'toc-btn print-btn';
+    btn.type = 'button';
+    btn.setAttribute('aria-label', 'Print this lesson');
+    btn.innerHTML = `
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      Print
+    `;
+    btn.addEventListener('click', () => window.print());
+    right.insertBefore(btn, right.firstChild);
+  })();
+
   // Initialize widgets, motion primitives, and tooltips
   initWidgets();
   initMotionPrimitives();

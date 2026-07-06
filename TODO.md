@@ -6,11 +6,11 @@ The project is otherwise in good shape: all 12 manifest lessons are built, and a
 
 ---
 
-## 1. PDF / print export of the lessons — spec written, NOT built
+## 1. PDF / print export of the lessons — DONE (2026-07-06)
 
-**Status:** planned, not implemented. **Spec:** [`PDF_EXPORT_PLAN.md`](PDF_EXPORT_PLAN.md).
+**Status:** built and verified. **Details:** [`PDF_EXPORT_PLAN.md`](PDF_EXPORT_PLAN.md) (see the top of that file for the verification summary and one known accepted gap: bespoke per-lesson interactives outside the shared widget framework print their live control chrome as-is).
 
-The author wants "pretty, well-formatted PDF printouts of the lessons." A full implementation plan has been written for a future model to execute — read `PDF_EXPORT_PLAN.md` end to end before starting. It's designed to stay within the project's zero-build, shared-asset ethos (a `print.css` + a small print-mode JS hook, optionally a batch generator script). Two author-facing decisions are flagged inside that doc; surface them before you build.
+Any lesson now produces a clean, complete printout via ⌘P / "Save as PDF" or the new topbar Print button — gated widgets, recall blanks, predicts, mark schemes, and step/zoom motion all unroll to static answers, plus a glossary appendix. Only `scaffold/assets/components.css` and `scaffold/assets/core.js` were touched, per the zero-build ethos.
 
 ---
 

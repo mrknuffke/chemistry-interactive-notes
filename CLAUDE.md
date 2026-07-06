@@ -1,6 +1,6 @@
 # CLAUDE.md — Behavioral Guidelines & Project Contract
 
-> **New session? Read [`TODO.md`](TODO.md) first** — it's the current, single source of truth for what's left to do (PDF export is the main item). All 12 manifest lessons — including `1-2b`, built 2026-07-05 per `LESSON_1-2B_PLAN.md` — are built, and a full consistency/bug-fix pass is done (see `REMEDIATION_PLAN.md`).
+> **New session? Read [`TODO.md`](TODO.md) first** — it's the current, single source of truth for what's left to do. All 12 manifest lessons — including `1-2b`, built 2026-07-05 per `LESSON_1-2B_PLAN.md` — are built, a full consistency/bug-fix pass is done (see `REMEDIATION_PLAN.md`), and PDF/print export is built and verified (see `PDF_EXPORT_PLAN.md`).
 
 ## 1. Behavioral Guidelines (Reduce common LLM coding mistakes)
 
@@ -95,7 +95,7 @@ README.md               Comprehensive project context, setup, and deployment not
 BUILDING.md             Step-by-step checklist for building a lesson
 BUILD_PLAN.md           Original build-session roadmap (historical — all 12 files now exist)
 REMEDIATION_PLAN.md     Record of the 2026-07-05 repo-wide consistency/bug-fix pass
-PDF_EXPORT_PLAN.md      Implementation plan for pretty PDF printouts of lessons (not yet built)
+PDF_EXPORT_PLAN.md      PDF/print export plan and spec — built and verified 2026-07-06
 LESSON_1-2B_PLAN.md     Build plan for the 1-2b lesson (historical — built and QA'd 2026-07-05)
 VOICE.md                Pedagogical tone and feedback text style contract
 INTERACTION_SPEC.md     Specifications for retrieval widgets and motion controllers

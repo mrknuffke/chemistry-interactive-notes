@@ -1,149 +1,229 @@
 # PDF_EXPORT_PLAN.md — Pretty, Well-Formatted Lesson Printouts
 
-**Status: SPEC ONLY — not implemented.** This is a build plan for a future model (Sonnet or otherwise) to execute. Read it end to end, surface the two author decisions in §9 before writing code, then implement in the order given in §10. Honor every invariant in `CLAUDE.md` §3 and the zero-build ethos (shared assets, no bundler, no framework).
+**Status: BUILT AND VERIFIED (2026-07-06, by Sonnet).** All of §5's build order is implemented in `scaffold/assets/components.css` (the `@media print` block) and `scaffold/assets/core.js` (the print hook + topbar Print button). Verified via headless Chrome (print-media emulation + `Page.printToPDF`) against `1-1b` (reference build, no widgets) and `C-RXN` (6 widgets across every type, 1 step-motion primitive): every commit-reveal/faded-example/scaffold/step-builder widget unrolls its correct answer and feedback; recall blanks, predict checkmarks, mark schemes, and peek boxes all expand; step/zoom frames print stacked with captions; the glossary appendix lists exactly the page's terms, alphabetized; restore-symmetry and the never-touch-`localStorage` constraint were confirmed programmatically (dark mode, student-typed answers, and progress data are byte-for-byte restored after printing). One fix was needed beyond the original spec: `.zoom-stage` has a fixed `aspect-ratio` + `overflow:hidden` that clipped stacked zoom layers once they went static — added `height:auto; aspect-ratio:auto; overflow:visible` to the print override for it.
 
-**Goal:** Any lesson page can be turned into a clean, print-quality PDF — either by the student hitting ⌘P / "Save as PDF" in the browser, or by an author running a batch script that generates a PDF for every lesson at once. The PDF should read like a polished handout of the *whole* lesson: all the prose, every diagram, and — critically — all the answer/reveal content that is normally hidden behind interaction, unrolled into static form.
+**Known accepted gap:** bespoke per-lesson interactives built outside the shared widget/motion framework (e.g. `C-RXN`'s hand-built "visual equation balancer," Bohr-model builders, trend explorers) print their live control chrome (+/− buttons, etc.) at whatever state they're in on load, since unrolling them would mean touching per-lesson JS — explicitly out of scope (this plan touches only the two shared asset files). Not a regression: these controls were never gated content, just live UI, and the diagram/state they show is still legible on paper.
 
----
+<details><summary>Original planning history (resolved 2026-07-06, before implementation)</summary>
 
-## 1. Constraints & principles (binding)
+**Status before build: READY TO IMPLEMENT.** This spec was rewritten (by Fable, 2026-07-06) to be directly executable: it is grounded in the actual code of `scaffold/assets/core.js` and `scaffold/assets/components.css` as of commit `dacc4f2`, with exact selectors, config schemas, and line anchors. Honor every invariant in `CLAUDE.md` §3 and the zero-build ethos (shared assets, no bundler, no framework).
 
-1. **Zero-build.** No bundler, no framework. A `print.css` in `scaffold/assets/` (linked `media="print"` or wrapped in `@media print`) plus a small print-mode hook in `core.js`. Optionally one standalone batch script under `scaffold/tools/` (already git-ignored for its `shots/` output).
-2. **Don't degrade the on-screen experience.** Print mode is additive — the interactive page must behave exactly as before when not printing. Everything print-specific lives in `@media print` and in `beforeprint`/`afterprint` handlers that clean up after themselves.
-3. **Match the visual language.** Same fonts (Hanken Grotesk / Spectral / IBM Plex Mono), same vermilion accent, same green-for-correct. A printout should be recognizably the same textbook, just on paper.
-4. **Honest on paper.** A printed widget that shows an empty answer box teaches nothing. Every gated reveal must be expanded (see §4 — this is the hard part). If a thing genuinely can't render statically (a live slider), replace it with its resolved/annotated state, don't leave a dead control.
-5. **Light mode only on paper.** Dark mode wastes ink and looks wrong printed. Force light.
+</details>
 
----
+**Goal:** Any lesson page turns into a clean, print-quality PDF via the browser's ⌘P / "Save as PDF" (plus a Print button in the topbar). The PDF reads like a polished handout of the whole lesson: all prose, every diagram, and — critically — all answer/reveal content that is normally gated behind interaction, unrolled into static form.
 
-## 2. Recommended architecture
-
-Two deliverables, buildable independently:
-
-**(A) `scaffold/assets/print.css` + a `core.js` print hook** — the core feature. Makes ⌘P / "Save as PDF" produce a good result from any lesson, for students and authors alike. **Build this first; it's 90% of the value.**
-
-**(B) `scaffold/tools/make-pdfs.mjs` (or `.py`) — an optional batch generator** that loads every lesson in headless Chrome and calls `page.pdf()`, writing `dist/pdf/<id>.pdf`. Nice for producing a full set in one command; not required for the student-facing feature. Build only if the author wants batch output (see §9 decision 2).
-
-Link `print.css` from every lesson `<head>` (add the one `<link rel="stylesheet" href="../assets/print.css" media="print">` line to each lesson, or — cleaner — fold it into `components.css` as an `@media print { … }` block so there's nothing to wire per-lesson). **Prefer folding into `components.css`** to avoid touching 12 files and to keep the "shared CSS is already linked everywhere" guarantee.
+**Resolved author decisions:**
+1. **Page breaks:** continuous flow with strict break-avoidance around boxes/diagrams/headings. NOT one-section-per-page.
+2. **No batch generator.** Instead, a **Print button** in the topbar of every lesson (injected by `core.js`, like the existing Home button) that calls `window.print()`. Headless-Chrome batch output is deferred indefinitely.
+3. **Glossary appendix: yes** — append an alphabetized "Key terms" section to the printout.
 
 ---
 
-## 3. What to HIDE in print (`display: none`)
+## 1. Binding constraints
 
-All of these are screen-only chrome or dead-on-paper controls:
-
-- `.topbar` and everything in it: `.toc-btn`, `.toc-drop`, `.theme-toggle`, `.topbar-home-btn`.
-- `.next-cue` / `[data-next]` buttons (the "scroll to next section" affordances).
-- The `.lightbox-overlay` (never relevant in print).
-- Widget/interaction controls that can't function on paper: `.w-buttons` (Check/Reset), `.step-controls` (prev/next/dots), `.scrub-container` slider UI, `.zoom-rail`, recall `.actions` (Check/Reveal/Reset), `[data-scheme]` toggle buttons, `[data-more]`/`[data-peek]` toggle buttons.
-- Any `.gc-tooltip` element (it's body-appended and hidden anyway).
-
-Keep the **content** those controls used to gate — just remove the control itself (§4).
+1. **Zero-build.** All print CSS goes in an `@media print` block appended to `scaffold/assets/components.css` (already linked from every lesson — touch no lesson HTML). All print JS goes in `scaffold/assets/core.js`, **inside the existing IIFE** (so it can use the `$`/`$$` helpers and `currentLesson`), placed after the motion-primitive functions and before the final init calls at core.js:1955.
+2. **Don't degrade the on-screen experience.** Print mode is additive. Every DOM mutation made for printing must be undone after printing — a student who prints mid-study must find their page exactly as they left it (widgets un-committed, dark mode restored, blanks as they typed them).
+3. **Never touch progress tracking.** The print path must never call `markCheckpointCompleted()` or write to `localStorage`. (This is why the print hook must NOT programmatically drive sliders, click options, or call `updateZoomLevel` — those paths mark checkpoints. Build static print blocks instead.)
+4. **Don't refactor the live widget code.** The earlier draft of this plan suggested factoring reveal-rendering out of the commit handlers. **Don't** — that risks regressions across all 12 lessons. Instead write standalone, pure "render print block from config" functions (§4c). The widget `.w-config` JSON stays in the DOM after init (core.js:481 only reads `textContent`), so config is always re-readable at print time.
+5. **Match the visual language.** Same fonts, vermilion accent, green = correct. Light mode only on paper; no graph-paper grid (white ground).
+6. **Honest on paper.** No empty answer boxes, no dead controls. Every gate is unrolled.
 
 ---
 
-## 4. What to REVEAL / EXPAND in print — the hard part
+## 2. Ground truth: how the code actually works (verified against source)
 
-The whole point of these pages is commit-before-reveal. For a printout that content must be **unrolled**. There are two categories, handled differently:
+An implementer should skim these anchors before writing anything:
 
-### 4a. Static collapsibles — pure CSS, easy
-These already exist in the DOM; they're just collapsed via `max-height:0; overflow:hidden`. Force them open in `@media print`:
-- `.reveal { opacity: 1 !important; transform: none !important; }` (the scroll-fade-in — otherwise everything below the fold prints invisible; this is the single most important print rule).
-- `.more-body { max-height: none !important; opacity: 1 !important; overflow: visible !important; }` — and same for `.peek-box`, `.reveal-box`, `.scheme`.
-- Recall `.blank` inputs: show the answer. The answer lives in `data-answer` (pipe-separated alternates — use the first). Render it into the blank, e.g. via a `::after` on a print class, or have the JS hook (§4b) write the first `data-answer` value into each empty blank and style it as the "shown" state (green, matching the existing `.blank.shown`). CSS alone can't read `data-answer` into visible text reliably across print engines, so **do this in the JS hook.**
-
-### 4b. Dynamically-injected widget content — needs a JS hook
-This is the real complication. The commit-reveal / faded-example / scaffold / step-builder widgets store their answer, model-answer, and mark-scheme HTML in a `<script type="application/json" class="w-config">` block, and `core.js` injects it into `.w-reveal-area` (and fills scaffold cells, etc.) **only after the student commits.** At page load and at print time, that content is **not in the DOM** — so CSS can't reveal what isn't there.
-
-**Fix:** add a `preparePrint()` / `restoreAfterPrint()` pair to `core.js`, wired to `window.matchMedia('print')` change events (and `beforeprint`/`afterprint` as a fallback — Safari fires the events, Chrome fires the matchMedia change). On `beforeprint`:
-1. For every `[data-widget]`, read its `.w-config` JSON and render a **print-only static block** appended after the widget (class `.print-only`, `display:none` on screen, `display:block` in print) containing:
-   - the prompt,
-   - for `choice` mode: the options with the correct one marked (green ✓) and each option's feedback shown beneath,
-   - for `free` mode: the model answer,
-   - the full `reveal` HTML (which may itself contain a nested scaffold table with answers — resolve those `blank.answer` values into the cells),
-   - for `faded-example` / `step-builder`: the model steps and each blank's correct answer.
-2. Fill any empty recall `.blank` with its first `data-answer` value, add the `.shown` class.
-3. Set light mode: remember the current `:root.dark` state, remove `dark`.
-
-On `afterprint`: remove every `.print-only` block, clear the injected blanks, and restore the remembered dark state. **Leave the live interactive DOM exactly as it was** — a student who prints then keeps studying must not find their widgets pre-answered.
-
-Reuse the widgets' existing config-reading and answer-rendering functions where possible rather than re-implementing them; factor the "render reveal content from config" logic out of the commit handlers so both commit and print can call it.
-
-> **Simpler fallback if the JS hook proves too involved:** ship an author-facing **"Printer-friendly version"** button (top of each lesson, itself `display:none` in print) that switches the whole page into a persistent fully-revealed static mode by programmatically committing/revealing every widget, then the author prints. Less elegant (mutates on-screen state) but far less code, and fine for an author generating handouts. Note this as the escape hatch; attempt the clean `beforeprint` hook first.
+- **core.js is one IIFE** (`(function () { ... })()`, lines 17–1963). Helpers `$`/`$$` at top; `currentLesson` at line 38 (`{id, slug, title}` or `undefined` on non-lesson pages); final init calls at lines 1955–1962.
+- **Theme:** dark mode = `dark` class on `document.documentElement` (core.js:130).
+- **Scroll-fade:** `.reveal` starts `opacity:0; transform:translateY(18px)` (components.css:42) and gets `.in` from an IntersectionObserver. **Without a print override, everything below the fold prints invisible.**
+- **Static collapsibles** (already in DOM, just collapsed via `max-height:0; overflow:hidden`): `.more-body` (+`.open`), `.reveal-box` (+`.show`, used by predict), `.peek-box` (+`.show`), `.scheme` (+`.show`). See components.css:85, 161, 185, 194.
+- **Predict:** `[data-predict]` group of `.opt` buttons; the correct one carries `data-correct="true"` in the markup, so pure CSS can mark it. The paired `[data-reveal="key"]` box is a `.reveal-box`.
+- **Recall blanks:** `.blank` inputs with `data-answer="a|alt"` (pipe-separated). The live Reveal handler (core.js:214) sets `b.value = b.dataset.answer.split('|')[0].replace(/-/g, ' ')` and adds class `shown` (dashed green style, components.css:172). The print hook must reproduce exactly this transform, **including the `-`→space replace**.
+- **Widgets:** `[data-widget]` elements each contain `<script type="application/json" class="w-config">`. `initWidgets()` (core.js:476) dispatches on `el.dataset.widget`: `commit-reveal` | `faded-example` | `scaffold` | `step-builder`. Reveal/model/answer content lives **only in the config JSON** until the student commits — it is not in the DOM at print time. Config schemas in §4c.
+- **Widget chrome classes:** controls are `.w-controls` > `.w-feedback` + `.w-buttons` (Check/Reset); per-step check buttons are `.w-step-check-btn`; reveal container is `.w-reveal-area`.
+- **Reveal HTML can nest widgets and motion primitives** — after injecting `config.reveal`, the live code calls `initWidgets()` + `initMotionPrimitives()` again (e.g. core.js:606). The print renderer must handle nested `[data-widget]` found inside reveal HTML it injects (§4c, last bullet).
+- **Faded-example** renders its worked model inside `<details class="faded-model-collapsible">` (core.js:821) — a real `<details>`, so CSS alone can't open it; the hook must set `.open = true` and restore.
+- **Step motion:** `[data-motion="step"]` gets a `.step-stage` whose **height is set as an inline style in px** (core.js:1587) — print CSS needs `height:auto !important` (important beats inline). Frames are `[data-step]` children, absolutely positioned/crossfaded (components.css:1506–1521); labels come from the container's `data-step-labels="A|B|C"`.
+- **Scrub motion:** slider + `.scrub-label-row` readout + `.scrub-marks` + `.scrub-target-msg`. Moving the slider fires `handleScrubUpdate` which can call `markCheckpointCompleted` — **do not drive it from the print hook** (constraint §1.3). Print the diagram at its current state; hide the slider chrome. (Deliberate deviation from the earlier draft.)
+- **Zoom motion:** layers carry `.zoom-level-layer` (+`.active`), buttons in `.zoom-rail`; the macro SVG may carry an inline `transform: scale(4)` if the student left it zoomed (core.js:1902) — print CSS must force `transform:none !important`.
+- **Step-builder's linked SVG** (`updateSVGState`, core.js:1416) sets inline `display:none` on state layers. Accepted limitation: the diagram prints at its current state; the print block carries all steps' Q&A instead. Don't try to unroll the SVG layers (they overlap by design).
+- **Glossary:** `window.GC_GLOSSARY[slug] = {term, definition, example?}`. Slug logic (core.js:355–362): `el.dataset.term` if set, else textContent lowercased, strip `[^a-z0-9\s-]`, trim, spaces→hyphens. It's private to `initGlossaryTooltips` — duplicate those 4 lines in the print hook; don't refactor.
+- **Topbar:** `.topbar` > `.topbar-left` (Home btn injected at core.js:41, `#tocBtn`) + `.topbar-right` (`#themeToggle`). The lightbox overlay and `.gc-tooltip` are body-appended. A `.textbook-nav` prev/next footer is injected before `.footer`.
 
 ---
 
-## 5. Page layout, breaks, and headers
+## 3. Deliverable 1 — the `@media print` CSS block
 
-- `@page { size: Letter; margin: 18mm 16mm; }` — Letter for a US high-school context; make it easy to swap to A4.
-- Running header/footer via `@page` margin boxes where supported, else a fixed-position `.print-header`/`.print-footer` element injected by the hook: lesson title + unit top-left, page number bottom-right. Chrome's `page.pdf()` (batch path) also supports `headerTemplate`/`footerTemplate` — use those for the batch route and CSS margin boxes for the browser route.
-- **Page-break discipline** (avoid ugly splits):
-  - `section, .diagram, .exam-frame, [data-widget], .callout, .compass-wrap, .single-atom-wrap, .octet-wrap { break-inside: avoid; }`
-  - `h2, h3, h4 { break-after: avoid; }` (don't orphan a heading at a page bottom).
-  - `.section-tag { break-before: page; }` *only if* the author wants each numbered section to start on a fresh page (see §9 decision 1 — this is the "one section per page" vs "continuous flow" choice).
-- Let large SVGs shrink to fit page width: they're already `width:100%`, so they will; just confirm none overflow the printable width and none are clipped by an `overflow:hidden` ancestor (the `.step-stage` is `overflow:hidden` — in print, since all step frames are shown stacked (§4/§6), switch `.step-stage` to `overflow:visible; height:auto; position:static` and its `[data-step]` children to `position:static; opacity:1` so every frame prints in flow with its label).
+Append to the **end of `scaffold/assets/components.css`**. This exact block is the starting point (tune values only if verification shows a need):
 
----
+```css
+/* ============================================================
+   PRINT / PDF EXPORT — see PDF_EXPORT_PLAN.md
+   ============================================================ */
+.print-only{display:none;}
+@page{size:letter;margin:18mm 16mm;}
 
-## 6. Motion primitives in print
+@media print{
+  /* 1 — hide screen chrome & dead-on-paper controls */
+  .topbar,.next-cue,.lightbox-overlay,.gc-tooltip,.textbook-nav,
+  .w-buttons,.w-step-check-btn,.step-controls,
+  .scrub-slider-wrapper,.scrub-marks,.scrub-target-msg,.zoom-rail,
+  [data-recall-check],[data-recall-reveal],[data-recall-reset],
+  [data-more],[data-peek],[data-scheme],
+  .print-btn,.faded-model-collapsible>summary{display:none!important;}
 
-- **Step (`data-motion="step"`):** show **all** frames, stacked vertically, each labelled with its step label (`data-step-labels`), because a reader can't click through on paper. In print CSS: `.step-stage{position:static;height:auto!important;overflow:visible;}` and `.step-stage [data-step]{position:static!important;opacity:1!important;visibility:visible!important;}`; the JS hook prepends each frame's step label as a small caption.
-- **Scrub (`data-motion="scrub"`):** a slider is meaningless on paper. Print the diagram at a representative value (its `data-scrub-value` initial, or its `data-scrub-target` if set) and print the target prompt text as a caption. Hide the slider track/thumb.
-- **Zoom (`data-motion="zoom"`):** show all levels stacked with their level names as captions (macro → meso → particulate), hide the rail. Same static-flow treatment as step.
+  body{padding-top:0!important;background-image:none!important;}
 
----
+  /* 2 — force-reveal everything that is merely collapsed */
+  .reveal{opacity:1!important;transform:none!important;}
+  .more-body,.peek-box,.scheme,.reveal-box{
+    max-height:none!important;opacity:1!important;overflow:visible!important;margin-top:1rem;
+  }
+  [data-predict] .opt[data-correct="true"]{border:2px solid var(--good)!important;}
+  [data-predict] .opt[data-correct="true"]::after{content:" \2713";color:var(--good);font-weight:700;}
 
-## 7. Theme & background
+  /* 3 — motion primitives go static (print all frames in flow) */
+  .step-stage{position:static!important;height:auto!important;overflow:visible!important;}
+  .step-stage [data-step]{position:static!important;opacity:1!important;visibility:visible!important;transform:none!important;}
+  .zoom-stage .zoom-level-layer{position:static!important;opacity:1!important;visibility:visible!important;}
+  .zoom-stage svg{transform:none!important;}
 
-- Force light: the JS hook removes `:root.dark` before printing and restores it after. Belt-and-suspenders: in `@media print`, hard-set the light `--paper*`/`--ink*` values (or just `background:#fff; color:#000` on `body` and let component borders carry structure).
-- **Drop the graph-paper grid** in print (`body{background-image:none!important;}`) — it either doesn't print or muddies the page. Clean white ground.
-- Ensure the Google Fonts `@import` still resolves — it does when printing from a browser with network access; for the batch script, wait for `document.fonts.ready` before calling `page.pdf()`.
+  /* 4 — page-break discipline (continuous flow, clean breaks) */
+  .diagram,.exam-frame,[data-widget],.callout,.recall{break-inside:avoid;}
+  h2,h3,h4{break-after:avoid;}
 
----
+  /* 5 — print-only blocks injected by the core.js hook */
+  .print-only{display:block!important;}
+  body.gc-printing [data-widget]>*:not(.print-only){display:none!important;}
+}
+```
 
-## 8. Glossary handling (nice-to-have)
+Notes for the implementer:
 
-Tooltips can't work on paper. Two options, both optional:
-- **Minimal:** keep the dashed-underline styling on `<strong class="term">` (it reads fine as "this is a key term") and do nothing else.
-- **Enhanced (recommended if time allows):** the print hook collects every `<strong class="term">` slug used on the page, looks each up in `window.GC_GLOSSARY`, and appends a **"Key terms" glossary appendix** section at the end of the printout (term + definition, alphabetized). This turns the lost tooltips into a genuine study asset. Mark it `.print-only`.
+- **The `body.gc-printing` gate** (rule 5) is what swaps each widget's interactive DOM for its static print block. The hook adds/removes that class (§4). If the hook ever fails, printing degrades gracefully: widgets print in whatever visible state they're in, instead of printing blank.
+- **Don't put `break-inside:avoid` on `section`** — sections are routinely taller than one page and the rule would do nothing (browsers ignore un-satisfiable avoids) or produce odd gaps. Box-level elements only.
+- Light mode is forced by the JS hook removing the `dark` class (§4). As belt-and-suspenders you may add `:root{color-scheme:light;}` inside the media block, but do not duplicate token values.
+- Diagrams are already `width:100%`-fluid; after the stage/layer overrides above, verify none is clipped by a remaining `overflow:hidden` ancestor.
 
----
-
-## 9. Decisions to surface to the author BEFORE building
-
-1. **Page-break style:** each numbered section starts on a fresh page (cleaner, more pages) **vs.** continuous flow with smart break-avoidance (fewer pages, more textbook-like). *Recommend: continuous flow* — it's less wasteful and matches how the page reads on screen.
-2. **Batch generator wanted?** Just the ⌘P/browser path (deliverable A), or also the headless-Chrome batch script that spits out `dist/pdf/*.pdf` for all 12 lessons (deliverable B)? *Recommend: build A first, ship it, then add B only if the author wants a one-command full set.*
-3. *(Minor)* **Glossary appendix:** include it (§8 enhanced) or skip (§8 minimal)? *Recommend: include — cheap and pedagogically nice.*
-
----
-
-## 10. Build order
-
-1. `@media print` block in `components.css` (or new `print.css` folded in): §3 hides, §4a CSS reveals, §5 page layout + break rules, §6 motion static-flow, §7 theme/background. Get a browser ⌘P of `1-1b` looking clean with just CSS — most content is static and will already come out mostly right.
-2. `preparePrint()`/`restoreAfterPrint()` in `core.js` wired to `matchMedia('print')` + `beforeprint`/`afterprint`: §4b widget unrolling, recall-blank filling, light-mode force, (optional) §8 glossary appendix. Refactor the widgets' reveal-rendering into a reusable function first.
-3. Verify against the checklist (§11) on the reference build `1-1b` and one widget-heavy lesson (`C-RXN` or `2-7c`).
-4. *(If decision 2 = yes)* `scaffold/tools/make-pdfs.mjs` batch generator; output to `dist/pdf/` (add `dist/` to `.gitignore`).
-
----
-
-## 11. Verification checklist (before declaring done)
-
-Generate a real PDF (browser ⌘P → Save as PDF) for **`1-1b`** (reference) and **`C-RXN`** (widget/stepper/diagram heavy) and confirm:
-- [ ] Nothing below the first screen is invisible (the `.reveal` opacity fix is working).
-- [ ] Every commit-reveal widget shows its prompt, the correct answer marked green, and its reveal/model text — no empty answer boxes.
-- [ ] Every recall blank shows its answer; every exam mark-scheme (`.scheme`) is expanded.
-- [ ] All step-motion frames print stacked with labels; no frame missing; the `.step-stage` isn't clipping.
-- [ ] Zoom/scrub visuals print as static annotated diagrams, no dead sliders/rails.
-- [ ] No topbar, TOC, theme toggle, next-cue buttons, or lightbox on the page.
-- [ ] Light mode, white ground, no graph-paper, fonts embedded and correct.
-- [ ] No diagram clipped at a page edge; headings not orphaned; widgets/exam frames not split mid-box.
-- [ ] After printing, the **on-screen** page is untouched — widgets still un-committed, dark mode restored if it was on.
-- [ ] (If built) glossary appendix lists exactly the terms used on that page with correct definitions.
+**Verify gate for this step:** serve the site (`python3 -m http.server` from `scaffold/`), open `1-1b` in Chrome, ⌘P preview. Everything below the fold visible; no topbar/nav; static collapsibles all open; step frames stacked; white background. Widget answers will still be missing — that's step 2.
 
 ---
 
-## 12. Files this feature adds/touches
+## 4. Deliverable 2 — the print hook in `core.js`
 
-- **Touches:** `scaffold/assets/components.css` (the `@media print` block) and `scaffold/assets/core.js` (the print hook). Possibly each lesson `<head>` *only if* you go the separate-`print.css`-`<link>` route instead of folding into `components.css` — the fold-in route is preferred precisely to avoid this.
-- **Adds (optional):** `scaffold/tools/make-pdfs.mjs` and a `dist/` output dir (git-ignored).
-- **Does not touch:** lesson prose/content, `glossary.js`, `elements.js`, `lessons.json`, the deploy workflow.
+### 4a. Wiring
+
+Inside the IIFE, before the final init calls:
+
+```js
+let printPrepared = false;
+const printUndo = [];   // stack of undo functions; restore runs them in reverse
+
+function preparePrint() {
+  if (printPrepared) return;   // beforeprint AND matchMedia can both fire
+  printPrepared = true;
+  /* ... §4b–4e ... */
+}
+function restoreAfterPrint() {
+  if (!printPrepared) return;
+  printPrepared = false;
+  while (printUndo.length) printUndo.pop()();
+}
+window.addEventListener('beforeprint', preparePrint);
+window.addEventListener('afterprint', restoreAfterPrint);
+const pmq = window.matchMedia('print');   // Safari fallback
+pmq.addEventListener('change', m => m.matches ? preparePrint() : restoreAfterPrint());
+```
+
+Every mutation in `preparePrint` pushes its inverse onto `printUndo` — injected nodes push a `node.remove()`, class/attribute changes push their restoration. This single mechanism guarantees the restore-symmetry constraint. `afterprint` also fires when the user cancels the dialog — the symmetry handles that for free.
+
+### 4b. What `preparePrint` does, in order
+
+1. Add class `gc-printing` to `document.body` (activates CSS rule 5). Undo: remove it.
+2. **Force light mode:** if `document.documentElement.classList.contains('dark')`, remove `dark`. Undo: re-add. Do **not** touch `localStorage`.
+3. **Inject a print header** as the first child of `document.body`: a `.print-only` div with `currentLesson.id + ' · ' + currentLesson.title` (fall back to `document.title` when `currentLesson` is undefined), mono font, hairline bottom border. Undo: remove.
+4. **Fill empty recall blanks:** for every `.recall .blank` with no value, set `b.value = b.dataset.answer.split('|')[0].replace(/-/g, ' ')` and add class `shown`. Undo: clear value, remove class. **Skip blanks the student has filled** (leave their answers, right or wrong — honest printout of their state).
+5. **Open faded-example models:** every `details.faded-model-collapsible` not already open gets `.open = true`. Undo: set back to false.
+6. **Render one static print block per `[data-widget]`** (§4c), appended as the widget's last child with class `print-only`. Undo: remove.
+7. **Caption step frames:** for each `[data-motion="step"]`, read `data-step-labels` (split on `|`) and prepend a small `.print-only` caption ("Step n — label") inside each `[data-step]` frame. Same idea for `[data-motion="zoom"]` layers using `data-zoom-labels` (defaults: Out/Mid/In). Run this **after** step 6 so frames inside freshly injected reveal HTML get captions too.
+8. **Glossary appendix** (§4d), injected before `.footer`.
+
+### 4c. The static widget renderer — config schemas
+
+Write one pure function `renderWidgetPrint(el)`: parse `JSON.parse($('.w-config', el).textContent)` (guard: no config → return null), dispatch on `el.dataset.widget` (+ `config.mode`), return a detached `.print-only` element. It must **never** call `markCheckpointCompleted` or touch the widget's live children. Content per type (schemas verified against `initCommitReveal`/`initFadedExample`/`initScaffold`/`initStepBuilder`):
+
+| Widget / mode | Config shape | Print block contents |
+|---|---|---|
+| `commit-reveal` / `choice` (default) | `prompt`, `options[] {label, correct, feedback}`, `reveal` (HTML) | Prompt; each option with the correct one marked green ✓; each option's `feedback` in smaller italic beneath it; then the `reveal` HTML. |
+| `commit-reveal` / `free` | `prompt`, `minChars?`, `reveal` | Prompt; "Model answer" heading + `reveal`. |
+| `commit-reveal` / `drill` | `items[] {prompt, options[]{label, correct, feedback}}`, `reveal?` | Each item: its prompt, the correct option ✓ green, that option's feedback; then `reveal` if present. |
+| `faded-example` | `model {title, steps[]{label, work, why}}`, `yours {title, checkMode?, steps[]{label, given} or {label, blank}}`; `blank = {type: numeric|text|choice, prompt?, options?, answer, tol?, feedback_right?, feedback_wrong?}` | The model panel is already in the DOM (opened in §4b.5) — don't duplicate it; but note CSS rule 5 hides widget children, so **exempt it**: also add `.print-only` class to the existing `.faded-model-collapsible` (undo: remove class). The block renders the `yours` steps: label + `given` text, or label + the blank's answer in green (`answer[0]` if array; for `choice` type the answer is the correct option's text). |
+| `scaffold` / `bank` | `bank[] {text, slot, feedback?}`, `slots[] {id, label}`, `chain?` | Each slot label followed by the bank item whose `.slot === slot.id`, in order, marked green. |
+| `scaffold` / `free` (default) | `slots[] {label, model}` | Each slot label + "Model answer" + `slot.model`. |
+| `scaffold` / `table` | `table {headers[], rows[][]}`; cell = `{given}` or `{blank {type, answer, tol?}}` | A static `<table class="w-table">`: headers, `given` cells as-is, blank cells showing `answer` (first element if array) styled green. |
+| `step-builder` | `steps[] {question, state?, options[]{label, correct, feedback}}`, `finale?` (HTML), `diagramId?` | Each step: question, correct option ✓ green, its feedback; then the `finale` HTML. |
+
+**Nested widgets:** after setting a print block's `innerHTML` from `reveal`/`finale`, query it for `[data-widget]` and replace each with `renderWidgetPrint(nested)` output (the nested `.w-config` script is part of the reveal HTML string). One level of recursion is enough in practice, but the recursive call costs nothing.
+
+Escaping: `prompt`/`reveal`/`feedback`/`label` values are trusted authored HTML — inject with `innerHTML`, matching how the live code treats them. Plain answers (recall/table/faded blanks) should go in via `textContent`.
+
+Styling: give the block a class like `w-print-static` and add minimal rules for it **inside** the `@media print` block (green `var(--good)` for correct marks, `.w-feedback`-like smaller italic for feedback lines). Reuse existing classes (`.w-table`, `.scheme-card`-style boxes) where they fit; don't invent a parallel design system.
+
+### 4d. Glossary appendix
+
+Collect every `strong.term` on the page, compute each slug (duplicate the 4-line normalizer from core.js:355–362, honoring `data-term`), look up `window.GC_GLOSSARY` (guard for undefined — `glossary.js` loads after `core.js`, which is fine since this runs at print time), dedupe, drop misses silently, sort by `entry.term.localeCompare`. Inject before `.footer`:
+
+```html
+<section class="print-only print-glossary">
+  <h2>Key terms in this lesson</h2>
+  <dl> <dt>term</dt><dd>definition <em>example</em></dd> … </dl>
+</section>
+```
+
+### 4e. Print button
+
+A small IIFE next to the Home-button injector (core.js:41–52), same pattern: guard `const right = $('.topbar-right'); if (!right) return;`, create `<button class="toc-btn print-btn" type="button">` with a printer SVG (stroke `currentColor`, matching the Home icon's style) + text "Print", `addEventListener('click', () => window.print())`, insert as first child of `.topbar-right`. It's hidden in print by CSS rule 1. `window.print()` fires `beforeprint`, so the button needs no other logic.
+
+---
+
+## 5. Build order (with verify gates)
+
+1. **CSS block** (§3) → verify: ⌘P preview of `1-1b` per the gate in §3.
+2. **Print hook** (§4a, 4b, 4c) → verify: ⌘P of `1-1b` and `C-RXN` shows every widget's answers/model text; then close the dialog and confirm the live page is untouched (widgets un-committed, dark mode back if it was on, recall blanks as before).
+3. **Glossary appendix + print header** (§4b.3, §4d) → verify: appendix lists exactly the page's terms, alphabetized, correct definitions.
+4. **Print button** (§4e) → verify: appears on every lesson topbar in light and dark mode, triggers the dialog, absent from the printout.
+5. Run the full checklist (§6). Then update `TODO.md` (mark item 1 done) and note completion at the top of this file.
+
+Self-check tip: `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --print-to-pdf=/tmp/out.pdf "http://localhost:8000/lessons/1-1b_periodic-trends-reactivity.html"` produces a real PDF you can open and inspect without a human at the dialog. Headless print-to-pdf applies `@media print` and fires `beforeprint` in current Chrome; if the hook content is missing from the PDF, test `beforeprint` manually in a headed browser before assuming the hook is broken. **Final sign-off still requires a real ⌘P check in a headed browser, light and dark mode.**
+
+## 6. Verification checklist (before declaring done)
+
+Generate real PDFs for **`1-1b`** (reference build) and **`C-RXN`** (widget/stepper/diagram heavy) and confirm:
+- [ ] Nothing below the first screen is invisible (the `.reveal` fix works).
+- [ ] Every commit-reveal widget prints prompt + correct answer marked green + feedback + reveal/model text — no empty answer boxes, no Check/Reset buttons.
+- [ ] Every recall blank shows an answer (spaces, not hyphens); every mark scheme (`.scheme`) and peek/more box is expanded; predict options show the ✓.
+- [ ] All step-motion frames print stacked with their labels; `.step-stage` isn't clipping (inline height overridden).
+- [ ] Zoom layers print stacked and untransformed; scrub prints its diagram + readout with no slider chrome.
+- [ ] No topbar, TOC, theme toggle, next-cue, textbook-nav, Print button, or lightbox in the output.
+- [ ] Light mode, white ground, no graph-paper grid; correct fonts.
+- [ ] No diagram clipped at a page edge; headings not orphaned; widgets/exam frames/diagrams not split mid-box.
+- [ ] Glossary appendix: exactly the page's terms, alphabetized, correct definitions.
+- [ ] **After printing (and after cancelling the dialog): the on-screen page is exactly as before** — widgets un-committed, student-typed blank values intact, dark mode restored, no stray `.print-only` nodes or `gc-printing` class in the DOM.
+- [ ] `localStorage.getItem('gc-textbook-progress')` unchanged by the whole print cycle.
+
+## 7. Files touched
+
+- `scaffold/assets/components.css` — the `@media print` block (§3) appended at the end.
+- `scaffold/assets/core.js` — print hook + Print button, inside the existing IIFE.
+- **Nothing else.** No lesson HTML, no `glossary.js`/`elements.js`/`lessons.json`, no new files, no dependencies.
+
+## 8. Known pitfalls (each of these caused a rejected approach — don't rediscover them)
+
+1. **Don't drive live widgets to "reveal" them** (clicking options, moving sliders, calling `updateZoomLevel`): those paths call `markCheckpointCompleted` and pollute student progress, and mutating live state is what the restore constraint exists to prevent. Static print blocks only.
+2. **Don't refactor the commit handlers** to share rendering code — standalone renderers reading `.w-config` are lower-risk and sufficient.
+3. `beforeprint` and the `matchMedia('print')` listener **can both fire** for one print — the `printPrepared` guard is mandatory.
+4. The `.step-stage` height is an **inline style** — only `!important` in the print CSS overrides it.
+5. Recall answers use the `-`→space transform (core.js:214) — printing raw `data-answer` values prints hyphenated slugs.
+6. `<details>` can't be opened by CSS — the faded-example model panel needs the JS hook.
+7. The `body.gc-printing` gate hides **all** non-`.print-only` widget children — remember the faded-example model-panel exemption (§4c) or the worked example vanishes from print.

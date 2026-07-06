@@ -1770,4 +1770,66 @@ strong.term{font-weight:700;color:var(--ink);border-bottom:1.5px dashed var(--ac
   }
 }
 
+/* ============================================================
+   PRINT / PDF EXPORT — see PDF_EXPORT_PLAN.md
+   ============================================================ */
+.print-only{display:none;}
+@page{size:letter;margin:18mm 16mm;}
+
+@media print{
+  /* 1 — hide screen chrome & dead-on-paper controls */
+  .topbar,.next-cue,.lightbox-overlay,.gc-tooltip,.textbook-nav,
+  .w-buttons,.w-step-check-btn,.step-controls,
+  .scrub-slider-wrapper,.scrub-marks,.scrub-target-msg,.zoom-rail,
+  [data-recall-check],[data-recall-reveal],[data-recall-reset],
+  [data-more],[data-peek],[data-scheme],
+  .print-btn,.faded-model-collapsible>summary{display:none!important;}
+
+  body{padding-top:0!important;background-image:none!important;background:#fff!important;color:#000!important;}
+
+  /* 2 — force-reveal everything that is merely collapsed */
+  .reveal{opacity:1!important;transform:none!important;}
+  .more-body,.peek-box,.scheme,.reveal-box{
+    max-height:none!important;opacity:1!important;overflow:visible!important;margin-top:1rem;
+  }
+  [data-predict] .opt[data-correct="true"]{border:2px solid var(--good)!important;}
+  [data-predict] .opt[data-correct="true"]::after{content:" \2713";color:var(--good);font-weight:700;}
+
+  /* 3 — motion primitives go static (print all frames in flow) */
+  .step-stage{position:static!important;height:auto!important;overflow:visible!important;}
+  .step-stage [data-step]{position:static!important;opacity:1!important;visibility:visible!important;transform:none!important;}
+  .zoom-stage{height:auto!important;aspect-ratio:auto!important;overflow:visible!important;}
+  .zoom-stage .zoom-level-layer{position:static!important;opacity:1!important;visibility:visible!important;margin-bottom:1rem;}
+  .zoom-stage svg{transform:none!important;}
+  .print-step-caption,.print-zoom-caption{display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:.4rem;}
+
+  /* 4 — page-break discipline (continuous flow, clean breaks) */
+  .diagram,.exam-frame,[data-widget],.callout,.recall{break-inside:avoid;}
+  h2,h3,h4{break-after:avoid;}
+
+  /* 5 — print-only blocks injected by the core.js hook.
+     faded-example nests everything inside .faded-layout (no flat direct
+     children), so it's handled separately: keep the (JS-opened) model
+     panel visible, hide only the raw "yours" input panel. */
+  .print-only{display:block!important;}
+  body.gc-printing [data-widget]:not([data-widget="faded-example"])>*:not(.print-only){display:none!important;}
+  body.gc-printing [data-widget="faded-example"] .faded-yours{display:none!important;}
+
+  /* 6 — static widget print-block styling (reuses existing card/opt idioms) */
+  .w-print-static{margin-top:1rem;}
+  .w-print-static .w-print-item{border-left:3px solid var(--good);background:var(--card);padding:.9rem 1.2rem;margin-bottom:.9rem;break-inside:avoid;}
+  .w-print-static .w-print-item.wrong-context{border-left-color:var(--accent);}
+  .w-print-static .w-opt{display:block;width:auto;margin-bottom:.5rem;}
+  .w-print-static .w-print-feedback{font-family:var(--serif);font-size:.85rem;font-style:italic;color:var(--ink-mute);margin-top:.3rem;}
+  .w-print-static .w-print-label{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.5rem;}
+
+  /* 7 — print header + glossary appendix */
+  .print-header{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-mute);border-bottom:1px solid var(--hair);padding-bottom:.6rem;margin-bottom:1.2rem;}
+  .print-glossary{margin-top:2.5rem;padding-top:1.2rem;border-top:1px solid var(--hair);}
+  .print-glossary dl{margin-top:.8rem;}
+  .print-glossary dt{font-weight:700;color:var(--ink);margin-top:.7rem;}
+  .print-glossary dd{margin-left:0;color:var(--ink-mute);}
+  .print-glossary dd em{display:block;font-style:italic;font-size:.88em;margin-top:.15rem;}
+}
+
 
