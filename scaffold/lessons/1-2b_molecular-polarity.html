@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>Molecular Polarity · Gen Chem 1-2b</title>
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <button class="toc-btn" id="tocBtn" aria-label="Table of contents">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      Contents
+    </button>
+    <div class="crumb">Gen Chem · Sem 1 · <b>1-2b</b></div>
+  </div>
+  <div class="topbar-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </button>
+  </div>
+</div>
+<nav class="toc-drop" id="tocDrop"></nav>
+
+<!-- HERO -->
+<section id="s-hero" class="hero" data-toc="Opening">
+  <div class="wrap">
+    <div class="label label-accent">Molecular Polarity</div>
+    <h1>Two polar bonds. One nonpolar molecule, one <span class="flip">wildly polar</span> one.</h1>
+    <p class="lede">CO<sub>2</sub> has two polar bonds and is a nonpolar molecule. Water has two polar bonds and is one of the most polar molecules there is. Same ingredient, opposite result — the difference is shape. By the end of this page you'll be able to take any molecule's bonds and shape and predict whether it's polar, and which intermolecular force that unlocks.</p>
+    <div class="meta-strip">
+      <div class="meta-block"><div class="k">Alignment</div><div class="v"><b>HS-PS1-2</b>Explain chemical outcomes based on the outermost electron states and periodic trends. (Sub-target PS1-2.1: bond and molecular polarity from electronegativity and structure.)</div></div>
+      <div class="meta-block"><div class="k">Objective</div><div class="v">Combine bond polarity (&Delta;EN) with a molecule's given shape to decide molecular polarity, then predict which intermolecular force that molecule can access.</div></div>
+      <div class="meta-block"><div class="k">Scope</div><div class="v">Shapes are shown as given fact — linear, bent, pyramidal, symmetric. No VSEPR, no angle derivation, no naming the theory behind why a shape is what it is.</div></div>
+    </div>
+
+    <div class="diagram reveal" style="max-width:580px;margin:2rem auto 0;">
+      <svg viewBox="0 0 560 200" role="img" aria-label="CO2 is linear with two dipole arrows pointing in opposite directions that cancel to a net dipole of zero. Water is bent with two dipole arrows converging toward oxygen, producing a net dipole that points toward oxygen.">
+        <line x1="280" y1="20" x2="280" y2="180" stroke="var(--hair-soft)" stroke-width="1" stroke-dasharray="3 3"/>
+
+        <!-- CO2 (left) -->
+        <circle cx="70" cy="100" r="17" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1.4"/>
+        <text x="70" y="104" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--ink)" text-anchor="middle">O</text>
+        <circle cx="140" cy="100" r="16" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1.4"/>
+        <text x="140" y="104" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--ink)" text-anchor="middle">C</text>
+        <circle cx="210" cy="100" r="17" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1.4"/>
+        <text x="210" y="104" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--ink)" text-anchor="middle">O</text>
+        <line x1="87" y1="96" x2="123" y2="96" stroke="var(--ink)" stroke-width="2"/>
+        <line x1="87" y1="104" x2="123" y2="104" stroke="var(--ink)" stroke-width="2"/>
+        <line x1="157" y1="96" x2="193" y2="96" stroke="var(--ink)" stroke-width="2"/>
+        <line x1="157" y1="104" x2="193" y2="104" stroke="var(--ink)" stroke-width="2"/>
+        <text x="140" y="63" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--cool)" text-anchor="middle">&delta;+</text>
+        <text x="70" y="63" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--accent)" text-anchor="middle">&delta;&minus;</text>
+        <text x="210" y="63" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--accent)" text-anchor="middle">&delta;&minus;</text>
+        <line x1="128" y1="80" x2="92" y2="80" stroke="var(--accent)" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#hero-arr-l)"/>
+        <line x1="152" y1="80" x2="188" y2="80" stroke="var(--accent)" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#hero-arr-r)"/>
+        <text x="140" y="150" font-family="var(--mono)" font-size="10" fill="var(--ink-mute)" text-anchor="middle">net dipole = 0</text>
+
+        <!-- H2O (right) -->
+        <circle cx="420" cy="55" r="17" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1.4"/>
+        <text x="420" y="59" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--ink)" text-anchor="middle">O</text>
+        <circle cx="372" cy="125" r="12" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/>
+        <text x="372" y="129" font-family="var(--mono)" font-weight="700" font-size="10" fill="var(--ink)" text-anchor="middle">H</text>
+        <circle cx="468" cy="125" r="12" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/>
+        <text x="468" y="129" font-family="var(--mono)" font-weight="700" font-size="10" fill="var(--ink)" text-anchor="middle">H</text>
+        <line x1="380" y1="116" x2="408" y2="66" stroke="var(--ink)" stroke-width="2"/>
+        <line x1="460" y1="116" x2="432" y2="66" stroke="var(--ink)" stroke-width="2"/>
+        <text x="420" y="30" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--accent)" text-anchor="middle">&delta;&minus;</text>
+        <text x="360" y="146" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--cool)" text-anchor="middle">&delta;+</text>
+        <text x="480" y="146" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--cool)" text-anchor="middle">&delta;+</text>
+        <line x1="382" y1="115" x2="410" y2="70" stroke="var(--accent)" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#hero-arr-h1)"/>
+        <line x1="458" y1="115" x2="430" y2="70" stroke="var(--accent)" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#hero-arr-h2)"/>
+        <line x1="420" y1="128" x2="420" y2="72" stroke="var(--accent)" stroke-width="2.6" marker-end="url(#hero-arr-net)"/>
+        <text x="420" y="156" font-family="var(--mono)" font-size="10" fill="var(--ink-mute)" text-anchor="middle">net dipole &ne; 0 &middot; points toward O</text>
+
+        <defs>
+          <marker id="hero-arr-l" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" viewBox="0 0 6 6"><path d="M0 0 L6 3 L0 6 z" fill="var(--accent)"/></marker>
+          <marker id="hero-arr-r" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" viewBox="0 0 6 6"><path d="M0 0 L6 3 L0 6 z" fill="var(--accent)"/></marker>
+          <marker id="hero-arr-h1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" viewBox="0 0 6 6"><path d="M0 0 L6 3 L0 6 z" fill="var(--accent)"/></marker>
+          <marker id="hero-arr-h2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" viewBox="0 0 6 6"><path d="M0 0 L6 3 L0 6 z" fill="var(--accent)"/></marker>
+          <marker id="hero-arr-net" markerWidth="7" markerHeight="7" refX="5.5" refY="3.5" orient="auto" viewBox="0 0 7 7"><path d="M0 0 L7 3.5 L0 7 z" fill="var(--accent)"/></marker>
+        </defs>
+      </svg>
+      <div class="diagram-cap">same polar bonds · different geometry · different molecular polarity</div>
+    </div>
+
+    <div class="next-cue"><button class="next-btn" data-next>Start <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 01 CONCEPT -->
+<section id="s-concept" data-toc="Two inputs">
+  <div class="narrow">
+    <div class="section-tag"><span class="num">01</span><span class="label label-accent">Two inputs, not one</span></div>
+    <h2>"The bonds are polar, so the molecule is polar." Sometimes.</h2>
+    <p class="step reveal" style="margin-top:1.5rem;">Here's a trap worth naming before you fall into it: <em>the bonds are polar, so the molecule is polar</em>. Sometimes. <strong class="term" data-term="electronegativity-difference">Electronegativity difference</strong> (&Delta;EN) tells you whether a single <strong class="term" data-term="bond-dipole">bond dipole</strong> exists — one tug-of-war, judged bond by bond. <strong class="term" data-term="molecular-polarity">Molecular polarity</strong> asks a different question: do all of a molecule's tugs-of-war add up to a net pull across the whole thing? Pulls in opposite directions cancel. Pulls in the same general direction don't.</p>
+    <p class="step reveal">CO<sub>2</sub> is the clean case. Each C=O bond really is polar — oxygen wins the tug-of-war, so oxygen ends up &delta;&minus; and carbon &delta;+. But CO<sub>2</sub> is a straight line, and the two oxygens sit on exactly opposite sides of carbon. Their pulls point in exactly opposite directions and <strong class="term" data-term="dipole-cancellation">cancel</strong> — not approximately, exactly. Nonpolar molecule, polar bonds and all.</p>
+    <p class="step reveal">Water refuses to line up the same way. Its two O&ndash;H bonds sit at about 104&deg; to each other — bent, not straight. Both pulls point generally toward oxygen, so instead of canceling they gang up into a <strong class="term" data-term="net-dipole">net dipole</strong>. The oxygen end of the molecule runs &delta;&minus;, the hydrogen end runs &delta;+. Water is polar because of its shape — not because O&ndash;H (&Delta;EN 1.24) is somehow "more polar" than C=O (&Delta;EN 0.89). Both bonds are genuinely polar. The difference is entirely geometric.</p>
+    <div class="callout reveal"><div class="label label-accent">The one idea to hold onto</div>
+      <p>Molecular polarity takes two inputs: how polar the bonds are (&Delta;EN), and where they point (shape). Polar bonds in a symmetric arrangement usually cancel — nonpolar molecule. Polar bonds in a lopsided arrangement don't — polar molecule. Skip either input and you'll get CO<sub>2</sub> wrong, or water wrong, or both.</p></div>
+    <div class="next-cue"><button class="next-btn" data-next>Watch it, then run it yourself <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 02 FADED EXAMPLE -->
+<section id="s-faded" data-toc="Worked & your turn">
+  <div class="narrow">
+    <div class="section-tag reveal"><span class="num">02</span><span class="label label-accent">Worked example, then your turn</span></div>
+    <h2 class="reveal">Watch the two-step check on methane. Then run it yourself on ammonia.</h2>
+    <p class="step reveal" style="margin-top:1.5rem;">Same two questions every time: is the bond polar, and does the shape let those pulls cancel?</p>
+
+    <div class="diagram reveal" style="max-width:560px;margin:1.6rem auto;">
+      <svg viewBox="0 0 560 220" role="img" aria-label="Methane is symmetric with four bond pulls that cancel, giving a nonpolar molecule. Ammonia is pyramidal with a lone pair on nitrogen and three bond pulls that reinforce toward nitrogen, giving a polar molecule.">
+        <line x1="280" y1="20" x2="280" y2="200" stroke="var(--hair-soft)" stroke-width="1" stroke-dasharray="3 3"/>
+
+        <!-- CH4 (left) -->
+        <circle cx="140" cy="110" r="16" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1.4"/>
+        <text x="140" y="114" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--ink)" text-anchor="middle">C</text>
+        <circle cx="140" cy="52" r="12" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/>
+        <text x="140" y="56" font-family="var(--mono)" font-weight="700" font-size="10" fill="var(--ink)" text-anchor="middle">H</text>
+        <circle cx="140" cy="168" r="12" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/>
+        <text x="140" y="172" font-family="var(--mono)" font-weight="700" font-size="10" fill="var(--ink)" text-anchor="middle">H</text>
+        <circle cx="78" cy="110" r="12" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/>
+        <text x="78" y="114" font-family="var(--mono)" font-weight="700" font-size="10" fill="var(--ink)" text-anchor="middle">H</text>
+        <circle cx="202" cy="110" r="12" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/>
+        <text x="202" y="114" font-family="var(--mono)" font-weight="700" font-size="10" fill="var(--ink)" text-anchor="middle">H</text>
+        <line x1="140" y1="94" x2="140" y2="64" stroke="var(--ink)" stroke-width="2"/>
+        <line x1="140" y1="126" x2="140" y2="156" stroke="var(--ink)" stroke-width="2"/>
+        <line x1="124" y1="110" x2="90" y2="110" stroke="var(--ink)" stroke-width="2"/>
+        <line x1="156" y1="110" x2="190" y2="110" stroke="var(--ink)" stroke-width="2"/>
+        <text x="140" y="200" font-family="var(--mono)" font-size="10" fill="var(--ink-mute)" text-anchor="middle">symmetric pulls cancel</text>
+        <text x="140" y="215" font-family="var(--mono)" font-size="10" fill="var(--ink-mute)" text-anchor="middle" font-weight="700">nonpolar overall &middot; LDF only</text>
+
+        <!-- NH3 (right) -->
+        <circle cx="420" cy="82" r="16" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1.4"/>
+        <text x="420" y="86" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--ink)" text-anchor="middle">N</text>
+        <circle cx="412" cy="52" r="1.6" fill="var(--ink-mute)"/>
+        <circle cx="428" cy="52" r="1.6" fill="var(--ink-mute)"/>
+        <text x="420" y="40" font-family="var(--mono)" font-size="8" fill="var(--ink-mute)" text-anchor="middle">lone pair</text>
+        <circle cx="365" cy="152" r="12" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/>
+        <text x="365" y="156" font-family="var(--mono)" font-weight="700" font-size="10" fill="var(--ink)" text-anchor="middle">H</text>
+        <circle cx="420" cy="172" r="12" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/>
+        <text x="420" y="176" font-family="var(--mono)" font-weight="700" font-size="10" fill="var(--ink)" text-anchor="middle">H</text>
+        <circle cx="475" cy="152" r="12" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/>
+        <text x="475" y="156" font-family="var(--mono)" font-weight="700" font-size="10" fill="var(--ink)" text-anchor="middle">H</text>
+        <line x1="373" y1="142" x2="406" y2="94" stroke="var(--ink)" stroke-width="2"/>
+        <line x1="420" y1="160" x2="420" y2="98" stroke="var(--ink)" stroke-width="2"/>
+        <line x1="467" y1="142" x2="434" y2="94" stroke="var(--ink)" stroke-width="2"/>
+        <text x="420" y="200" font-family="var(--mono)" font-size="10" fill="var(--ink-mute)" text-anchor="middle">pulls reinforce toward N</text>
+        <text x="420" y="215" font-family="var(--mono)" font-size="10" fill="var(--ink-mute)" text-anchor="middle" font-weight="700">polar overall &middot; dipole-dipole + H-bonding</text>
+      </svg>
+      <div class="diagram-cap">bond polarity + geometry = molecular polarity</div>
+    </div>
+
+    <div data-widget="faded-example" class="reveal">
+      <script type="application/json" class="w-config">
+      {
+        "model": {
+          "title": "Watch it once: methane, CH4",
+          "steps": [
+            {"label": "1. Judge the bond", "work": "C&ndash;H: &Delta;EN = 0.35 &rarr; essentially nonpolar.", "why": "Judge the bonds before the shape. Weak pulls can't add up to much no matter where they point."},
+            {"label": "2. Read the shape", "work": "Four H arranged symmetrically around C.", "why": "Perfect symmetry is the cancellation machine: every pull has an equal, opposite partner."},
+            {"label": "3. Verdict", "work": "Nonpolar molecule.", "why": "Nonpolar bonds plus symmetric shape &mdash; nothing survives."},
+            {"label": "4. IMF consequence", "work": "London dispersion forces only.", "why": "This is where the classification cashes out: no net dipole means no dipole-dipole attraction is available."}
+          ]
+        },
+        "yours": {
+          "title": "Now: ammonia, NH3",
+          "checkMode": "step",
+          "steps": [
+            {
+              "label": "1. Judge the bond",
+              "blank": {
+                "type": "choice",
+                "prompt": "N–H has ΔEN = 0.84. The bond is…",
+                "answer": "polar",
+                "options": ["polar", "nonpolar"],
+                "feedback_right": "0.84 sits squarely between 0.5 and 1.7. Each N–H pull points toward nitrogen.",
+                "feedback_wrong": "0.84 clears the 0.5 line comfortably — these pulls are real, not negligible."
+              }
+            },
+            {
+              "label": "2. Read the shape",
+              "given": "Nitrogen holds three H below and a lone pair above — a squat pyramid, not a flat triangle."
+            },
+            {
+              "label": "3. Cancel or reinforce?",
+              "blank": {
+                "type": "choice",
+                "prompt": "With all three pulls angled toward N, the bond dipoles…",
+                "answer": "reinforce — they add to a net pull toward N",
+                "options": ["reinforce — they add to a net pull toward N", "cancel — three pulls always balance out"],
+                "feedback_right": "Right — the lone-pair side of the molecule runs δ−, the hydrogen side runs δ+.",
+                "feedback_wrong": "Three pulls cancel only when they're arranged flat and symmetric. Pyramidal isn't — all three lean toward the same open side of nitrogen."
+              }
+            },
+            {
+              "label": "4. IMF consequence",
+              "blank": {
+                "type": "choice",
+                "prompt": "So NH3's intermolecular forces are…",
+                "answer": "dipole-dipole plus hydrogen bonding",
+                "options": ["LDF only", "dipole-dipole only", "dipole-dipole plus hydrogen bonding"],
+                "feedback_right": "Right — polar molecule gets dipole-dipole, and H bonded directly to N unlocks hydrogen bonding on top. This is why ammonia boils about 130 degrees above methane.",
+                "feedback_wrong": "Every molecule gets LDF as a baseline — the question is what's on top of it. NH3 is polar, so it gets dipole-dipole. And check what the hydrogens are bonded to before ruling out hydrogen bonding: H directly on N, O, or F unlocks it."
+              }
+            }
+          ]
+        }
+      }
+      </script>
+    </div>
+
+    <div class="next-cue" style="margin-top:2rem;"><button class="next-btn" data-next>Try it on five molecules <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 03 SIGNATURE INTERACTIVE -->
+<section id="s-explorer" data-toc="Cancel or reinforce?" style="background:var(--paper-2);border-top:1px solid var(--hair-soft);border-bottom:1px solid var(--hair-soft);">
+  <div class="wrap">
+    <div class="section-tag reveal"><span class="num">03</span><span class="label label-accent">Signature interactive</span></div>
+    <h2 class="reveal">Five molecules. Same two-step check every time.</h2>
+    <p class="reveal" style="margin-top:1rem;color:var(--ink-soft);">Pick a molecule. Judge its bond, then judge what its shape does to that bond's pull. The verdict only appears after you've committed to both.</p>
+
+    <div class="interactive reveal">
+      <div class="interactive-head">
+        <span class="label">Cancel or reinforce? · pick a molecule</span>
+        <div class="tabs" id="molTabs"></div>
+      </div>
+      <div class="atom-stage">
+        <div class="atom-svg-wrap">
+          <svg class="atom-svg" id="molSvg" viewBox="0 0 320 220" role="img" aria-label="Molecule bond and dipole diagram"></svg>
+          <div class="atom-stats"><div>&Delta;EN <b id="molDelta">&mdash;</b></div><div>bond <b id="molBondCall">&mdash;</b></div></div>
+        </div>
+        <div class="readout">
+          <div class="label" id="stepLabel">Pick a molecule above to begin</div>
+          <h4 id="stepPrompt"></h4>
+          <p id="stepGiven" style="display:none;color:var(--ink-soft);"></p>
+          <div class="w-options-grid" id="stepOptions" style="margin-top:.9rem;"></div>
+          <div class="w-feedback" id="stepFeedback" role="status" aria-live="polite" style="margin-top:.7rem;"></div>
+          <div class="actions" style="margin-top:1rem;">
+            <button class="btn" id="molContinue" type="button" style="display:none;">Continue &rarr;</button>
+            <button class="btn ghost" id="molReset" type="button">Reset this molecule</button>
+          </div>
+          <div id="verdictBox" style="display:none;margin-top:1.1rem;border-top:1px solid var(--hair-soft);padding-top:1rem;">
+            <div class="label label-accent">Verdict</div>
+            <h4 id="verdictTitle"></h4>
+            <p id="verdictText"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="next-cue"><button class="next-btn" data-next>Predict first <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 04 PREDICT -->
+<section id="s-predict" data-toc="Predict first">
+  <div class="narrow">
+    <div class="section-tag reveal"><span class="num">04</span><span class="label label-accent">Predict first</span></div>
+
+    <div class="predict-q reveal"><p>Chlorine gas, Cl<sub>2</sub> — is the molecule polar or nonpolar, and what intermolecular force does it get?</p></div>
+    <div class="options cols reveal" data-predict="cl2">
+      <button class="opt" data-correct="true"><span class="ltr">A</span>Nonpolar — LDF only</button>
+      <button class="opt" data-correct="false"><span class="ltr">B</span>Polar — dipole-dipole</button>
+    </div>
+    <div class="reveal-box" data-reveal="cl2"><div class="reveal-card"><div class="label">Why</div>
+      <p><strong>Nonpolar — LDF only.</strong> Chlorine is genuinely electronegative, which makes "polar" feel like the safe guess. But &Delta;EN measures a <em>difference</em>, and chlorine bonded to chlorine is a tie: &Delta;EN = 0.00. There's no tug-of-war to have when both atoms pull identically — nothing to judge a shape against, and nothing left over but London dispersion forces.</p></div></div>
+
+    <hr style="border:none;border-top:1px solid var(--hair-soft);margin:2.5rem 0;" class="reveal">
+
+    <div class="predict-q reveal"><p>Carbon tetrachloride, CCl<sub>4</sub>, has four genuinely polar C&ndash;Cl bonds (&Delta;EN = 0.61) arranged with perfect symmetry around the carbon. Polar or nonpolar molecule?</p></div>
+    <div class="options cols reveal" data-predict="ccl4">
+      <button class="opt" data-correct="false"><span class="ltr">A</span>Polar — four polar bonds add up to a polar molecule</button>
+      <button class="opt" data-correct="true"><span class="ltr">B</span>Nonpolar — the symmetric arrangement cancels every pull</button>
+    </div>
+    <div class="reveal-box" data-reveal="ccl4"><div class="reveal-card"><div class="label">Why</div>
+      <p><strong>Nonpolar.</strong> This is the same trap from earlier, in a new molecule: "four polar bonds, so the molecule must be polar." Bond polarity and molecular polarity are different questions. Each C&ndash;Cl bond really does have a dipole. But four bonds arranged with perfect symmetry around one center is exactly the setup where every pull has an equal, opposite partner. They cancel completely, the same way CO<sub>2</sub>'s two pulls did — just with four pulls instead of two. Polar bonds, nonpolar molecule, LDF only.</p></div></div>
+
+    <hr style="border:none;border-top:1px solid var(--hair-soft);margin:2.5rem 0;" class="reveal">
+
+    <div class="predict-q reveal"><p>HCl has a strongly polar H&ndash;Cl bond (&Delta;EN = 0.96). Does liquid HCl have hydrogen bonding?</p></div>
+    <div class="options cols reveal" data-predict="hcl-hbond">
+      <button class="opt" data-correct="false"><span class="ltr">A</span>Yes — the bond is polar enough</button>
+      <button class="opt" data-correct="true"><span class="ltr">B</span>No — chlorine isn't in the club</button>
+    </div>
+    <div class="reveal-box" data-reveal="hcl-hbond"><div class="reveal-card"><div class="label">Why</div>
+      <p><strong>No — dipole-dipole only.</strong> A strongly polar bond is necessary for hydrogen bonding, but it isn't sufficient. Hydrogen bonding needs hydrogen bonded directly to nitrogen, oxygen, or fluorine specifically — not just "a very electronegative atom." Chlorine is electronegative, but it isn't on that short list. HCl molecules attract each other with an ordinary dipole-dipole force, not the exceptionally strong hydrogen bond that N&ndash;H, O&ndash;H, and F&ndash;H bonds unlock.</p></div></div>
+
+    <div class="next-cue"><button class="next-btn" data-next>Say it back <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 05 RECALL -->
+<section id="s-recall" class="recall-section recall" data-toc="Recall">
+  <div class="narrow">
+    <div class="section-tag reveal"><span class="num">05</span><span class="label label-accent">Say it back</span></div>
+    <h2 class="reveal">Fill the blanks from memory.</h2>
+    <p class="lede reveal" style="margin-top:.75rem;">Stuck on one? Tap <em>Reveal</em>. The point is pulling it from your head, not recognizing it on the page.</p>
+    <p class="recall-sentence reveal">
+      Electronegativity difference (&Delta;EN) tells you whether a single bond has a <input class="blank" data-answer="dipole" placeholder="?">.
+      Molecular shape decides whether those bond dipoles cancel or <input class="blank" data-answer="reinforce" placeholder="?">.
+      A perfectly symmetric arrangement of polar bonds makes their pulls <input class="blank" data-answer="cancel|cancels" placeholder="?">, giving a nonpolar molecule.
+      A polar molecule picks up <input class="blank" data-answer="dipole-dipole" placeholder="?"> forces on top of the London dispersion forces every molecule has.
+      Hydrogen bonding only switches on when hydrogen sits directly on nitrogen, oxygen, or <input class="blank" data-answer="fluorine|f" placeholder="?">.
+    </p>
+    <div class="actions reveal">
+      <button class="btn" data-recall-check>Check</button>
+      <button class="btn ghost" data-recall-reveal>Reveal</button>
+      <button class="btn ghost" data-recall-reset>Reset</button>
+      <span class="feedback" data-recall-feedback></span>
+    </div>
+    <div class="next-cue"><button class="next-btn" data-next>Explain it to yourself <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 06 SELF EXPLAIN -->
+<section id="s-selfx" data-toc="Self-explain">
+  <div class="narrow">
+    <div class="section-tag reveal"><span class="num">06</span><span class="label label-accent">Explain it to yourself</span></div>
+    <h2 class="reveal">Trace the whole chain before you write.</h2>
+    <p class="lede reveal" style="margin-top:.75rem;">Shape &rarr; molecular polarity &rarr; IMF type &rarr; energy needed to separate molecules &rarr; physical state. The common shortcut — "water has O&ndash;H bonds, so it has hydrogen bonds" — gets the right answer for the wrong reason, and it'll fail you on the next molecule. Write out every link before you check.</p>
+
+    <div data-widget="commit-reveal" class="reveal" style="margin-top:1.5rem;">
+      <script type="application/json" class="w-config">
+      {
+        "mode": "free",
+        "prompt": "Water is a liquid up to 100&deg;C. Carbon dioxide is already a gas at &minus;78&deg;C, even though a CO2 molecule is heavier than an H2O molecule. Trace the full chain &mdash; bonds, shape, molecular polarity, IMF type &mdash; that explains why.",
+        "minChars": 60,
+        "reveal": "Both molecules have polar bonds: O&ndash;H (&Delta;EN = 1.24) and C=O (&Delta;EN = 0.89) are both well past the 0.5 line. The difference is shape. CO2 is linear, so its two C=O pulls point in exactly opposite directions and cancel &mdash; nonpolar molecule, LDF only. Water is bent, so its two O&ndash;H pulls both point generally toward oxygen and reinforce into a net dipole &mdash; polar molecule. And because water's hydrogen sits directly on oxygen, it gets hydrogen bonding on top of dipole-dipole, the strongest intermolecular force available. Stronger attractions between molecules mean more energy is needed to pull them apart, which is exactly what boiling or subliming is. That's why water clings together as a liquid at temperatures where CO2 has already come apart into a gas &mdash; not because CO2 lacks O&ndash;H bonds, but because its shape cancels the polarity its bonds do have."
+      }
+      </script>
+    </div>
+
+    <div class="next-cue" style="margin-top:2rem;"><button class="next-btn" data-next>Mark-scheme practice <span class="chev">↓</span></button></div>
+  </div>
+</section>
+
+<!-- 07 EXAM -->
+<section id="s-exam" data-toc="Exam practice">
+  <div class="narrow">
+    <div class="section-tag reveal"><span class="num">07</span><span class="label label-accent">Now the way it's marked</span></div>
+    <h2 class="reveal">Write your answer first. <em>Then</em> grade yourself.</h2>
+    <p class="lede reveal" style="margin-top:.75rem;">Give yourself a point for each idea you actually wrote down. The flag (&#9873;) marks the move that separates a full-credit answer from a partial one.</p>
+    <div class="exam-frame reveal">
+      <div class="exam-meta"><span class="exam-src">Gen Chem · HS-PS1-2 · constructed response</span><span class="exam-marks">[4 marks]</span></div>
+      <p class="exam-q">Methane (CH<sub>4</sub>) boils at &minus;162&deg;C. Ammonia (NH<sub>3</sub>) boils at &minus;33&deg;C — about 130 degrees higher — even though the two molecules have nearly identical mass (16.05 vs. 17.04 g/mol).
+        <span class="sub">Construct the full argument for the difference: bonds &rarr; shape &rarr; molecular polarity &rarr; IMF &rarr; boiling point.</span></p>
+      <textarea class="textbox" id="examAns" placeholder="Bond polarity, shape, molecular polarity, IMF, and the energy link&hellip;"></textarea>
+      <div class="actions"><button class="btn" data-scheme>Reveal mark scheme</button></div>
+      <div class="scheme"><div class="scheme-card"><div class="label">Mark scheme — 4 marks</div>
+        <ul class="pts">
+          <li>States the <strong>bond polarities</strong>: C&ndash;H is essentially nonpolar (&Delta;EN = 0.35), while N&ndash;H is polar (&Delta;EN = 0.84).</li>
+          <li class="cap">Links <strong>shape to molecular polarity</strong>: CH<sub>4</sub>'s symmetric shape cancels what little pull exists, while NH<sub>3</sub>'s pyramidal shape makes its three N&ndash;H pulls reinforce into a net dipole. <em>(&#9873; This is the step everyone skips — the difference between describing bonds and explaining the molecule.)</em></li>
+          <li>Identifies the <strong>IMF difference</strong>: CH<sub>4</sub> gets London dispersion forces only; NH<sub>3</sub> gets dipole-dipole <em>plus</em> hydrogen bonding (H bonded directly to N).</li>
+          <li>Links to <strong>boiling point</strong>: stronger attractions between molecules take more thermal energy to break, so NH<sub>3</sub> needs a much higher temperature to boil.</li>
+        </ul>
+        <p style="font-family:var(--mono);font-size:.72rem;color:var(--ink-mute);margin-top:.9rem;letter-spacing:.04em;">Self-score: 4 = all four &middot; 3 = missing the shape&rarr;polarity link &middot; 2 = bonds + IMF, no shape reasoning &middot; &le;1 = boiling points restated only.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="footer">
+  <div class="label">Gen Chem · Semester 1 · 1-2b</div>
+  <p>Bond polarity plus shape decides molecular polarity, and molecular polarity decides which intermolecular force you get. Next: drawing the electron-sharing maps that show where those bonds and lone pairs actually sit.</p>
+</div>
+
+<script src="../assets/core.js"></script>
+<script src="../assets/glossary.js"></script>
+<script src="../assets/elements.js"></script>
+<script src="1-2b.js"></script>
+</body>
+</html>

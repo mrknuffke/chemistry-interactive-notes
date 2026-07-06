@@ -24,7 +24,7 @@ Two deliverables, buildable independently:
 
 **(B) `scaffold/tools/make-pdfs.mjs` (or `.py`) — an optional batch generator** that loads every lesson in headless Chrome and calls `page.pdf()`, writing `dist/pdf/<id>.pdf`. Nice for producing a full set in one command; not required for the student-facing feature. Build only if the author wants batch output (see §9 decision 2).
 
-Link `print.css` from every lesson `<head>` (add the one `<link rel="stylesheet" href="../assets/print.css" media="print">` line to each lesson, or — cleaner — fold it into `components.css` as an `@media print { … }` block so there's nothing to wire per-lesson). **Prefer folding into `components.css`** to avoid touching 11 files and to keep the "shared CSS is already linked everywhere" guarantee.
+Link `print.css` from every lesson `<head>` (add the one `<link rel="stylesheet" href="../assets/print.css" media="print">` line to each lesson, or — cleaner — fold it into `components.css` as an `@media print { … }` block so there's nothing to wire per-lesson). **Prefer folding into `components.css`** to avoid touching 12 files and to keep the "shared CSS is already linked everywhere" guarantee.
 
 ---
 
@@ -112,7 +112,7 @@ Tooltips can't work on paper. Two options, both optional:
 ## 9. Decisions to surface to the author BEFORE building
 
 1. **Page-break style:** each numbered section starts on a fresh page (cleaner, more pages) **vs.** continuous flow with smart break-avoidance (fewer pages, more textbook-like). *Recommend: continuous flow* — it's less wasteful and matches how the page reads on screen.
-2. **Batch generator wanted?** Just the ⌘P/browser path (deliverable A), or also the headless-Chrome batch script that spits out `dist/pdf/*.pdf` for all 11 lessons (deliverable B)? *Recommend: build A first, ship it, then add B only if the author wants a one-command full set.*
+2. **Batch generator wanted?** Just the ⌘P/browser path (deliverable A), or also the headless-Chrome batch script that spits out `dist/pdf/*.pdf` for all 12 lessons (deliverable B)? *Recommend: build A first, ship it, then add B only if the author wants a one-command full set.*
 3. *(Minor)* **Glossary appendix:** include it (§8 enhanced) or skip (§8 minimal)? *Recommend: include — cheap and pedagogically nice.*
 
 ---

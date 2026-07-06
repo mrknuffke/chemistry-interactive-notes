@@ -1,6 +1,6 @@
 # CLAUDE.md — Behavioral Guidelines & Project Contract
 
-> **New session? Read [`TODO.md`](TODO.md) first** — it's the current, single source of truth for what's left to do (PDF export, the unresolved 1-2b lesson). All 11 manifest lessons are built and a full consistency/bug-fix pass is done (see `REMEDIATION_PLAN.md`).
+> **New session? Read [`TODO.md`](TODO.md) first** — it's the current, single source of truth for what's left to do (PDF export is the main item). All 12 manifest lessons — including `1-2b`, built 2026-07-05 per `LESSON_1-2B_PLAN.md` — are built, and a full consistency/bug-fix pass is done (see `REMEDIATION_PLAN.md`).
 
 ## 1. Behavioral Guidelines (Reduce common LLM coding mistakes)
 
@@ -93,15 +93,14 @@ CLAUDE.md               Behavioral guidelines & design constraints
 TODO.md                 ← START HERE each session: the single board of outstanding work
 README.md               Comprehensive project context, setup, and deployment notes
 BUILDING.md             Step-by-step checklist for building a lesson
-BUILD_PLAN.md           Original build-session roadmap (historical — all 11 files now exist)
+BUILD_PLAN.md           Original build-session roadmap (historical — all 12 files now exist)
 REMEDIATION_PLAN.md     Record of the 2026-07-05 repo-wide consistency/bug-fix pass
 PDF_EXPORT_PLAN.md      Implementation plan for pretty PDF printouts of lessons (not yet built)
+LESSON_1-2B_PLAN.md     Build plan for the 1-2b lesson (historical — built and QA'd 2026-07-05)
 VOICE.md                Pedagogical tone and feedback text style contract
 INTERACTION_SPEC.md     Specifications for retrieval widgets and motion controllers
-Diagram_Inventory_v2.md SVG design details and particle diagram counts (still feeds the unbuilt 1-2b)
-Content_Expansion_v2.md Draft text/copy database (still feeds the unbuilt 1-2b; otherwise superseded by the built lessons)
 ```
-`Ongoing Work/` is the voice-note feedback staging folder (see the Voice Note Feedback Workflow above) — it should otherwise stay empty. A stale, out-of-sync duplicate of five of the docs above once lived there (leftover from an incomplete doc-consolidation merge) and has been removed; don't recreate it there. An orphaned `content_audit.md` content-gap snapshot has likewise been removed — re-run a fresh audit if one is needed rather than trusting an old one.
+`Ongoing Work/` is the voice-note feedback staging folder (see the Voice Note Feedback Workflow above) — it should otherwise stay empty. A stale, out-of-sync duplicate of five of the docs above once lived there (leftover from an incomplete doc-consolidation merge) and has been removed; don't recreate it there. An orphaned `content_audit.md` content-gap snapshot has likewise been removed — re-run a fresh audit if one is needed rather than trusting an old one. `Diagram_Inventory_v2.md` and `Content_Expansion_v2.md` (the 1-2b seed docs) have been retired now that 1-2b is built — don't recreate them.
 
 ### Scaffold Web App Directory (`scaffold/`)
 ```
@@ -124,16 +123,17 @@ Lesson HTML should be **mostly content**. Shared CSS/JS lives in `assets/`. If y
 
 ---
 
-## 5. File Manifest (11 files; every PE within a 3-file cap)
+## 5. File Manifest (12 files; every PE within a 3-file cap)
 
 Built from the review-sheet sub-targets, with shared chemistry deduplicated into canonical files.
 
-**All 11 files below are built and exist in `scaffold/lessons/`** (confirmed 2026-07-05). `1-2b` (bonding, PS1-2.b — see BUILD_PLAN.md) is a separate, later addition that does **not** exist yet; it is not part of this 11-file manifest. Current bug/polish status across all 11 lives in `REMEDIATION_PLAN.md` at the repo root, not here — this section is about scope/coverage, not QA state.
+**All 12 files below are built and exist in `scaffold/lessons/`** (confirmed 2026-07-05, `1-2b` added 2026-07-05 per author decision — see `LESSON_1-2B_PLAN.md`). Current bug/polish status lives in `REMEDIATION_PLAN.md` at the repo root, not here — this section is about scope/coverage, not QA state.
 
 **Unit-1-specific**
 - `1-1a` Atomic Structure & Electron Configuration — PS1-1.2, .3
 - `1-1b` Periodic Trends & Reactivity — PS1-1.1, .4, .5   ← REFERENCE BUILD (match this one's discipline)
 - `1-2a` Bonding & Electronegativity — PS1-2.1
+- `1-2b` Molecular Polarity — PS1-2.1 (bond polarity + shape → molecular polarity → IMF; geometry shown as given fact, **no VSEPR**)
 - `1-3a` Lewis Structures — PS1-3.4 (Lewis only; **no VSEPR headline**)
 - `1-3b` IMFs & Properties — PS1-3.5 (+ HS-PS1-3 investigation coda)
 
@@ -145,12 +145,12 @@ Built from the review-sheet sub-targets, with shared chemistry deduplicated into
 
 **Shared canonical (serve both units)**
 - `C-RXN` Reaction Types & Balancing — PS1-2.2, .3 (replaces a per-unit copy in each)
-- `C-SPA` Structure → Property → Argument — PS2-6 (all sub-targets). Owns the geometry → polarity → IMF reasoning. GHS-hazard and food-texture are two worked applications of the *same* argument; do not split into two files.
+- `C-SPA` Structure → Property → Argument — PS2-6 (all sub-targets). Owns the fatty-acid shape → packing → LDF → property → argument reasoning and the GHS/food-texture applications; do not split into two files.
 
 Decisions that are easy to re-make wrong, so they're fixed:
-- **VSEPR**: not an assessed sub-target. At most a connective sentence inside `C-SPA`. Never a headline section.
+- **VSEPR**: not an assessed sub-target. At most a connective sentence inside `1-2b` or `C-SPA`. Never a headline section.
 - **Empirical formula**: absent from the Unit-2 review sheet. Omit.
-- **Geometry/polarity** live in `C-SPA` (that's where the sheet locates them), not in `1-3a`. `1-3a` is Lewis-structures-only and stays lean.
+- **Bond polarity + shape → molecular polarity → IMF** lives in `1-2b` (general case: which IMF a molecule gets). `C-SPA` owns the fatty-acid-specific packing/argument application, not general molecular polarity. Neither lives in `1-3a`, which stays Lewis-structures-only.
 
 ---
 

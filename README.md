@@ -61,13 +61,12 @@ All developer documentation, logs, contracts, and expansion drafts live in the p
 ├── CLAUDE.md            # Guidelines, coding conventions, and developer guidelines
 ├── TODO.md              # Single board of outstanding work — start here each session
 ├── BUILDING.md          # Step-by-step checklist for building a lesson
-├── BUILD_PLAN.md        # Original build-session roadmap (historical; all 11 lessons now built)
+├── BUILD_PLAN.md        # Original build-session roadmap (historical; all 12 lessons now built)
 ├── REMEDIATION_PLAN.md  # Record of the latest repo-wide consistency/bug-fix pass
 ├── PDF_EXPORT_PLAN.md   # Plan for pretty PDF printouts of lessons (not yet implemented)
+├── LESSON_1-2B_PLAN.md  # Build plan for the 1-2b lesson (historical; built 2026-07-05)
 ├── VOICE.md             # Tone and widget feedback writing contract
 ├── INTERACTION_SPEC.md  # Detailed specifications for widgets & interactive behaviors
-├── Diagram_Inventory_v2.md Spec detail inventory for lesson diagrams
-├── Content_Expansion_v2.md Text drafts database for updates
 ├── LICENSE              # CC BY-NC-SA 4.0 License Text
 └── README.md            # This file
 ```

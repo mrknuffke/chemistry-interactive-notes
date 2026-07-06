@@ -31,6 +31,16 @@
       "description": "Investigate electrostatic forces, electronegativity differences, and covalent, ionic, and metallic bonds."
     },
     {
+      "id": "1-2b",
+      "slug": "1-2b_molecular-polarity",
+      "title": "Molecular Polarity",
+      "unit": "1",
+      "pes": [
+        "HS-PS1-2"
+      ],
+      "description": "Combine bond polarity (ΔEN) with molecular shape to decide whether bond dipoles cancel or reinforce — and which IMF that unlocks."
+    },
+    {
       "id": "1-3a",
       "slug": "1-3a_lewis-structures",
       "title": "Lewis Structures",
@@ -189,6 +199,30 @@
       "definition": "A chemical bond resulting from the electrostatic attraction between oppositely charged ions formed by electron transfer (typically ΔEN ≥ 1.7).",
       "lessonId": "1-2a",
       "sectionId": "s-tug"
+    },
+    {
+      "term": "molecular polarity",
+      "definition": "The net charge distribution across an entire molecule, determined by both bond polarity and molecular geometry. A molecule is polar if its bond dipoles do not cancel — meaning there is a positive end and a negative end.",
+      "lessonId": "1-2b",
+      "sectionId": "s-concept"
+    },
+    {
+      "term": "bond dipole",
+      "definition": "The charge separation within a single polar covalent bond, represented as a vector pointing from δ+ toward δ−. Whether bond dipoles in a molecule cancel or reinforce determines the molecule's overall polarity.",
+      "lessonId": "1-2b",
+      "sectionId": "s-concept"
+    },
+    {
+      "term": "net dipole",
+      "definition": "The overall charge separation of a molecule, equal to the vector sum of all its bond dipoles. A nonzero net dipole means the molecule is polar and will experience dipole-dipole forces with neighboring molecules.",
+      "lessonId": "1-2b",
+      "sectionId": "s-concept"
+    },
+    {
+      "term": "dipole cancellation",
+      "definition": "When bond dipoles in a molecule point in equal and opposite directions due to molecular geometry, producing zero net dipole. This requires both polar bonds AND a symmetric arrangement.",
+      "lessonId": "1-2b",
+      "sectionId": "s-concept"
     },
     {
       "term": "metallic bond",

@@ -1,9 +1,9 @@
 # BUILD_PLAN.md — Session Sequencing & Prompts
 ## Chemistry Interactive Notes · v2 implementation
 
-**Status: all 11 lesson files below now exist and have full content (confirmed 2026-07-05).** This document tracks the *original construction* sequencing and is kept for history — every session's file now exists, so this table is no longer a live to-do list for "does the file exist." It is **not** a record of current bug/polish status: for that, see `REMEDIATION_PLAN.md` at the repo root, which tracks a full consistency/bug-fix pass completed 2026-07-05 across every lesson. The "Open questions" and "QA gates" below have not been re-audited item-by-item since the original build — treat them as historical unless you're specifically re-verifying one.
+**Status: all 12 lesson files below now exist and have full content (confirmed 2026-07-05, `1-2b` added 2026-07-05 — see `LESSON_1-2B_PLAN.md`).** This document tracks the *original construction* sequencing and is kept for history — every session's file now exists, so this table is no longer a live to-do list for "does the file exist." It is **not** a record of current bug/polish status: for that, see `REMEDIATION_PLAN.md` at the repo root, which tracks a full consistency/bug-fix pass completed 2026-07-05 across every lesson. The "Open questions" and "QA gates" below have not been re-audited item-by-item since the original build — treat them as historical unless you're specifically re-verifying one.
 
-**Project knowledge to load before every session:** CLAUDE.md · BUILDING.md · VOICE.md · INTERACTION_SPEC.md · Content_Expansion_v2.md · Diagram_Inventory_v2.md. (The two v1 documents are superseded — remove them from project knowledge so Claude Code can't consume stale specs.)
+**Project knowledge to load before every session:** CLAUDE.md · BUILDING.md · VOICE.md · INTERACTION_SPEC.md. (`Content_Expansion_v2.md` and `Diagram_Inventory_v2.md` were the seed docs for sessions 3–14 and have been retired now that every lesson, including 1-2b, is built — don't reload them.)
 
 ---
 
@@ -25,7 +25,7 @@
 | ~~11~~ | ~~Lesson 2-7c~~ | ~~1, 2~~ | ~~BCA scaffold + gated drill; simulator untouched. File exists.~~ |
 | ~~12~~ | ~~Lesson 1-1b~~ | ~~1, 2~~ | ~~GHS zoom (⚑ pictogram check first) + gated predicts.~~ |
 | ~~13~~ | ~~Lesson C-SPA~~ | ~~1, 2~~ | ~~Exam scaffold + explorer refactor to bank-mode scaffold. File exists.~~ |
-| 14 | Lesson 1-2b | 1, 2, ⚑ | **Still not built** — `scaffold/lessons/1-2b_*` does not exist (confirmed 2026-07-05). Last, because existence and section IDs are unverified. This becomes a creation session seeded by the 1-2b block of Content_Expansion_v2.md. |
+| ~~14~~ | ~~Lesson 1-2b~~ | ~~1, 2~~ | ~~Built 2026-07-05 per author decision — see `LESSON_1-2B_PLAN.md`. Faded example (methane→ammonia) + a custom five-molecule "cancel or reinforce?" classifier explorer.~~ |
 
 Sessions 3–14 are independent of each other; reorder freely after Session 2 if a sign-off unblocks early.
 
@@ -49,7 +49,7 @@ Sessions 3–14 are independent of each other; reorder freely after Session 2 if
 
 ## Open questions (resolve before their dependent sessions)
 
-1. **1-2b existence** — does `lessons/1-2b_*.html` exist? Harvest real section IDs. *(Blocks Session 14 only.)*
+1. ~~**1-2b existence**~~ — resolved 2026-07-05; built. *(Was blocking Session 14 only.)*
 2. **Roti prata lamination mechanism** — David verifies against Unit 2 materials. *(Blocks V-cspa-02 and the ⚑ sentence in C-SPA s-argument; Session 13 can otherwise run.)*
 3. **K→Ga 4s/3d simplification** — sign off V-11a-02 as specced, or fall back to the two-state version. *(Session 4.)*
 4. **H–F boundary framing** — sign off the 1-2a Item 2 strings. *(Session 7.)*

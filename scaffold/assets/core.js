@@ -24,6 +24,7 @@
     { id: "1-1a", slug: "1-1a_atomic-structure-electron-config", title: "Atomic Structure & Electron Configuration" },
     { id: "1-1b", slug: "1-1b_periodic-trends-reactivity", title: "Periodic Trends & Reactivity" },
     { id: "1-2a", slug: "1-2a_bonding-electronegativity", title: "Bonding & Electronegativity" },
+    { id: "1-2b", slug: "1-2b_molecular-polarity", title: "Molecular Polarity" },
     { id: "1-3a", slug: "1-3a_lewis-structures", title: "Lewis Structures" },
     { id: "1-3b", slug: "1-3b_imfs-properties", title: "IMFs & Properties" },
     { id: "C-SPA", slug: "C-SPA_structure-property-argument", title: "Structure → Property → Argument" },
