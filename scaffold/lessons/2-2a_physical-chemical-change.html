@@ -29,7 +29,6 @@
     }
     .change-svg {
       width: 100%;
-      max-width: 440px;
       height: auto;
       aspect-ratio: 400/240;
       border: 1px solid var(--hair-soft);
@@ -38,7 +37,6 @@
     }
     .change-controls {
       width: 100%;
-      max-width: 440px;
       margin-top: 1rem;
       display: flex;
       flex-direction: column;
@@ -218,7 +216,7 @@
 
       <!-- Physical Change Panel: Water Melting -->
       <h4 class="reveal" style="margin-top:2rem;color:var(--accent);">Physical Change: Ice Melting (H<sub>2</sub>O)</h4>
-      <div class="diagram reveal single-atom-wrap" style="max-width:560px;">
+      <div class="diagram reveal figure figure--full">
         <svg viewBox="0 0 380 180" role="img" aria-label="Particle diagram showing ice melting. Nine water molecules in a solid hexagonal lattice on the left transition to a loose liquid puddle on the right.">
           <!-- BEFORE: Solid Ice -->
           <rect class="d-frame" x="10" y="25" width="160" height="130" rx="4" />
@@ -323,7 +321,7 @@
 
       <!-- Chemical Change Panel: Hydrogen Combustion -->
       <h4 class="reveal" style="margin-top:2.5rem;color:var(--accent);">Chemical Change: Hydrogen Combustion (2H<sub>2</sub> + O<sub>2</sub> &rarr; 2H<sub>2</sub>O)</h4>
-      <div class="diagram reveal single-atom-wrap" style="max-width:560px;">
+      <div class="diagram reveal figure figure--full">
         <svg viewBox="0 0 380 180" role="img" aria-label="Particle diagram showing hydrogen combustion. Six H2 pairs and three O2 pairs on the left rearrange to form six H2O molecules on the right.">
           <!-- BEFORE: Reactants -->
           <rect class="d-frame" x="10" y="25" width="160" height="130" rx="4" />
@@ -419,7 +417,7 @@
         </div>
         
         <div class="change-stage">
-          <div class="change-canvas-wrap">
+          <div class="change-canvas-wrap figure figure--md">
             <svg class="change-svg" id="changeSvg" viewBox="0 0 400 240" role="img" aria-label="Particle level physical and chemical changes"></svg>
             <div class="change-controls">
               <div class="slider-label">Progress the change: <span id="progressValue">0%</span></div>

@@ -110,8 +110,7 @@ strong.term{font-weight:700;color:var(--ink);border-bottom:1.5px dashed var(--ac
 /* ---- atom / Bohr diagram (reusable atomic-level component) ---- */
 .atom-stage{display:grid;grid-template-columns:1fr;gap:1.3rem;align-items:center;}
 @media(min-width:820px){.atom-stage{grid-template-columns:1fr 1fr;}}
-.atom-svg-wrap{display:flex;flex-direction:column;align-items:center;}
-.atom-svg{width:100%;max-width:360px;height:auto;}
+.atom-svg-wrap{display:flex;flex-direction:column;align-items:center;width:100%;}
 .atom-shell{fill:none;stroke:var(--shell);stroke-width:1;}
 .atom-nucleus{fill:var(--nucleus);}
 .atom-nuc-label{fill:#fff;font-family:var(--mono);font-weight:600;}
@@ -127,7 +126,7 @@ strong.term{font-weight:700;color:var(--ink);border-bottom:1.5px dashed var(--ac
 
 /* ---- periodic table heat-map (reusable component) ---- */
 .ptable-scroll{overflow-x:auto;padding-bottom:.5rem;}
-.ptable{display:grid;grid-template-columns:repeat(2,1fr) .45fr repeat(6,1fr);gap:4px;min-width:520px;max-width:680px;margin:0 auto;}
+.ptable{display:grid;grid-template-columns:repeat(2,1fr) .45fr repeat(6,1fr);gap:4px;min-width:520px;}
 .pcell{aspect-ratio:1/1;border:1px solid var(--hair-soft);position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--card);transition:background .35s ease,transform .12s ease;color:var(--ink);user-select:none;overflow:hidden;}
 .pcell.has-data{cursor:pointer;}
 .pcell.has-data:hover{transform:scale(1.1);z-index:5;border-color:var(--ink);}
@@ -214,7 +213,17 @@ strong.term{font-weight:700;color:var(--ink);border-bottom:1.5px dashed var(--ac
 .diagram{margin:1.5rem 0;}
 .diagram svg,.diagram img{width:100%;height:auto;display:block;}
 .diagram-cap{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mute);text-align:center;margin-top:.7rem;}
-.lever-svg{max-width:300px;margin:0 auto;}
+
+/* ---- figure system: one primitive for all figure widths (REVISION_PLAN.md §1) ----
+   Width comes from a named tier tied to the prose column, never a raw pixel value.
+   --full/--wide figures must sit outside .narrow (or bleed out of it) or the
+   .narrow max-width silently caps them back down to the prose column. */
+.figure{margin:1.75rem auto;}
+.figure--sm{max-width:var(--fig-sm);}
+.figure--md{max-width:var(--fig-md);}
+.figure--full{max-width:var(--fig-full);}
+.figure--wide{max-width:var(--fig-wide);}
+.figure svg,.figure img{width:100%;height:auto;display:block;}
 .d-particle{fill:var(--electron);stroke:var(--ink);stroke-width:1.2;}
 .d-metal{fill:var(--ink-mute);stroke:var(--ink);stroke-width:1.2;}
 .d-shell{fill:none;stroke:var(--shell);stroke-width:0.8;}
@@ -226,9 +235,6 @@ strong.term{font-weight:700;color:var(--ink);border-bottom:1.5px dashed var(--ac
 .d-arrow{stroke:var(--ink);stroke-width:1.6;}        /* NOTE: for colored arrows set stroke INLINE and omit this class (class wins over attribute) */
 .d-label{font-family:var(--display);font-weight:600;fill:var(--ink);}
 .d-sub{font-family:var(--mono);fill:var(--ink-mute);}
-.compass-wrap{max-width:600px;margin:1.5rem auto 0;}
-.single-atom-wrap{max-width:600px;margin:1.5rem auto 0;}
-.octet-wrap{max-width:640px;margin:1.5rem auto 0;}
 
 /* ---- Bohr configuration builder (reusable atomic component) ----
    Valence electrons drawn in the accent; everything else in the
@@ -1771,7 +1777,7 @@ strong.term{font-weight:700;color:var(--ink);border-bottom:1.5px dashed var(--ac
 }
 
 /* ============================================================
-   PRINT / PDF EXPORT — see PDF_EXPORT_PLAN.md
+   PRINT / PDF EXPORT — see INTERACTION_SPEC.md §3.5
    ============================================================ */
 .print-only{display:none;}
 @page{size:letter;margin:18mm 16mm;}

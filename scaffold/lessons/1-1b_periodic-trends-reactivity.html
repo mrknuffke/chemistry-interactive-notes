@@ -51,7 +51,7 @@
     <div class="levers">
       <div class="lever reveal"><div class="arrow">→</div><h4>Across a period</h4>
         <p>Each step right adds <strong>one proton</strong>, but the new electron joins the <strong>same shell</strong>. More pull at the same distance: the grip <strong>tightens</strong> and the atom shrinks.</p>
-        <div class="diagram" style="margin:1rem 0 0;"><svg class="lever-svg" viewBox="0 0 280 110" role="img" aria-label="Atom shrinking as protons are added to the same shell">
+        <div class="diagram figure figure--sm" style="margin:1rem 0 0;"><svg viewBox="0 0 280 110" role="img" aria-label="Atom shrinking as protons are added to the same shell">
           <circle class="d-shell" cx="55" cy="55" r="40"/><circle class="d-nuc" cx="55" cy="55" r="13"/><text class="d-nuc-t" x="55" y="58" text-anchor="middle">3+</text>
           <circle class="d-particle" cx="55" cy="15" r="4"/><circle class="d-particle" cx="92" cy="68" r="4"/><circle class="d-particle" cx="22" cy="74" r="4"/>
           <line x1="110" y1="55" x2="150" y2="55" class="d-arrow" marker-end="url(#lev-arr)"/>
@@ -62,7 +62,7 @@
       </div>
       <div class="lever reveal"><div class="arrow">↓</div><h4>Down a group</h4>
         <p>Each step down adds a whole <strong>new shell</strong>. The outer electrons sit farther out and <strong>shielded</strong> by inner electrons, so the grip <strong>loosens</strong> and the atom grows.</p>
-        <div class="diagram" style="margin:1rem 0 0;"><svg class="lever-svg" viewBox="0 0 280 110" role="img" aria-label="Atom growing as new shells are added">
+        <div class="diagram figure figure--sm" style="margin:1rem 0 0;"><svg viewBox="0 0 280 110" role="img" aria-label="Atom growing as new shells are added">
           <circle class="d-shell" cx="55" cy="55" r="15"/><circle class="d-shell" cx="55" cy="55" r="22"/><circle class="d-nuc" cx="55" cy="55" r="9"/><text class="d-nuc-t" x="55" y="58" text-anchor="middle">3+</text>
           <circle class="d-particle" cx="55" cy="40" r="4"/><circle class="d-particle" cx="55" cy="70" r="4"/><circle class="d-particle" cx="55" cy="33" r="4"/>
           <line x1="92" y1="55" x2="132" y2="55" class="d-arrow" marker-end="url(#lev-arr2)"/>
@@ -97,8 +97,8 @@
         </div>
       </div>
       <div class="atom-stage">
-        <div class="atom-svg-wrap">
-          <svg class="atom-svg" id="atomSvg" viewBox="0 0 320 320" role="img" aria-label="Bohr model of an atom"></svg>
+        <div class="atom-svg-wrap figure figure--md">
+          <svg id="atomSvg" viewBox="0 0 320 320" role="img" aria-label="Bohr model of an atom"></svg>
           <div class="atom-controls">
             <button class="step-btn" id="atomPrev" aria-label="Previous element">−</button>
             <div class="step-readout-el"><span id="atomMode">across period 2</span><div id="atomName">Lithium</div></div>
@@ -133,7 +133,7 @@
           <button class="tab" data-trend="react">Reactivity</button>
         </div>
       </div>
-      <div class="ptable-scroll"><div class="ptable" id="ptable"></div></div>
+      <div class="ptable-scroll"><div class="ptable figure figure--wide" id="ptable"></div></div>
       <div class="legend" id="legend"></div>
       <div class="explorer-grid">
         <div class="readout">
@@ -174,7 +174,7 @@
     <div class="section-tag reveal"><span class="num">05</span><span class="label label-accent">The trend that flips</span></div>
     <h2 class="reveal">Reactivity isn't one arrow. It depends on whether the atom <em>wants to lose</em> or <em>wants to gain</em> electrons.</h2>
     <p class="step reveal" style="margin-top:1.5rem;"><strong class="term">Atomic radius</strong>, <strong class="term">ionization energy</strong> (IE), and <strong class="term">electronegativity</strong> (EN) each run in one consistent direction. Reactivity doesn't — and that's what trips people up. Stop asking "is it reactive?" and start asking "<em>reactive how?</em>"</p>
-    <div class="diagram reveal compass-wrap"><svg viewBox="0 0 420 230" role="img" aria-label="A simplified periodic table: metallic reactivity increases toward the bottom-left, nonmetallic reactivity toward the top-right, noble gases inert on the far right.">
+    <div class="diagram reveal figure figure--full"><svg viewBox="0 0 420 230" role="img" aria-label="A simplified periodic table: metallic reactivity increases toward the bottom-left, nonmetallic reactivity toward the top-right, noble gases inert on the far right.">
       <g id="compassCells">
         <g stroke="var(--hair)" stroke-width="1">
           <!-- Row 1 (Period 1): H & He -->
@@ -267,7 +267,7 @@
     <div class="section-tag reveal"><span class="num">07</span><span class="label label-accent">From position to the hazard label</span></div>
     <h2 class="reveal">This is why you can read a hazard <em>off the table</em> — before you ever see the bottle.</h2>
     <p class="step reveal" style="margin-top:1.5rem;">Back to where we started — and now the address explains it. At the single-particle level: sodium's one outer electron is barely held (its ionization energy is the lowest in its period), so it leaves with almost no push. That eagerness to lose an electron is what makes sodium tear into water. Copper — a transition metal, outside our main-group scope — holds its electrons far more tightly, so it just sits there.</p>
-    <div class="diagram reveal single-atom-wrap"><svg viewBox="0 0 360 170" role="img" aria-label="A single sodium atom losing its loosely-held outer electron to become a sodium ion.">
+    <div class="diagram reveal figure figure--full"><svg viewBox="0 0 360 170" role="img" aria-label="A single sodium atom losing its loosely-held outer electron to become a sodium ion.">
       <!-- sodium atom: nucleus + 3 shells (2,8,1), outer electron leaving -->
       <circle class="d-shell" cx="95" cy="90" r="22"/><circle class="d-shell" cx="95" cy="90" r="42"/><circle class="d-shell" cx="95" cy="90" r="62"/>
       <circle class="d-nuc" cx="95" cy="90" r="15"/><text class="d-nuc-t" x="95" y="93" text-anchor="middle">11+</text>

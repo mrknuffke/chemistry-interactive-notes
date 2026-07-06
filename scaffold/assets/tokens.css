@@ -30,6 +30,10 @@
 
   /* rhythm */
   --gutter:clamp(1.25rem,5vw,4rem); --beat:clamp(2.75rem,8vh,6rem); --prose:52rem;
+
+  /* figure tiers — width chosen by how much information a figure carries,
+     never a raw pixel value. See REVISION_PLAN.md §1. */
+  --fig-sm:24rem; --fig-md:34rem; --fig-full:var(--prose); --fig-wide:68rem;
 }
 
 :root.dark {

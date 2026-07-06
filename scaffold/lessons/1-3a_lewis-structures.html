@@ -51,7 +51,7 @@
     <p class="step reveal">For most main-group elements, a full outer shell requires <strong>8 valence electrons</strong>. This chemical tendency is the <strong class="term">octet rule</strong> (hydrogen is the main exception, seeking only <strong>2 valence electrons</strong> to fill its first and only shell, a tendency called the <strong class="term">duet rule</strong>). Since nonmetal atoms are both highly electronegative, neither can strip electrons completely from the other. Instead, they share pairs of valence electrons to satisfy their octets.</p>
     <p class="step reveal">To model this sharing visually, we represent the outer-shell electrons as dots around the element's chemical symbol, drawing lines to show shared electron pairs. This two-dimensional diagram is a <strong class="term">Lewis structure</strong> (or <strong>Lewis dot diagram</strong>).</p>
     
-    <div class="diagram reveal" style="max-width:480px;margin:1.8rem auto;"><svg viewBox="0 0 320 120" role="img" aria-label="Lewis structure of water: Oxygen in the center with two lone pairs on top and bottom, single-bonded to two hydrogen atoms on the left and right.">
+    <div class="diagram reveal figure figure--full"><svg viewBox="0 0 320 120" role="img" aria-label="Lewis structure of water: Oxygen in the center with two lone pairs on top and bottom, single-bonded to two hydrogen atoms on the left and right.">
       <!-- Oxygen -->
       <text x="160" y="68" font-family="var(--mono)" font-size="28" font-weight="700" fill="var(--ink)" text-anchor="middle">O</text>
       <!-- Lone pair top -->
@@ -100,7 +100,7 @@
     <div class="step bullet reveal"><strong>4. Fill the outer octets.</strong> Distribute the remaining electrons as pairs of dots, called <strong class="term">lone pairs</strong>, around the outer atoms until their shells are complete (8 electrons). We place 3 lone pairs (6 electrons) on each oxygen, using up all 12 remaining electrons.</div>
     <div class="step bullet reveal"><strong>5. Satisfy the central atom.</strong> Check the central atom. Carbon currently has only two single bonds (4 electrons) — a violation of the octet rule! Since no electrons remain in our pool, the outer oxygens must share. Move one lone pair from each oxygen into the bonding region. This forms two shared pairs on each side — a <strong class="term">double bond</strong>. (If they shared three pairs, it would be a <strong class="term">triple bond</strong>).</div>
 
-    <div class="diagram reveal" style="max-width:480px;margin:1.8rem auto;"><svg viewBox="0 0 320 120" role="img" aria-label="Lewis structure of carbon dioxide showing carbon double-bonded to two oxygen atoms, each oxygen with two lone pairs.">
+    <div class="diagram reveal figure figure--full"><svg viewBox="0 0 320 120" role="img" aria-label="Lewis structure of carbon dioxide showing carbon double-bonded to two oxygen atoms, each oxygen with two lone pairs.">
       <!-- Carbon -->
       <text x="160" y="68" font-family="var(--mono)" font-size="28" font-weight="700" fill="var(--ink)" text-anchor="middle">C</text>
       
@@ -159,8 +159,8 @@
       
       <div class="atom-stage">
         <!-- SVG Canvas -->
-        <div class="atom-svg-wrap" style="border:1px solid var(--hair);background:var(--paper);padding:1rem;position:relative;">
-          <svg class="atom-svg" id="lewisSvg" viewBox="0 0 320 220" role="img" aria-label="Interactive Lewis Structure Builder"></svg>
+        <div class="atom-svg-wrap figure figure--md" style="border:1px solid var(--hair);background:var(--paper);padding:1rem;position:relative;">
+          <svg id="lewisSvg" viewBox="0 0 320 220" role="img" aria-label="Interactive Lewis Structure Builder"></svg>
           <div style="display:flex;justify-content:space-between;width:100%;max-width:320px;margin-top:.8rem;font-family:var(--mono);font-size:.78rem;color:var(--ink-soft);">
             <div>Target Electrons: <b id="targetElec" style="color:var(--ink);">10</b></div>
             <div>Drawn Electrons: <b id="drawnElec" style="color:var(--accent);">0</b></div>
