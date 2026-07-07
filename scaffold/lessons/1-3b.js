@@ -201,7 +201,7 @@
         tail.setAttribute('x2', (m.x - m.vx * 5).toFixed(1));
         tail.setAttribute('y2', (m.y - m.vy * 5).toFixed(1));
         tail.setAttribute('stroke', 'var(--ink-mute)');
-        tail.setAttribute('stroke-width', '1.2');
+        tail.setAttribute('stroke-width', 'var(--dia-stroke-bond)');
         tail.setAttribute('opacity', '0.45');
         svg.appendChild(tail);
       }
@@ -239,7 +239,7 @@
       p.setAttribute('d', dStr);
       p.setAttribute('fill', 'none');
       p.setAttribute('stroke', 'var(--ink-mute)');
-      p.setAttribute('stroke-width', '1.1');
+      p.setAttribute('stroke-width', 'var(--dia-stroke)');
       svg.appendChild(p);
     });
   }
@@ -255,9 +255,9 @@
     if (type === 'CO2') {
       // Linear O = C = O
       atoms = [
-        { sym: 'C', x: 0, y: 0, r: 6.2, fill: 'var(--ink-soft)' },
-        { sym: 'O', x: -15, y: 0, r: 5.2, fill: 'var(--cool)' },
-        { sym: 'O', x: 15, y: 0, r: 5.2, fill: 'var(--cool)' }
+        { sym: 'C', x: 0, y: 0, r: 'var(--dia-r-atom)', fill: 'var(--ink-soft)' },
+        { sym: 'O', x: -15, y: 0, r: 'var(--dia-r-atom)', fill: 'var(--cool)' },
+        { sym: 'O', x: 15, y: 0, r: 'var(--dia-r-atom)', fill: 'var(--cool)' }
       ];
       // Double bonds
       bonds = [
@@ -267,10 +267,10 @@
     } else if (type === 'acetone') {
       // Planar T-shape skeleton
       atoms = [
-        { sym: 'C', x: 0, y: 0, r: 6.2, fill: 'var(--ink-soft)' },
-        { sym: 'O', x: 0, y: -14, r: 5.2, fill: 'var(--cool)' },
-        { sym: 'C', x: -12, y: 8, r: 5.8, fill: 'var(--ink-mute)' },
-        { sym: 'C', x: 12, y: 8, r: 5.8, fill: 'var(--ink-mute)' }
+        { sym: 'C', x: 0, y: 0, r: 'var(--dia-r-atom)', fill: 'var(--ink-soft)' },
+        { sym: 'O', x: 0, y: -14, r: 'var(--dia-r-atom)', fill: 'var(--cool)' },
+        { sym: 'C', x: -12, y: 8, r: 'var(--dia-r-atom)', fill: 'var(--ink-mute)' },
+        { sym: 'C', x: 12, y: 8, r: 'var(--dia-r-atom)', fill: 'var(--ink-mute)' }
       ];
       // Bonds: 1 double C=O, 2 single C-C
       bonds = [
@@ -281,9 +281,9 @@
     } else if (type === 'H2O') {
       // Bent shape O - H
       atoms = [
-        { sym: 'O', x: 0, y: -4, r: 5.8, fill: 'var(--cool)' },
-        { sym: 'H', x: -11, y: 6, r: 3.8, fill: 'var(--paper-3)' },
-        { sym: 'H', x: 11, y: 6, r: 3.8, fill: 'var(--paper-3)' }
+        { sym: 'O', x: 0, y: -4, r: 'var(--dia-r-atom)', fill: 'var(--cool)' },
+        { sym: 'H', x: -11, y: 6, r: 'var(--dia-r-atom-sm)', fill: 'var(--paper-3)' },
+        { sym: 'H', x: 11, y: 6, r: 'var(--dia-r-atom-sm)', fill: 'var(--paper-3)' }
       ];
       // Single bonds
       bonds = [
@@ -322,7 +322,7 @@
         l1.setAttribute('x2', (cx + p2.x + px).toFixed(1));
         l1.setAttribute('y2', (cy + p2.y + py).toFixed(1));
         l1.setAttribute('stroke', 'var(--ink)');
-        l1.setAttribute('stroke-width', '1.3');
+        l1.setAttribute('stroke-width', 'var(--dia-stroke-bond)');
         g.appendChild(l1);
 
         const l2 = document.createElementNS(SVGNS, 'line');
@@ -331,7 +331,7 @@
         l2.setAttribute('x2', (cx + p2.x - px).toFixed(1));
         l2.setAttribute('y2', (cy + p2.y - py).toFixed(1));
         l2.setAttribute('stroke', 'var(--ink)');
-        l2.setAttribute('stroke-width', '1.3');
+        l2.setAttribute('stroke-width', 'var(--dia-stroke-bond)');
         g.appendChild(l2);
       }
     });
@@ -345,7 +345,7 @@
       c.setAttribute('r', a.r);
       c.setAttribute('fill', a.fill);
       c.setAttribute('stroke', 'var(--ink)');
-      c.setAttribute('stroke-width', '1.2');
+      c.setAttribute('stroke-width', 'var(--dia-stroke-bond)');
       g.appendChild(c);
     });
 

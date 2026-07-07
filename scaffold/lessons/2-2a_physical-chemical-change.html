@@ -216,107 +216,125 @@
 
       <!-- Physical Change Panel: Water Melting -->
       <h4 class="reveal" style="margin-top:2rem;color:var(--accent);">Physical Change: Ice Melting (H<sub>2</sub>O)</h4>
-      <div class="diagram reveal figure figure--full">
-        <svg viewBox="0 0 380 180" role="img" aria-label="Particle diagram showing ice melting. Nine water molecules in a solid hexagonal lattice on the left transition to a loose liquid puddle on the right.">
-          <!-- BEFORE: Solid Ice -->
-          <rect class="d-frame" x="10" y="25" width="160" height="130" rx="4" />
-          <text class="d-label" x="90" y="18" text-anchor="middle" font-size="10.5">BEFORE (Solid Ice)</text>
-          <!-- 9 H2O molecules in hexagonal lattice with brackets -->
-          <!-- Molecule 1 (55, 60) -->
-          <circle cx="55" cy="60" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
-          <circle cx="49" cy="52" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="61" cy="52" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <!-- Molecule 2 (85, 60) -->
-          <circle cx="85" cy="60" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
-          <circle cx="79" cy="52" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="91" cy="52" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <!-- Molecule 3 (115, 60) -->
-          <circle cx="115" cy="60" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
-          <circle cx="109" cy="52" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="121" cy="52" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <!-- Molecule 4 (40, 85) -->
-          <circle cx="40" cy="85" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
-          <circle cx="34" cy="77" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="46" cy="77" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <!-- Molecule 5 (70, 85) -->
-          <circle cx="70" cy="85" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
-          <circle cx="64" cy="77" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="76" cy="77" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <!-- Molecule 6 (100, 85) -->
-          <circle cx="100" cy="85" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
-          <circle cx="94" cy="77" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="106" cy="77" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <!-- Molecule 7 (55, 110) -->
-          <circle cx="55" cy="110" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
-          <circle cx="49" cy="102" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="61" cy="102" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <!-- Molecule 8 (85, 110) -->
-          <circle cx="85" cy="110" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
-          <circle cx="79" cy="102" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="91" cy="102" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <!-- Molecule 9 (115, 110) -->
-          <circle cx="115" cy="110" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
-          <circle cx="109" cy="102" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="121" cy="102" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          
-          <!-- Solid vibration brackets -->
-          <path d="M 23,45 L 18,45 L 18,125 L 23,125" fill="none" stroke="var(--ink-mute)" stroke-width="1.2" />
-          <path d="M 132,45 L 137,45 L 137,125 L 132,125" fill="none" stroke="var(--ink-mute)" stroke-width="1.2" />
+      <div class="reveal figure figure--full" data-motion="step" data-step-count="3" data-step-labels="Before|During|After">
 
-          <!-- Transfer Arrow -->
-          <line x1="178" y1="90" x2="202" y2="90" fill="none" stroke="var(--ink)" stroke-width="1.5" marker-end="url(#contrasts-arr)" />
+        <!-- Step 1: BEFORE — Solid Ice -->
+        <div class="diagram" data-step="1" style="width:100%;text-align:center;">
+          <svg viewBox="0 0 380 180" role="img" aria-label="Nine water molecules in a solid hexagonal lattice, held in place by vibration brackets." style="height:230px;width:auto;display:block;margin:0 auto;">
+            <rect class="d-frame" x="10" y="25" width="160" height="130" rx="4" />
+            <text class="d-label" x="90" y="18" text-anchor="middle" style="font-size:var(--dia-label-size)">BEFORE (Solid Ice)</text>
+            <circle cx="55" cy="60" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+            <circle cx="49" cy="52" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="61" cy="52" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="85" cy="60" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+            <circle cx="79" cy="52" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="91" cy="52" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="115" cy="60" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+            <circle cx="109" cy="52" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="121" cy="52" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="40" cy="85" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+            <circle cx="34" cy="77" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="46" cy="77" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="70" cy="85" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+            <circle cx="64" cy="77" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="76" cy="77" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="100" cy="85" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+            <circle cx="94" cy="77" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="106" cy="77" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="55" cy="110" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+            <circle cx="49" cy="102" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="61" cy="102" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="85" cy="110" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+            <circle cx="79" cy="102" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="91" cy="102" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="115" cy="110" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+            <circle cx="109" cy="102" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="121" cy="102" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <path d="M 23,45 L 18,45 L 18,125 L 23,125" fill="none" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke-bond)" />
+            <path d="M 132,45 L 137,45 L 137,125 L 132,125" fill="none" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke-bond)" />
+          </svg>
+          <div class="diagram-cap"><span style="color:#fff;">&bull;</span> Hydrogen &middot; <span style="color:var(--accent);">&bull;</span> Oxygen &middot; all 9 molecules locked in a rigid lattice</div>
+        </div>
 
-          <!-- AFTER: Liquid Water -->
-          <rect class="d-frame" x="210" y="25" width="160" height="130" rx="4" />
-          <text class="d-label" x="290" y="18" text-anchor="middle" font-size="10.5">AFTER (Liquid Water)</text>
-          <!-- Same 9 H2O molecules sliding in a lump at bottom -->
-          <!-- Molecule 1 (245, 120) -->
-          <circle cx="245" cy="120" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
-          <circle cx="239" cy="112" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="251" cy="112" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <!-- Molecule 2 (265, 130) -->
-          <circle cx="265" cy="130" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
-          <circle cx="258" cy="123" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="270" cy="123" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <!-- Molecule 3 (285, 125) -->
-          <circle cx="285" cy="125" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
-          <circle cx="279" cy="117" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="291" cy="117" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <!-- Molecule 4 (305, 130) -->
-          <circle cx="305" cy="130" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
-          <circle cx="299" cy="122" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="311" cy="122" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <!-- Molecule 5 (328, 122) -->
-          <circle cx="328" cy="122" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
-          <circle cx="321" cy="114" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="334" cy="114" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <!-- Molecule 6 (252, 95) -->
-          <circle cx="252" cy="95" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
-          <circle cx="246" cy="87" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="258" cy="87" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <!-- Molecule 7 (274, 102) -->
-          <circle cx="274" cy="102" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
-          <circle cx="267" cy="94" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="280" cy="94" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <!-- Molecule 8 (296, 105) -->
-          <circle cx="296" cy="105" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
-          <circle cx="290" cy="97" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="302" cy="97" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <!-- Molecule 9 (318, 98) -->
-          <circle cx="318" cy="98" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
-          <circle cx="312" cy="90" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="324" cy="90" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
+        <!-- Step 2: DURING — lattice loosening from the surface -->
+        <div class="diagram" data-step="2" style="width:100%;text-align:center;">
+          <svg viewBox="0 0 380 180" role="img" aria-label="The top six water molecules remain in the rigid lattice while the bottom three have broken free into a loose cluster, showing the lattice melting from the surface inward." style="height:230px;width:auto;display:block;margin:0 auto;">
+            <rect class="d-frame" x="10" y="25" width="160" height="130" rx="4" />
+            <text class="d-label" x="90" y="18" text-anchor="middle" style="font-size:var(--dia-label-size)">DURING (Melting)</text>
+            <!-- Top 6: still lattice-bound, unchanged from Before -->
+            <circle cx="55" cy="60" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+            <circle cx="49" cy="52" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="61" cy="52" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="85" cy="60" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+            <circle cx="79" cy="52" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="91" cy="52" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="115" cy="60" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+            <circle cx="109" cy="52" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="121" cy="52" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="40" cy="85" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+            <circle cx="34" cy="77" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="46" cy="77" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="70" cy="85" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+            <circle cx="64" cy="77" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="76" cy="77" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="100" cy="85" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+            <circle cx="94" cy="77" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="106" cy="77" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <!-- Bottom 3: broken free, loosened into a small cluster -->
+            <circle cx="48" cy="128" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+            <circle cx="42" cy="120" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="54" cy="120" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="82" cy="134" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+            <circle cx="76" cy="126" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="88" cy="126" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="114" cy="126" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+            <circle cx="108" cy="118" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="120" cy="118" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <!-- Brackets now only span the still-solid top two rows -->
+            <path d="M 23,45 L 18,45 L 18,100 L 23,100" fill="none" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke-bond)" />
+            <path d="M 132,45 L 137,45 L 137,100 L 132,100" fill="none" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke-bond)" />
+            <!-- Loose puddle boundary hint under the freed molecules -->
+            <path d="M 30,140 Q 45,136 60,140 T 90,140 T 130,140" fill="none" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke)" stroke-dasharray="2 2" />
+          </svg>
+          <div class="diagram-cap">the bottom row breaks free first &mdash; the lattice loosens from the surface inward</div>
+        </div>
 
-          <!-- Cohesive liquid wavy boundary -->
-          <path d="M 225,138 Q 235,135 245,138 T 265,138 T 285,138 T 305,138 T 325,138 T 345,138" fill="none" stroke="var(--ink-mute)" stroke-width="1" stroke-dasharray="2 2" />
-
-          <defs>
-            <marker id="contrasts-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" viewBox="0 0 6 6">
-              <path d="M0 0 L6 3 L0 6 z" fill="var(--ink)" />
-            </marker>
-          </defs>
-        </svg>
-        <div class="diagram-cap"><span style="color:#fff;">&bull;</span> Hydrogen &middot; <span style="color:var(--accent);">&bull;</span> Oxygen &middot; physical rearrangement (molecules stay intact)</div>
+        <!-- Step 3: AFTER — Liquid Water -->
+        <div class="diagram" data-step="3" style="width:100%;text-align:center;">
+          <svg viewBox="0 0 380 180" role="img" aria-label="The same nine water molecules now sliding freely in a loose liquid puddle." style="height:230px;width:auto;display:block;margin:0 auto;">
+            <rect class="d-frame" x="210" y="25" width="160" height="130" rx="4" />
+            <text class="d-label" x="290" y="18" text-anchor="middle" style="font-size:var(--dia-label-size)">AFTER (Liquid Water)</text>
+            <circle cx="245" cy="120" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+            <circle cx="239" cy="112" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="251" cy="112" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="265" cy="130" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+            <circle cx="258" cy="123" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="270" cy="123" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="285" cy="125" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+            <circle cx="279" cy="117" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="291" cy="117" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="305" cy="130" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+            <circle cx="299" cy="122" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="311" cy="122" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="328" cy="122" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+            <circle cx="321" cy="114" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="334" cy="114" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="252" cy="95" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+            <circle cx="246" cy="87" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="258" cy="87" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="274" cy="102" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+            <circle cx="267" cy="94" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="280" cy="94" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="296" cy="105" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+            <circle cx="290" cy="97" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="302" cy="97" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="318" cy="98" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+            <circle cx="312" cy="90" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <circle cx="324" cy="90" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+            <path d="M 225,138 Q 235,135 245,138 T 265,138 T 285,138 T 305,138 T 325,138 T 345,138" fill="none" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke)" stroke-dasharray="2 2" />
+          </svg>
+          <div class="diagram-cap"><span style="color:#fff;">&bull;</span> Hydrogen &middot; <span style="color:var(--accent);">&bull;</span> Oxygen &middot; physical rearrangement (molecules stay intact)</div>
+        </div>
       </div>
 
       <!-- Chemical Change Panel: Hydrogen Combustion -->
@@ -325,71 +343,71 @@
         <svg viewBox="0 0 380 180" role="img" aria-label="Particle diagram showing hydrogen combustion. Six H2 pairs and three O2 pairs on the left rearrange to form six H2O molecules on the right.">
           <!-- BEFORE: Reactants -->
           <rect class="d-frame" x="10" y="25" width="160" height="130" rx="4" />
-          <text class="d-label" x="90" y="18" text-anchor="middle" font-size="10.5">BEFORE (6 H₂ + 3 O₂)</text>
+          <text class="d-label" x="90" y="18" text-anchor="middle" style="font-size:var(--dia-label-size)">BEFORE (6 H₂ + 3 O₂)</text>
           
           <!-- 6 H2 molecules (white pairs) -->
           <!-- H2 (1) -->
-          <circle cx="28" cy="50" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="35" cy="50" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
+          <circle cx="28" cy="50" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+          <circle cx="35" cy="50" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
           <!-- H2 (2) -->
-          <circle cx="65" cy="40" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="72" cy="40" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
+          <circle cx="65" cy="40" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+          <circle cx="72" cy="40" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
           <!-- H2 (3) -->
-          <circle cx="35" cy="95" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="42" cy="95" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
+          <circle cx="35" cy="95" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+          <circle cx="42" cy="95" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
           <!-- H2 (4) -->
-          <circle cx="85" cy="115" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="92" cy="115" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
+          <circle cx="85" cy="115" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+          <circle cx="92" cy="115" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
           <!-- H2 (5) -->
-          <circle cx="130" cy="85" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="137" cy="85" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
+          <circle cx="130" cy="85" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+          <circle cx="137" cy="85" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
           <!-- H2 (6) -->
-          <circle cx="125" cy="45" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="132" cy="45" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
+          <circle cx="125" cy="45" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+          <circle cx="132" cy="45" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
 
           <!-- 3 O2 molecules (red pairs) -->
           <!-- O2 (1) -->
-          <circle cx="45" cy="72" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
-          <circle cx="58" cy="72" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
+          <circle cx="45" cy="72" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+          <circle cx="58" cy="72" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
           <!-- O2 (2) -->
-          <circle cx="95" cy="65" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
-          <circle cx="108" cy="65" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
+          <circle cx="95" cy="65" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+          <circle cx="108" cy="65" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
           <!-- O2 (3) -->
-          <circle cx="70" cy="92" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
-          <circle cx="83" cy="92" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
+          <circle cx="70" cy="92" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+          <circle cx="83" cy="92" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
 
           <!-- Transfer Arrow -->
           <line x1="178" y1="90" x2="202" y2="90" fill="none" stroke="var(--ink)" stroke-width="1.5" marker-end="url(#contrasts-arr)" />
 
           <!-- AFTER: Products -->
           <rect class="d-frame" x="210" y="25" width="160" height="130" rx="4" />
-          <text class="d-label" x="290" y="18" text-anchor="middle" font-size="10.5">AFTER (6 H₂O)</text>
+          <text class="d-label" x="290" y="18" text-anchor="middle" style="font-size:var(--dia-label-size)">AFTER (6 H₂O)</text>
           
           <!-- 6 H2O molecules (rearranged) -->
           <!-- H2O (1) -->
-          <circle cx="240" cy="55" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
-          <circle cx="234" cy="47" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="246" cy="47" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
+          <circle cx="240" cy="55" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+          <circle cx="234" cy="47" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+          <circle cx="246" cy="47" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
           <!-- H2O (2) -->
-          <circle cx="280" cy="45" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
-          <circle cx="274" cy="37" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="286" cy="37" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
+          <circle cx="280" cy="45" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+          <circle cx="274" cy="37" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+          <circle cx="286" cy="37" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
           <!-- H2O (3) -->
-          <circle cx="325" cy="50" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
-          <circle cx="319" cy="42" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="331" cy="42" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
+          <circle cx="325" cy="50" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+          <circle cx="319" cy="42" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+          <circle cx="331" cy="42" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
           <!-- H2O (4) -->
-          <circle cx="250" cy="115" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
-          <circle cx="244" cy="107" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="256" cy="107" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
+          <circle cx="250" cy="115" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+          <circle cx="244" cy="107" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+          <circle cx="256" cy="107" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
           <!-- H2O (5) -->
-          <circle cx="295" cy="105" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
-          <circle cx="289" cy="97" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="301" cy="97" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
+          <circle cx="295" cy="105" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+          <circle cx="289" cy="97" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+          <circle cx="301" cy="97" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
           <!-- H2O (6) -->
-          <circle cx="335" cy="110" r="7.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="1.2" />
-          <circle cx="329" cy="102" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
-          <circle cx="341" cy="102" r="4.2" fill="#fff" stroke="var(--ink)" stroke-width="1" />
+          <circle cx="335" cy="110" r="var(--dia-r-atom)" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+          <circle cx="329" cy="102" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
+          <circle cx="341" cy="102" r="var(--dia-r-atom-sm)" fill="#fff" stroke="var(--ink)" stroke-width="var(--dia-stroke)" />
 
         </svg>
         <div class="diagram-cap"><span style="color:#fff;">&bull;</span> Hydrogen &middot; <span style="color:var(--accent);">&bull;</span> Oxygen &middot; chemical change (bonds broken and formed, atoms conserved)</div>

@@ -33,7 +33,10 @@ document.addEventListener("DOMContentLoaded", () => {
   function createSVGElement(tag, attrs) {
     const el = document.createElementNS(svgNS, tag);
     for (let k in attrs) {
-      el.setAttribute(k, attrs[k]);
+      // font-size as a bare presentation attribute silently ignores var() and
+      // falls back to the inherited page font-size -- must go through style.
+      if (k === "font-size") el.style.fontSize = attrs[k];
+      else el.setAttribute(k, attrs[k]);
     }
     return el;
   }
@@ -107,10 +110,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const carbon = createSVGElement("circle", {
       cx: cx,
       cy: cy,
-      r: 8.5,
+      r: 'var(--dia-r-atom)',
       fill: "var(--ink-mute)",
       stroke: "var(--ink)",
-      "stroke-width": 1.2
+      "stroke-width": 'var(--dia-stroke-bond)'
     });
 
     // 4 Hydrogens (White) in tetrahedral cross
@@ -139,10 +142,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const h = createSVGElement("circle", {
         cx: cx + off.dx,
         cy: cy + off.dy,
-        r: 3.5,
+        r: 'var(--dia-r-atom-sm)',
         fill: "#fff",
         stroke: "var(--ink)",
-        "stroke-width": 0.9
+        "stroke-width": 'var(--dia-stroke)'
       });
       group.appendChild(h);
     });
@@ -188,10 +191,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const carbon = createSVGElement("circle", {
       cx: cx,
       cy: cy,
-      r: 8.5,
+      r: 'var(--dia-r-atom)',
       fill: "var(--ink-mute)",
       stroke: "var(--ink)",
-      "stroke-width": 1.2
+      "stroke-width": 'var(--dia-stroke-bond)'
     });
 
     // 2 Oxygens (red)
@@ -367,15 +370,15 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderSalt(t) {
     // 9 NaCl ions (5 Na+ Purple, 4 Cl- Green)
     const solidIons = [
-      { x: 175, y: 135, r: 7.5, type: "na", fill: "#8E44AD" },
-      { x: 200, y: 135, r: 10.5, type: "cl", fill: "var(--good)" },
-      { x: 225, y: 135, r: 7.5, type: "na", fill: "#8E44AD" },
-      { x: 175, y: 160, r: 10.5, type: "cl", fill: "var(--good)" },
-      { x: 200, y: 160, r: 7.5, type: "na", fill: "#8E44AD" },
-      { x: 225, y: 160, r: 10.5, type: "cl", fill: "var(--good)" },
-      { x: 175, y: 185, r: 7.5, type: "na", fill: "#8E44AD" },
-      { x: 200, y: 185, r: 10.5, type: "cl", fill: "var(--good)" },
-      { x: 225, y: 185, r: 7.5, type: "na", fill: "#8E44AD" }
+      { x: 175, y: 135, r: 'var(--dia-r-atom)', type: "na", fill: "var(--ink-mute)" },
+      { x: 200, y: 135, r: 10.5, type: "cl", fill: "var(--accent)" },
+      { x: 225, y: 135, r: 'var(--dia-r-atom)', type: "na", fill: "var(--ink-mute)" },
+      { x: 175, y: 160, r: 10.5, type: "cl", fill: "var(--accent)" },
+      { x: 200, y: 160, r: 'var(--dia-r-atom)', type: "na", fill: "var(--ink-mute)" },
+      { x: 225, y: 160, r: 10.5, type: "cl", fill: "var(--accent)" },
+      { x: 175, y: 185, r: 'var(--dia-r-atom)', type: "na", fill: "var(--ink-mute)" },
+      { x: 200, y: 185, r: 10.5, type: "cl", fill: "var(--accent)" },
+      { x: 225, y: 185, r: 'var(--dia-r-atom)', type: "na", fill: "var(--ink-mute)" }
     ];
 
     // Fully dissolved scattered locations
@@ -442,13 +445,13 @@ document.addEventListener("DOMContentLoaded", () => {
         r: ion.r,
         fill: ion.fill,
         stroke: "var(--ink)",
-        "stroke-width": 1.2
+        "stroke-width": "var(--dia-stroke-bond)"
       });
       svg.appendChild(circle);
 
       // Add '+' or '-' text sign on ion
       const signText = ion.type === "na" ? "+" : "−";
-      const fontSize = ion.type === "na" ? "10px" : "13px";
+      const fontSize = ion.type === "na" ? "var(--dia-label-size)" : "13px";
       const textY = ion.type === "na" ? cy + 3.5 : cy + 4.5;
       const text = createSVGElement("text", {
         x: cx,

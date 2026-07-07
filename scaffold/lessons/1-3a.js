@@ -289,7 +289,7 @@
         const c = document.createElementNS(SVGNS, 'circle');
         c.setAttribute('cx', d.x.toFixed(1));
         c.setAttribute('cy', d.y.toFixed(1));
-        c.setAttribute('r', '2.2');
+        c.setAttribute('r', 'var(--dia-r-particle)');
         c.setAttribute('fill', 'var(--accent)');
         svg.appendChild(c);
       });
