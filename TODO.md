@@ -8,9 +8,9 @@ The project is otherwise in good shape: all 12 manifest lessons are built, a ful
 
 ## 1. Design-level revision pass — PRIORITY, next thing to do
 
-**Status:** proposed, ready to start. **Spec:** [`REVISION_PLAN.md`](REVISION_PLAN.md).
+**Status:** Phase 1 done; Phase 2 unblocked and in progress. **Spec:** [`REVISION_PLAN.md`](REVISION_PLAN.md).
 
-This is the next work session's focus. It's a design-level pass on top of the (already-closed) bug fixes — a shared figure-sizing system, deploying the step/zoom/scrub motion primitives that exist but are barely used, breaking the "produce → reveal" interaction monotony, and making lessons re-enterable (persistence + synopsis) instead of read-once. Read `REVISION_PLAN.md` end to end before starting; Phase 1 (the figure system) is unblocked and should run first. Phases 2–6 have author sign-off items listed in that doc's §7 — check those before executing the phase they block.
+A design-level pass on top of the (already-closed) bug fixes — a shared figure-sizing system, deploying the step/zoom/scrub motion primitives that exist but are barely used, breaking the "produce → reveal" interaction monotony, and making lessons re-enterable (persistence + synopsis) instead of read-once. Phase 1 (the figure system) shipped 2026-07-06. Phase 2 (motion deployment) sign-off items (§7 items 2, 3, 5) resolved 2026-07-07; `1-1a`'s step primitive extended from 4 to 6 steps (K→Ga shell-filling, per the deployment map) — first lesson of the Phase 2 rollout, the rest of the map in §2 of the plan is still outstanding. Phases 3–6 still have open author sign-off items (§7 items 4, 6) — check those before executing the phase they block.
 
 **Sequencing:** resolved 2026-07-07 — `REVISION_PLAN.md` Phase 1 (figure *width* tiers) ran first and is done; the diagram-standardization workstream in §1a below (figure *internals*) is now in progress on top of it.
 

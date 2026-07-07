@@ -1,6 +1,6 @@
 # REVISION_PLAN.md — Design-Level Revision Pass
 
-**Status: proposed. Figure tiers now decided (§1); remaining author calls in §7. Phase 1 is unblocked and ready to run.**
+**Status: proposed. Figure tiers decided (§1) and Phase 1 is done (see `TODO.md` / `CHANGELOG.md`). Phase 2's sign-off items are now resolved (§7 items 2, 3, 5 — deployment map confirmed 2026-07-07, 1-1a simplification and C-SPA mechanism decided) and Phase 2 is unblocked and ready to run, lesson by lesson. Remaining author calls: §7 items 4 and 6 (block Phases 4 and 3 respectively).**
 **Author of plan:** Opus (claude.ai), 2026-07-06. **Intended executor:** Claude Code, lesson-by-lesson, in the phase order below.
 **Reads before this:** `CHANGELOG.md` (the bug-fix pass this builds on top of, and how its invariants ended up in `CLAUDE.md`/`INTERACTION_SPEC.md`), `VOICE.md`, `INTERACTION_SPEC.md`, `CLAUDE.md`.
 
@@ -116,7 +116,7 @@ Primitive (replace the six wrappers in `components.css`):
 | 2-7b | the mole-conversion chain (grams → mol → particles) walked one arrow at a time | `step` |
 | 2-7c | limiting-reactant BCA table filling row by row | `step` |
 | C-RXN | already has step — extend to the reaction-type classifier | `step` |
-| C-SPA | the prata lamination/steam zoom (blocked on the phenomenon sign-off, §7 item 5) | `zoom` |
+| C-SPA | the fat melt → re-solidify lamination zoom (ghee flows on the hot tawa, re-solidifies into thin films → layer barriers → flaky texture; no steam — see §7 item 5) | `zoom` |
 
 **Hard constraints (already in the spec — enforce them):** no autoplay loops; everything scrubbable or steppable by the student; `prefers-reduced-motion` fallback on every one.
 
@@ -196,9 +196,9 @@ These block the phases noted. Chemistry-accuracy items are yours to verify again
 
 1. **Figure tier breakpoints** — DECIDED: 24 / 34 / 52 / 68 rem (§1). No longer blocks Phase 1. React to the rendered result if a tier feels off; it is a one-line change.
 2. **Motion deployment map** (blocks Phase 2) — is the lesson→primitive mapping in §2 right, or would you move any?
-3. **K→Ga 4s/3d energy-ordering simplification** (conceptual, affects 1-1a step build) — still open from prior sessions; sign off on the simplification before the shell-fill animation bakes it in.
+3. **K→Ga 4s/3d energy-ordering simplification** — DECIDED 2026-07-07: use the existing n+l/Aufbau simplification already built in `1-1a` (electron 19 takes 4s before 3d because 4s is momentarily lower energy; 3d dips back below 4s once 4s is full, so Sc–Zn finish shell 3; Cr/Cu single-electron-promotion exceptions stay flagged as beyond the assessment boundary, per the existing "Show the two exceptions" toggle). No longer blocks Phase 2's shell-fill extension for 1-1a.
 4. **Persistence target surface + scope** (blocks Phase 4) — GitHub Pages only, or must it also run inside a Claude artifact? And is the FEATURES backlog item approved for build now?
-5. **Roti prata lamination/steam mechanism** (blocks the C-SPA zoom, §2) — confirm against Unit 2 phenomenon materials.
+5. **Roti prata lamination/steam mechanism** — DECIDED 2026-07-07: drop "steam" — it isn't in the Unit 2 Review Sheet or Consensus Notes' fat/lamination section (Arc 3) and was a conflation with a separate Arc 1 driving question about dough puffing/gas production, which is a different (chemical-reaction) mechanism, not C-SPA's structure→property territory. The C-SPA zoom is **fat melt → re-solidify lamination only**: ghee melts and flows on the hot tawa, then re-solidifies into thin films that create solid layer barriers → flaky texture (Review Sheet, Arc 3 fats section, verbatim mechanism). No longer blocks Phase 2's C-SPA zoom; update the §2 deployment-map row description accordingly when building it.
 6. **The verb budget rule** (blocks Phase 3) — is "no more than two consecutive same-verb sections" right, too strict, or too loose?
 
 Still-open chemistry items from prior sessions that touch this work if the relevant lessons get revised: H–F polar-covalent boundary framing (ΔEN 1.78) for 1-2a; which GHS pictograms the PLC uses for sodium (Unit 1). Fold these in when those lessons come up.
