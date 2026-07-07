@@ -6,6 +6,9 @@ A dated, one-line record of what shipped. This is not a to-do list (see [`TODO.m
 
 ---
 
+- **2026-07-07** — Diagram-standardization Phase 0–2: audited all 12 lessons' diagrams (0 HTML-overlay-over-SVG violations found; containment problem was mostly already solved), fixed 2 genuine missing-`viewBox` bugs (`2-7a` `#moleculeCanvas`, `2-7c` `#particleCanvas`), added a `--dia-*` geometry token layer to `tokens.css` (radius/stroke/label-size, defaults from the harvest), and produced `DIAGRAM_CONTRACT.md`. See `TODO.md` §1a and `DIAGRAM_STANDARDIZATION.md`.
+- **2026-07-06** — `REVISION_PLAN.md` Phase 1: shared `.figure` sizing system (four width tiers) replaces six ad-hoc pixel-ceiling wrappers across all 12 lessons; fixed two bugs surfaced in QA (Bohr-builder wrapper not stretching to its grid cell, two lesson-scoped `<style>` blocks overriding the new tiers). (`7e47146`)
+- **2026-07-06** — Consolidated `BUILD_PLAN.md`, `LESSON_1-2B_PLAN.md`, `PDF_EXPORT_PLAN.md`, `REMEDIATION_PLAN.md` into this changelog; added `DIAGRAM_STANDARDIZATION.md` as a proposed figure-internals retrofit. (`f247e07`)
 - **2026-07-06** — Design-level revision pass proposed and made the next priority. See `REVISION_PLAN.md`. (`5f3d807`)
 - **2026-07-06** — PDF/print export built and verified for all 12 lessons: print CSS, `core.js` print hook, topbar Print button, glossary appendix. One known accepted gap: bespoke per-lesson interactives (visual equation balancer, Bohr builders, trend explorers) print their live control chrome as-is rather than unrolling — see `INTERACTION_SPEC.md`. (`c61e4cf`)
 - **2026-07-05** — Lesson `1-2b` (Molecular Polarity) built — the 12th and final manifest lesson. (`dacc4f2`)

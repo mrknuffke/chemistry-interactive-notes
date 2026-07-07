@@ -34,6 +34,18 @@
   /* figure tiers — width chosen by how much information a figure carries,
      never a raw pixel value. See REVISION_PLAN.md §1. */
   --fig-sm:24rem; --fig-md:34rem; --fig-full:var(--prose); --fig-wide:68rem;
+
+  /* diagram geometry tokens — shared radius/stroke/type scale for in-SVG
+     diagrams, in SVG user units. Defaults are the most-common existing
+     value per the DIAGRAM_STANDARDIZATION.md Phase 0 harvest, chosen to
+     minimize visual churn once figures adopt them (Phase 3). Diagram
+     COLOR already routes through the existing palette (--electron,
+     --nucleus, --ink-mute, --accent) via the .d-* classes in
+     components.css — no separate --dia-* color tokens; see
+     DIAGRAM_CONTRACT.md. */
+  --dia-r-particle:2; --dia-r-atom:7.5;
+  --dia-stroke:1; --dia-stroke-bond:1.2;
+  --dia-label-size:10; --dia-caption-size:7;
 }
 
 :root.dark {

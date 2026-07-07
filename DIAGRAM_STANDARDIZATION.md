@@ -1,6 +1,6 @@
 # DIAGRAM_STANDARDIZATION.md
 
-> **Status: proposed, not started (added 2026-07-06).** This is a design-level retrofit of the static and interactive diagrams. It overlaps with, and goes deeper than, `REVISION_PLAN.md` Phase 1 (which disciplines figure *width* via the `.figure--*` tiers); this plan disciplines what lives *inside* the SVG. Read `REVISION_PLAN.md` §1 and `TODO.md` before starting — the two figure-system efforts must be sequenced together, not run blind against each other.
+> **Status: Phase 0–2 done, Phase 3–4 not started (Phase 0 run 2026-07-07).** This is a design-level retrofit of the static and interactive diagrams. It overlaps with, and goes deeper than, `REVISION_PLAN.md` Phase 1 (which disciplines figure *width* via the `.figure--*` tiers, done); this plan disciplines what lives *inside* the SVG. See `TODO.md` §1a for current status and `DIAGRAM_CONTRACT.md` for the live invariants/token values (filled from the Phase 0 harvest, superseding the placeholder token names below).
 
 Standardization plan for the static and interactive diagrams in Chemistry Interactive Notes. Fixes within‑figure breakage first (B), then cross‑figure drift (A), as one continuous retrofit rather than two separate projects.
 
@@ -186,4 +186,4 @@ This plan and `REVISION_PLAN.md` Phase 1 both touch the figure system but at dif
 - **`REVISION_PLAN.md` Phase 1** governs figure **width** — the outer `.figure` / `.figure--sm|md|full|wide` wrapper tiers and the migration off the six bespoke pixel-ceiling wrappers.
 - **This plan** governs figure **internals** — viewBox containment (B), then the `--dia-*` token layer and coordinate scale (A), then data-driven renderers.
 
-They are complementary, not competing: the width wrapper sits outside the contained SVG this plan produces. **Open sequencing decision (author's call):** whether to (a) run `REVISION_PLAN.md` Phase 1 first, then this plan's Phase 0 audit, (b) do this plan's Phase 0 audit first so the width refactor and the containment pass are planned together, or (c) merge the two figure passes into one workstream. Phase 0 here changes no files, so running it early is cheap and de-risks both. Resolve this before either figure pass starts so the two don't rewrite the same wrappers twice.
+They are complementary, not competing: the width wrapper sits outside the contained SVG this plan produces. **Resolved 2026-07-07: option (a).** `REVISION_PLAN.md` Phase 1 ran first (width tiers), then this plan's Phase 0 audit ran, confirming no rewrite conflict — Phase 1's wrapper migration and this plan's containment fixes touched disjoint concerns (outer wrapper class vs. inner `viewBox`) with zero overlap in the two files Phase 1(B) actually touched.
