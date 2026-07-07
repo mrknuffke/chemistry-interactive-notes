@@ -1838,4 +1838,646 @@ strong.term{font-weight:700;color:var(--ink);border-bottom:1.5px dashed var(--ac
   .print-glossary dd em{display:block;font-style:italic;font-size:.88em;margin-top:.15rem;}
 }
 
+/* ============================================================
+   PERIODIC TABLE DROPDOWN DRAWER — see FEATURES.md §4.1
+   ============================================================ */
+.ptable-drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(22, 32, 28, 0.4);
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+:root.dark .ptable-drawer-overlay {
+  background: rgba(0, 0, 0, 0.6);
+}
+.ptable-drawer-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ptable-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 460px;
+  max-width: 100vw;
+  background-color: var(--paper);
+  border-left: 1px solid var(--hair);
+  z-index: 101;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.ptable-drawer.open {
+  transform: translateX(0);
+}
+
+.ptable-drawer-header {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--hair);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--paper-2);
+}
+.ptable-drawer-header h3 {
+  font-size: 1.2rem;
+  margin: 0;
+  font-family: var(--display);
+}
+.ptable-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: var(--ink-mute);
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  transition: color 0.2s;
+}
+.ptable-close-btn:hover {
+  color: var(--accent);
+}
+
+.ptable-drawer-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+/* Control tabs for heatmaps */
+.ptable-controls {
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--hair-soft);
+}
+.ptable-tabs {
+  display: flex;
+  background: var(--paper-2);
+  border-radius: 4px;
+  padding: 2px;
+  gap: 2px;
+}
+.ptable-tab {
+  flex: 1;
+  border: none;
+  background: none;
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  padding: 0.4rem 0.2rem;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.2s;
+  text-align: center;
+}
+.ptable-tab:hover {
+  color: var(--ink);
+}
+.ptable-tab.active {
+  background: var(--card);
+  color: var(--accent);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* Scrollable container for standard 18-col layout */
+.ptable-grid-container {
+  overflow-x: auto;
+  padding: 1.25rem;
+  border-bottom: 1px solid var(--hair-soft);
+}
+.ptable-grid {
+  display: grid;
+  grid-template-columns: repeat(18, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 4px;
+  min-width: 680px; /* Force standard proportions on narrow drawer */
+}
+
+/* Cells styling */
+.ptable-cell {
+  position: relative;
+  aspect-ratio: 1;
+  border: 1px solid var(--hair);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.2s, transform 0.1s, box-shadow 0.2s, background-color 0.2s, color 0.2s;
+  box-sizing: border-box;
+}
+.ptable-cell:hover {
+  border-color: var(--accent);
+  z-index: 5;
+  transform: scale(1.08);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+.ptable-cell.selected {
+  border-color: var(--accent) !important;
+  border-width: 2px !important;
+  z-index: 6;
+  transform: scale(1.08);
+  box-shadow: 0 0 0 2px var(--accent-soft);
+}
+.ptable-cell .cell-z {
+  font-family: var(--mono);
+  font-size: 0.44rem;
+  color: var(--ink-mute);
+  position: absolute;
+  top: 1px;
+  left: 2px;
+  pointer-events: none;
+}
+.ptable-cell .cell-sym {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-top: 2px;
+  pointer-events: none;
+}
+.ptable-cell .cell-val {
+  font-family: var(--mono);
+  font-size: 0.42rem;
+  line-height: 1;
+  margin-top: 1px;
+  text-align: center;
+  pointer-events: none;
+}
+
+/* Category styling (Default Kind view) */
+.ptable-cell.kind-metal {
+  background-color: var(--paper-3);
+  color: var(--ink);
+}
+.ptable-cell.kind-metalloid {
+  background-color: var(--paper-2);
+  border-color: var(--ink-soft);
+  color: var(--ink);
+}
+.ptable-cell.kind-nonmetal {
+  background-color: var(--card);
+  border-color: var(--ink-mute);
+  color: var(--accent);
+}
+.ptable-cell.kind-noble {
+  background-color: var(--card);
+  opacity: 0.75;
+  color: var(--ink-mute);
+}
+
+/* No data/null trend formatting */
+.ptable-cell.no-data {
+  background-image: repeating-linear-gradient(45deg, var(--hair-soft) 0, var(--hair-soft) 1px, transparent 0, transparent 4px);
+  background-color: var(--card) !important;
+  color: var(--ink-mute) !important;
+  opacity: 0.55;
+}
+
+/* Legend inside body */
+.ptable-legend {
+  padding: 0 1.25rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--ink-mute);
+}
+.ptable-legend-gradient {
+  flex: 1;
+  max-width: 180px;
+  height: 8px;
+  border-radius: 4px;
+  border: 1px solid var(--hair-soft);
+}
+.ptable-legend-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  justify-content: center;
+}
+.ptable-legend-swatch {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.ptable-legend-chip {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  border: 1px solid var(--hair-soft);
+}
+
+/* Detail Panel Styling */
+.ptable-detail-panel {
+  padding: 1.25rem;
+  background-color: var(--paper-2);
+  border-top: 1px solid var(--hair);
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+}
+.ptable-detail-placeholder {
+  color: var(--ink-mute);
+  font-size: 0.78rem;
+  text-align: center;
+  margin: auto;
+  line-height: 1.5;
+}
+.ptable-detail-content {
+  display: flex;
+  gap: 1.25rem;
+  width: 100%;
+}
+.ptable-detail-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.ptable-detail-atom-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+.ptable-detail-sym {
+  font-family: var(--mono);
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent);
+}
+.ptable-detail-z {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--ink-mute);
+}
+.ptable-detail-name {
+  font-family: var(--display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.2;
+}
+.ptable-detail-kind-tag {
+  align-self: flex-start;
+  font-family: var(--mono);
+  font-size: 0.54rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: var(--card);
+  border: 1px solid var(--hair);
+  color: var(--ink-soft);
+  margin-top: 0.15rem;
+}
+.ptable-detail-stats {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-family: var(--mono);
+  font-size: 0.64rem;
+}
+.ptable-detail-stat-row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dashed var(--hair-soft);
+  padding-bottom: 2px;
+}
+.ptable-detail-stat-label {
+  color: var(--ink-mute);
+}
+.ptable-detail-stat-val {
+  font-weight: 600;
+  color: var(--ink);
+}
+.ptable-detail-visual {
+  width: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.ptable-bohr-svg {
+  width: 120px;
+  height: 120px;
+  display: block;
+}
+.ptable-bohr-cap {
+  font-family: var(--mono);
+  font-size: 0.54rem;
+  color: var(--ink-mute);
+  margin-top: 0.25rem;
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .ptable-drawer {
+    width: 100vw;
+  }
+}
+
+.ptable-control-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+.ptable-toggle-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--ink-soft);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  user-select: none;
+}
+.ptable-toggle-label input {
+  cursor: pointer;
+  accent-color: var(--accent);
+}
+
+/* Reference Tray Tabs */
+.ptable-drawer-tabs {
+  display: flex;
+  background: var(--paper-3);
+  padding: 4px;
+  gap: 4px;
+  border-bottom: 1px solid var(--hair);
+}
+.ptable-drawer-tab {
+  flex: 1;
+  border: none;
+  background: none;
+  font-family: var(--display);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  padding: 0.5rem 0.2rem;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.2s;
+  text-align: center;
+}
+.ptable-drawer-tab:hover {
+  color: var(--ink);
+  background: var(--paper-2);
+}
+.ptable-drawer-tab.active {
+  background: var(--card);
+  color: var(--accent);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.ptable-panel {
+  display: none;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
+.ptable-panel.active {
+  display: flex;
+}
+
+/* Formulas & Tables Panel styling */
+.ptable-formulas-container {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.ptable-ref-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.ptable-ref-section h4 {
+  font-family: var(--display);
+  font-size: 0.85rem;
+  color: var(--accent);
+  border-bottom: 1px solid var(--hair-soft);
+  padding-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+}
+.ptable-ref-section p {
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.ptable-bridge-diagram {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--paper-2);
+  padding: 0.75rem 0.5rem;
+  border-radius: 4px;
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  margin-top: 0.25rem;
+  text-align: center;
+  border: 1px solid var(--hair-soft);
+}
+.ptable-bridge-node {
+  background: var(--card);
+  padding: 4px 8px;
+  border-radius: 3px;
+  border: 1px solid var(--hair);
+  font-weight: 600;
+  color: var(--ink);
+}
+.ptable-bridge-arrow {
+  color: var(--ink-mute);
+  display: flex;
+  flex-direction: column;
+  font-size: 0.46rem;
+  line-height: 1.2;
+}
+
+/* Reference table styling */
+.ptable-ref-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  margin-top: 0.25rem;
+}
+.ptable-ref-table th, .ptable-ref-table td {
+  padding: 6px 8px;
+  text-align: left;
+  border-bottom: 1px solid var(--hair-soft);
+}
+.ptable-ref-table th {
+  background: var(--paper-2);
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+.ptable-ref-table tr:hover td {
+  background: var(--paper-2);
+}
+
+/* Calculator Panel styling */
+.ptable-calc-container {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.ptable-calc-display-wrap {
+  background: var(--card);
+  border: 1px solid var(--hair);
+  border-radius: 6px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  min-height: 70px;
+  justify-content: center;
+}
+.ptable-calc-expr {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--ink-mute);
+  min-height: 1rem;
+  word-break: break-all;
+  text-align: right;
+  width: 100%;
+}
+.ptable-calc-result {
+  font-family: var(--mono);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-top: 4px;
+  word-break: break-all;
+  text-align: right;
+  width: 100%;
+}
+.ptable-calc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+.ptable-calc-btn {
+  border: 1px solid var(--hair);
+  background: var(--card);
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ink);
+  height: 42px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+.ptable-calc-btn:hover {
+  background: var(--paper-2);
+  border-color: var(--ink-soft);
+}
+.ptable-calc-btn:active {
+  transform: scale(0.95);
+}
+.ptable-calc-btn.op {
+  background: var(--paper-2);
+  color: var(--accent);
+}
+.ptable-calc-btn.action {
+  background: var(--paper-3);
+  color: var(--ink);
+}
+.ptable-calc-btn.equals {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.ptable-calc-btn.equals:hover {
+  background: var(--accent-soft);
+}
+
+/* Calculator Helper Tool styling */
+.ptable-calc-helper {
+  background: var(--paper-2);
+  border: 1px solid var(--hair-soft);
+  border-radius: 6px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.ptable-calc-helper-title {
+  font-family: var(--display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+.ptable-calc-helper-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.ptable-calc-helper-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.ptable-calc-helper-field span {
+  font-family: var(--mono);
+  font-size: 0.54rem;
+  color: var(--ink-mute);
+}
+.ptable-calc-helper-field input {
+  border: 1px solid var(--hair);
+  background: var(--card);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  padding: 4px 6px;
+  border-radius: 3px;
+  color: var(--ink);
+  width: 100%;
+}
+.ptable-calc-helper-field input:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+.ptable-calc-helper-arrow {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--ink-mute);
+  margin-top: 10px;
+}
+
+
 
