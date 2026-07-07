@@ -263,41 +263,126 @@
 
       <p class="step reveal">Let's look at a balanced BCA table where 2.0 moles of CH<sub>4</sub> and 4.0 moles of O<sub>2</sub> are mixed. Because they are mixed in the exact 1:2 ratio, both reactants are fully consumed:</p>
 
-      <div class="bca-table-wrap reveal">
-        <table class="static-molar-table" style="text-align:center;">
-          <thead>
-            <tr>
-              <th style="text-align:left;">Row</th>
-              <th>CH<sub>4</sub></th>
-              <th>+ 2 O<sub>2</sub></th>
-              <th>&rarr; CO<sub>2</sub></th>
-              <th>+ 2 H<sub>2</sub>O</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="text-align:left; font-weight:700;">Before (B)</td>
-              <td>2.0 mol</td>
-              <td>4.0 mol</td>
-              <td>0 mol</td>
-              <td>0 mol</td>
-            </tr>
-            <tr style="color:var(--accent);">
-              <td style="text-align:left; font-weight:700;">Change (C)</td>
-              <td>-2.0 mol</td>
-              <td>-4.0 mol</td>
-              <td>+2.0 mol</td>
-              <td>+4.0 mol</td>
-            </tr>
-            <tr style="font-weight:700; border-top:1.5px solid var(--hair);">
-              <td style="text-align:left;">After (A)</td>
-              <td>0 mol</td>
-              <td>0 mol</td>
-              <td>2.0 mol</td>
-              <td>4.0 mol</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="reveal figure figure--full" data-motion="step" data-step-count="3" data-step-labels="1. Before: starting amounts|2. Change: scaled by coefficients|3. After: final amounts">
+        <div data-step="1" style="width:100%;">
+          <div class="bca-table-wrap">
+            <table class="bca-table">
+              <thead>
+                <tr>
+                  <th class="rxn-header">Row</th>
+                  <th>CH<sub>4</sub></th>
+                  <th>+ 2 O<sub>2</sub></th>
+                  <th>&rarr; CO<sub>2</sub></th>
+                  <th>+ 2 H<sub>2</sub>O</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="row-label">Before (B)</td>
+                  <td class="input-val">2.0 mol</td>
+                  <td class="input-val">4.0 mol</td>
+                  <td>0 mol</td>
+                  <td>0 mol</td>
+                </tr>
+                <tr>
+                  <td class="row-label">Change (C)</td>
+                  <td>&mdash;</td>
+                  <td>&mdash;</td>
+                  <td>&mdash;</td>
+                  <td>&mdash;</td>
+                </tr>
+                <tr style="font-weight:700;">
+                  <td class="row-label">After (A)</td>
+                  <td>&mdash;</td>
+                  <td>&mdash;</td>
+                  <td>&mdash;</td>
+                  <td>&mdash;</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="diagram-cap">2.0 mol CH<sub>4</sub> and 4.0 mol O<sub>2</sub> mixed &mdash; nothing has reacted yet, so products start at 0.</div>
+        </div>
+
+        <div data-step="2" style="width:100%;">
+          <div class="bca-table-wrap">
+            <table class="bca-table">
+              <thead>
+                <tr>
+                  <th class="rxn-header">Row</th>
+                  <th>CH<sub>4</sub></th>
+                  <th>+ 2 O<sub>2</sub></th>
+                  <th>&rarr; CO<sub>2</sub></th>
+                  <th>+ 2 H<sub>2</sub>O</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="row-label">Before (B)</td>
+                  <td class="input-val">2.0 mol</td>
+                  <td class="input-val">4.0 mol</td>
+                  <td>0 mol</td>
+                  <td>0 mol</td>
+                </tr>
+                <tr style="color:var(--accent);">
+                  <td class="row-label" style="color:var(--accent);">Change (C)</td>
+                  <td>&minus;2.0 mol</td>
+                  <td>&minus;4.0 mol</td>
+                  <td>+2.0 mol</td>
+                  <td>+4.0 mol</td>
+                </tr>
+                <tr style="font-weight:700;">
+                  <td class="row-label">After (A)</td>
+                  <td>&mdash;</td>
+                  <td>&mdash;</td>
+                  <td>&mdash;</td>
+                  <td>&mdash;</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="diagram-cap">The Change row is locked to the 1:2:1:2 coefficient ratio &mdash; reactants fall, products rise, in that exact proportion.</div>
+        </div>
+
+        <div data-step="3" style="width:100%;">
+          <div class="bca-table-wrap">
+            <table class="bca-table">
+              <thead>
+                <tr>
+                  <th class="rxn-header">Row</th>
+                  <th>CH<sub>4</sub></th>
+                  <th>+ 2 O<sub>2</sub></th>
+                  <th>&rarr; CO<sub>2</sub></th>
+                  <th>+ 2 H<sub>2</sub>O</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="row-label">Before (B)</td>
+                  <td class="input-val">2.0 mol</td>
+                  <td class="input-val">4.0 mol</td>
+                  <td>0 mol</td>
+                  <td>0 mol</td>
+                </tr>
+                <tr style="color:var(--accent);">
+                  <td class="row-label" style="color:var(--accent);">Change (C)</td>
+                  <td>&minus;2.0 mol</td>
+                  <td>&minus;4.0 mol</td>
+                  <td>+2.0 mol</td>
+                  <td>+4.0 mol</td>
+                </tr>
+                <tr style="font-weight:700; border-top:1.8px solid var(--hair);">
+                  <td class="row-label">After (A)</td>
+                  <td>0 mol</td>
+                  <td>0 mol</td>
+                  <td>2.0 mol</td>
+                  <td>4.0 mol</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="diagram-cap">Before + Change = After. Because 2.0 mol CH<sub>4</sub> and 4.0 mol O<sub>2</sub> are in the exact 1:2 ratio, both reactants hit zero together &mdash; nothing is left over.</div>
+        </div>
       </div>
 
       <p class="step reveal" style="margin-top:1rem;">Notice that the Change row values (-2.0, -4.0, +2.0, +4.0) match the 1:2:1:2 coefficient ratio of the chemical equation. In chemistry, reactants are consumed, and products are built, in locked step.</p>

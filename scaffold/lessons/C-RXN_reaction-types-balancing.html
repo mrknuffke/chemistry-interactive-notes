@@ -363,58 +363,50 @@
       <h2>Five blueprints of rearrangement.</h2>
       <p class="step reveal" style="margin-top:1.5rem;">Rather than memorizing millions of unique chemical reactions, chemists categorize reactions into a few core blueprints. By looking at how the reactants are combined, you can predict what kind of products will form.</p>
       
-      <!-- Interactive Tabbed Card Deck V-crxn-02 -->
+      <!-- Five Reaction Blueprints, walked one at a time -->
       <div class="interactive reveal" id="rxn-types-card" style="margin-top: 1.5rem; margin-bottom: 2rem;">
         <div class="interactive-head">
           <span class="label">Five Reaction Blueprints</span>
-          <div class="tabs" id="types-tabs">
-            <button class="tab active" data-tab="synthesis">Synthesis</button>
-            <button class="tab" data-tab="decomp">Decomposition</button>
-            <button class="tab" data-tab="single">Single replacement</button>
-            <button class="tab" data-tab="double">Double replacement</button>
-            <button class="tab" data-tab="combustion">Combustion</button>
-            <button class="tab" data-tab="neutral">Neutralization (bonus)</button>
-          </div>
         </div>
 
-        <div class="tab-panels">
-          <!-- Panel 1: Synthesis -->
-          <div class="readout tab-panel" id="panel-synthesis">
+        <div class="figure figure--full" data-motion="step" data-step-count="6" data-step-labels="Synthesis|Decomposition|Single replacement|Double replacement|Combustion|Neutralization (bonus)">
+          <!-- Step 1: Synthesis -->
+          <div class="readout" data-step="1" style="width:100%;">
             <h4>Synthesis</h4>
             <p style="font-family:var(--mono); font-weight:700; font-size:1.1rem; margin-bottom:0.5rem; color:var(--ink);">A + B &rarr; AB</p>
             <p style="margin-bottom:0.5rem;"><strong>Example:</strong> 2 Mg + O₂ &rarr; 2 MgO</p>
             <p style="color:var(--ink-soft); font-style:italic;"><strong>Signature:</strong> Two things walk in, one thing walks out. Separate elements or simple compounds combine to make a single final compound.</p>
           </div>
-          <!-- Panel 2: Decomposition -->
-          <div class="readout tab-panel" id="panel-decomp" style="display:none;">
+          <!-- Step 2: Decomposition -->
+          <div class="readout" data-step="2" style="width:100%;">
             <h4>Decomposition</h4>
             <p style="font-family:var(--mono); font-weight:700; font-size:1.1rem; margin-bottom:0.5rem; color:var(--ink);">AB &rarr; A + B</p>
             <p style="margin-bottom:0.5rem;"><strong>Example:</strong> 2 H₂O₂ &rarr; 2 H₂O + O₂</p>
             <p style="color:var(--ink-soft); font-style:italic;"><strong>Signature:</strong> One reactant, multiple products &mdash; usually needs heat, electricity, or a spark to kick it apart.</p>
           </div>
-          <!-- Panel 3: Single Replacement -->
-          <div class="readout tab-panel" id="panel-single" style="display:none;">
+          <!-- Step 3: Single Replacement -->
+          <div class="readout" data-step="3" style="width:100%;">
             <h4>Single Replacement</h4>
             <p style="font-family:var(--mono); font-weight:700; font-size:1.1rem; margin-bottom:0.5rem; color:var(--ink);">A + BC &rarr; AC + B</p>
             <p style="margin-bottom:0.5rem;"><strong>Example:</strong> Zn + CuSO₄ &rarr; ZnSO₄ + Cu</p>
             <p style="color:var(--ink-soft); font-style:italic;"><strong>Signature:</strong> A lone element on each side of the arrow &mdash; one element shoves another out of its compound to take its place.</p>
           </div>
-          <!-- Panel 4: Double Replacement -->
-          <div class="readout tab-panel" id="panel-double" style="display:none;">
+          <!-- Step 4: Double Replacement -->
+          <div class="readout" data-step="4" style="width:100%;">
             <h4>Double Replacement</h4>
             <p style="font-family:var(--mono); font-weight:700; font-size:1.1rem; margin-bottom:0.5rem; color:var(--ink);">AB + CD &rarr; AD + CB</p>
             <p style="margin-bottom:0.5rem;"><strong>Example:</strong> AgNO₃ + NaCl &rarr; AgCl + NaNO₃</p>
             <p style="color:var(--ink-soft); font-style:italic;"><strong>Signature:</strong> Two compounds swap partners &mdash; positive ions change negative partners. Often watch for a solid <strong class="term">precipitate</strong> dropping out of solution.</p>
           </div>
-          <!-- Panel 5: Combustion -->
-          <div class="readout tab-panel" id="panel-combustion" style="display:none;">
+          <!-- Step 5: Combustion -->
+          <div class="readout" data-step="5" style="width:100%;">
             <h4>Combustion</h4>
             <p style="font-family:var(--mono); font-weight:700; font-size:1.1rem; margin-bottom:0.5rem; color:var(--ink);">fuel + O₂ &rarr; CO₂ + H₂O</p>
             <p style="margin-bottom:0.5rem;"><strong>Example:</strong> C₃H₈ + 5 O₂ &rarr; 3 CO₂ + 4 H₂O</p>
             <p style="color:var(--ink-soft); font-style:italic;"><strong>Signature:</strong> O₂ on the left, CO₂ and H₂O on the right. If those three appear and heat is released, it is combustion, full stop.</p>
           </div>
-          <!-- Panel 6: Acid-Base Neutralization -->
-          <div class="readout tab-panel" id="panel-neutral" style="display:none;">
+          <!-- Step 6: Acid-Base Neutralization -->
+          <div class="readout" data-step="6" style="width:100%;">
             <h4>Acid-Base Neutralization</h4>
             <p style="font-family:var(--mono); font-weight:700; font-size:1.1rem; margin-bottom:0.5rem; color:var(--ink);">acid + base &rarr; salt + water</p>
             <p style="margin-bottom:0.5rem;"><strong>Example:</strong> HCl + NaOH &rarr; NaCl + H₂O</p>
@@ -422,22 +414,6 @@
             <p style="color:var(--ink-mute); font-size:0.85rem; margin-top:0.5rem;">Naming this pattern "neutralization" is beyond this course's assessment boundary. You won't be asked to classify a reaction as neutralization specifically — but you should always recognize it as a <strong>double replacement</strong> underneath.</p>
           </div>
         </div>
-
-        <script>
-          document.addEventListener("DOMContentLoaded", () => {
-            const tabs = document.querySelectorAll("#types-tabs .tab");
-            const panels = document.querySelectorAll(".tab-panel");
-            tabs.forEach(tab => {
-              tab.addEventListener("click", () => {
-                tabs.forEach(t => t.classList.remove("active"));
-                panels.forEach(p => p.style.display = "none");
-                tab.classList.add("active");
-                const target = document.getElementById("panel-" + tab.dataset.tab);
-                if (target) target.style.display = "block";
-              });
-            });
-          });
-        </script>
       </div>
 
       <!-- Classification drill -->
