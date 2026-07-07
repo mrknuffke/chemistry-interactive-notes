@@ -41,42 +41,42 @@
 
     <div class="diagram reveal figure figure--full">
       <svg viewBox="0 0 560 200" role="img" aria-label="CO2 is linear with two dipole arrows pointing in opposite directions that cancel to a net dipole of zero. Water is bent with two dipole arrows converging toward oxygen, producing a net dipole that points toward oxygen.">
-        <line x1="280" y1="20" x2="280" y2="180" stroke="var(--hair-soft)" stroke-width="1" stroke-dasharray="3 3"/>
+        <line x1="280" y1="20" x2="280" y2="180" stroke="var(--hair-soft)" stroke-width="var(--dia-stroke)" stroke-dasharray="3 3"/>
 
         <!-- CO2 (left) -->
-        <circle cx="70" cy="100" r="17" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1.4"/>
-        <text x="70" y="104" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--ink)" text-anchor="middle">O</text>
-        <circle cx="140" cy="100" r="16" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1.4"/>
-        <text x="140" y="104" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--ink)" text-anchor="middle">C</text>
-        <circle cx="210" cy="100" r="17" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1.4"/>
-        <text x="210" y="104" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--ink)" text-anchor="middle">O</text>
+        <circle cx="70" cy="100" r="var(--dia-r-atom)" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+        <text x="70" y="104" font-family="var(--mono)" font-weight="700" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">O</text>
+        <circle cx="140" cy="100" r="var(--dia-r-atom)" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+        <text x="140" y="104" font-family="var(--mono)" font-weight="700" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">C</text>
+        <circle cx="210" cy="100" r="var(--dia-r-atom)" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+        <text x="210" y="104" font-family="var(--mono)" font-weight="700" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">O</text>
         <line x1="87" y1="96" x2="123" y2="96" stroke="var(--ink)" stroke-width="2"/>
         <line x1="87" y1="104" x2="123" y2="104" stroke="var(--ink)" stroke-width="2"/>
         <line x1="157" y1="96" x2="193" y2="96" stroke="var(--ink)" stroke-width="2"/>
         <line x1="157" y1="104" x2="193" y2="104" stroke="var(--ink)" stroke-width="2"/>
-        <text x="140" y="63" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--cool)" text-anchor="middle">&delta;+</text>
-        <text x="70" y="63" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--accent)" text-anchor="middle">&delta;&minus;</text>
-        <text x="210" y="63" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--accent)" text-anchor="middle">&delta;&minus;</text>
+        <text x="140" y="63" font-family="var(--mono)" font-weight="700" style="font-size:var(--dia-label-size)" fill="var(--cool)" text-anchor="middle">&delta;+</text>
+        <text x="70" y="63" font-family="var(--mono)" font-weight="700" style="font-size:var(--dia-label-size)" fill="var(--accent)" text-anchor="middle">&delta;&minus;</text>
+        <text x="210" y="63" font-family="var(--mono)" font-weight="700" style="font-size:var(--dia-label-size)" fill="var(--accent)" text-anchor="middle">&delta;&minus;</text>
         <line x1="128" y1="80" x2="92" y2="80" stroke="var(--accent)" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#hero-arr-l)"/>
         <line x1="152" y1="80" x2="188" y2="80" stroke="var(--accent)" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#hero-arr-r)"/>
-        <text x="140" y="150" font-family="var(--mono)" font-size="10" fill="var(--ink-mute)" text-anchor="middle">net dipole = 0</text>
+        <text x="140" y="150" font-family="var(--mono)" style="font-size:var(--dia-label-size)" fill="var(--ink-mute)" text-anchor="middle">net dipole = 0</text>
 
         <!-- H2O (right) -->
-        <circle cx="420" cy="55" r="17" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1.4"/>
-        <text x="420" y="59" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--ink)" text-anchor="middle">O</text>
-        <circle cx="372" cy="125" r="12" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/>
-        <text x="372" y="129" font-family="var(--mono)" font-weight="700" font-size="10" fill="var(--ink)" text-anchor="middle">H</text>
-        <circle cx="468" cy="125" r="12" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/>
-        <text x="468" y="129" font-family="var(--mono)" font-weight="700" font-size="10" fill="var(--ink)" text-anchor="middle">H</text>
+        <circle cx="420" cy="55" r="var(--dia-r-atom)" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+        <text x="420" y="59" font-family="var(--mono)" font-weight="700" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">O</text>
+        <circle cx="372" cy="125" r="var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+        <text x="372" y="129" font-family="var(--mono)" font-weight="700" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">H</text>
+        <circle cx="468" cy="125" r="var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+        <text x="468" y="129" font-family="var(--mono)" font-weight="700" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">H</text>
         <line x1="380" y1="116" x2="408" y2="66" stroke="var(--ink)" stroke-width="2"/>
         <line x1="460" y1="116" x2="432" y2="66" stroke="var(--ink)" stroke-width="2"/>
-        <text x="420" y="30" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--accent)" text-anchor="middle">&delta;&minus;</text>
-        <text x="360" y="146" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--cool)" text-anchor="middle">&delta;+</text>
-        <text x="480" y="146" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--cool)" text-anchor="middle">&delta;+</text>
+        <text x="420" y="30" font-family="var(--mono)" font-weight="700" style="font-size:var(--dia-label-size)" fill="var(--accent)" text-anchor="middle">&delta;&minus;</text>
+        <text x="360" y="146" font-family="var(--mono)" font-weight="700" style="font-size:var(--dia-label-size)" fill="var(--cool)" text-anchor="middle">&delta;+</text>
+        <text x="480" y="146" font-family="var(--mono)" font-weight="700" style="font-size:var(--dia-label-size)" fill="var(--cool)" text-anchor="middle">&delta;+</text>
         <line x1="382" y1="115" x2="410" y2="70" stroke="var(--accent)" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#hero-arr-h1)"/>
         <line x1="458" y1="115" x2="430" y2="70" stroke="var(--accent)" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#hero-arr-h2)"/>
         <line x1="420" y1="128" x2="420" y2="72" stroke="var(--accent)" stroke-width="2.6" marker-end="url(#hero-arr-net)"/>
-        <text x="420" y="156" font-family="var(--mono)" font-size="10" fill="var(--ink-mute)" text-anchor="middle">net dipole &ne; 0 &middot; points toward O</text>
+        <text x="420" y="156" font-family="var(--mono)" style="font-size:var(--dia-label-size)" fill="var(--ink-mute)" text-anchor="middle">net dipole &ne; 0 &middot; points toward O</text>
 
         <defs>
           <marker id="hero-arr-l" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" viewBox="0 0 6 6"><path d="M0 0 L6 3 L0 6 z" fill="var(--accent)"/></marker>
@@ -116,43 +116,43 @@
 
     <div class="diagram reveal figure figure--full">
       <svg viewBox="0 0 560 220" role="img" aria-label="Methane is symmetric with four bond pulls that cancel, giving a nonpolar molecule. Ammonia is pyramidal with a lone pair on nitrogen and three bond pulls that reinforce toward nitrogen, giving a polar molecule.">
-        <line x1="280" y1="20" x2="280" y2="200" stroke="var(--hair-soft)" stroke-width="1" stroke-dasharray="3 3"/>
+        <line x1="280" y1="20" x2="280" y2="200" stroke="var(--hair-soft)" stroke-width="var(--dia-stroke)" stroke-dasharray="3 3"/>
 
         <!-- CH4 (left) -->
-        <circle cx="140" cy="110" r="16" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1.4"/>
-        <text x="140" y="114" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--ink)" text-anchor="middle">C</text>
-        <circle cx="140" cy="52" r="12" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/>
-        <text x="140" y="56" font-family="var(--mono)" font-weight="700" font-size="10" fill="var(--ink)" text-anchor="middle">H</text>
-        <circle cx="140" cy="168" r="12" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/>
-        <text x="140" y="172" font-family="var(--mono)" font-weight="700" font-size="10" fill="var(--ink)" text-anchor="middle">H</text>
-        <circle cx="78" cy="110" r="12" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/>
-        <text x="78" y="114" font-family="var(--mono)" font-weight="700" font-size="10" fill="var(--ink)" text-anchor="middle">H</text>
-        <circle cx="202" cy="110" r="12" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/>
-        <text x="202" y="114" font-family="var(--mono)" font-weight="700" font-size="10" fill="var(--ink)" text-anchor="middle">H</text>
+        <circle cx="140" cy="110" r="var(--dia-r-atom)" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+        <text x="140" y="114" font-family="var(--mono)" font-weight="700" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">C</text>
+        <circle cx="140" cy="52" r="var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+        <text x="140" y="56" font-family="var(--mono)" font-weight="700" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">H</text>
+        <circle cx="140" cy="168" r="var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+        <text x="140" y="172" font-family="var(--mono)" font-weight="700" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">H</text>
+        <circle cx="78" cy="110" r="var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+        <text x="78" y="114" font-family="var(--mono)" font-weight="700" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">H</text>
+        <circle cx="202" cy="110" r="var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+        <text x="202" y="114" font-family="var(--mono)" font-weight="700" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">H</text>
         <line x1="140" y1="94" x2="140" y2="64" stroke="var(--ink)" stroke-width="2"/>
         <line x1="140" y1="126" x2="140" y2="156" stroke="var(--ink)" stroke-width="2"/>
         <line x1="124" y1="110" x2="90" y2="110" stroke="var(--ink)" stroke-width="2"/>
         <line x1="156" y1="110" x2="190" y2="110" stroke="var(--ink)" stroke-width="2"/>
-        <text x="140" y="200" font-family="var(--mono)" font-size="10" fill="var(--ink-mute)" text-anchor="middle">symmetric pulls cancel</text>
-        <text x="140" y="215" font-family="var(--mono)" font-size="10" fill="var(--ink-mute)" text-anchor="middle" font-weight="700">nonpolar overall &middot; LDF only</text>
+        <text x="140" y="200" font-family="var(--mono)" style="font-size:var(--dia-label-size)" fill="var(--ink-mute)" text-anchor="middle">symmetric pulls cancel</text>
+        <text x="140" y="215" font-family="var(--mono)" style="font-size:var(--dia-label-size)" fill="var(--ink-mute)" text-anchor="middle" font-weight="700">nonpolar overall &middot; LDF only</text>
 
         <!-- NH3 (right) -->
-        <circle cx="420" cy="82" r="16" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1.4"/>
-        <text x="420" y="86" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--ink)" text-anchor="middle">N</text>
-        <circle cx="412" cy="52" r="1.6" fill="var(--ink-mute)"/>
-        <circle cx="428" cy="52" r="1.6" fill="var(--ink-mute)"/>
-        <text x="420" y="40" font-family="var(--mono)" font-size="8" fill="var(--ink-mute)" text-anchor="middle">lone pair</text>
-        <circle cx="365" cy="152" r="12" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/>
-        <text x="365" y="156" font-family="var(--mono)" font-weight="700" font-size="10" fill="var(--ink)" text-anchor="middle">H</text>
-        <circle cx="420" cy="172" r="12" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/>
-        <text x="420" y="176" font-family="var(--mono)" font-weight="700" font-size="10" fill="var(--ink)" text-anchor="middle">H</text>
-        <circle cx="475" cy="152" r="12" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/>
-        <text x="475" y="156" font-family="var(--mono)" font-weight="700" font-size="10" fill="var(--ink)" text-anchor="middle">H</text>
+        <circle cx="420" cy="82" r="var(--dia-r-atom)" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+        <text x="420" y="86" font-family="var(--mono)" font-weight="700" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">N</text>
+        <circle cx="412" cy="52" r="var(--dia-r-particle)" fill="var(--ink-mute)"/>
+        <circle cx="428" cy="52" r="var(--dia-r-particle)" fill="var(--ink-mute)"/>
+        <text x="420" y="40" font-family="var(--mono)" style="font-size:var(--dia-caption-size)" fill="var(--ink-mute)" text-anchor="middle">lone pair</text>
+        <circle cx="365" cy="152" r="var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+        <text x="365" y="156" font-family="var(--mono)" font-weight="700" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">H</text>
+        <circle cx="420" cy="172" r="var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+        <text x="420" y="176" font-family="var(--mono)" font-weight="700" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">H</text>
+        <circle cx="475" cy="152" r="var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+        <text x="475" y="156" font-family="var(--mono)" font-weight="700" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">H</text>
         <line x1="373" y1="142" x2="406" y2="94" stroke="var(--ink)" stroke-width="2"/>
         <line x1="420" y1="160" x2="420" y2="98" stroke="var(--ink)" stroke-width="2"/>
         <line x1="467" y1="142" x2="434" y2="94" stroke="var(--ink)" stroke-width="2"/>
-        <text x="420" y="200" font-family="var(--mono)" font-size="10" fill="var(--ink-mute)" text-anchor="middle">pulls reinforce toward N</text>
-        <text x="420" y="215" font-family="var(--mono)" font-size="10" fill="var(--ink-mute)" text-anchor="middle" font-weight="700">polar overall &middot; dipole-dipole + H-bonding</text>
+        <text x="420" y="200" font-family="var(--mono)" style="font-size:var(--dia-label-size)" fill="var(--ink-mute)" text-anchor="middle">pulls reinforce toward N</text>
+        <text x="420" y="215" font-family="var(--mono)" style="font-size:var(--dia-label-size)" fill="var(--ink-mute)" text-anchor="middle" font-weight="700">polar overall &middot; dipole-dipole + H-bonding</text>
       </svg>
       <div class="diagram-cap">bond polarity + geometry = molecular polarity</div>
     </div>

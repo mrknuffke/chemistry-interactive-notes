@@ -16,7 +16,7 @@ A design-level pass on top of the (already-closed) bug fixes — a shared figure
 
 ---
 
-## 1a. Diagram standardization — IN PROGRESS (Phase 0–2 done, Phase 3–4 not started)
+## 1a. Diagram standardization — IN PROGRESS (Phase 0–2 done, Phase 3 underway, Phase 4 not started)
 
 **Spec:** [`DIAGRAM_STANDARDIZATION.md`](DIAGRAM_STANDARDIZATION.md). **Contract:** [`DIAGRAM_CONTRACT.md`](DIAGRAM_CONTRACT.md).
 
@@ -26,8 +26,9 @@ A design-level retrofit that fixes the "janky diagrams" problem at a deeper laye
 - **Phase 0 (audit)** — full harvest across all 12 lessons + their JS. Found the containment problem (B) was mostly already solved: 0 HTML-overlay-over-SVG violations anywhere. Found 2 genuine containment bugs (missing `viewBox`) and 1 color-consistency violation (a bespoke ~20-color hex palette in `2-7a.js`, isolated to that file). Radius/stroke/font-size are fragmented as the plan predicted (20+/12/17 distinct values).
 - **Phase 1 (B), scoped down per the audit** — fixed the 2 missing-viewBox bugs: `2-7a` `#moleculeCanvas` and `2-7c` `#particleCanvas` now have `viewBox="0 0 400 250"` (matching their existing 16:10 CSS aspect-ratio) + explicit `preserveAspectRatio`. Verified responsive at 900px and 375px widths. No other containment work was needed.
 - **Phase 2 (A), token layer** — added `--dia-r-particle`, `--dia-r-atom`, `--dia-stroke`, `--dia-stroke-bond`, `--dia-label-size`, `--dia-caption-size` to `tokens.css`, defaults from the Phase 0 harvest's most-common values. Adjusted from the plan's original template: one `--dia-unit` became two (`--dia-r-particle`/`--dia-r-atom` — the harvest showed a clear bimodal split, not one size), and the proposed per-element color tokens (`--dia-el-h`, `--dia-el-o`, …) were dropped — color is already consistently role-based via the existing `.d-*` classes and global palette, confirmed by the harvest (97%+ already `var(--token)`). No figures were touched this phase, per the plan's own constraint.
+- **Phase 3 (coordinate-scale retrofit), batch 1 of N — `2-7a`, `1-1b`, `1-2a`, `1-2b`.** Retrofitted every static and JS-driven diagram in these 4 files to the token layer (radius/stroke-width/font-size), and fixed `2-7a.js`'s bespoke hex palette in the same pass (per §Standing rule 1 note below — grouped since both are per-figure work on the same file). Also fixed `2-7a.js`'s Chlorine using `var(--good)` (green), a golden-rule-5 violation. Added a third radius token, `--dia-r-atom-sm` (5), discovered mid-retrofit: molecule ball-diagrams deliberately draw hydrogen smaller than its bonded atom, a real recurring pattern the original 2-token scale couldn't represent. Found and fixed a real cross-cutting bug: `font-size="var(--token)"` as a bare SVG presentation attribute is silently invalid in Chrome (falls back to the inherited 22px body font-size) — `r`/`stroke-width`/`fill` all resolve `var()` correctly as bare attributes, `font-size` does not. Documented in `DIAGRAM_CONTRACT.md` §9. Some radius values deliberately left un-retrofitted where they feed further JS arithmetic (bond-endpoint offsets) rather than being a final attribute value — `DIAGRAM_CONTRACT.md` §10. Verified every change via rendered screenshots (not just DOM/computed-style checks, per the font-size bug above) across all interactive states (bond-type modes, molecule presets).
 
-**Not started:** Phase 3 (coordinate-scale retrofit — walk each SVG onto a shared unit and wire the new tokens in) and Phase 4 (data-driven renderers). Also still open: fixing `2-7a.js`'s bespoke hex palette (flagged in `DIAGRAM_CONTRACT.md` §8, not yet fixed — natural to do alongside Phase 3 since it's the same kind of per-figure retrofit).
+**Not started:** the remaining ~8 lessons' worth of Phase 3 retrofit (1-1a, 1-3a, 1-3b, 2-2a, 2-7b, 2-7c, C-RXN, C-SPA), and Phase 4 (data-driven renderers).
 
 ---
 

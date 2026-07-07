@@ -177,17 +177,17 @@
           core.setAttribute('class', 'd-nuc');
           core.setAttribute('cx', x);
           core.setAttribute('cy', y);
-          core.setAttribute('r', 12);
+          core.setAttribute('r', 'var(--dia-r-atom)');
           core.setAttribute('fill', 'var(--paper-3)');
           core.setAttribute('stroke', 'var(--hair)');
           svg.appendChild(core);
-          
+
           const text = document.createElementNS(SVGNS, 'text');
           text.setAttribute('class', 'd-nuc-t');
           text.setAttribute('x', x);
           text.setAttribute('y', y + 3);
           text.setAttribute('text-anchor', 'middle');
-          text.setAttribute('font-size', '8');
+          text.style.fontSize = 'var(--dia-caption-size)';
           text.textContent = '+';
           svg.appendChild(text);
         });
@@ -207,11 +207,11 @@
         const dot = document.createElementNS(SVGNS, 'circle');
         dot.setAttribute('cx', e.x.toFixed(1));
         dot.setAttribute('cy', e.y.toFixed(1));
-        dot.setAttribute('r', 3);
+        dot.setAttribute('r', 'var(--dia-r-particle)');
         dot.setAttribute('fill', 'var(--accent)');
         svg.appendChild(dot);
       });
-      
+
       return;
     }
     
@@ -224,7 +224,7 @@
     nucA.setAttribute('class', 'd-nuc');
     nucA.setAttribute('cx', xA);
     nucA.setAttribute('cy', y);
-    nucA.setAttribute('r', 15);
+    nucA.setAttribute('r', 'var(--dia-r-atom)');
     nucA.setAttribute('fill', eA.kind === 'metal' ? 'var(--paper-3)' : 'var(--nucleus)');
     svg.appendChild(nucA);
 
@@ -233,7 +233,7 @@
     txtA.setAttribute('x', xA);
     txtA.setAttribute('y', y + 3);
     txtA.setAttribute('text-anchor', 'middle');
-    txtA.setAttribute('font-size', '10');
+    txtA.style.fontSize = 'var(--dia-label-size)';
     txtA.textContent = eA.sym;
     svg.appendChild(txtA);
 
@@ -242,7 +242,7 @@
     nucB.setAttribute('class', 'd-nuc');
     nucB.setAttribute('cx', xB);
     nucB.setAttribute('cy', y);
-    nucB.setAttribute('r', 15);
+    nucB.setAttribute('r', 'var(--dia-r-atom)');
     nucB.setAttribute('fill', eB.kind === 'metal' ? 'var(--paper-3)' : 'var(--nucleus)');
     svg.appendChild(nucB);
 
@@ -251,7 +251,7 @@
     txtB.setAttribute('x', xB);
     txtB.setAttribute('y', y + 3);
     txtB.setAttribute('text-anchor', 'middle');
-    txtB.setAttribute('font-size', '10');
+    txtB.style.fontSize = 'var(--dia-label-size)';
     txtB.textContent = eB.sym;
     svg.appendChild(txtB);
 
@@ -277,7 +277,7 @@
         const dot = document.createElementNS(SVGNS, 'circle');
         dot.setAttribute('cx', p[0].toFixed(1));
         dot.setAttribute('cy', p[1].toFixed(1));
-        dot.setAttribute('r', 4);
+        dot.setAttribute('r', 'var(--dia-r-particle)');
         dot.setAttribute('fill', 'var(--accent)');
         svg.appendChild(dot);
       });
@@ -308,7 +308,7 @@
         const dot = document.createElementNS(SVGNS, 'circle');
         dot.setAttribute('cx', p[0].toFixed(1));
         dot.setAttribute('cy', p[1].toFixed(1));
-        dot.setAttribute('r', 4);
+        dot.setAttribute('r', 'var(--dia-r-particle)');
         dot.setAttribute('fill', 'var(--accent)');
         svg.appendChild(dot);
       });
@@ -318,7 +318,7 @@
       dLabelA.setAttribute('x', xA - 32);
       dLabelA.setAttribute('y', y - 28);
       dLabelA.setAttribute('font-family', 'var(--mono)');
-      dLabelA.setAttribute('font-size', '11');
+      dLabelA.style.fontSize = 'var(--dia-label-size)';
       dLabelA.setAttribute('fill', isAHigher ? 'var(--accent)' : 'var(--cool)');
       dLabelA.textContent = isAHigher ? 'δ−' : 'δ+';
       svg.appendChild(dLabelA);
@@ -327,7 +327,7 @@
       dLabelB.setAttribute('x', xB + 20);
       dLabelB.setAttribute('y', y - 28);
       dLabelB.setAttribute('font-family', 'var(--mono)');
-      dLabelB.setAttribute('font-size', '11');
+      dLabelB.style.fontSize = 'var(--dia-label-size)';
       dLabelB.setAttribute('fill', isAHigher ? 'var(--cool)' : 'var(--accent)');
       dLabelB.textContent = isAHigher ? 'δ+' : 'δ−';
       svg.appendChild(dLabelB);
@@ -368,7 +368,7 @@
       const dot = document.createElementNS(SVGNS, 'circle');
       dot.setAttribute('cx', ex.toFixed(1));
       dot.setAttribute('cy', ey.toFixed(1));
-      dot.setAttribute('r', 4);
+      dot.setAttribute('r', 'var(--dia-r-particle)');
       dot.setAttribute('fill', 'var(--accent)');
       svg.appendChild(dot);
 

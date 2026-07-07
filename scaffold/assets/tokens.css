@@ -43,7 +43,7 @@
      --nucleus, --ink-mute, --accent) via the .d-* classes in
      components.css — no separate --dia-* color tokens; see
      DIAGRAM_CONTRACT.md. */
-  --dia-r-particle:2; --dia-r-atom:7.5;
+  --dia-r-particle:2; --dia-r-atom-sm:5; --dia-r-atom:7.5;
   --dia-stroke:1; --dia-stroke-bond:1.2;
   --dia-label-size:10; --dia-caption-size:7;
 }

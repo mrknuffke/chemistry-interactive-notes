@@ -51,37 +51,37 @@
     
     <div class="diagram reveal figure figure--full"><svg viewBox="0 0 400 160" role="img" aria-label="A diagram showing the electrostatic forces of attraction and repulsion between two hydrogen atoms.">
       <!-- Nucleus A -->
-      <circle class="d-nuc" cx="100" cy="80" r="13"/><text class="d-nuc-t" x="100" y="83" text-anchor="middle">1+</text>
-      <text class="d-label" x="100" y="112" font-size="11" text-anchor="middle">nucleus A</text>
-      
+      <circle class="d-nuc" cx="100" cy="80" r="var(--dia-r-atom)"/><text class="d-nuc-t" x="100" y="83" text-anchor="middle">1+</text>
+      <text class="d-label" x="100" y="112" style="font-size:var(--dia-label-size)" text-anchor="middle">nucleus A</text>
+
       <!-- Nucleus B -->
-      <circle class="d-nuc" cx="300" cy="80" r="13"/><text class="d-nuc-t" x="300" y="83" text-anchor="middle">1+</text>
-      <text class="d-label" x="300" y="112" font-size="11" text-anchor="middle">nucleus B</text>
-      
+      <circle class="d-nuc" cx="300" cy="80" r="var(--dia-r-atom)"/><text class="d-nuc-t" x="300" y="83" text-anchor="middle">1+</text>
+      <text class="d-label" x="300" y="112" style="font-size:var(--dia-label-size)" text-anchor="middle">nucleus B</text>
+
       <!-- Electron A -->
-      <circle class="d-particle" cx="150" cy="45" r="4.5"/>
-      <text class="d-sub" x="130" y="42" font-size="10" text-anchor="end">electron A</text>
-      
+      <circle class="d-particle" cx="150" cy="45" r="var(--dia-r-particle)"/>
+      <text class="d-sub" x="130" y="42" style="font-size:var(--dia-label-size)" text-anchor="end">electron A</text>
+
       <!-- Electron B -->
-      <circle class="d-particle" cx="250" cy="45" r="4.5"/>
-      <text class="d-sub" x="270" y="42" font-size="10" text-anchor="start">electron B</text>
-      
+      <circle class="d-particle" cx="250" cy="45" r="var(--dia-r-particle)"/>
+      <text class="d-sub" x="270" y="42" style="font-size:var(--dia-label-size)" text-anchor="start">electron B</text>
+
       <!-- Force Arrows (Attraction: Nucleus to opposite electron) -->
       <!-- Nuc A to e B -->
-      <path d="M112 73 L242 47" fill="none" stroke="var(--good)" stroke-width="1.2" stroke-dasharray="3 2" marker-end="url(#f-att)"/>
+      <path d="M112 73 L242 47" fill="none" stroke="var(--good)" stroke-width="var(--dia-stroke-bond)" stroke-dasharray="3 2" marker-end="url(#f-att)"/>
       <!-- Nuc B to e A -->
-      <path d="M288 73 L158 47" fill="none" stroke="var(--good)" stroke-width="1.2" stroke-dasharray="3 2" marker-end="url(#f-att)"/>
-      
+      <path d="M288 73 L158 47" fill="none" stroke="var(--good)" stroke-width="var(--dia-stroke-bond)" stroke-dasharray="3 2" marker-end="url(#f-att)"/>
+
       <!-- Force Arrows (Repulsion: Like charges) -->
       <!-- Nucleus to Nucleus -->
       <path d="M100 80 H 70" fill="none" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#f-rep)"/>
       <path d="M300 80 H 330" fill="none" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#f-rep)"/>
-      <text class="d-sub" x="200" y="96" font-size="9" text-anchor="middle" fill="var(--accent)">repulsion (nucleus-nucleus)</text>
-      
+      <text class="d-sub" x="200" y="96" style="font-size:var(--dia-label-size)" text-anchor="middle" fill="var(--accent)">repulsion (nucleus-nucleus)</text>
+
       <!-- Electron to Electron -->
       <path d="M145 45 H 125" fill="none" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#f-rep)"/>
       <path d="M255 45 H 275" fill="none" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#f-rep)"/>
-      <text class="d-sub" x="200" y="16" font-size="9" text-anchor="middle" fill="var(--good)">attraction (nucleus-electron)</text>
+      <text class="d-sub" x="200" y="16" style="font-size:var(--dia-label-size)" text-anchor="middle" fill="var(--good)">attraction (nucleus-electron)</text>
       
       <defs>
         <marker id="f-att" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" viewBox="0 0 6 6"><path d="M0 0 L6 3 L0 6 z" fill="var(--good)"/></marker>

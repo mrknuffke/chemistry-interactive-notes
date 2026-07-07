@@ -261,15 +261,20 @@
 
   function svgEl(tag, attrs, text) {
     const e = document.createElementNS(SVGNS, tag);
-    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    for (const k in attrs) {
+      // font-size as a bare presentation attribute silently ignores var() and
+      // falls back to the inherited page font-size -- must go through style.
+      if (k === 'font-size') e.style.fontSize = attrs[k];
+      else e.setAttribute(k, attrs[k]);
+    }
     if (text != null) e.textContent = text;
     svg.appendChild(e);
     return e;
   }
 
   function atom(cx, cy, r, label, heavy) {
-    svgEl('circle', { cx, cy, r, fill: heavy ? 'var(--paper-3)' : 'var(--paper)', stroke: 'var(--ink)', 'stroke-width': 1.3 });
-    svgEl('text', { x: cx, y: cy + 4, 'text-anchor': 'middle', 'font-family': 'var(--mono)', 'font-weight': 700, 'font-size': r > 14 ? 12 : 10, fill: 'var(--ink)' }, label);
+    svgEl('circle', { cx, cy, r, fill: heavy ? 'var(--paper-3)' : 'var(--paper)', stroke: 'var(--ink)', 'stroke-width': 'var(--dia-stroke-bond)' });
+    svgEl('text', { x: cx, y: cy + 4, 'text-anchor': 'middle', 'font-family': 'var(--mono)', 'font-weight': 700, 'font-size': 'var(--dia-label-size)', fill: 'var(--ink)' }, label);
   }
 
   function bond(x1, y1, x2, y2, double) {
@@ -284,7 +289,7 @@
   }
 
   function delta(x, y, sign) {
-    svgEl('text', { x, y, 'text-anchor': 'middle', 'font-family': 'var(--mono)', 'font-weight': 700, 'font-size': 12, fill: sign === '+' ? 'var(--cool)' : 'var(--accent)' }, 'δ' + sign);
+    svgEl('text', { x, y, 'text-anchor': 'middle', 'font-family': 'var(--mono)', 'font-weight': 700, 'font-size': 'var(--dia-label-size)', fill: sign === '+' ? 'var(--cool)' : 'var(--accent)' }, 'δ' + sign);
   }
 
   let arrowSeq = 0;
@@ -317,7 +322,7 @@
   }
 
   function caption(x, y, text, bold) {
-    svgEl('text', { x, y, 'text-anchor': 'middle', 'font-family': 'var(--mono)', 'font-size': 10, 'font-weight': bold ? 700 : 400, fill: 'var(--ink-mute)' }, text);
+    svgEl('text', { x, y, 'text-anchor': 'middle', 'font-family': 'var(--mono)', 'font-size': 'var(--dia-label-size)', 'font-weight': bold ? 700 : 400, fill: 'var(--ink-mute)' }, text);
   }
 
   function drawO2(level) {

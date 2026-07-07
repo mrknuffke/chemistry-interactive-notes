@@ -47,7 +47,7 @@
       svg.appendChild(ring); rings.push(ring);
       for (let e = 0; e < cnt; e++) {
         const dot = document.createElementNS(SVGNS, 'circle');
-        dot.setAttribute('class', 'atom-e'); dot.setAttribute('r', 5);
+        dot.setAttribute('class', 'atom-e'); dot.setAttribute('r', 'var(--dia-r-particle)');
         svg.appendChild(dot);
         electrons.push({ el: dot, shell: i, base: (2 * Math.PI / cnt) * e - Math.PI / 2 });
       }
