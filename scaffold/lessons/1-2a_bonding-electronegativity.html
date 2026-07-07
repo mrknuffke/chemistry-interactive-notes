@@ -73,9 +73,9 @@
       <path d="M288 73 L158 47" fill="none" stroke="var(--good)" stroke-width="var(--dia-stroke-bond)" stroke-dasharray="3 2" marker-end="url(#f-att)"/>
 
       <!-- Force Arrows (Repulsion: Like charges) -->
-      <!-- Nucleus to Nucleus -->
-      <path d="M100 80 H 70" fill="none" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#f-rep)"/>
-      <path d="M300 80 H 330" fill="none" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#f-rep)"/>
+      <!-- Nucleus to Nucleus: start outside the r=7.5 nucleus circle so the arrow doesn't cut through the "1+" charge label drawn on top of it -->
+      <path d="M91 80 H 70" fill="none" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#f-rep)"/>
+      <path d="M309 80 H 330" fill="none" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#f-rep)"/>
       <text class="d-sub" x="200" y="96" style="font-size:var(--dia-label-size)" text-anchor="middle" fill="var(--accent)">repulsion (nucleus-nucleus)</text>
 
       <!-- Electron to Electron -->
@@ -127,7 +127,29 @@
         <p><strong>Delocalized sea.</strong> Two metal atoms (both low EN). Neither atom holds its outer electrons tightly, so they let go. The valence electrons float free among a grid of positive metal cores. This shared attraction is a <strong class="term">metallic bond</strong>, and the electrons form a delocalized <strong class="term">sea of electrons</strong>.</p>
       </div>
     </div>
-    
+
+    <p class="reveal" style="margin-top:1.5rem;">Those four categories aren't four separate rules — they're checkpoints along one continuous slide. Drag &Delta;<span class="chem">EN</span> below and watch the same shared electron cloud shift from centered, to lopsided, to gone.</p>
+    <div class="reveal figure figure--md" data-motion="scrub" data-scrub-fn="den-cloud" data-scrub-min="0" data-scrub-max="3.5" data-scrub-step="0.05" data-scrub-value="0" data-scrub-label="&Delta;EN" data-scrub-marks="0.5:polar threshold|1.7:ionic threshold">
+      <div style="margin: 0 auto 1rem; text-align: center;">
+        <svg viewBox="0 0 200 100" style="width: 100%; border: 1px solid var(--hair-soft); background: var(--paper-2); border-radius: 4px;">
+          <defs>
+            <radialGradient id="cloudGrad12a" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.8"/>
+              <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <circle class="cloud-gradient" cx="50%" cy="50%" r="40" fill="url(#cloudGrad12a)"/>
+          <circle class="atom-l" cx="50" cy="50" r="15" fill="var(--card)" stroke="var(--ink)" stroke-width="2"/>
+          <text class="charge-l" x="50" y="55" text-anchor="middle" font-family="var(--mono)" font-size="12" fill="var(--accent)"></text>
+          <text x="50" y="30" text-anchor="middle" font-family="var(--display)" font-weight="700" font-size="10">A</text>
+          <circle class="atom-r" cx="150" cy="50" r="15" fill="var(--card)" stroke="var(--ink)" stroke-width="2"/>
+          <text class="charge-r" x="150" y="55" text-anchor="middle" font-family="var(--mono)" font-size="12" fill="var(--accent)"></text>
+          <text x="150" y="30" text-anchor="middle" font-family="var(--display)" font-weight="700" font-size="10">B</text>
+        </svg>
+      </div>
+      <div class="diagram-cap">the cloud drifts toward whichever atom pulls harder &mdash; past 1.7 it stops sharing and the charges go from &delta; to full</div>
+    </div>
+
     <div class="next-cue"><button class="next-btn" data-next>Explore the explorer <span class="chev">↓</span></button></div>
   </div>
 </section>

@@ -1952,6 +1952,37 @@
     }
   };
 
+  window.GC_SCRUB_FN['imf-cooling-curve'] = function (container, value) {
+    const svg = container.querySelector('svg');
+    const curve = svg ? svg.querySelector('.imf-curve') : null;
+    const label = svg ? svg.querySelector('.imf-curve-label') : null;
+    if (!curve) return;
+
+    const t = Math.max(0, Math.min(100, value)) / 100;
+    // Interpolates between hexane's steep drop (t=0) and water's shallow drop (t=1)
+    const endY = 172 - t * (172 - 95);
+    const midY = 130 - t * (130 - 90);
+    curve.setAttribute('d', `M50 80 Q 150 ${midY.toFixed(1)}, 350 ${endY.toFixed(1)}`);
+
+    let regime, color;
+    if (value < 33) {
+      regime = 'London dispersion only — weak, fast evaporation';
+      color = 'var(--accent)';
+    } else if (value < 67) {
+      regime = 'Dipole-dipole — moderate';
+      color = 'var(--ink-soft)';
+    } else {
+      regime = 'Hydrogen bonding — strong, slow evaporation';
+      color = 'var(--cool)';
+    }
+    curve.setAttribute('stroke', color);
+    if (label) {
+      label.setAttribute('y', (endY - 8).toFixed(1));
+      label.setAttribute('fill', color);
+      label.textContent = regime;
+    }
+  };
+
   /* ============================================================
      PRINT / PDF EXPORT — see INTERACTION_SPEC.md §3.5
      ============================================================ */

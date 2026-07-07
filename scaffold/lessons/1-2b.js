@@ -288,6 +288,16 @@
     }
   }
 
+  // Draws a bond between two atom CENTERS, stopping at each atom's edge (radius)
+  // instead of running under the circle/label -- use whenever the two atoms
+  // aren't already pre-offset by hand (only O2/HCl/CO2 do that manually, and
+  // only because their bonds happen to be horizontal).
+  function bondBetween(x1, y1, r1, x2, y2, r2, double) {
+    const dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy) || 1;
+    const ux = dx / len, uy = dy / len;
+    bond(x1 + ux * r1, y1 + uy * r1, x2 - ux * r2, y2 - uy * r2, double);
+  }
+
   function delta(x, y, sign) {
     svgEl('text', { x, y, 'text-anchor': 'middle', 'font-family': 'var(--mono)', 'font-weight': 700, 'font-size': 'var(--dia-label-size)', fill: sign === '+' ? 'var(--cool)' : 'var(--accent)' }, 'δ' + sign);
   }
@@ -378,8 +388,8 @@
     atom(ox, oy, 17, 'O', true);
     atom(h1x, h1y, 13, 'H', false);
     atom(h2x, h2y, 13, 'H', false);
-    bond(h1x, h1y, ox, oy, false);
-    bond(h2x, h2y, ox, oy, false);
+    bondBetween(h1x, h1y, 13, ox, oy, 17, false);
+    bondBetween(h2x, h2y, 13, ox, oy, 17, false);
     if (level === 'bond' || level === 'verdict') {
       delta(ox, oy - 24, '−');
       delta(h1x - 12, h1y + 18, '+');
@@ -399,7 +409,7 @@
     const cx = 160, cy = 105;
     atom(cx, cy, 16, 'C', true);
     const hs = [[cx, cy - 55], [cx, cy + 55], [cx - 55, cy], [cx + 55, cy]];
-    hs.forEach(([hx, hy]) => { bond(cx, cy, hx, hy, false); });
+    hs.forEach(([hx, hy]) => { bondBetween(cx, cy, 16, hx, hy, 12, false); });
     hs.forEach(([hx, hy]) => { atom(hx, hy, 12, 'H', false); });
     if (level === 'verdict') {
       hs.forEach(([hx, hy]) => {

@@ -378,7 +378,7 @@
       chargeA.setAttribute('y', y - 25);
       chargeA.setAttribute('font-family', 'var(--display)');
       chargeA.setAttribute('font-weight', '700');
-      chargeA.setAttribute('font-size', '13');
+      chargeA.style.fontSize = '13px';
       chargeA.setAttribute('fill', eA.kind === 'metal' ? 'var(--cool)' : 'var(--accent)');
       chargeA.textContent = eA.kind === 'metal' ? '+' : '−';
       svg.appendChild(chargeA);
@@ -388,7 +388,7 @@
       chargeB.setAttribute('y', y - 25);
       chargeB.setAttribute('font-family', 'var(--display)');
       chargeB.setAttribute('font-weight', '700');
-      chargeB.setAttribute('font-size', '13');
+      chargeB.style.fontSize = '13px';
       chargeB.setAttribute('fill', eB.kind === 'metal' ? 'var(--cool)' : 'var(--accent)');
       chargeB.textContent = eB.kind === 'metal' ? '+' : '−';
       svg.appendChild(chargeB);

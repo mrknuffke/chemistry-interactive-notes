@@ -106,7 +106,7 @@ Primitive (replace the six wrappers in `components.css`):
 | Lesson | Static snapshot that should move | Primitive |
 |---|---|---|
 | 1-1a | electron-shell filling (already has one step; add shell-by-shell fill) | `step` |
-| 1-1b | trend across period / down group | `scrub` |
+| 1-1b | trend across period / down group | `scrub` — **SKIPPED 2026-07-07**: the reference-build lesson already has two rich bespoke interactives covering this (the `s-atom` period/group Bohr stepper and the `s-explorer` tap-to-compare heat-map); author decided not to retrofit them onto the shared scrub primitive or touch the lesson this pass. The one true T0 static diagram (the `s-reactivity` metallic/nonmetallic compass) was identified as a real scrub candidate but deferred along with the rest. |
 | 1-2a | bond character as ΔEN varies (ionic → polar → nonpolar) | `scrub` |
 | 1-2b | dipole vectors summing to net polarity | `step` |
 | 1-3a | Lewis structure built atom-by-atom, octet checked per step | `step` |
