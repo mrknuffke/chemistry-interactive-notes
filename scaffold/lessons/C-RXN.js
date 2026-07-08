@@ -67,7 +67,11 @@ document.addEventListener("DOMContentLoaded", () => {
   function createSVGElement(tag, attrs) {
     const el = document.createElementNS(svgNS, tag);
     for (let k in attrs) {
-      el.setAttribute(k, attrs[k]);
+      if (k === 'font-size') {
+        el.style.fontSize = attrs[k];
+      } else {
+        el.setAttribute(k, attrs[k]);
+      }
     }
     return el;
   }
@@ -75,13 +79,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // Molecule drawings
   function drawH2(cx, cy) {
     const g = createSVGElement("g", { transform: `translate(${cx}, ${cy})` });
-    g.appendChild(createSVGElement("line", { x1: -5, y1: 0, x2: 5, y2: 0, stroke: "var(--ink-mute)", "stroke-width": 1 }));
+    g.appendChild(createSVGElement("line", { x1: -5, y1: 0, x2: 5, y2: 0, stroke: "var(--ink-mute)", "stroke-width": "var(--dia-stroke)" }));
     
     [-5, 5].forEach(x => {
-      g.appendChild(createSVGElement("circle", { cx: x, cy: 0, r: 3.5, fill: "#ffffff", stroke: "var(--ink)", "stroke-width": 0.8 }));
+      g.appendChild(createSVGElement("circle", { cx: x, cy: 0, r: "var(--dia-r-atom-sm)", fill: "#ffffff", stroke: "var(--ink)", "stroke-width": "var(--dia-stroke)" }));
       const text = createSVGElement("text", {
         x: x, y: 2.2, "text-anchor": "middle",
-        fill: "var(--ink)", "font-family": "var(--mono)", "font-size": "6px", "font-weight": "700"
+        fill: "var(--ink)", "font-family": "var(--mono)", "font-size": "var(--dia-caption-size)", "font-weight": "700"
       });
       text.textContent = "H";
       g.appendChild(text);
@@ -91,14 +95,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function drawO2(cx, cy) {
     const g = createSVGElement("g", { transform: `translate(${cx}, ${cy})` });
-    g.appendChild(createSVGElement("line", { x1: -6, y1: -1.2, x2: 6, y2: -1.2, stroke: "var(--ink-mute)", "stroke-width": 0.8 }));
-    g.appendChild(createSVGElement("line", { x1: -6, y1: 1.2, x2: 6, y2: 1.2, stroke: "var(--ink-mute)", "stroke-width": 0.8 }));
+    g.appendChild(createSVGElement("line", { x1: -6, y1: -1.2, x2: 6, y2: -1.2, stroke: "var(--ink-mute)", "stroke-width": "var(--dia-stroke)" }));
+    g.appendChild(createSVGElement("line", { x1: -6, y1: 1.2, x2: 6, y2: 1.2, stroke: "var(--ink-mute)", "stroke-width": "var(--dia-stroke)" }));
 
     [-6, 6].forEach(x => {
-      g.appendChild(createSVGElement("circle", { cx: x, cy: 0, r: 6.2, fill: "var(--accent)", stroke: "var(--ink)", "stroke-width": 1 }));
+      g.appendChild(createSVGElement("circle", { cx: x, cy: 0, r: "var(--dia-r-atom)", fill: "var(--accent)", stroke: "var(--ink)", "stroke-width": "var(--dia-stroke)" }));
       const text = createSVGElement("text", {
         x: x, y: 2.2, "text-anchor": "middle",
-        fill: "#ffffff", "font-family": "var(--mono)", "font-size": "6.5px", "font-weight": "700"
+        fill: "#ffffff", "font-family": "var(--mono)", "font-size": "var(--dia-caption-size)", "font-weight": "700"
       });
       text.textContent = "O";
       g.appendChild(text);
@@ -109,15 +113,15 @@ document.addEventListener("DOMContentLoaded", () => {
   function drawN2(cx, cy) {
     const g = createSVGElement("g", { transform: `translate(${cx}, ${cy})` });
     // Triple bond
-    g.appendChild(createSVGElement("line", { x1: -6, y1: -2, x2: 6, y2: -2, stroke: "var(--ink-mute)", "stroke-width": 0.8 }));
-    g.appendChild(createSVGElement("line", { x1: -6, y1: 0, x2: 6, y2: 0, stroke: "var(--ink-mute)", "stroke-width": 0.8 }));
-    g.appendChild(createSVGElement("line", { x1: -6, y1: 2, x2: 6, y2: 2, stroke: "var(--ink-mute)", "stroke-width": 0.8 }));
+    g.appendChild(createSVGElement("line", { x1: -6, y1: -2, x2: 6, y2: -2, stroke: "var(--ink-mute)", "stroke-width": "var(--dia-stroke)" }));
+    g.appendChild(createSVGElement("line", { x1: -6, y1: 0, x2: 6, y2: 0, stroke: "var(--ink-mute)", "stroke-width": "var(--dia-stroke)" }));
+    g.appendChild(createSVGElement("line", { x1: -6, y1: 2, x2: 6, y2: 2, stroke: "var(--ink-mute)", "stroke-width": "var(--dia-stroke)" }));
 
     [-6, 6].forEach(x => {
-      g.appendChild(createSVGElement("circle", { cx: x, cy: 0, r: 6.5, fill: "#3498db", stroke: "var(--ink)", "stroke-width": 1 }));
+      g.appendChild(createSVGElement("circle", { cx: x, cy: 0, r: "var(--dia-r-atom)", fill: "var(--ink-mute)", stroke: "var(--ink)", "stroke-width": "var(--dia-stroke)" }));
       const text = createSVGElement("text", {
         x: x, y: 2.2, "text-anchor": "middle",
-        fill: "#ffffff", "font-family": "var(--mono)", "font-size": "7px", "font-weight": "700"
+        fill: "#ffffff", "font-family": "var(--mono)", "font-size": "var(--dia-caption-size)", "font-weight": "700"
       });
       text.textContent = "N";
       g.appendChild(text);
@@ -127,24 +131,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function drawH2O(cx, cy) {
     const g = createSVGElement("g", { transform: `translate(${cx}, ${cy})` });
-    g.appendChild(createSVGElement("line", { x1: 0, y1: -2, x2: -7, y2: 5, stroke: "var(--ink-mute)", "stroke-width": 0.8 }));
-    g.appendChild(createSVGElement("line", { x1: 0, y1: -2, x2: 7, y2: 5, stroke: "var(--ink-mute)", "stroke-width": 0.8 }));
+    g.appendChild(createSVGElement("line", { x1: 0, y1: -2, x2: -7, y2: 5, stroke: "var(--ink-mute)", "stroke-width": "var(--dia-stroke)" }));
+    g.appendChild(createSVGElement("line", { x1: 0, y1: -2, x2: 7, y2: 5, stroke: "var(--ink-mute)", "stroke-width": "var(--dia-stroke)" }));
 
     // Oxygen
-    g.appendChild(createSVGElement("circle", { cx: 0, cy: -2, r: 6.2, fill: "var(--accent)", stroke: "var(--ink)", "stroke-width": 1 }));
+    g.appendChild(createSVGElement("circle", { cx: 0, cy: -2, r: "var(--dia-r-atom)", fill: "var(--accent)", stroke: "var(--ink)", "stroke-width": "var(--dia-stroke)" }));
     const textO = createSVGElement("text", {
       x: 0, y: 0.2, "text-anchor": "middle",
-      fill: "#ffffff", "font-family": "var(--mono)", "font-size": "6.5px", "font-weight": "700"
+      fill: "#ffffff", "font-family": "var(--mono)", "font-size": "var(--dia-caption-size)", "font-weight": "700"
     });
     textO.textContent = "O";
     g.appendChild(textO);
 
     // Hydrogens
     [-7, 7].forEach(x => {
-      g.appendChild(createSVGElement("circle", { cx: x, cy: 5, r: 3.5, fill: "#ffffff", stroke: "var(--ink)", "stroke-width": 0.8 }));
+      g.appendChild(createSVGElement("circle", { cx: x, cy: 5, r: "var(--dia-r-atom-sm)", fill: "#ffffff", stroke: "var(--ink)", "stroke-width": "var(--dia-stroke)" }));
       const textH = createSVGElement("text", {
         x: x, y: 7.2, "text-anchor": "middle",
-        fill: "var(--ink)", "font-family": "var(--mono)", "font-size": "6px", "font-weight": "700"
+        fill: "var(--ink)", "font-family": "var(--mono)", "font-size": "var(--dia-caption-size)", "font-weight": "700"
       });
       textH.textContent = "H";
       g.appendChild(textH);
@@ -154,15 +158,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function drawNH3(cx, cy) {
     const g = createSVGElement("g", { transform: `translate(${cx}, ${cy})` });
-    g.appendChild(createSVGElement("line", { x1: 0, y1: -2, x2: -8, y2: 6, stroke: "var(--ink-mute)", "stroke-width": 0.8 }));
-    g.appendChild(createSVGElement("line", { x1: 0, y1: -2, x2: 8, y2: 6, stroke: "var(--ink-mute)", "stroke-width": 0.8 }));
-    g.appendChild(createSVGElement("line", { x1: 0, y1: -2, x2: 0, y2: 8, stroke: "var(--ink-mute)", "stroke-width": 0.8 }));
+    g.appendChild(createSVGElement("line", { x1: 0, y1: -2, x2: -8, y2: 6, stroke: "var(--ink-mute)", "stroke-width": "var(--dia-stroke)" }));
+    g.appendChild(createSVGElement("line", { x1: 0, y1: -2, x2: 8, y2: 6, stroke: "var(--ink-mute)", "stroke-width": "var(--dia-stroke)" }));
+    g.appendChild(createSVGElement("line", { x1: 0, y1: -2, x2: 0, y2: 8, stroke: "var(--ink-mute)", "stroke-width": "var(--dia-stroke)" }));
 
     // Nitrogen
-    g.appendChild(createSVGElement("circle", { cx: 0, cy: -2, r: 6.5, fill: "#3498db", stroke: "var(--ink)", "stroke-width": 1 }));
+    g.appendChild(createSVGElement("circle", { cx: 0, cy: -2, r: "var(--dia-r-atom)", fill: "var(--ink-mute)", stroke: "var(--ink)", "stroke-width": "var(--dia-stroke)" }));
     const textN = createSVGElement("text", {
       x: 0, y: 0.2, "text-anchor": "middle",
-      fill: "#ffffff", "font-family": "var(--mono)", "font-size": "7px", "font-weight": "700"
+      fill: "#ffffff", "font-family": "var(--mono)", "font-size": "var(--dia-caption-size)", "font-weight": "700"
     });
     textN.textContent = "N";
     g.appendChild(textN);
@@ -170,10 +174,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Hydrogens
     const hPositions = [{ x: -8, y: 6 }, { x: 8, y: 6 }, { x: 0, y: 8 }];
     hPositions.forEach(p => {
-      g.appendChild(createSVGElement("circle", { cx: p.x, cy: p.y, r: 3.5, fill: "#ffffff", stroke: "var(--ink)", "stroke-width": 0.8 }));
+      g.appendChild(createSVGElement("circle", { cx: p.x, cy: p.y, r: "var(--dia-r-atom-sm)", fill: "#ffffff", stroke: "var(--ink)", "stroke-width": "var(--dia-stroke)" }));
       const textH = createSVGElement("text", {
         x: p.x, y: p.y + 2.2, "text-anchor": "middle",
-        fill: "var(--ink)", "font-family": "var(--mono)", "font-size": "6px", "font-weight": "700"
+        fill: "var(--ink)", "font-family": "var(--mono)", "font-size": "var(--dia-caption-size)", "font-weight": "700"
       });
       textH.textContent = "H";
       g.appendChild(textH);
@@ -308,11 +312,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 2. Base structure (Pillar, Base, Pivot) - Static
     // Pillar
-    canvas.appendChild(createSVGElement("line", { x1: 200, y1: 100, x2: 200, y2: 240, stroke: "var(--ink-mute)", "stroke-width": 3.5 }));
+    canvas.appendChild(createSVGElement("line", { x1: 200, y1: 100, x2: 200, y2: 240, class: "d-wall", stroke: "var(--ink-mute)" }));
     // Base plate
-    canvas.appendChild(createSVGElement("line", { x1: 140, y1: 240, x2: 260, y2: 240, stroke: "var(--ink)", "stroke-width": 4 }));
+    canvas.appendChild(createSVGElement("line", { x1: 140, y1: 240, x2: 260, y2: 240, class: "d-wall" }));
     // Center Pivot joint
-    canvas.appendChild(createSVGElement("circle", { cx: 200, cy: 100, r: 6, fill: "var(--accent)", stroke: "var(--ink)", "stroke-width": 1.5 }));
+    canvas.appendChild(createSVGElement("circle", { cx: 200, cy: 100, r: "var(--dia-r-atom-sm)", fill: "var(--accent)", stroke: "var(--ink)", "stroke-width": "var(--dia-stroke-bond)" }));
 
     // 3. Calculate dynamic pivot end coordinates for the beam bar (half-width = 110)
     const beamHalf = 110;
@@ -325,12 +329,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // Draw main rotating beam bar
     canvas.appendChild(createSVGElement("line", {
       x1: lx, y1: ly, x2: rx, y2: ry,
-      stroke: "var(--ink)", "stroke-width": 2.5
+      class: "d-wall"
     }));
 
     // Hanger loops at endpoints
-    canvas.appendChild(createSVGElement("circle", { cx: lx, cy: ly, r: 3, fill: "none", stroke: "var(--ink)", "stroke-width": 1.2 }));
-    canvas.appendChild(createSVGElement("circle", { cx: rx, cy: ry, r: 3, fill: "none", stroke: "var(--ink)", "stroke-width": 1.2 }));
+    canvas.appendChild(createSVGElement("circle", { cx: lx, cy: ly, r: "var(--dia-r-particle)", fill: "none", stroke: "var(--ink)", "stroke-width": "var(--dia-stroke-bond)" }));
+    canvas.appendChild(createSVGElement("circle", { cx: rx, cy: ry, r: "var(--dia-r-particle)", fill: "none", stroke: "var(--ink)", "stroke-width": "var(--dia-stroke-bond)" }));
 
     // 4. Render Left Pan (reactants) - hangs vertically from (lx, ly)
     const panH = 75; // vertical hanging length of strings
@@ -338,24 +342,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const leftPlateY = ly + panH;
 
     // Hanging strings
-    canvas.appendChild(createSVGElement("line", { x1: lx, y1: ly, x2: lx - panW, y2: leftPlateY, stroke: "var(--ink-soft)", "stroke-width": 1 }));
-    canvas.appendChild(createSVGElement("line", { x1: lx, y1: ly, x2: lx + panW, y2: leftPlateY, stroke: "var(--ink-soft)", "stroke-width": 1 }));
+    canvas.appendChild(createSVGElement("line", { x1: lx, y1: ly, x2: lx - panW, y2: leftPlateY, stroke: "var(--ink-soft)", "stroke-width": "var(--dia-stroke)" }));
+    canvas.appendChild(createSVGElement("line", { x1: lx, y1: ly, x2: lx + panW, y2: leftPlateY, stroke: "var(--ink-soft)", "stroke-width": "var(--dia-stroke)" }));
     // Pan plate
     canvas.appendChild(createSVGElement("path", {
       d: `M ${lx - panW - 5} ${leftPlateY} L ${lx + panW + 5} ${leftPlateY} C ${lx + panW} ${leftPlateY + 6}, ${lx - panW} ${leftPlateY + 6}, ${lx - panW - 5} ${leftPlateY} Z`,
-      fill: "var(--paper-2)", stroke: "var(--ink)", "stroke-width": 1.5
+      fill: "var(--paper-2)", stroke: "var(--ink)", "stroke-width": "var(--dia-stroke-bond)"
     }));
 
     // 5. Render Right Pan (products) - hangs vertically from (rx, ry)
     const rightPlateY = ry + panH;
 
     // Hanging strings
-    canvas.appendChild(createSVGElement("line", { x1: rx, y1: ry, x2: rx - panW, y2: rightPlateY, stroke: "var(--ink-soft)", "stroke-width": 1 }));
-    canvas.appendChild(createSVGElement("line", { x1: rx, y1: ry, x2: rx + panW, y2: rightPlateY, stroke: "var(--ink-soft)", "stroke-width": 1 }));
+    canvas.appendChild(createSVGElement("line", { x1: rx, y1: ry, x2: rx - panW, y2: rightPlateY, stroke: "var(--ink-soft)", "stroke-width": "var(--dia-stroke)" }));
+    canvas.appendChild(createSVGElement("line", { x1: rx, y1: ry, x2: rx + panW, y2: rightPlateY, stroke: "var(--ink-soft)", "stroke-width": "var(--dia-stroke)" }));
     // Pan plate
     canvas.appendChild(createSVGElement("path", {
       d: `M ${rx - panW - 5} ${rightPlateY} L ${rx + panW + 5} ${rightPlateY} C ${rx + panW} ${rightPlateY + 6}, ${rx - panW} ${rightPlateY + 6}, ${rx - panW - 5} ${rightPlateY} Z`,
-      fill: "var(--paper-2)", stroke: "var(--ink)", "stroke-width": 1.5
+      fill: "var(--paper-2)", stroke: "var(--ink)", "stroke-width": "var(--dia-stroke-bond)"
     }));
 
     // 6. Populate Left Pan molecules (Reactants)
@@ -451,11 +455,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const gSuccess = createSVGElement("g", { transform: "translate(200, 48)" });
       gSuccess.appendChild(createSVGElement("rect", {
         x: -42, y: -10, width: 84, height: 20, rx: 3,
-        fill: "var(--good-soft)", stroke: "var(--good)", "stroke-width": 1.2
+        fill: "var(--good-soft)", stroke: "var(--good)", "stroke-width": "var(--dia-stroke-bond)"
       }));
       const text = createSVGElement("text", {
         x: 0, y: 4.5, "text-anchor": "middle",
-        fill: "var(--good)", "font-family": "var(--display)", "font-weight": "800", "font-size": "9.5px", "letter-spacing": "0.05em"
+        fill: "var(--good)", "font-family": "var(--display)", "font-weight": "800", "font-size": "var(--dia-label-size)", "letter-spacing": "0.05em"
       });
       text.textContent = "BALANCED!";
       gSuccess.appendChild(text);

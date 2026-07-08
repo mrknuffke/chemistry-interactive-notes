@@ -306,9 +306,194 @@
   </div>
 </section>
 
+<!-- 12. MOLECULE RENDERER -->
+<section id="s-molecule-renderer" class="widget-section" data-toc="Molecule Renderer">
+  <div class="wrap">
+    <div class="label label-accent">Molecule Renderer</div>
+    <h2>Data-Driven Molecular Structures</h2>
+    <p>This test bench renders H<sub>2</sub>O, CO<sub>2</sub>, NH<sub>3</sub>, and CH<sub>4</sub> programmatically using the shared <code>MoleculeRenderer</code>.</p>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+      <div class="card" style="text-align: center; padding: 1.5rem; display: flex; flex-direction: column; align-items: center;">
+        <h4 style="margin-bottom: 0.5rem;">Water (H<sub>2</sub>O)</h4>
+        <div class="diagram" style="width: 160px; height: 160px; display: flex; align-items: center; justify-content: center;">
+          <svg id="mol-h2o" style="width: 100%; height: 100%;"></svg>
+        </div>
+      </div>
+      
+      <div class="card" style="text-align: center; padding: 1.5rem; display: flex; flex-direction: column; align-items: center;">
+        <h4 style="margin-bottom: 0.5rem;">Carbon Dioxide (CO<sub>2</sub>)</h4>
+        <div class="diagram" style="width: 160px; height: 160px; display: flex; align-items: center; justify-content: center;">
+          <svg id="mol-co2" style="width: 100%; height: 100%;"></svg>
+        </div>
+      </div>
+      
+      <div class="card" style="text-align: center; padding: 1.5rem; display: flex; flex-direction: column; align-items: center;">
+        <h4 style="margin-bottom: 0.5rem;">Ammonia (NH<sub>3</sub>)</h4>
+        <div class="diagram" style="width: 160px; height: 160px; display: flex; align-items: center; justify-content: center;">
+          <svg id="mol-nh3" style="width: 100%; height: 100%;"></svg>
+        </div>
+      </div>
+      
+      <div class="card" style="text-align: center; padding: 1.5rem; display: flex; flex-direction: column; align-items: center;">
+        <h4 style="margin-bottom: 0.5rem;">Methane (CH<sub>4</sub>)</h4>
+        <div class="diagram" style="width: 160px; height: 160px; display: flex; align-items: center; justify-content: center;">
+          <svg id="mol-ch4" style="width: 100%; height: 100%;"></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 13. PARTICLE-SCENE RENDERER -->
+<section id="s-particle-renderer" class="widget-section" data-toc="Particle Scene">
+  <div class="wrap">
+    <div class="label label-accent">Particle Scene</div>
+    <h2>Data-Driven Particle-Scene Renderer</h2>
+    <p>Below are two instances of the programmatically rendered particle diagrams. The first demonstrates a correct, conserved phase/reaction sequence. The second intentionally violates particle conservation to test the verification gate and visual error reporting.</p>
+    
+    <h4 style="margin-top: 1.5rem;">1. Conserved Sequence (Solid &rarr; Liquid/Gas with Metal)</h4>
+    <div class="figure figure--full">
+      <div id="particle-conserved-test" class="diagram"></div>
+      <div class="diagram-cap">Conserved System (H, O, and Na atoms are equal across both panels)</div>
+    </div>
+
+    <h4 style="margin-top: 2rem;">2. Violation Sequence (Mismatched particle counts)</h4>
+    <div class="figure figure--full">
+      <div id="particle-error-test" class="diagram"></div>
+      <div class="diagram-cap">Violation System (Before and After counts do not match, triggering verification gate)</div>
+    </div>
+  </div>
+</section>
+
 <div class="footer"></div>
 
 <script src="../assets/core.js"></script>
-  <script src="../assets/glossary.js"></script>
+<script src="../assets/glossary.js"></script>
+<script src="../assets/elements.js"></script>
+<script src="../assets/molecule-renderer.js"></script>
+<script src="../assets/particle-renderer.js"></script>
+<script>
+  const h2oData = {
+    atoms: [
+      { id: "O1", el: "O", x: 0,  y: 0 },
+      { id: "H1", el: "H", x: -1, y: 0.6 },
+      { id: "H2", el: "H", x: 1,  y: 0.6 }
+    ],
+    bonds: [
+      { a: "O1", b: "H1", order: 1 },
+      { a: "O1", b: "H2", order: 1 }
+    ],
+    lonePairs: [
+      { on: "O1", count: 2 }
+    ]
+  };
+
+  const co2Data = {
+    atoms: [
+      { id: "C1", el: "C", x: 0,  y: 0 },
+      { id: "O1", el: "O", x: -1.5, y: 0 },
+      { id: "O2", el: "O", x: 1.5,  y: 0 }
+    ],
+    bonds: [
+      { a: "C1", b: "O1", order: 2 },
+      { a: "C1", b: "O2", order: 2 }
+    ],
+    lonePairs: [
+      { on: "O1", count: 2 },
+      { on: "O2", count: 2 }
+    ]
+  };
+
+  const nh3Data = {
+    atoms: [
+      { id: "N1", el: "N", x: 0,  y: 0 },
+      { id: "H1", el: "H", x: -0.95, y: 0.55 },
+      { id: "H2", el: "H", x: 0,  y: 1.1 },
+      { id: "H3", el: "H", x: 0.95,  y: 0.55 }
+    ],
+    bonds: [
+      { a: "N1", b: "H1", order: 1 },
+      { a: "N1", b: "H2", order: 1 },
+      { a: "N1", b: "H3", order: 1 }
+    ],
+    lonePairs: [
+      { on: "N1", count: 1 }
+    ]
+  };
+
+  const ch4Data = {
+    atoms: [
+      { id: "C1", el: "C", x: 0,  y: 0 },
+      { id: "H1", el: "H", x: 0,  y: -1.1 },
+      { id: "H2", el: "H", x: 0,  y: 1.1 },
+      { id: "H3", el: "H", x: -1.1, y: 0 },
+      { id: "H4", el: "H", x: 1.1,  y: 0 }
+    ],
+    bonds: [
+      { a: "C1", b: "H1", order: 1 },
+      { a: "C1", b: "H2", order: 1 },
+      { a: "C1", b: "H3", order: 1 },
+      { a: "C1", b: "H4", order: 1 }
+    ],
+    lonePairs: []
+  };
+
+  // Particle Renderer Test Data
+  const particleConservedData = {
+    frame: { panels: 2, labels: ["Before (Solid / Na Metal)", "After (Liquid / Gas / Na Metal)"] },
+    legend: [
+      { type: "H", label: "hydrogen" },
+      { type: "O", label: "oxygen" },
+      { type: "Na", label: "sodium (metal)" }
+    ],
+    particles: [
+      // Panel 0: 2 H (circle), 2 O (circle), 1 Na (square, metal)
+      { type: "H", panel: 0, x: 20, y: 25, motion: "vibrate", energy: 1 },
+      { type: "H", panel: 0, x: 40, y: 25, motion: "vibrate", energy: 1 },
+      { type: "O", panel: 0, x: 30, y: 65, motion: "vibrate", energy: 2 },
+      { type: "O", panel: 0, x: 65, y: 65, motion: "vibrate", energy: 2 },
+      { type: "Na", panel: 0, x: 80, y: 25, motion: "vibrate", energy: 1 },
+      
+      // Panel 1: 2 H, 2 O, 1 Na
+      { type: "H", panel: 1, x: 20, y: 45, motion: "liquid", energy: 2 },
+      { type: "H", panel: 1, x: 60, y: 15, motion: "translate", energy: 2 },
+      { type: "O", panel: 1, x: 80, y: 65, motion: "translate", energy: 3 },
+      { type: "O", panel: 1, x: 35, y: 75, motion: "liquid", energy: 3 },
+      { type: "Na", panel: 1, x: 50, y: 40, motion: "liquid", energy: 1 }
+    ]
+  };
+
+  const particleMismatchedData = {
+    frame: { panels: 2, labels: ["Before (Reactants)", "After (Mismatch)"] },
+    legend: [
+      { type: "H", label: "hydrogen" },
+      { type: "O", label: "oxygen" }
+    ],
+    particles: [
+      // Panel 0: 2 H, 2 O
+      { type: "H", panel: 0, x: 20, y: 30, motion: "translate", energy: 1 },
+      { type: "H", panel: 0, x: 40, y: 30, motion: "translate", energy: 1 },
+      { type: "O", panel: 0, x: 30, y: 70, motion: "translate", energy: 1 },
+      { type: "O", panel: 0, x: 70, y: 70, motion: "translate", energy: 1 },
+      
+      // Panel 1: 1 H, 2 O (Mismatched! H is missing)
+      { type: "H", panel: 1, x: 15, y: 50, motion: "translate", energy: 1 },
+      { type: "O", panel: 1, x: 80, y: 70, motion: "translate", energy: 1 },
+      { type: "O", panel: 1, x: 35, y: 75, motion: "translate", energy: 1 }
+    ]
+  };
+
+  document.addEventListener("DOMContentLoaded", () => {
+    MoleculeRenderer.render(h2oData, "#mol-h2o");
+    MoleculeRenderer.render(co2Data, "#mol-co2");
+    MoleculeRenderer.render(nh3Data, "#mol-nh3");
+    MoleculeRenderer.render(ch4Data, "#mol-ch4");
+
+    // Render Particle-Scene diagrams
+    renderParticleScene("#particle-conserved-test", particleConservedData);
+    renderParticleScene("#particle-error-test", particleMismatchedData);
+  });
+</script>
 </body>
 </html>

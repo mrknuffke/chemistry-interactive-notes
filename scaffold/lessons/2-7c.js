@@ -69,7 +69,11 @@ document.addEventListener("DOMContentLoaded", () => {
   function createSVGElement(tag, attrs) {
     const el = document.createElementNS(svgNS, tag);
     for (let k in attrs) {
-      el.setAttribute(k, attrs[k]);
+      if (k === "font-size") {
+        el.style.fontSize = attrs[k];
+      } else {
+        el.setAttribute(k, attrs[k]);
+      }
     }
     return el;
   }
@@ -88,18 +92,18 @@ document.addEventListener("DOMContentLoaded", () => {
     bonds.forEach(b => {
       g.appendChild(createSVGElement("line", {
         x1: b.x1, y1: b.y1, x2: b.x2, y2: b.y2,
-        stroke: "var(--ink-mute)", "stroke-width": 1.2
+        stroke: "var(--ink-mute)", "stroke-width": "var(--dia-stroke-bond)"
       }));
     });
 
     // Carbon
     g.appendChild(createSVGElement("circle", {
-      cx: 0, cy: 0, r: 8.5,
-      fill: "var(--ink-mute)", stroke: "var(--ink)", "stroke-width": 1.2
+      cx: 0, cy: 0, r: "var(--dia-r-atom)",
+      fill: "var(--ink-mute)", stroke: "var(--ink)", "stroke-width": "var(--dia-stroke-bond)"
     }));
     const textC = createSVGElement("text", {
       x: 0, y: 2.8, "text-anchor": "middle",
-      fill: "#ffffff", "font-family": "var(--mono)", "font-size": "8px", "font-weight": "700"
+      fill: "#ffffff", "font-family": "var(--mono)", "font-size": "var(--dia-label-size)", "font-weight": "700"
     });
     textC.textContent = "C";
     g.appendChild(textC);
@@ -110,12 +114,12 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
     hPos.forEach(h => {
       g.appendChild(createSVGElement("circle", {
-        cx: h.x, cy: h.y, r: 4.2,
-        fill: "#ffffff", stroke: "var(--ink)", "stroke-width": 1
+        cx: h.x, cy: h.y, r: "var(--dia-r-atom-sm)",
+        fill: "#ffffff", stroke: "var(--ink)", "stroke-width": "var(--dia-stroke)"
       }));
       const textH = createSVGElement("text", {
         x: h.x, y: h.y + 2.5, "text-anchor": "middle",
-        fill: "var(--ink)", "font-family": "var(--mono)", "font-size": "7px", "font-weight": "700"
+        fill: "var(--ink)", "font-family": "var(--mono)", "font-size": "var(--dia-caption-size)", "font-weight": "700"
       });
       textH.textContent = "H";
       g.appendChild(textH);
@@ -130,23 +134,23 @@ document.addEventListener("DOMContentLoaded", () => {
     // Double bond line
     g.appendChild(createSVGElement("line", {
       x1: -7, y1: -2, x2: 7, y2: -2,
-      stroke: "var(--ink-mute)", "stroke-width": 1
+      stroke: "var(--ink-mute)", "stroke-width": "var(--dia-stroke)"
     }));
     g.appendChild(createSVGElement("line", {
       x1: -7, y1: 2, x2: 7, y2: 2,
-      stroke: "var(--ink-mute)", "stroke-width": 1
+      stroke: "var(--ink-mute)", "stroke-width": "var(--dia-stroke)"
     }));
 
     // Oxygen spheres
     const oPos = [{ x: -7, y: 0 }, { x: 7, y: 0 }];
     oPos.forEach(o => {
       g.appendChild(createSVGElement("circle", {
-        cx: o.x, cy: o.y, r: 7.2,
-        fill: "var(--accent)", stroke: "var(--ink)", "stroke-width": 1.2
+        cx: o.x, cy: o.y, r: "var(--dia-r-atom)",
+        fill: "var(--accent)", stroke: "var(--ink)", "stroke-width": "var(--dia-stroke-bond)"
       }));
       const textO = createSVGElement("text", {
         x: o.x, y: o.y + 2.5, "text-anchor": "middle",
-        fill: "#ffffff", "font-family": "var(--mono)", "font-size": "8px", "font-weight": "700"
+        fill: "#ffffff", "font-family": "var(--mono)", "font-size": "var(--dia-label-size)", "font-weight": "700"
       });
       textO.textContent = "O";
       g.appendChild(textO);
@@ -159,10 +163,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const g = createSVGElement("g", { transform: `translate(${cx}, ${cy})`, style: `opacity: ${opacity};` });
 
     // Double bonds
-    g.appendChild(createSVGElement("line", { x1: -14, y1: -2, x2: 0, y2: -2, stroke: "var(--ink-mute)", "stroke-width": 1 }));
-    g.appendChild(createSVGElement("line", { x1: -14, y1: 2, x2: 0, y2: 2, stroke: "var(--ink-mute)", "stroke-width": 1 }));
-    g.appendChild(createSVGElement("line", { x1: 0, y1: -2, x2: 14, y2: -2, stroke: "var(--ink-mute)", "stroke-width": 1 }));
-    g.appendChild(createSVGElement("line", { x1: 0, y1: 2, x2: 14, y2: 2, stroke: "var(--ink-mute)", "stroke-width": 1 }));
+    g.appendChild(createSVGElement("line", { x1: -14, y1: -2, x2: 0, y2: -2, stroke: "var(--ink-mute)", "stroke-width": "var(--dia-stroke)" }));
+    g.appendChild(createSVGElement("line", { x1: -14, y1: 2, x2: 0, y2: 2, stroke: "var(--ink-mute)", "stroke-width": "var(--dia-stroke)" }));
+    g.appendChild(createSVGElement("line", { x1: 0, y1: -2, x2: 14, y2: -2, stroke: "var(--ink-mute)", "stroke-width": "var(--dia-stroke)" }));
+    g.appendChild(createSVGElement("line", { x1: 0, y1: 2, x2: 14, y2: 2, stroke: "var(--ink-mute)", "stroke-width": "var(--dia-stroke)" }));
 
     // Oxygens
     const atoms = [
@@ -173,12 +177,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     atoms.forEach(a => {
       g.appendChild(createSVGElement("circle", {
-        cx: a.x, cy: a.y, r: a.label === "C" ? 8.5 : 7.2,
-        fill: a.fill, stroke: "var(--ink)", "stroke-width": 1.2
+        cx: a.x, cy: a.y, r: "var(--dia-r-atom)",
+        fill: a.fill, stroke: "var(--ink)", "stroke-width": "var(--dia-stroke-bond)"
       }));
       const text = createSVGElement("text", {
         x: a.x, y: a.y + (a.label === "C" ? 2.8 : 2.5), "text-anchor": "middle",
-        fill: "#ffffff", "font-family": "var(--mono)", "font-size": "8px", "font-weight": "700"
+        fill: "#ffffff", "font-family": "var(--mono)", "font-size": "var(--dia-label-size)", "font-weight": "700"
       });
       text.textContent = a.label;
       g.appendChild(text);
@@ -191,17 +195,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const g = createSVGElement("g", { transform: `translate(${cx}, ${cy})`, style: `opacity: ${opacity};` });
 
     // Bonds
-    g.appendChild(createSVGElement("line", { x1: 0, y1: -2, x2: -9, y2: 7, stroke: "var(--ink-mute)", "stroke-width": 1 }));
-    g.appendChild(createSVGElement("line", { x1: 0, y1: -2, x2: 9, y2: 7, stroke: "var(--ink-mute)", "stroke-width": 1 }));
+    g.appendChild(createSVGElement("line", { x1: 0, y1: -2, x2: -9, y2: 7, stroke: "var(--ink-mute)", "stroke-width": "var(--dia-stroke)" }));
+    g.appendChild(createSVGElement("line", { x1: 0, y1: -2, x2: 9, y2: 7, stroke: "var(--ink-mute)", "stroke-width": "var(--dia-stroke)" }));
 
     // Oxygen (central, shifted up slightly)
     g.appendChild(createSVGElement("circle", {
-      cx: 0, cy: -2, r: 7.2,
-      fill: "var(--accent)", stroke: "var(--ink)", "stroke-width": 1.2
+      cx: 0, cy: -2, r: "var(--dia-r-atom)",
+      fill: "var(--accent)", stroke: "var(--ink)", "stroke-width": "var(--dia-stroke-bond)"
     }));
     const textO = createSVGElement("text", {
       x: 0, y: 0.5, "text-anchor": "middle",
-      fill: "#ffffff", "font-family": "var(--mono)", "font-size": "8px", "font-weight": "700"
+      fill: "#ffffff", "font-family": "var(--mono)", "font-size": "var(--dia-label-size)", "font-weight": "700"
     });
     textO.textContent = "O";
     g.appendChild(textO);
@@ -210,12 +214,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const hPos = [{ x: -9, y: 7 }, { x: 9, y: 7 }];
     hPos.forEach(h => {
       g.appendChild(createSVGElement("circle", {
-        cx: h.x, cy: h.y, r: 4.2,
-        fill: "#ffffff", stroke: "var(--ink)", "stroke-width": 1
+        cx: h.x, cy: h.y, r: "var(--dia-r-atom-sm)",
+        fill: "#ffffff", stroke: "var(--ink)", "stroke-width": "var(--dia-stroke)"
       }));
       const textH = createSVGElement("text", {
         x: h.x, y: h.y + 2.5, "text-anchor": "middle",
-        fill: "var(--ink)", "font-family": "var(--mono)", "font-size": "7px", "font-weight": "700"
+        fill: "var(--ink)", "font-family": "var(--mono)", "font-size": "var(--dia-caption-size)", "font-weight": "700"
       });
       textH.textContent = "H";
       g.appendChild(textH);
@@ -323,7 +327,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Chamber border box
     canvas.appendChild(createSVGElement("rect", {
       x: 2, y: 2, width: 396, height: 246, rx: 6,
-      fill: "none", stroke: "var(--ink)", "stroke-width": 2
+      class: "d-wall"
     }));
 
     // Generate drawing counts

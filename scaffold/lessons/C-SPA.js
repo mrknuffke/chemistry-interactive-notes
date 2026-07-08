@@ -31,7 +31,11 @@ document.addEventListener("DOMContentLoaded", () => {
   function createSVGElement(tag, attrs) {
     const el = document.createElementNS(svgNS, tag);
     for (let k in attrs) {
-      el.setAttribute(k, attrs[k]);
+      if (k === 'font-size') {
+        el.style.fontSize = attrs[k];
+      } else {
+        el.setAttribute(k, attrs[k]);
+      }
     }
     return el;
   }
@@ -98,17 +102,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
         g.appendChild(createSVGElement("line", {
           x1: p1.x + nx, y1: p1.y + ny, x2: p2.x + nx, y2: p2.y + ny,
-          stroke: "var(--ink)", "stroke-width": 1.2
+          stroke: "var(--ink)", "stroke-width": "var(--dia-stroke-bond)"
         }));
         g.appendChild(createSVGElement("line", {
           x1: p1.x - nx, y1: p1.y - ny, x2: p2.x - nx, y2: p2.y - ny,
-          stroke: "var(--ink)", "stroke-width": 1.2
+          stroke: "var(--ink)", "stroke-width": "var(--dia-stroke-bond)"
         }));
       } else {
         // Single bond line
         g.appendChild(createSVGElement("line", {
           x1: p1.x, y1: p1.y, x2: p2.x, y2: p2.y,
-          stroke: "var(--ink-soft)", "stroke-width": 1.8
+          stroke: "var(--ink-soft)", "stroke-width": "var(--dia-stroke-bond)"
         }));
       }
     }
@@ -117,9 +121,9 @@ document.addEventListener("DOMContentLoaded", () => {
     points.forEach((p, idx) => {
       const isDoubleBondCarbon = currentFat === "unsaturated" && (idx === 3 || idx === 4);
       g.appendChild(createSVGElement("circle", {
-        cx: p.x, cy: p.y, r: 4.8,
+        cx: p.x, cy: p.y, r: "var(--dia-r-atom-sm)",
         fill: isDoubleBondCarbon ? "var(--accent)" : "var(--ink-mute)",
-        stroke: "var(--ink)", "stroke-width": 1
+        stroke: "var(--ink)", "stroke-width": "var(--dia-stroke)"
       }));
     });
 
@@ -133,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Chamber border box
     canvas.appendChild(createSVGElement("rect", {
       x: 2, y: 2, width: 316, height: 196, rx: 6,
-      fill: "none", stroke: "var(--ink)", "stroke-width": 1.5
+      fill: "none", stroke: "var(--ink)", "stroke-width": "var(--dia-stroke-bond)"
     }));
 
     const mp = currentFat === "saturated" ? mpSaturated : mpUnsaturated;
@@ -199,7 +203,8 @@ document.addEventListener("DOMContentLoaded", () => {
               const opacity = Math.max(0.1, 1 - (dist / maxLdfDist));
               canvas.appendChild(createSVGElement("line", {
                 x1: pt1.x, y1: pt1.y, x2: pt2.x, y2: pt2.y,
-                class: "imf-line", style: `opacity: ${opacity}; stroke: var(--accent);`
+                class: "imf-line",
+                style: `opacity: ${opacity}; stroke: var(--accent); stroke-width: var(--dia-stroke); stroke-dasharray: calc(2 * var(--dia-stroke)) calc(2 * var(--dia-stroke));`
               }));
             }
           }

@@ -51,25 +51,138 @@
     topbarLeft.insertBefore(aHome, topbarLeft.firstChild);
   })();
 
+  /* ---- storage engine (sandboxed-safe virtualization) ---- */
+  const StorageEngine = (function () {
+    let storageType = null;
+    let fallbackDict = {};
+
+    function checkStorage(type) {
+      try {
+        const storage = window[type];
+        const x = '__storage_test__';
+        storage.setItem(x, x);
+        storage.removeItem(x);
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+
+    if (checkStorage('localStorage')) {
+      storageType = 'localStorage';
+    } else if (checkStorage('sessionStorage')) {
+      storageType = 'sessionStorage';
+    } else {
+      storageType = 'memory';
+    }
+
+    const getItem = (key) => {
+      if (storageType === 'localStorage') {
+        try { return localStorage.getItem(key); } catch (e) { return null; }
+      } else if (storageType === 'sessionStorage') {
+        try { return sessionStorage.getItem(key); } catch (e) { return null; }
+      } else {
+        return fallbackDict[key] || null;
+      }
+    };
+
+    const setItem = (key, value) => {
+      if (storageType === 'localStorage') {
+        try {
+          localStorage.setItem(key, value);
+        } catch (e) {
+          try {
+            sessionStorage.setItem(key, value);
+          } catch (err) {
+            fallbackDict[key] = String(value);
+          }
+        }
+      } else if (storageType === 'sessionStorage') {
+        try {
+          sessionStorage.setItem(key, value);
+        } catch (e) {
+          fallbackDict[key] = String(value);
+        }
+      } else {
+        fallbackDict[key] = String(value);
+      }
+    };
+
+    const removeItem = (key) => {
+      if (storageType === 'localStorage') {
+        try { localStorage.removeItem(key); } catch (e) {}
+      } else if (storageType === 'sessionStorage') {
+        try { sessionStorage.removeItem(key); } catch (e) {}
+      }
+      delete fallbackDict[key];
+    };
+
+    const clear = () => {
+      if (storageType === 'localStorage') {
+        try { localStorage.clear(); } catch (e) {}
+      } else if (storageType === 'sessionStorage') {
+        try { sessionStorage.clear(); } catch (e) {}
+      }
+      fallbackDict = {};
+    };
+
+    const getProgress = () => {
+      try {
+        return JSON.parse(getItem('gc-textbook-progress')) || {};
+      } catch (e) {
+        return {};
+      }
+    };
+
+    const saveProgress = (progress) => {
+      setItem('gc-textbook-progress', JSON.stringify(progress));
+    };
+
+    const isCheckpointCompleted = (type, index) => {
+      if (!currentLesson) return false;
+      const progress = getProgress();
+      const lessonProgress = progress[currentLesson.id] || {};
+      return lessonProgress[`${type}-${index}`] === true;
+    };
+
+    return {
+      getItem,
+      setItem,
+      removeItem,
+      clear,
+      getProgress,
+      saveProgress,
+      isCheckpointCompleted
+    };
+  })();
+
+  // Expose StorageEngine globally
+  window.GC_STORAGE = StorageEngine;
+
   function markCheckpointCompleted(type, index) {
     if (!currentLesson) return;
     const lessonId = currentLesson.id;
-    let progress = {};
-    try { progress = JSON.parse(localStorage.getItem('gc-textbook-progress')) || {}; } catch (e) {}
+    const progress = StorageEngine.getProgress();
     if (!progress[lessonId]) progress[lessonId] = {};
     progress[lessonId][`${type}-${index}`] = true;
-    try { localStorage.setItem('gc-textbook-progress', JSON.stringify(progress)); } catch (e) {}
+    StorageEngine.saveProgress(progress);
   }
 
   function updateLessonTotalCheckpoints() {
     if (!currentLesson) return;
     const lessonId = currentLesson.id;
-    const total = $$('[data-predict]').length + $$('.recall').length + $$('[data-peek]').length + $$('[data-scheme]').length;
-    let progress = {};
-    try { progress = JSON.parse(localStorage.getItem('gc-textbook-progress')) || {}; } catch (e) {}
+    const total = $$('[data-predict]').length +
+                  $$('.recall').length +
+                  $$('[data-peek]').length +
+                  $$('[data-scheme]').length +
+                  $$('[data-widget]').length +
+                  $$('[data-motion="step"]').length +
+                  $$('[data-motion="scrub"]').length +
+                  $$('[data-motion="zoom"]').length;
+    const progress = StorageEngine.getProgress();
     if (!progress[lessonId]) progress[lessonId] = {};
     progress[lessonId]._total = total;
-    try { localStorage.setItem('gc-textbook-progress', JSON.stringify(progress)); } catch (e) {}
+    StorageEngine.saveProgress(progress);
   }
 
   /* ---- textbook navigation footer auto-injector ---- */
@@ -126,12 +239,12 @@
   /* ---- theme ---- */
   (function () {
     const root = document.documentElement;
-    let saved = null; try { saved = localStorage.getItem('gc-theme'); } catch (e) {}
+    let saved = StorageEngine.getItem('gc-theme');
     if (saved === 'dark' || (!saved && matchMedia('(prefers-color-scheme: dark)').matches)) root.classList.add('dark');
     const btn = $('#themeToggle');
     if (btn) btn.addEventListener('click', () => {
       root.classList.toggle('dark');
-      try { localStorage.setItem('gc-theme', root.classList.contains('dark') ? 'dark' : 'light'); } catch (e) {}
+      StorageEngine.setItem('gc-theme', root.classList.contains('dark') ? 'dark' : 'light');
     });
   })();
 
@@ -181,8 +294,20 @@
   $$('[data-predict]').forEach((group, idx) => {
     const box = $('[data-reveal="' + group.dataset.predict + '"]');
     let done = false;
+
+    // Restore state
+    if (StorageEngine.isCheckpointCompleted('predict', idx)) {
+      done = true;
+      group.dataset.completed = 'true';
+      const c = $('[data-correct="true"]', group);
+      if (c) c.classList.add('correct');
+      if (box) box.classList.add('show');
+    }
+
     $$('.opt', group).forEach(opt => opt.addEventListener('click', () => {
-      if (done) return; done = true;
+      if (done || group.dataset.completed === 'true') return;
+      done = true;
+      group.dataset.completed = 'true';
       const ok = opt.dataset.correct === 'true';
       opt.classList.add(ok ? 'correct' : 'wrong');
       if (!ok) { const c = $('[data-correct="true"]', group); if (c) c.classList.add('correct'); }
@@ -199,6 +324,20 @@
     const check = $('[data-recall-check]', scope);
     const reveal = $('[data-recall-reveal]', scope);
     const reset = $('[data-recall-reset]', scope);
+
+    // Restore state
+    if (StorageEngine.isCheckpointCompleted('recall', idx)) {
+      blanks.forEach(b => {
+        b.value = b.dataset.answer.split('|')[0].replace(/-/g, ' ');
+        b.classList.remove('wrong', 'correct', 'shown');
+        b.classList.add('correct');
+      });
+      if (fb) {
+        fb.textContent = blanks.length + ' / ' + blanks.length + ' correct';
+        fb.className = 'feedback good';
+      }
+    }
+
     if (check) check.addEventListener('click', () => {
       let r = 0;
       blanks.forEach(b => {
@@ -222,20 +361,37 @@
   });
 
   /* ---- peek (model answer) ---- */
-  $$('[data-peek]').forEach((btn, idx) => btn.addEventListener('click', () => {
+  $$('[data-peek]').forEach((btn, idx) => {
     const box = btn.nextElementSibling;
-    if (box && box.classList.contains('peek-box')) box.classList.toggle('show');
-    markCheckpointCompleted('peek', idx);
-  }));
+
+    // Restore state
+    if (StorageEngine.isCheckpointCompleted('peek', idx) && box && box.classList.contains('peek-box')) {
+      box.classList.add('show');
+    }
+
+    btn.addEventListener('click', () => {
+      if (box && box.classList.contains('peek-box')) box.classList.toggle('show');
+      markCheckpointCompleted('peek', idx);
+    });
+  });
 
   /* ---- mark-scheme reveal ---- */
-  $$('[data-scheme]').forEach((btn, idx) => btn.addEventListener('click', () => {
+  $$('[data-scheme]').forEach((btn, idx) => {
     const box = btn.closest('.exam-frame') ? $('.scheme', btn.closest('.exam-frame')) : btn.nextElementSibling;
-    if (!box) return;
-    box.classList.toggle('show');
-    btn.textContent = box.classList.contains('show') ? 'Hide mark scheme' : 'Reveal mark scheme';
-    markCheckpointCompleted('scheme', idx);
-  }));
+
+    // Restore state
+    if (StorageEngine.isCheckpointCompleted('scheme', idx) && box) {
+      box.classList.add('show');
+      btn.textContent = 'Hide mark scheme';
+    }
+
+    btn.addEventListener('click', () => {
+      if (!box) return;
+      box.classList.toggle('show');
+      btn.textContent = box.classList.contains('show') ? 'Hide mark scheme' : 'Reveal mark scheme';
+      markCheckpointCompleted('scheme', idx);
+    });
+  });
 
   /* ---- diagram lightbox zoom ---- */
   (function () {
@@ -625,6 +781,31 @@
       );
       checkBtn.setAttribute('disabled', 'true');
 
+      if (StorageEngine.isCheckpointCompleted('commit-reveal', widgetIdx)) {
+        el.dataset.committed = 'true';
+        checkBtn.style.display = 'none';
+        resetBtn.style.display = '';
+
+        const correctIdx = config.options.findIndex(opt => opt.correct);
+        state.selectedOptIdx = correctIdx >= 0 ? correctIdx : 0;
+
+        const opts = $$('.w-opt', grid);
+        opts.forEach(o => o.setAttribute('disabled', 'true'));
+        if (correctIdx >= 0 && opts[correctIdx]) {
+          opts[correctIdx].classList.add('correct');
+        }
+
+        const chosen = config.options[state.selectedOptIdx];
+        feedback.innerHTML = chosen.feedback;
+        feedback.className = 'w-feedback correct';
+
+        if (config.reveal) {
+          revealArea.innerHTML = config.reveal;
+          revealArea.style.display = 'block';
+          revealArea.classList.add('show');
+        }
+      }
+
     } else if (mode === 'free') {
       const textarea = document.createElement('textarea');
       textarea.className = 'w-textarea';
@@ -687,6 +868,20 @@
       );
       checkBtn.textContent = 'Compare with model';
       checkBtn.setAttribute('disabled', 'true');
+
+      if (StorageEngine.isCheckpointCompleted('commit-reveal', widgetIdx)) {
+        textarea.setAttribute('disabled', 'true');
+        checkBtn.style.display = 'none';
+        resetBtn.style.display = '';
+        feedback.textContent = 'Excellent. Now compare your self-explanation with the model below.';
+        feedback.className = 'w-feedback correct';
+
+        if (config.reveal) {
+          revealArea.innerHTML = `<h4>Model Answer</h4><p>${config.reveal}</p>`;
+          revealArea.style.display = 'block';
+          revealArea.classList.add('show');
+        }
+      }
 
     } else if (mode === 'drill') {
       // Classification drill sequence
@@ -792,6 +987,37 @@
       );
       checkBtn.style.display = 'none'; // hidden initially, shown when step completes
       renderDrillItem();
+
+      if (StorageEngine.isCheckpointCompleted('commit-reveal', widgetIdx)) {
+        state.drillIdx = config.items.length - 1;
+        state.drillCorrectCount = config.items.length;
+        progressEl.textContent = `Item ${config.items.length} of ${config.items.length}`;
+        scoreEl.textContent = `Score: ${config.items.length} / ${config.items.length}`;
+
+        const item = config.items[state.drillIdx];
+        qBox.innerHTML = `<p>${item.prompt}</p>`;
+        grid.innerHTML = '';
+        item.options.forEach(opt => {
+          const btn = document.createElement('button');
+          btn.className = 'w-opt';
+          btn.type = 'button';
+          btn.innerHTML = opt.label;
+          btn.setAttribute('disabled', 'true');
+          if (opt.correct) btn.classList.add('correct');
+          grid.appendChild(btn);
+        });
+
+        checkBtn.style.display = 'none';
+        resetBtn.style.display = '';
+        feedback.textContent = `Completed! Final score: ${config.items.length} / ${config.items.length}`;
+        feedback.className = 'w-feedback correct';
+
+        if (config.reveal) {
+          revealArea.innerHTML = config.reveal;
+          revealArea.style.display = 'block';
+          revealArea.classList.add('show');
+        }
+      }
     }
   }
 
@@ -1059,6 +1285,44 @@
     if (config.yours.checkMode !== 'all') {
       checkBtn.style.display = 'none';
     }
+
+    if (StorageEngine.isCheckpointCompleted('faded-example', widgetIdx)) {
+      blanksData.forEach((data, bIdx) => {
+        data.resolved = true;
+        const blank = data.config;
+        const li = yoursSteps.children[data.stepIdx];
+        const feedbackEl = li.querySelector('.w-step-feedback');
+        const checkBtnStep = li.querySelector('.w-step-check-btn');
+        if (checkBtnStep) checkBtnStep.style.display = 'none';
+
+        let styleTarget = null;
+        if (blank.type === 'numeric' || blank.type === 'text') {
+          styleTarget = li.querySelector('.w-blank-input');
+          styleTarget.value = Array.isArray(blank.answer) ? blank.answer[0] : blank.answer;
+          styleTarget.classList.add('correct');
+          styleTarget.setAttribute('disabled', 'true');
+        } else if (blank.type === 'choice') {
+          styleTarget = li.querySelector('.w-blank-choices');
+          const opts = styleTarget.querySelectorAll('.w-blank-opt');
+          opts.forEach(o => {
+            o.setAttribute('disabled', 'true');
+            if (o.textContent === blank.answer) {
+              o.classList.add('correct');
+              o.classList.add('selected');
+            }
+          });
+        }
+        if (feedbackEl) {
+          feedbackEl.innerHTML = blank.feedback_right || 'Correct!';
+          feedbackEl.className = 'w-step-feedback correct';
+        }
+      });
+
+      checkBtn.style.display = 'none';
+      resetBtn.style.display = '';
+      feedback.textContent = 'All steps resolved.';
+      feedback.className = 'w-feedback correct';
+    }
   }
 
   // --- 3. Fillable Scaffold Widget ---
@@ -1222,6 +1486,31 @@
       renderBank();
       renderSlots();
 
+      if (StorageEngine.isCheckpointCompleted('scaffold', widgetIdx)) {
+        el.dataset.committed = 'true';
+        checkBtn.style.display = 'none';
+        resetBtn.style.display = '';
+
+        config.slots.forEach(slot => {
+          const correctCardIdx = config.bank.findIndex(card => card.slot === slot.id);
+          if (correctCardIdx >= 0) {
+            slotAssignments[slot.id] = correctCardIdx;
+          }
+        });
+
+        renderBank();
+        renderSlots();
+
+        const slotEls = slotsContainer.querySelectorAll('.w-slot');
+        slotEls.forEach(slotEl => {
+          slotEl.classList.add('correct');
+          slotEl.style.cursor = 'default';
+        });
+
+        feedback.textContent = 'All statements placed correctly!';
+        feedback.className = 'w-feedback correct';
+      }
+
     } else if (mode === 'free') {
       const slotsContainer = document.createElement('div');
       slotsContainer.className = 'w-slots';
@@ -1279,6 +1568,22 @@
         }
       );
       checkBtn.textContent = 'Compare with model';
+
+      if (StorageEngine.isCheckpointCompleted('scaffold', widgetIdx)) {
+        checkBtn.style.display = 'none';
+        resetBtn.style.display = '';
+        feedback.textContent = 'Excellent. Compare each of your points with the model answers shown below.';
+        feedback.className = 'w-feedback correct';
+
+        config.slots.forEach((slot, sIdx) => {
+          const ta = textareas[sIdx];
+          ta.setAttribute('disabled', 'true');
+          const reveal = ta.nextElementSibling;
+          reveal.innerHTML = `<h4>Model Answer</h4><p>${slot.model}</p>`;
+          reveal.style.display = 'block';
+          reveal.classList.add('show');
+        });
+      }
 
     } else if (mode === 'table') {
       const wrapper = document.createElement('div');
@@ -1387,6 +1692,24 @@
           });
         }
       );
+
+      if (StorageEngine.isCheckpointCompleted('scaffold', widgetIdx)) {
+        tableBlanks.forEach((data, bIdx) => {
+          data.resolved = true;
+          const blank = data.config;
+          const input = data.tdElement.querySelector('.w-blank-input');
+          if (input) {
+            input.value = Array.isArray(blank.answer) ? blank.answer[0] : blank.answer;
+            input.classList.add('correct');
+            input.setAttribute('disabled', 'true');
+          }
+        });
+
+        checkBtn.style.display = 'none';
+        resetBtn.style.display = '';
+        feedback.textContent = 'Table complete!';
+        feedback.className = 'w-feedback correct';
+      }
     }
   }
 
@@ -1526,6 +1849,30 @@
     );
     checkBtn.style.display = 'none';
     renderStep();
+
+    if (StorageEngine.isCheckpointCompleted('step-builder', widgetIdx)) {
+      currentStep = config.steps.length - 1;
+      renderStep();
+
+      const opts = $$('.w-opt', grid);
+      opts.forEach((btn, idx) => {
+        btn.setAttribute('disabled', 'true');
+        if (config.steps[currentStep].options[idx].correct) {
+          btn.classList.add('correct');
+          feedback.innerHTML = config.steps[currentStep].options[idx].feedback || 'Correct!';
+        }
+      });
+      feedback.className = 'w-feedback correct';
+
+      checkBtn.style.display = 'none';
+      resetBtn.style.display = '';
+
+      if (config.finale) {
+        revealArea.innerHTML = config.finale;
+        revealArea.style.display = 'block';
+        revealArea.classList.add('show');
+      }
+    }
   }
 
   /* ============================================================
@@ -3208,9 +3555,65 @@
     }
   })();
 
+  function getElementForCheckpoint(type, index) {
+    if (type === 'predict') return $$('[data-predict]')[index];
+    if (type === 'recall') return $$('.recall')[index];
+    if (type === 'peek') return $$('[data-peek]')[index];
+    if (type === 'scheme') return $$('[data-scheme]')[index];
+    if (type === 'step-motion') return $$('[data-motion="step"]')[index];
+    if (type === 'scrub-motion') return $$('[data-motion="scrub"]')[index];
+    if (type === 'zoom-motion') return $$('[data-motion="zoom"]')[index];
+    
+    // For widgets:
+    const widgets = $$('[data-widget]');
+    return widgets[index];
+  }
+
+  function scrollToLastCompletedSection() {
+    if (!currentLesson) return;
+    const lessonId = currentLesson.id;
+    const progress = StorageEngine.getProgress();
+    const lessonProgress = progress[lessonId] || {};
+    
+    // Find all completed checkpoints in lessonProgress
+    const completedKeys = Object.keys(lessonProgress).filter(k => k !== '_total' && lessonProgress[k] === true);
+    if (completedKeys.length === 0) return;
+    
+    // Find all sections
+    const sections = $$('section');
+    let lastSectionIdx = -1;
+    let lastSectionEl = null;
+    
+    completedKeys.forEach(key => {
+      const parts = key.split('-');
+      if (parts.length < 2) return;
+      const type = parts.slice(0, -1).join('-');
+      const index = parseInt(parts[parts.length - 1]);
+      
+      const el = getElementForCheckpoint(type, index);
+      if (el) {
+        const sec = el.closest('section');
+        if (sec) {
+          const secIdx = sections.indexOf(sec);
+          if (secIdx > lastSectionIdx) {
+            lastSectionIdx = secIdx;
+            lastSectionEl = sec;
+          }
+        }
+      }
+    });
+    
+    if (lastSectionEl) {
+      setTimeout(() => {
+        lastSectionEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+  }
+
   // Initialize widgets, motion primitives, and tooltips
   initWidgets();
   initMotionPrimitives();
+  scrollToLastCompletedSection();
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initGlossaryTooltips);
   } else {

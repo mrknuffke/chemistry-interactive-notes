@@ -48,6 +48,7 @@
       const ring = document.createElementNS(SVGNS, 'circle');
       ring.setAttribute('class', 'atom-shell');
       ring.setAttribute('cx', CX); ring.setAttribute('cy', CY); ring.setAttribute('r', R[i]);
+      ring.style.strokeWidth = 'var(--dia-stroke)';
       svg.appendChild(ring);
     });
     // electrons (created after rings so they sit on top)
@@ -56,7 +57,7 @@
       for (let k = 0; k < cnt; k++) {
         const dot = document.createElementNS(SVGNS, 'circle');
         dot.setAttribute('class', valence ? 'atom-e-val' : 'atom-e');
-        dot.setAttribute('r', 5.5);
+        dot.setAttribute('r', 'var(--dia-r-atom-sm)');
         svg.appendChild(dot);
         electrons.push({ el: dot, shell: i, base: (2 * Math.PI / cnt) * k - Math.PI / 2 });
       }
@@ -67,7 +68,8 @@
     svg.appendChild(nuc);
     const lab = document.createElementNS(SVGNS, 'text');
     lab.setAttribute('class', 'atom-nuc-label'); lab.setAttribute('x', CX); lab.setAttribute('y', CY + 1);
-    lab.setAttribute('text-anchor', 'middle'); lab.setAttribute('dominant-baseline', 'middle'); lab.setAttribute('font-size', '13');
+    lab.setAttribute('text-anchor', 'middle'); lab.setAttribute('dominant-baseline', 'middle');
+    lab.style.fontSize = 'var(--dia-label-size)';
     lab.textContent = e.z + 'p';
     svg.appendChild(lab);
 

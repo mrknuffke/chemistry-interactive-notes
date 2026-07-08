@@ -113,8 +113,8 @@
     }
     .imf-line {
       stroke: var(--accent-soft);
-      stroke-dasharray: 2 2;
-      stroke-width: 1.5;
+      stroke-dasharray: calc(2 * var(--dia-stroke)) calc(2 * var(--dia-stroke));
+      stroke-width: var(--dia-stroke);
     }
   </style>
 </head>
@@ -212,13 +212,13 @@
         <div data-zoom-level="macro" style="width:100%; height:100%;">
           <svg viewBox="0 0 100 100" style="width:100%; height:100%;">
             <rect x="5" y="82" width="90" height="7" rx="2" fill="var(--ink)" />
-            <path d="M20,82 Q20,38 50,33 Q80,38 80,82 Z" fill="var(--card)" stroke="var(--ink)" stroke-width="1.2" />
-            <path d="M26,52 Q50,58 74,52" fill="none" stroke="var(--ink-soft)" stroke-width="1" stroke-dasharray="2,2" />
-            <path d="M24,64 Q50,70 76,64" fill="none" stroke="var(--ink-soft)" stroke-width="1" stroke-dasharray="2,2" />
-            <path d="M22,73 Q50,79 78,73" fill="none" stroke="var(--ink-soft)" stroke-width="1" stroke-dasharray="2,2" />
-            <ellipse cx="50" cy="37" rx="9" ry="3.5" fill="var(--paper)" stroke="var(--ink-soft)" stroke-width="1" />
-            <path d="M45,40 Q42,50 40,58" fill="none" stroke="var(--accent)" stroke-width="1.2" marker-end="url(#tawa-arr-1)" />
-            <path d="M55,40 Q58,50 60,58" fill="none" stroke="var(--accent)" stroke-width="1.2" marker-end="url(#tawa-arr-2)" />
+            <path d="M20,82 Q20,38 50,33 Q80,38 80,82 Z" fill="var(--card)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" />
+            <path d="M26,52 Q50,58 74,52" fill="none" stroke="var(--ink-soft)" stroke-width="var(--dia-stroke)" stroke-dasharray="calc(2 * var(--dia-stroke)) calc(2 * var(--dia-stroke))" />
+            <path d="M24,64 Q50,70 76,64" fill="none" stroke="var(--ink-soft)" stroke-width="var(--dia-stroke)" stroke-dasharray="calc(2 * var(--dia-stroke)) calc(2 * var(--dia-stroke))" />
+            <path d="M22,73 Q50,79 78,73" fill="none" stroke="var(--ink-soft)" stroke-width="var(--dia-stroke)" stroke-dasharray="calc(2 * var(--dia-stroke)) calc(2 * var(--dia-stroke))" />
+            <ellipse cx="50" cy="37" rx="9" ry="3.5" fill="var(--paper)" stroke="var(--ink-soft)" stroke-width="var(--dia-stroke)" />
+            <path d="M45,40 Q42,50 40,58" fill="none" stroke="var(--accent)" stroke-width="var(--dia-stroke-bond)" marker-end="url(#tawa-arr-1)" />
+            <path d="M55,40 Q58,50 60,58" fill="none" stroke="var(--accent)" stroke-width="var(--dia-stroke-bond)" marker-end="url(#tawa-arr-2)" />
             <defs>
               <marker id="tawa-arr-1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" viewBox="0 0 6 6"><path d="M0 0 L6 3 L0 6 z" fill="var(--accent)" /></marker>
               <marker id="tawa-arr-2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" viewBox="0 0 6 6"><path d="M0 0 L6 3 L0 6 z" fill="var(--accent)" /></marker>
@@ -229,13 +229,13 @@
         <!-- Level 2: Meso -->
         <div data-zoom-level="meso" style="width:100%; height:100%;">
           <svg viewBox="0 0 100 100" style="width:100%; height:100%;">
-            <rect x="15" y="10" width="70" height="24" fill="var(--card)" stroke="var(--hair)" stroke-width="1" />
+            <rect x="15" y="10" width="70" height="24" fill="var(--card)" stroke="var(--hair)" stroke-width="var(--dia-stroke)" />
             <rect x="15" y="34" width="70" height="6" fill="var(--ink)" />
-            <rect x="15" y="40" width="70" height="24" fill="var(--card)" stroke="var(--hair)" stroke-width="1" />
+            <rect x="15" y="40" width="70" height="24" fill="var(--card)" stroke="var(--hair)" stroke-width="var(--dia-stroke)" />
             <rect x="15" y="64" width="70" height="6" fill="var(--ink)" />
-            <rect x="15" y="70" width="70" height="20" fill="var(--card)" stroke="var(--hair)" stroke-width="1" />
-            <rect x="15" y="34" width="70" height="6" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-dasharray="2,1.5" />
-            <path d="M88,37 l4,-3 M88,37 l4,3" stroke="var(--accent)" stroke-width="1.2" fill="none" />
+            <rect x="15" y="70" width="70" height="20" fill="var(--card)" stroke="var(--hair)" stroke-width="var(--dia-stroke)" />
+            <rect x="15" y="34" width="70" height="6" fill="none" stroke="var(--accent)" stroke-width="var(--dia-stroke-bond)" stroke-dasharray="calc(2 * var(--dia-stroke)) calc(1.5 * var(--dia-stroke))" />
+            <path d="M88,37 l4,-3 M88,37 l4,3" stroke="var(--accent)" stroke-width="var(--dia-stroke-bond)" fill="none" />
             <text x="50" y="26" font-family="var(--mono)" font-size="4.5" text-anchor="middle" fill="var(--ink-mute)">dough layer</text>
             <text x="50" y="55" font-family="var(--mono)" font-size="4.5" text-anchor="middle" fill="var(--ink-mute)">dough layer</text>
             <text x="50" y="8" font-family="var(--display)" font-size="5" font-weight="700" text-anchor="middle" fill="var(--accent)">re-solidified ghee film &rarr; a solid barrier</text>
@@ -244,13 +244,13 @@
         <!-- Level 3: Particulate -->
         <div data-zoom-level="particulate" style="width:100%; height:100%;">
           <svg viewBox="0 0 100 100" style="width:100%; height:100%;">
-            <g fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linejoin="round">
+            <g fill="none" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" stroke-linejoin="round">
               <polyline points="10,22 22,14 34,22 46,14 58,22 70,14 82,22 90,17" />
               <polyline points="10,38 22,30 34,38 46,30 58,38 70,30 82,38 90,33" />
               <polyline points="10,54 22,46 34,54 46,46 58,54 70,46 82,54 90,49" />
               <polyline points="10,70 22,62 34,70 46,62 58,70 70,62 82,70 90,65" />
             </g>
-            <g stroke="var(--accent)" stroke-width="1" stroke-dasharray="1.5,1.5">
+            <g stroke="var(--accent)" stroke-width="var(--dia-stroke)" stroke-dasharray="calc(1.5 * var(--dia-stroke)) calc(1.5 * var(--dia-stroke))">
               <line x1="30" y1="18" x2="30" y2="34" />
               <line x1="60" y1="18" x2="60" y2="34" />
               <line x1="30" y1="50" x2="30" y2="66" />
