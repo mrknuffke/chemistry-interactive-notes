@@ -5,7 +5,7 @@ Checkable rules only, no rationale. Load this verbatim every diagram session. Se
 ## Containment (target for new/retrofitted work — Phase 0 found 0 overlay violations codebase-wide already, so this is mostly already true)
 
 1. Every diagram is exactly one root `<svg viewBox="…">`.
-2. `preserveAspectRatio="xMidYMid meet"` is set explicitly. Width is CSS (`100%` up to a `.figure` max-width, see `REVISION_PLAN.md` §1); height follows the viewBox.
+2. `preserveAspectRatio="xMidYMid meet"` is set explicitly. Width is CSS (`100%` up to a `.figure` max-width, see `TODO.md` §1.1); height follows the viewBox.
 3. All diagram text is `<text>` inside the SVG. No absolutely-positioned HTML label divs over artwork.
 4. Interactive controls (buttons, sliders) are HTML and sit outside the SVG frame — never overlapping its internals.
 5. **Known exceptions (fixed 2026-07-06):** `2-7a` `#moleculeCanvas` and `2-7c` `#particleCanvas` were missing `viewBox` — both now `viewBox="0 0 400 250"` (matches their existing 16:10 CSS `aspect-ratio`).

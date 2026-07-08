@@ -1,6 +1,6 @@
 # CLAUDE.md — Behavioral Guidelines & Project Contract
 
-> **New session? Read [`TODO.md`](TODO.md) first** — it's the current, single source of truth for what's left to do. All 12 manifest lessons are built, a full consistency/bug-fix pass is done, and PDF/print export is built and verified (see [`CHANGELOG.md`](CHANGELOG.md) for the dated history of all three). **The priority next work is the design-level revision pass in [`REVISION_PLAN.md`](REVISION_PLAN.md)** — a shared figure system, deploying the underused motion primitives, breaking the repetitive produce→reveal interaction pattern, and making lessons re-enterable.
+> **New session? Read [`TODO.md`](TODO.md) first** — it's the current, unified single source of truth for what's left to do, including design-level revision plans, open curriculum decisions, and the feature backlog. All 12 manifest lessons are built, a full consistency/bug-fix pass is done, and PDF/print export is built and verified (see [`CHANGELOG.md`](CHANGELOG.md) for the dated history of all three).
 
 ## 1. Behavioral Guidelines (Reduce common LLM coding mistakes)
 
@@ -92,16 +92,15 @@ This repo builds a set of **interactive HTML review pages** for a high-school Ge
 ### Root Planning & Guidelines Directory
 ```
 CLAUDE.md               Behavioral guidelines & design constraints
-TODO.md                 ← START HERE each session: the single board of outstanding work
+TODO.md                 ← START HERE each session: the unified single source of truth for outstanding work, design revisions, and feature backlog
 CHANGELOG.md            Dated, one-line log of what shipped — add an entry every time you push to GitHub
 README.md               Comprehensive project context, setup, and deployment notes
 BUILDING.md             Step-by-step checklist for building a lesson
-REVISION_PLAN.md        ← PRIORITY: design-level revision pass (figure system, motion, interaction variety, persistence) — proposed, not yet started
-DIAGRAM_STANDARDIZATION.md  Diagram retrofit: SVG containment + shared --dia-* token layer + renderers — proposed, not yet started; adjacent to REVISION_PLAN Phase 1 (see its §Relationship for the sequencing call)
+DIAGRAM_STANDARDIZATION.md  Diagram retrofit: SVG containment + shared --dia-* token layer + renderers (closed 2026-07-08)
 VOICE.md                Pedagogical tone and feedback text style contract
 INTERACTION_SPEC.md     Specifications for retrieval widgets and motion controllers
 ```
-`Ongoing Work/` is the voice-note feedback staging folder (see the Voice Note Feedback Workflow above) — it should otherwise stay empty. A stale, out-of-sync duplicate of five of the docs above once lived there (leftover from an incomplete doc-consolidation merge) and has been removed; don't recreate it there. An orphaned `content_audit.md` content-gap snapshot has likewise been removed — re-run a fresh audit if one is needed rather than trusting an old one. `Diagram_Inventory_v2.md` and `Content_Expansion_v2.md` (the 1-2b seed docs) have been retired now that 1-2b is built — don't recreate them. `BUILD_PLAN.md`, `LESSON_1-2B_PLAN.md`, `REMEDIATION_PLAN.md`, and `PDF_EXPORT_PLAN.md` have likewise been retired now that their work is done and their durable facts migrated into this file, `INTERACTION_SPEC.md`, and `BUILDING.md` — see `CHANGELOG.md` for what each covered; don't recreate them.
+`Ongoing Work/` is the voice-note feedback staging folder (see the Voice Note Feedback Workflow above) — it should otherwise stay empty. A stale, out-of-sync duplicate of five of the docs above once lived there (leftover from an incomplete doc-consolidation merge) and has been removed; don't recreate it there. An orphaned `content_audit.md` content-gap snapshot has likewise been removed — re-run a fresh audit if one is needed rather than trusting an old one. `Diagram_Inventory_v2.md` and `Content_Expansion_v2.md` (the 1-2b seed docs) have been retired now that 1-2b is built — don't recreate them. `BUILD_PLAN.md`, `LESSON_1-2B_PLAN.md`, `REMEDIATION_PLAN.md`, `PDF_EXPORT_PLAN.md`, `REVISION_PLAN.md`, and `FEATURES.md` have likewise been retired now that their work is done and their durable facts migrated into this file, `TODO.md`, `INTERACTION_SPEC.md`, and `BUILDING.md` — see `CHANGELOG.md` for what each covered; don't recreate them.
 
 **Update `CHANGELOG.md` every time you push to the GitHub repo** (every push to `main` triggers the live-site deploy — see `README.md` §Automated Publishing). Add one dated line summarizing what the push contains before or as part of that push. This is separate from `TODO.md` (current/outstanding work): the changelog is a append-only historical record, never edited after the fact.
 

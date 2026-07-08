@@ -59,10 +59,9 @@ All developer documentation, logs, contracts, and expansion drafts live in the p
 │   ├── index.html       # Student home dashboard & search index page
 │   └── lessons.json     # Manifest metadata matching lessons to curriculum targets
 ├── CLAUDE.md            # Guidelines, coding conventions, and developer guidelines
-├── TODO.md              # Single board of outstanding work — start here each session
+├── TODO.md              # Unified single source of truth for outstanding work, design revisions, and feature backlog
 ├── CHANGELOG.md         # Dated, one-line log of what shipped — update on every push
 ├── BUILDING.md          # Step-by-step checklist for building a lesson
-├── REVISION_PLAN.md     # Priority next work: design-level revision pass (figures, motion, interaction variety, persistence)
 ├── VOICE.md             # Tone and widget feedback writing contract
 ├── INTERACTION_SPEC.md  # Detailed specifications for widgets & interactive behaviors
 ├── LICENSE              # CC BY-NC-SA 4.0 License Text

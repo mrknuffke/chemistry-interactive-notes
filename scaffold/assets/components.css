@@ -214,7 +214,7 @@ strong.term{font-weight:700;color:var(--ink);border-bottom:1.5px dashed var(--ac
 .diagram svg,.diagram img{width:100%;height:auto;display:block;}
 .diagram-cap{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-mute);text-align:center;margin-top:.7rem;}
 
-/* ---- figure system: one primitive for all figure widths (REVISION_PLAN.md §1) ----
+/* ---- figure system: one primitive for all figure widths (TODO.md §1.1) ----
    Width comes from a named tier tied to the prose column, never a raw pixel value.
    --full/--wide figures must sit outside .narrow (or bleed out of it) or the
    .narrow max-width silently caps them back down to the prose column. */
@@ -1839,7 +1839,7 @@ strong.term{font-weight:700;color:var(--ink);border-bottom:1.5px dashed var(--ac
 }
 
 /* ============================================================
-   PERIODIC TABLE DROPDOWN DRAWER — see FEATURES.md §4.1
+   PERIODIC TABLE DROPDOWN DRAWER — see TODO.md §5
    ============================================================ */
 .ptable-drawer-overlay {
   position: fixed;
