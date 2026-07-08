@@ -6,6 +6,7 @@ A dated, one-line record of what shipped. This is not a to-do list (see [`TODO.m
 
 ---
 
+- **2026-07-08** — Consolidated `TODO.md`, `REVISION_PLAN.md`, and `FEATURES.md` into a single source of truth (`TODO.md`), updated development docs and styling comment references, and deleted the redundant spec documents.
 - **2026-07-08** — Implemented an interactive visual Concept Map / "You Are Here" Mastery Graph on the index dashboard (`scaffold/index.html`) using standard CSS variables and responsive SVG mapping, including color-coded progress states for nodes and connection lines, search filtering integration, and mobile overflow responsiveness.
 - **2026-07-08** — Implemented a global lesson persistence layer (with a sandboxed-safe virtualized StorageEngine, widget and checkpoint state restoration on load, auto-scroll to the last completed section) and added a dashboard "Clear Progress" button.
 - **2026-07-08** — Standardized interactive stoichiometry diagrams in `2-7c.js` to use shared `--dia-*` design tokens and styled the reaction chamber boundary using the `.d-wall` class, fixing Chrome's font-size rendering bug.
