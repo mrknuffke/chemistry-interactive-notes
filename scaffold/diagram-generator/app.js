@@ -890,7 +890,7 @@
           fill: color,
           "font-family": "var(--mono)",
           "font-weight": "700",
-          "font-size": "var(--dia-caption-size)"
+          "font-size": "5px"
         });
         txt.textContent = "δ" + sign;
         svg.appendChild(txt);
