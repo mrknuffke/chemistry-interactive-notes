@@ -1496,7 +1496,7 @@
       const cpk = getCPK(atom.el);
       let radius = 7.5;
       if (mode === "particle") {
-        radius = cpk.isSmall ? 8.0 : 11.0;
+        radius = 10; // placeholder, will be recalculated below
       } else {
         radius = cpk.isSmall ? 5.0 : 7.5;
       }
@@ -1512,6 +1512,25 @@
       atomMap[atom.id] = scaled;
       return scaled;
     });
+
+    // For particle mode, compute radii so atoms never overlap
+    if (mode === "particle" && data.bonds && data.bonds.length > 0) {
+      // Find shortest bonded distance
+      let minDist = Infinity;
+      data.bonds.forEach(bond => {
+        const a = atomMap[bond.a];
+        const b = atomMap[bond.b];
+        if (a && b) {
+          const d = Math.hypot(b.x - a.x, b.y - a.y);
+          if (d > 0 && d < minDist) minDist = d;
+        }
+      });
+      // Each atom gets half the min distance minus a small gap (stroke overlap only)
+      const maxRadius = Math.max(4, (minDist / 2) - 1);
+      scaledAtoms.forEach(sa => {
+        sa.radius = sa.cpk.isSmall ? Math.max(4, maxRadius * 0.7) : maxRadius;
+      });
+    }
 
     const atomMapById = {};
     scaledAtoms.forEach(sa => { atomMapById[sa.id] = sa; });
