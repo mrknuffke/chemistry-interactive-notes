@@ -181,6 +181,10 @@
                   </select>
                 </div>
               </div>
+              <label class="form-checkbox" style="border-top: 1px dashed var(--hair); padding-top: 0.5rem; margin-top: 0.2rem;">
+                <input type="checkbox" id="molShowElectronClouds">
+                Show electron density clouds
+              </label>
             </div>
           </div>
 
@@ -339,6 +343,7 @@
       const molLewisCardinal = document.getElementById("molLewisCardinal");
       const molShowLegendKey = document.getElementById("molShowLegendKey");
       const showLegendKeyContainer = document.getElementById("showLegendKeyContainer");
+      const molShowElectronClouds = document.getElementById("molShowElectronClouds");
       const molCardinalSnapStyle = document.getElementById("molCardinalSnapStyle");
       const cardinalSnapContainer = document.getElementById("cardinalSnapContainer");
       const molPolarityControls = document.getElementById("molPolarityControls");
@@ -576,6 +581,7 @@
       molShowLegendKey.addEventListener("change", triggerRender);
 
       molUseCPKColors.addEventListener("change", triggerRender);
+      molShowElectronClouds.addEventListener("change", triggerRender);
       
       molLewisCardinal.addEventListener("change", () => {
         if (molLewisCardinal.checked) {
@@ -745,7 +751,8 @@
             netDipoleOffset: molNetDipoleOffset.checked,
             useCPKColors: molUseCPKColors.checked,
             lewisLayout: molLewisCardinal.checked ? "cardinal" : "repulsion",
-            cardinalSnapStyle: molCardinalSnapStyle.value
+            cardinalSnapStyle: molCardinalSnapStyle.value,
+            showElectronClouds: molShowElectronClouds.checked
           };
 
           if (molType === "atom") {

@@ -760,6 +760,8 @@
     centroidX /= atomList.length;
     centroidY /= atomList.length;
 
+    let polarBondIdx = 0;
+
     if (data.bonds) {
       data.bonds.forEach(bond => {
         const a = atomMap[bond.a];
@@ -794,7 +796,13 @@
             const toCentroidX = centroidX - bondMidX;
             const toCentroidY = centroidY - bondMidY;
             const dot = nx * toCentroidX + ny * toCentroidY;
-            if (dot > 0) {
+            if (Math.abs(dot) < 0.01) {
+              // Collinear case (e.g. CO2): alternate sides for each polar bond
+              if (polarBondIdx % 2 === 1) {
+                nx = -nx;
+                ny = -ny;
+              }
+            } else if (dot > 0) {
               nx = -nx;
               ny = -ny;
             }
@@ -830,8 +838,9 @@
               "stroke-dasharray": "3 2",
               "marker-end": "url(#dipole-arrowhead)"
             }));
+            }
+            polarBondIdx++;
           }
-        }
       });
     }
 
@@ -943,6 +952,102 @@
         opacity: "0.35",
         "marker-end": "url(#net-dipole-arrowhead)"
       }));
+    }
+  }
+
+  // ============================================================
+  // ELECTRON DENSITY CLOUD RENDERER
+  // ============================================================
+  function renderElectronDensityClouds(svg, scaledAtoms, atomMap, data, options = {}) {
+    if (!options.showElectronClouds) return;
+
+    const cloudGroup = createSVGElement("g", { class: "electron-clouds" });
+
+    // Bond clouds: elongated ellipses along each bond
+    if (data.bonds) {
+      data.bonds.forEach(bond => {
+        const atomA = atomMap[bond.a];
+        const atomB = atomMap[bond.b];
+        if (!atomA || !atomB) return;
+
+        const mx = (atomA.x + atomB.x) / 2;
+        const my = (atomA.y + atomB.y) / 2;
+        const dx = atomB.x - atomA.x;
+        const dy = atomB.y - atomA.y;
+        const bondLen = Math.hypot(dx, dy);
+        if (bondLen === 0) return;
+
+        const angleDeg = Math.atan2(dy, dx) * (180 / Math.PI);
+        const rx = bondLen * 0.45; // semi-major along bond
+        const ry = 5.5;            // semi-minor perpendicular
+
+        const order = bond.order || 1;
+        const cloudColor = "var(--accent)";
+        const cloudOpacity = order === 1 ? 0.08 : (order === 2 ? 0.12 : 0.16);
+
+        cloudGroup.appendChild(createSVGElement("ellipse", {
+          cx: mx.toFixed(1),
+          cy: my.toFixed(1),
+          rx: rx.toFixed(1),
+          ry: ry.toFixed(1),
+          transform: `rotate(${angleDeg.toFixed(1)} ${mx.toFixed(1)} ${my.toFixed(1)})`,
+          fill: cloudColor,
+          opacity: cloudOpacity.toFixed(2),
+          stroke: "none"
+        }));
+      });
+    }
+
+    // Lone pair clouds: smaller ovals radiating outward from each atom
+    if (data.lonePairs) {
+      const isCardinal = (options.lewisLayout === "cardinal");
+
+      data.lonePairs.forEach(lp => {
+        const atom = atomMap[lp.on];
+        if (!atom) return;
+
+        const bondAngles = [];
+        if (data.bonds) {
+          data.bonds.forEach(bond => {
+            let otherId = null;
+            if (bond.a === atom.id) otherId = bond.b;
+            else if (bond.b === atom.id) otherId = bond.a;
+            if (otherId && atomMap[otherId]) {
+              const other = atomMap[otherId];
+              bondAngles.push(Math.atan2(other.y - atom.y, other.x - atom.x));
+            }
+          });
+        }
+
+        const angles = getLonePairAngles(bondAngles, lp.count, isCardinal);
+        const lpCloudDist = 10;
+        const lpCloudColor = "var(--cool)";
+
+        angles.forEach(alpha => {
+          const cx = atom.x + lpCloudDist * Math.cos(alpha);
+          const cy = atom.y + lpCloudDist * Math.sin(alpha);
+          const angleDeg = alpha * (180 / Math.PI);
+
+          cloudGroup.appendChild(createSVGElement("ellipse", {
+            cx: cx.toFixed(1),
+            cy: cy.toFixed(1),
+            rx: "6",
+            ry: "4",
+            transform: `rotate(${angleDeg.toFixed(1)} ${cx.toFixed(1)} ${cy.toFixed(1)})`,
+            fill: lpCloudColor,
+            opacity: "0.10",
+            stroke: "none"
+          }));
+        });
+      });
+    }
+
+    // Insert clouds BEHIND other elements (first child after any defs)
+    const defs = svg.querySelector("defs");
+    if (defs && defs.nextSibling) {
+      svg.insertBefore(cloudGroup, defs.nextSibling);
+    } else {
+      svg.insertBefore(cloudGroup, svg.firstChild);
     }
   }
 
@@ -1184,7 +1289,10 @@
       svg.appendChild(text);
     });
 
-    // 6. Draw dipoles/partial charges
+    // 6. Draw electron density clouds (behind everything else)
+    renderElectronDensityClouds(svg, scaledAtoms, atomMap, data, options);
+
+    // 7. Draw dipoles/partial charges
     renderDipoleAnnotations(svg, data, scale, padding, options);
 
     return svg;
