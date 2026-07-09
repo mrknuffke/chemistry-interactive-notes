@@ -6,6 +6,7 @@ A dated, one-line record of what shipped. This is not a to-do list (see [`TODO.m
 
 ---
 
+- **2026-07-09** — Unified the index Glossary tab with `GC_GLOSSARY` (index cards now show the same definitions as lesson tooltips; embedded list kept only for lesson/section links), converted the 8 plural/variant glossary aliases to string pointers expanded at load time, deduped the print glossary appendix by display term, and fixed 666 invisible diagram circles across 10 lessons (SVG `r` attributes can't take `var()`; radius re-applied via the CSS `r` property in `components.css`).
 - **2026-07-09** — Implemented the generalized Sort & Classify widget (`sort-classify`), retrofitted the C-RXN lesson's reaction classification drill as the reference implementation, resolved the open decisions (Verb Budget, H-F electronegativity boundary, and Sodium GHS symbols), and updated TODO.md.
 - **2026-07-08** — Consolidated `TODO.md`, `REVISION_PLAN.md`, and `FEATURES.md` into a single source of truth (`TODO.md`), updated development docs and styling comment references, and deleted the redundant spec documents.
 - **2026-07-08** — Implemented an interactive visual Concept Map / "You Are Here" Mastery Graph on the index dashboard (`scaffold/index.html`) using standard CSS variables and responsive SVG mapping, including color-coded progress states for nodes and connection lines, search filtering integration, and mobile overflow responsiveness.

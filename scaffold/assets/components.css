@@ -225,6 +225,14 @@ strong.term{font-weight:700;color:var(--ink);border-bottom:1.5px dashed var(--ac
 .figure--wide{max-width:var(--fig-wide);}
 .figure svg,.figure img{width:100%;height:auto;display:block;}
 .d-particle{fill:var(--electron);stroke:var(--ink);stroke-width:1.2;}
+/* SVG geometry attributes cannot take var() — a circle written as
+   r="var(--dia-r-*)" fails attribute parsing and collapses to r=0
+   (invisible). The CSS `r` property DOES accept var(), and CSS wins
+   over the presentation attribute, so re-apply the radius here.
+   Tokens are unitless; in SVG, 1px = 1 user unit. */
+circle[r="var(--dia-r-particle)"]{r:calc(var(--dia-r-particle) * 1px);}
+circle[r="var(--dia-r-atom-sm)"]{r:calc(var(--dia-r-atom-sm) * 1px);}
+circle[r="var(--dia-r-atom)"]{r:calc(var(--dia-r-atom) * 1px);}
 .d-metal{fill:var(--ink-mute);stroke:var(--ink);stroke-width:1.2;}
 .d-shell{fill:none;stroke:var(--shell);stroke-width:0.8;}
 .d-nuc{fill:var(--nucleus);}
