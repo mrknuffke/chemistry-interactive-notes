@@ -16,6 +16,8 @@ Currently, retrieval sections rely on the same physical interaction: *produce so
 4. **Construct with Live Validation**: Build an configuration, formula, or structure with real-time valence, charge, or octet alerts as they assemble it.
 * **The Verb Budget Constraint**: No more than two consecutive sections in a lesson may share the same interaction verb. Every lesson must have at least one dynamic `manipulate → observe consequence` interactive.
 * **Sequencing**: Build a reference redesign in one lesson (such as `2-7a` or `C-RXN`), obtain author approval on the feel, then propagate across the remaining 11 lessons.
+* **Propagation progress**: `C-RXN` (reference, 2026-07-09) and `2-2a` (physical-vs-chemical sort drill, 2026-07-09) have Sort & Classify. Remaining candidates: `1-2b` (polar vs. nonpolar — fold into the Phase 6 retrofit), plus Diagnose-the-Error and Construct-with-Live-Validation verbs, which have no implementation yet.
+* **Open note (spine tail)**: every lesson's mandated recall → self-explain → exam tail is three consecutive produce-check sections; decide whether the verb budget counts these as one verb or whether the tail needs its own variety treatment before propagating further.
 
 ### 1.2 Phase 4 (Remaining) — Synopsis & "Quick Check"
 While the persistence layer is complete, we still need features that make the lessons functional as returning *study notes* rather than a linear, one-time textbook:

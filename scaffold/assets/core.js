@@ -2041,6 +2041,10 @@
 
     // Initial setup
     checkBtn.style.display = 'none';
+    // createWidgetControls' own reset handler re-shows the Check button after
+    // onReset runs; here Check doubles as "Next" and must stay hidden until an
+    // item is answered, or clicking it skips items. This listener runs last.
+    resetBtn.addEventListener('click', () => { checkBtn.style.display = 'none'; });
     updateStatus();
     renderCard();
     renderBins();
