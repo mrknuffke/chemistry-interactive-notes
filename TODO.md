@@ -2,6 +2,8 @@
 
 **This is the single source of truth for all outstanding work, active design revisions, and feature backlogs for the Chemistry Interactive Notes project. If you are an AI assistant starting a session, read this file first. Add all new tasks, ideas, or feedback here, and log completed work in `CHANGELOG.md`.**
 
+> **Active side-plan:** [`DIAGRAM_GENERATOR_PLAN.md`](DIAGRAM_GENERATOR_PLAN.md) — remediation & enhancement plan for the teacher-facing diagram generator (`scaffold/diagram-generator/`). Phase 0 is a ship-blocker: every electron dot in the tool currently renders invisible (the `0b98f03` circle fix never reached its standalone `app.css`). Retire the plan doc when all phases are done.
+
 ---
 
 ## 1. Active Design Revision Plan — PENDING PHASES
