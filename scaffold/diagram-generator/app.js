@@ -33,6 +33,44 @@
     return CPK_COLORS[sym] || DEFAULT_CPK;
   }
 
+  // Single source for common-name <-> formula <-> display-name lookups.
+  // Previously duplicated as a name->formula map here and a separate
+  // formula->display map in index.html, which could drift out of sync.
+  const COMMON_NAMES = [
+    { formula: 'H2O', commonName: 'water', display: 'Water (H₂O)' },
+    { formula: 'NH3', commonName: 'ammonia', display: 'Ammonia (NH₃)' },
+    { formula: 'CH4', commonName: 'methane', display: 'Methane (CH₄)' },
+    { formula: 'CO2', commonName: 'carbon dioxide', display: 'Carbon Dioxide (CO₂)' },
+    { formula: 'CO', commonName: 'carbon monoxide', display: 'Carbon Monoxide (CO)' },
+    { formula: 'H2', commonName: 'hydrogen', display: 'Hydrogen (H₂)' },
+    { formula: 'O2', commonName: 'oxygen', display: 'Oxygen (O₂)' },
+    { formula: 'N2', commonName: 'nitrogen', display: 'Nitrogen (N₂)' },
+    { formula: 'Cl2', commonName: 'chlorine', display: 'Chlorine (Cl₂)' },
+    { formula: 'F2', commonName: 'fluorine', display: 'Fluorine (F₂)' },
+    { formula: 'Br2', commonName: 'bromine', display: 'Bromine (Br₂)' },
+    { formula: 'I2', commonName: 'iodine', display: 'Iodine (I₂)' },
+    { formula: 'HF', commonName: 'hydrogen fluoride', display: 'Hydrogen Fluoride (HF)' },
+    { formula: 'HCl', commonName: 'hydrogen chloride', display: 'Hydrogen Chloride (HCl)' },
+    { formula: 'HBr', commonName: 'hydrogen bromide', display: 'Hydrogen Bromide (HBr)' },
+    { formula: 'HI', commonName: 'hydrogen iodide', display: 'Hydrogen Iodide (HI)' },
+    { formula: 'NaCl', commonName: 'sodium chloride', display: 'Sodium Chloride (NaCl)' },
+    { formula: 'SO2', commonName: 'sulfur dioxide', display: 'Sulfur Dioxide (SO₂)' },
+    { formula: 'SO3', commonName: 'sulfur trioxide', display: 'Sulfur Trioxide (SO₃)' },
+    { formula: 'H2S', commonName: 'hydrogen sulfide', display: 'Hydrogen Sulfide (H₂S)' },
+    { formula: 'CCl4', commonName: 'carbon tetrachloride', display: 'Carbon Tetrachloride (CCl₄)' },
+    { formula: 'CF4', commonName: 'carbon tetrafluoride', display: 'Carbon Tetrafluoride (CF₄)' },
+    { formula: 'SiO2', commonName: 'silicon dioxide', display: 'Silicon Dioxide (SiO₂)' }
+  ];
+  const NAME_TO_FORMULA = {};
+  const FORMULA_TO_DISPLAY = {};
+  COMMON_NAMES.forEach(e => {
+    NAME_TO_FORMULA[e.commonName] = e.formula;
+    FORMULA_TO_DISPLAY[e.formula.toLowerCase()] = e.display;
+  });
+  function getDisplayName(formula) {
+    return FORMULA_TO_DISPLAY[(formula || "").toLowerCase()] || null;
+  }
+
   // Predefined Coordinate Templates for Molecules
   const MOLECULE_TEMPLATES = {
     H2: {
@@ -190,6 +228,10 @@
         { on: "O1", count: 1 }
       ]
     },
+    // Ionic (metal-nonmetal): Lewis mode renders this as a Na+ [Cl]- ion
+    // pair via drawIonPairMolecule and ignores bonds/lonePairs below.
+    // They're kept only for ball-and-stick/space-filling mode, which still
+    // draws a connecting stick between the ion pair.
     NaCl: {
       atoms: [
         { id: "Na1", el: "Na", x: -0.7, y: 0 },
@@ -218,13 +260,31 @@
   }
 
   // ============================================================
-  // CSS VARIABLE COMPILER & PNG EXPORTER
+  // CSS VARIABLE COMPILER & STANDALONE SVG / PNG EXPORT
   // ============================================================
-  function exportSVGToPNG(svgElement, filename = 'diagram.png', scale = 2) {
+
+  // Temporarily drop dark mode (if active) to read light-theme computed
+  // vars, run fn synchronously with them, then restore — no visible flash
+  // since no paint happens between the class toggle and its restoration.
+  function withComputedStyles(useLightTheme, fn) {
+    const root = document.documentElement;
+    const wasDark = useLightTheme && root.classList.contains("dark");
+    if (wasDark) root.classList.remove("dark");
+    try {
+      return fn(getComputedStyle(root));
+    } finally {
+      if (wasDark) root.classList.add("dark");
+    }
+  }
+
+  // Clone an SVG and make it self-contained: resolve var(--...) references
+  // inside attributes (SVG geometry attrs don't accept var() at all, and a
+  // pasted/standalone document has no access to this page's CSS custom
+  // properties either way) and embed the diagram-class styles it depends on.
+  // Returns a clone that renders identically with zero external CSS.
+  function prepareStandaloneSVG(svgElement, computedStyles, options = {}) {
     const clonedSvg = svgElement.cloneNode(true);
 
-    // Get computed styles of document.documentElement (vars)
-    const computedStyles = getComputedStyle(document.documentElement);
     const varNames = [
       '--paper', '--paper-2', '--paper-3', '--card', '--ink', '--ink-soft', '--ink-mute',
       '--accent', '--accent-soft', '--good', '--good-soft',
@@ -265,7 +325,7 @@
     // Embed critical SVG styles
     const styles = `
       ${cssVarsRule}
-      svg { background-color: ${computedStyles.getPropertyValue('--card')}; }
+      svg { ${options.transparentBg ? '' : 'background-color: ' + computedStyles.getPropertyValue('--card') + ';'} }
       .atom-shell { fill: none; stroke: var(--shell); stroke-width: 1px; }
       .atom-e { fill: var(--electron); stroke: var(--ink); stroke-width: 0.6px; }
       .atom-e-val { fill: var(--accent); stroke: var(--ink); stroke-width: 0.6px; }
@@ -290,10 +350,12 @@
     styleEl.textContent = styles;
     clonedSvg.insertBefore(styleEl, clonedSvg.firstChild);
 
-    // Get width/height dimensions
-    const viewBox = clonedSvg.getAttribute("viewBox");
-    let width = 400;
-    let height = 400;
+    return clonedSvg;
+  }
+
+  function getViewBoxSize(svgElement) {
+    const viewBox = svgElement.getAttribute("viewBox");
+    let width = 400, height = 400;
     if (viewBox) {
       const parts = viewBox.split(/\s+/).map(Number);
       if (parts.length === 4) {
@@ -301,42 +363,80 @@
         height = parts[3];
       }
     }
+    return { width, height };
+  }
 
-    // Base multiplier ensures crisp output even for small SVG viewBoxes
-    const baseRes = 8;
-    const totalScale = scale * baseRes;
-    clonedSvg.setAttribute("width", width * totalScale);
-    clonedSvg.setAttribute("height", height * totalScale);
-
-    const serializer = new XMLSerializer();
-    const svgStr = serializer.serializeToString(clonedSvg);
+  function downloadStandaloneSVG(svgElement, filename = 'diagram.svg', options = {}) {
+    const useLightTheme = options.lightTheme !== false;
+    const svgStr = withComputedStyles(useLightTheme, (computedStyles) => {
+      const clonedSvg = prepareStandaloneSVG(svgElement, computedStyles, options);
+      return new XMLSerializer().serializeToString(clonedSvg);
+    });
     const blob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
     const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.download = filename;
+    a.href = url;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
 
-    const img = new Image();
-    img.src = url;
-    img.onload = function () {
-      const canvas = document.createElement('canvas');
-      canvas.width = width * totalScale;
-      canvas.height = height * totalScale;
-      const ctx = canvas.getContext('2d');
+  function exportSVGToPNG(svgElement, filename = 'diagram.png', scale = 2, options = {}) {
+    const useLightTheme = options.lightTheme !== false;
+    const onError = options.onError || (() => {});
 
-      // Draw background
-      ctx.fillStyle = computedStyles.getPropertyValue('--card') || '#F5F8F4';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    withComputedStyles(useLightTheme, (computedStyles) => {
+      const clonedSvg = prepareStandaloneSVG(svgElement, computedStyles, options);
+      const { width, height } = getViewBoxSize(clonedSvg);
 
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      // Base multiplier ensures crisp output even for small SVG viewBoxes,
+      // clamped so the long edge never exceeds common browser canvas limits
+      // (an uncapped multiplier can silently produce a blank download).
+      const baseRes = 8;
+      const maxEdge = 8192;
+      const requestedScale = scale * baseRes;
+      const totalScale = Math.min(requestedScale, maxEdge / Math.max(width, height));
+      const canvasW = Math.round(width * totalScale);
+      const canvasH = Math.round(height * totalScale);
+      clonedSvg.setAttribute("width", canvasW);
+      clonedSvg.setAttribute("height", canvasH);
 
-      const pngUrl = canvas.toDataURL('image/png');
-      const a = document.createElement('a');
-      a.download = filename;
-      a.href = pngUrl;
-      a.click();
+      const serializer = new XMLSerializer();
+      const svgStr = serializer.serializeToString(clonedSvg);
+      const blob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const cardColor = computedStyles.getPropertyValue('--card') || '#F5F8F4';
 
-      URL.revokeObjectURL(url);
-    };
+      const img = new Image();
+      img.onload = function () {
+        const canvas = document.createElement('canvas');
+        canvas.width = canvasW;
+        canvas.height = canvasH;
+        const ctx = canvas.getContext('2d');
+
+        if (!options.transparentBg) {
+          ctx.fillStyle = cardColor;
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+        const pngUrl = canvas.toDataURL('image/png');
+        const a = document.createElement('a');
+        a.download = filename;
+        a.href = pngUrl;
+        a.click();
+
+        URL.revokeObjectURL(url);
+      };
+      img.onerror = function () {
+        URL.revokeObjectURL(url);
+        onError(new Error("PNG export failed to rasterize the diagram (image load error)."));
+      };
+      img.src = url;
+    });
   }
 
   // ============================================================
@@ -488,16 +588,19 @@
 
     const CX = 75, CY = 75;
 
-    // Draw bracket frame for ions
+    // Draw bracket frame for ions (skipped via options.noBracket for a bare
+    // cation in an ion pair, e.g. Na+, which convention writes unbracketed)
     if (charge !== 0) {
-      svg.appendChild(createSVGElement("path", {
-        d: "M 42,30 H 30 V 120 H 42 M 108,30 H 120 V 120 H 108",
-        class: "lewis-bracket"
-      }));
+      if (!options.noBracket) {
+        svg.appendChild(createSVGElement("path", {
+          d: "M 42,30 H 30 V 120 H 42 M 108,30 H 120 V 120 H 108",
+          class: "lewis-bracket"
+        }));
+      }
       const chargeText = charge > 0 ? (charge === 1 ? "+" : charge + "+") : (charge === -1 ? "−" : Math.abs(charge) + "−");
       const textEl = createSVGElement("text", {
-        x: 122,
-        y: 32,
+        x: options.noBracket ? CX + 13 : 122,
+        y: options.noBracket ? CY - 12 : 32,
         class: "lewis-bracket-charge",
         "font-size": "12px"
       });
@@ -851,7 +954,10 @@
         if (score === 0) return;
 
         const sign = score > 0 ? "+" : "−";
-        const color = score > 0 ? "var(--cool)" : "var(--accent)";
+        // Both delta signs render in the single accent color (Golden Rule 5:
+        // blue/red is reserved for sequential heat maps); the +/- sign
+        // already disambiguates positive from negative partial charge.
+        const color = "var(--accent)";
 
         let sumBx = 0;
         let sumBy = 0;
@@ -1051,7 +1157,77 @@
     }
   }
 
+  // Metal-to-nonmetal bond = ionic (the class's framing per TODO.md §3.2:
+  // H-F stays covalent despite dEN 1.78 because both are nonmetals, so
+  // bonding character is keyed off element `kind`, not dEN alone).
+  function isIonicPair(elSymA, elSymB) {
+    const a = EL.bySym[elSymA];
+    const b = EL.bySym[elSymB];
+    if (!a || !b) return false;
+    return (a.kind === "metal" && b.kind === "nonmetal") ||
+           (a.kind === "nonmetal" && b.kind === "metal");
+  }
+
+  // Ion-pair convention: cation is bare symbol + charge (no dots, no
+  // bracket); anion is bracketed with a full octet. Returns null if either
+  // element lacks a defined main-group tendency (falls back to covalent path).
+  function drawIonPairMolecule(data, options = {}) {
+    const [atomA, atomB] = data.atoms;
+    const elA = EL.bySym[atomA.el];
+    const elB = EL.bySym[atomB.el];
+    const [catEl, anEl] = (elA.kind === "metal") ? [elA, elB] : [elB, elA];
+
+    const catTend = window.GC_ELEMENTS.tendency(catEl);
+    const anTend = window.GC_ELEMENTS.tendency(anEl);
+    if (!catTend || !anTend || catTend.dir !== "lose" || anTend.dir !== "gain") return null;
+
+    const svg = createSVGElement("svg", {
+      viewBox: "0 0 300 150",
+      preserveAspectRatio: "xMidYMid meet"
+    });
+
+    const catSvg = drawLewisAtom(catEl, catTend.need, { ...options, noBracket: true });
+    catSvg.setAttribute("x", "0");
+    catSvg.setAttribute("y", "0");
+    catSvg.setAttribute("width", "150");
+    catSvg.setAttribute("height", "150");
+    svg.appendChild(catSvg);
+
+    const anSvg = drawLewisAtom(anEl, -anTend.need, options);
+    anSvg.setAttribute("x", "150");
+    anSvg.setAttribute("y", "0");
+    anSvg.setAttribute("width", "150");
+    anSvg.setAttribute("height", "150");
+    svg.appendChild(anSvg);
+
+    return svg;
+  }
+
+  // Electron-count self-check for a generated Lewis structure: does the
+  // drawn bond+lone-pair total match the valence electrons the atoms
+  // actually supply? Catches the generic parser fabricating structures
+  // that don't conserve electrons (e.g. SO3). Returns null when the check
+  // doesn't apply (a transition-metal atom with no valence, or an ionic pair).
+  function checkElectronCount(data) {
+    if (!data || !data.atoms || !data.bonds) return null;
+    if (data.atoms.some(a => { const el = EL.bySym[a.el]; return !el || el.valence == null; })) return null;
+    if (data.atoms.length === 2 && data.bonds.length === 1 && isIonicPair(data.atoms[0].el, data.atoms[1].el)) return null;
+
+    const drawn = 2 * data.bonds.reduce((s, b) => s + (b.order || 1), 0)
+                + 2 * (data.lonePairs || []).reduce((s, lp) => s + (lp.count || 0), 0);
+    const expected = data.atoms.reduce((s, a) => s + EL.bySym[a.el].valence, 0);
+    return { valid: drawn === expected, drawn, expected };
+  }
+
   function drawLewisMolecule(data, options = {}) {
+    if (data && data.atoms && data.atoms.length === 2 && data.bonds && data.bonds.length === 1) {
+      const [a1, a2] = data.atoms;
+      if (isIonicPair(a1.el, a2.el)) {
+        const ionSvg = drawIonPairMolecule(data, options);
+        if (ionSvg) return ionSvg;
+      }
+    }
+
     const svg = createSVGElement("svg", {
       preserveAspectRatio: "xMidYMid meet"
     });
@@ -1305,7 +1481,7 @@
 
     if (!data || !data.atoms || data.atoms.length === 0) return svg;
 
-    const scale = (mode === "space-filling") ? 13 : 22;
+    const scale = (mode === "particle") ? 18 : 22;
     const padding = (options.showPartialCharges || options.showNetDipole) ? 26 : 20;
 
     const sortedAtoms = [...data.atoms].sort((a, b) => {
@@ -1319,8 +1495,8 @@
     const scaledAtoms = sortedAtoms.map(atom => {
       const cpk = getCPK(atom.el);
       let radius = 7.5;
-      if (mode === "space-filling") {
-        radius = cpk.isSmall ? 11.0 : 14.0;
+      if (mode === "particle") {
+        radius = cpk.isSmall ? 8.0 : 11.0;
       } else {
         radius = cpk.isSmall ? 5.0 : 7.5;
       }
@@ -1442,11 +1618,11 @@
         r: atom.radius,
         fill: atom.cpk.fill,
         stroke: "var(--ink)",
-        "stroke-width": mode === "space-filling" ? "1.5" : "1.2"
+        "stroke-width": mode === "particle" ? "1.0" : "1.2"
       }));
 
-      if (mode === "ball-and-stick" || mode === "space-filling") {
-        const dy = (mode === "space-filling") ? (atom.cpk.isSmall ? 2.0 : 3.0) : (atom.cpk.isSmall ? 2.2 : 2.8);
+      if (mode === "ball-and-stick" || mode === "particle") {
+        const dy = (mode === "particle") ? (atom.cpk.isSmall ? 2.0 : 3.0) : (atom.cpk.isSmall ? 2.2 : 2.8);
         const text = createSVGElement("text", {
           x: atom.x.toFixed(1),
           y: (atom.y + dy).toFixed(1),
@@ -1454,7 +1630,7 @@
           fill: atom.cpk.text,
           "font-family": "var(--mono)",
           "font-weight": "700",
-          "font-size": (mode === "space-filling") ? (atom.cpk.isSmall ? "7px" : "11px") : (atom.cpk.isSmall ? "var(--dia-caption-size)" : "var(--dia-label-size)")
+          "font-size": (mode === "particle") ? (atom.cpk.isSmall ? "6px" : "9px") : (atom.cpk.isSmall ? "var(--dia-caption-size)" : "var(--dia-label-size)")
         });
         text.textContent = atom.el;
         svg.appendChild(text);
@@ -1470,15 +1646,24 @@
   // ============================================================
   // REACTION & PARTICLE DIAGRAM GENERATOR
   // ============================================================
+  // Returns null (instead of a silently-empty/partial tally) when a token
+  // contains an unknown element symbol or characters the regex can't
+  // consume (e.g. a stray lowercase run like "h2o" matches nothing and
+  // previously fell through to an empty atom count — a typo that read as
+  // "balanced" with zero atoms on both sides).
   function parseFormula(formula) {
     const counts = {};
     const regex = /([A-Z][a-z]*)(\d*)/g;
     let match;
+    let consumedLength = 0;
     while ((match = regex.exec(formula)) !== null) {
       let element = match[1];
       let count = match[2] ? parseInt(match[2]) : 1;
+      if (!EL.bySym[element]) return null;
       counts[element] = (counts[element] || 0) + count;
+      consumedLength += match[0].length;
     }
+    if (consumedLength !== formula.length) return null;
     return counts;
   }
 
@@ -1498,6 +1683,14 @@
 
     const reactants = parseSide(sides[0]);
     const products = parseSide(sides[1]);
+
+    // Validate every term up front so a bad token (unknown element, stray
+    // lowercase typo, or unsupported syntax like parentheses) is reported
+    // by name instead of silently tallying to zero atoms on both sides.
+    const badTerm = [...reactants, ...products].find(t => parseFormula(t.formula) === null);
+    if (badTerm) {
+      return { error: true, badToken: badTerm.formula };
+    }
 
     const leftAtoms = {};
     const rightAtoms = {};
@@ -1668,7 +1861,7 @@
         svg.appendChild(molGroup);
       }
 
-      currentX += r.coeff > 1 ? (r.coeff - 1) * 14 + 30 : 30;
+      currentX += r.coeff > 1 ? (r.coeff - 1) * 28 + 30 : 30;
 
       if (idx < rxn.reactants.length - 1) {
         const plus = createSVGElement("text", {
@@ -1682,17 +1875,17 @@
       }
     });
 
-    currentX = 245;
+    const arrowX = currentX + 15;
     svg.appendChild(createSVGElement("line", {
-      x1: currentX, y1: CY, x2: currentX + 30, y2: CY,
+      x1: arrowX, y1: CY, x2: arrowX + 30, y2: CY,
       stroke: "var(--ink)", "stroke-width": 2, "stroke-linecap": "round"
     }));
     svg.appendChild(createSVGElement("path", {
-      d: `M ${currentX + 25},${CY - 4} L ${currentX + 31},${CY} L ${currentX + 25},${CY + 4}`,
+      d: `M ${arrowX + 25},${CY - 4} L ${arrowX + 31},${CY} L ${arrowX + 25},${CY + 4}`,
       fill: "none", stroke: "var(--ink)", "stroke-width": 2, "stroke-linecap": "round", "stroke-linejoin": "round"
     }));
 
-    currentX = 305;
+    currentX = arrowX + 45;
 
     rxn.products.forEach((p, idx) => {
       if (p.coeff > 1) {
@@ -1718,7 +1911,7 @@
         svg.appendChild(molGroup);
       }
 
-      currentX += p.coeff > 1 ? (p.coeff - 1) * 14 + 30 : 30;
+      currentX += p.coeff > 1 ? (p.coeff - 1) * 28 + 30 : 30;
 
       if (idx < rxn.products.length - 1) {
         const plus = createSVGElement("text", {
@@ -1731,6 +1924,8 @@
         currentX += 30;
       }
     });
+
+    svg.setAttribute("viewBox", `0 0 ${(currentX + 30).toFixed(0)} 120`);
 
     return svg;
   }
@@ -1920,33 +2115,7 @@
     if (!inputStr) return null;
 
     const lowerInput = inputStr.toLowerCase();
-    const nameMap = {
-      'water': 'H2O',
-      'ammonia': 'NH3',
-      'methane': 'CH4',
-      'carbon dioxide': 'CO2',
-      'carbon monoxide': 'CO',
-      'hydrogen': 'H2',
-      'oxygen': 'O2',
-      'nitrogen': 'N2',
-      'chlorine': 'Cl2',
-      'fluorine': 'F2',
-      'bromine': 'Br2',
-      'iodine': 'I2',
-      'hydrogen fluoride': 'HF',
-      'hydrogen chloride': 'HCl',
-      'hydrogen bromide': 'HBr',
-      'hydrogen iodide': 'HI',
-      'sodium chloride': 'NaCl',
-      'sulfur dioxide': 'SO2',
-      'sulfur trioxide': 'SO3',
-      'hydrogen sulfide': 'H2S',
-      'carbon tetrachloride': 'CCl4',
-      'carbon tetrafluoride': 'CF4',
-      'silicon dioxide': 'SiO2'
-    };
-
-    let formula = nameMap[lowerInput] || inputStr;
+    let formula = NAME_TO_FORMULA[lowerInput] || inputStr;
 
     // Check case-insensitive preset formulas
     const presetKeys = Object.keys(MOLECULE_TEMPLATES);
@@ -1954,7 +2123,7 @@
     if (matchedKey) {
       return {
         formula: matchedKey,
-        name: nameMap[lowerInput] ? inputStr : matchedKey,
+        name: NAME_TO_FORMULA[lowerInput] ? inputStr : matchedKey,
         data: MOLECULE_TEMPLATES[matchedKey]
       };
     }
@@ -2025,6 +2194,12 @@
         }
       };
     }
+
+    // Same-element polyatomics (e.g. O3/ozone) are resonance cases the
+    // central/outer AB(n) patterns below can't represent honestly — refuse
+    // rather than fabricate a structure (Golden Rule 4). Diatomics (O2, Cl2)
+    // are unaffected; the pattern above already handles those correctly.
+    if (elements.length === 1 && totalAtoms >= 3) return null;
 
     // Pattern 2: Triatomic AB2 (e.g. H2O, CO2, SO2)
     if (totalAtoms === 3) {
@@ -2227,6 +2402,8 @@
     getCPK,
     TEMPLATES: MOLECULE_TEMPLATES,
     exportPNG: exportSVGToPNG,
+    downloadSVG: downloadStandaloneSVG,
+    prepareStandaloneSVG,
     drawBohrModel,
     drawLewisAtom,
     drawLewisMolecule,
@@ -2236,6 +2413,10 @@
     drawParticleChambers,
     calculateIonShells,
     createSVGElement,
-    parseFormulaToMolecule
+    parseFormulaToMolecule,
+    isIonicPair,
+    checkElectronCount,
+    COMMON_NAMES,
+    getDisplayName
   };
 })();

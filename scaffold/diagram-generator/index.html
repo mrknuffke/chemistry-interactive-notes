@@ -81,7 +81,7 @@
             <div class="chips-grid vertical" id="molStyleContainer">
               <button class="chip active" data-style="lewis">Lewis Structure (2D dots)</button>
               <button class="chip" data-style="ball-and-stick">Ball & Stick Model</button>
-              <button class="chip" data-style="space-filling">Space-Filling Model</button>
+              <button class="chip" data-style="particle">Particle View</button>
             </div>
           </div>
 
@@ -197,7 +197,7 @@
         <section id="reactionPanel" class="tab-panel" style="display:none;">
           <div class="form-group stacked">
             <label for="reactionInput">Chemical Reaction Equation</label>
-            <input type="text" id="reactionInput" class="form-input" value="2 H2 + O2 -> 2 H2O" placeholder="e.g. CH4 + 2 O2 -> CO2 + 2 H2O">
+            <input type="text" id="reactionInput" class="form-input" value="2 H2 + O2 -> 2 H2O" placeholder="e.g. CH4 + 2 O2 -> CO2 + 2 H2O" title="Parentheses (e.g. Ca(OH)2) are not supported — write out repeated groups instead.">
           </div>
 
           <div class="form-group stacked" style="border-top: 1px solid var(--hair); padding-top: 0.8rem;">
@@ -245,9 +245,17 @@
       <div class="preview-bar">
         <h2 class="preview-title" id="activePreviewTitle">Vector Preview</h2>
         <div class="preview-actions">
-          <button class="action-btn" id="copySvgBtn" title="Copy Raw SVG XML Code">
+          <button class="action-btn" id="copySvgBtn" title="Copy Raw SVG XML Code (standalone — renders outside this app)">
             <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
-            Copy SVG
+            <span id="copySvgBtnLabel">Copy SVG</span>
+          </button>
+          <button class="action-btn" id="downloadSvgBtn" title="Download standalone .svg file (vector, best for print)">
+            <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+            Download SVG
+          </button>
+          <button class="action-btn" id="copyLessonHtmlBtn" title="Copy the .diagram-wrapped markup to paste into a lesson page (keeps var() tokens — lessons load tokens.css/components.css so they resolve and theme-adapt there). Choose the .figure width tier per Golden Rule 16 when placing it.">
+            <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+            <span id="copyLessonHtmlBtnLabel">Copy Lesson HTML</span>
           </button>
         </div>
       </div>
@@ -275,8 +283,8 @@
           </div>
         </div>
         <!-- Filename & Resolution & Export row -->
-        <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.85rem; width: 100%;">
-          <div style="display: flex; align-items: center; gap: 0.85rem;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; row-gap: 0.5rem; gap: 0.85rem; width: 100%;">
+          <div style="display: flex; align-items: center; flex-wrap: wrap; row-gap: 0.5rem; gap: 0.85rem;">
             <div class="form-group" style="flex-direction: row; align-items: center; gap: 0.4rem; margin-bottom: 0;">
               <label for="filenameInput" style="margin-bottom: 0; font-weight: 700;">Filename:</label>
               <input type="text" id="filenameInput" class="form-input" style="width: 170px; padding: 0.35rem 0.5rem; font-size: 0.8rem;" value="bohr-model">
@@ -290,6 +298,14 @@
                 <option value="4">4x (UHD)</option>
               </select>
             </div>
+            <label class="form-checkbox" style="white-space: nowrap; margin-bottom: 0;" title="Exported PNGs always use the light background/colors, regardless of the app's current theme — correct default for printed worksheets.">
+              <input type="checkbox" id="exportLightTheme" checked>
+              Export with light theme
+            </label>
+            <label class="form-checkbox" style="white-space: nowrap; margin-bottom: 0;" title="Export with a transparent background instead of the card color.">
+              <input type="checkbox" id="exportTransparentBg">
+              Transparent background
+            </label>
           </div>
           <button class="action-btn primary" id="exportPngBtn" style="padding: 0.45rem 1.0rem;">
             <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
@@ -358,7 +374,13 @@
       const filenameInput = document.getElementById("filenameInput");
       const scaleSelect = document.getElementById("scaleSelect");
       const copySvgBtn = document.getElementById("copySvgBtn");
+      const copySvgBtnLabel = document.getElementById("copySvgBtnLabel");
+      const downloadSvgBtn = document.getElementById("downloadSvgBtn");
+      const copyLessonHtmlBtn = document.getElementById("copyLessonHtmlBtn");
+      const copyLessonHtmlBtnLabel = document.getElementById("copyLessonHtmlBtnLabel");
       const exportPngBtn = document.getElementById("exportPngBtn");
+      const exportLightTheme = document.getElementById("exportLightTheme");
+      const exportTransparentBg = document.getElementById("exportTransparentBg");
       
       const showDiagramTitle = document.getElementById("showDiagramTitle");
       const diagramTitleInput = document.getElementById("diagramTitleInput");
@@ -414,9 +436,9 @@
         const opt = document.createElement("option");
         opt.value = e.sym;
         opt.textContent = `${e.sym} - ${e.name} (Z=${e.z})`;
-        if (e.sym === "F") opt.selected = true; 
-        bohrSelect.appendChild(opt.cloneNode(true));
+        bohrSelect.appendChild(opt);
       });
+      bohrSelect.value = "F";
 
       chargeMinus.addEventListener("click", () => {
         if (bohrCharge > -3) {
@@ -447,9 +469,9 @@
         const opt = document.createElement("option");
         opt.value = e.sym;
         opt.textContent = `${e.sym} - ${e.name} (Z=${e.z})`;
-        if (e.sym === "Cl") opt.selected = true; 
-        molElementSelect.appendChild(opt.cloneNode(true));
+        molElementSelect.appendChild(opt);
       });
+      molElementSelect.value = "Cl";
 
       molStyleChips.forEach(chip => {
         chip.addEventListener("click", () => {
@@ -504,7 +526,7 @@
         triggerRender();
       });
 
-      function performFormulaLookup() {
+      function performFormulaLookup(fromJsonEdit = false) {
         const inputVal = molSearchInput.value.trim();
         if (!inputVal) {
           molSearchStatus.className = "info-box warning";
@@ -520,7 +542,11 @@
           currentMoleculeData = res.data;
           currentMoleculeName = res.formula;
           molJsonText.value = JSON.stringify(res.data, null, 2);
-        } else {
+        } else if (fromJsonEdit) {
+          // Only trust the JSON box as a fallback when the user is actively
+          // editing it themselves — otherwise it still holds the last
+          // successfully-loaded (unrelated) molecule and would silently
+          // relabel that stale structure under the new, unrecognized formula.
           try {
             const parsedJson = JSON.parse(molJsonText.value);
             if (parsedJson && parsedJson.atoms) {
@@ -536,7 +562,20 @@
             molSearchStatus.innerHTML = `<strong>⚠ Unknown formula/name.</strong> Edit raw JSON details below to customize.`;
             currentMoleculeData = null;
           }
+        } else {
+          molSearchStatus.className = "info-box warning";
+          molSearchStatus.innerHTML = `<strong>⚠ Unknown formula/name.</strong> Edit raw JSON details below to customize.`;
+          currentMoleculeData = null;
         }
+
+        if (currentMoleculeData) {
+          const check = window.ChemApp.checkElectronCount(currentMoleculeData);
+          if (check && !check.valid) {
+            molSearchStatus.className = "info-box warning";
+            molSearchStatus.innerHTML += `<br>⚠ Drawn structure shows ${check.drawn} electrons but the atoms supply ${check.expected} valence electrons — this auto-generated structure is not chemically valid. Edit the JSON below to correct it.`;
+          }
+        }
+
         updateFilenameAndTitle();
       }
 
@@ -546,7 +585,7 @@
       });
 
       molJsonText.addEventListener("input", () => {
-        performFormulaLookup();
+        performFormulaLookup(true);
         triggerRender();
       });
 
@@ -652,7 +691,7 @@
             const sym = molElementSelect.value;
             const element = window.GC_ELEMENTS.bySym[sym];
             if (element) {
-              const suffix = molStyle === "lewis" ? "Lewis Dot" : (molStyle === "space-filling" ? "Space-Filling" : "Ball-and-Stick");
+              const suffix = molStyle === "lewis" ? "Lewis Dot" : (molStyle === "particle" ? "Particle View" : "Ball-and-Stick");
               if (molCharge === 0) {
                 suggestedTitle = `${element.name} Atom (${suffix})`;
                 if (filenameInput) filenameInput.value = `${sym.toLowerCase()}_atom_${molStyle.replace(/-/g, "_")}`;
@@ -665,34 +704,8 @@
             }
           } else {
             const inputVal = molSearchInput.value.trim().toLowerCase();
-            const nameMap = {
-              'h2o': 'Water (H₂O)',
-              'nh3': 'Ammonia (NH₃)',
-              'ch4': 'Methane (CH₄)',
-              'co2': 'Carbon Dioxide (CO₂)',
-              'co': 'Carbon Monoxide (CO)',
-              'h2': 'Hydrogen (H₂)',
-              'o2': 'Oxygen (O₂)',
-              'n2': 'Nitrogen (N₂)',
-              'cl2': 'Chlorine (Cl₂)',
-              'f2': 'Fluorine (F₂)',
-              'br2': 'Bromine (Br₂)',
-              'i2': 'Iodine (I₂)',
-              'hf': 'Hydrogen Fluoride (HF)',
-              'hcl': 'Hydrogen Chloride (HCl)',
-              'hbr': 'Hydrogen Bromide (HBr)',
-              'hi': 'Hydrogen Iodide (HI)',
-              'nacl': 'Sodium Chloride (NaCl)',
-              'so2': 'Sulfur Dioxide (SO₂)',
-              'so3': 'Sulfur Trioxide (SO₃)',
-              'h2s': 'Hydrogen Sulfide (H₂S)',
-              'ccl4': 'Carbon Tetrachloride (CCl₄)',
-              'cf4': 'Carbon Tetrafluoride (CF₄)',
-              'sio2': 'Silicon Dioxide (SiO₂)'
-            };
-
-            const styleName = molStyle === "lewis" ? "Lewis Structure" : (molStyle === "space-filling" ? "Space-Filling Model" : "Ball-and-Stick Model");
-            const formulaPretty = nameMap[inputVal] || (currentMoleculeName ? currentMoleculeName.toUpperCase() : "Molecule");
+            const styleName = molStyle === "lewis" ? "Lewis Structure" : (molStyle === "particle" ? "Particle View" : "Ball-and-Stick Model");
+            const formulaPretty = window.ChemApp.getDisplayName(currentMoleculeName) || window.ChemApp.getDisplayName(inputVal) || (currentMoleculeName ? currentMoleculeName.toUpperCase() : "Molecule");
             suggestedTitle = `${formulaPretty} — ${styleName}`;
 
             const filePart = currentMoleculeName ? currentMoleculeName.toLowerCase().replace(/[^a-z0-9]/g, "") : "molecule";
@@ -791,7 +804,7 @@
               return;
             }
 
-            const styleLabel = molStyle === "lewis" ? "Lewis Structure" : (molStyle === "space-filling" ? "Space-Filling Model" : "Ball-and-Stick Model");
+            const styleLabel = molStyle === "lewis" ? "Lewis Structure" : (molStyle === "particle" ? "Particle View" : "Ball-and-Stick Model");
             previewTitle.textContent = `${styleLabel}: ${currentMoleculeName.toUpperCase()}`;
 
             if (molStyle === "lewis") {
@@ -802,9 +815,13 @@
               graphicFrame.appendChild(svg);
             }
 
-            document.getElementById("moleculesInfo").innerHTML = `
-              <strong>Molecule details:</strong> CPK identities and molecular geometry vectors rendered.
-            `;
+            const isIonic = currentMoleculeData.atoms.length === 2 &&
+              window.ChemApp.isIonicPair(currentMoleculeData.atoms[0].el, currentMoleculeData.atoms[1].el);
+            const polarityChecked = molShowCharges.checked || molShowBondDipoles.checked || molShowNetDipole.checked;
+
+            document.getElementById("moleculesInfo").innerHTML = (isIonic && molStyle === "lewis" && polarityChecked)
+              ? `<strong>Molecule details:</strong> ionic — full charges shown, not δ+/δ−.`
+              : `<strong>Molecule details:</strong> CPK identities and molecular geometry vectors rendered.`;
           }
         } 
         
@@ -815,6 +832,12 @@
           if (!parsed) {
             reactionStatus.className = "info-box warning";
             reactionStatus.textContent = "Equation syntax invalid. Use format: '2 H2 + O2 -> 2 H2O'";
+            return;
+          }
+
+          if (parsed.error) {
+            reactionStatus.className = "info-box warning";
+            reactionStatus.innerHTML = `<strong>⚠ Unrecognized term:</strong> "${parsed.badToken}" is not a valid formula (check for a typo, an unknown element, or unsupported syntax — parentheses like Ca(OH)2 aren't supported).`;
             return;
           }
 
@@ -832,17 +855,25 @@
           let compoundSvg;
           
           if (showMolecules && showChambers) {
+            const eqSvg = window.ChemApp.drawReactionMolecules(parsed);
+            const eqWidth = parseFloat(eqSvg.getAttribute("viewBox").split(" ")[2]);
+            const outerWidth = Math.max(eqWidth, 520);
+
             compoundSvg = window.ChemApp.createSVGElement("svg", {
-              viewBox: "0 0 520 320",
+              viewBox: `0 0 ${outerWidth} 320`,
               preserveAspectRatio: "xMidYMid meet"
             });
-            const eqSvg = window.ChemApp.drawReactionMolecules(parsed);
+            eqSvg.setAttribute("x", "0");
             eqSvg.setAttribute("y", "0");
+            eqSvg.setAttribute("width", eqWidth);
+            eqSvg.setAttribute("height", "120");
             compoundSvg.appendChild(eqSvg);
 
             const chamSvg = window.ChemApp.drawParticleChambers(parsed, rxnPhaseBefore.value, rxnPhaseAfter.value);
+            chamSvg.setAttribute("x", ((outerWidth - 340) / 2).toFixed(1));
             chamSvg.setAttribute("y", "125");
-            chamSvg.setAttribute("x", "90");
+            chamSvg.setAttribute("width", "340");
+            chamSvg.setAttribute("height", "185");
             compoundSvg.appendChild(chamSvg);
           } else if (showMolecules) {
             compoundSvg = window.ChemApp.drawReactionMolecules(parsed);
@@ -1073,12 +1104,47 @@
       copySvgBtn.addEventListener("click", () => {
         const svgEl = graphicFrame.querySelector("svg");
         if (!svgEl) return;
-        
-        const serializer = new XMLSerializer();
-        const svgStr = serializer.serializeToString(svgEl);
-        
+
+        // Standalone clone (var()s resolved, styles embedded) so the
+        // pasted SVG renders identically outside this app (Slides, Docs,
+        // a bare HTML file) instead of showing unstyled/invisible shapes.
+        const standaloneSvg = window.ChemApp.prepareStandaloneSVG(svgEl, getComputedStyle(document.documentElement));
+        const svgStr = new XMLSerializer().serializeToString(standaloneSvg);
+
         navigator.clipboard.writeText(svgStr).then(() => {
-          alert("SVG Vector code copied to clipboard!");
+          copySvgBtnLabel.textContent = "Copied ✓";
+          setTimeout(() => { copySvgBtnLabel.textContent = "Copy SVG"; }, 1500);
+        }).catch(err => {
+          console.error("Clipboard copy failed:", err);
+        });
+      });
+
+      downloadSvgBtn.addEventListener("click", () => {
+        const svgEl = graphicFrame.querySelector("svg");
+        if (!svgEl) return;
+
+        const name = filenameInput.value.trim() || "diagram";
+        window.ChemApp.downloadSVG(svgEl, name + ".svg", { lightTheme: exportLightTheme.checked, transparentBg: exportTransparentBg.checked });
+      });
+
+      copyLessonHtmlBtn.addEventListener("click", () => {
+        const svgEl = graphicFrame.querySelector("svg");
+        if (!svgEl) return;
+
+        // Keeps var(--...) references and .d-*/.atom-*/.lewis-* classes as-is
+        // (unlike Copy SVG/Download SVG, which resolve them for standalone
+        // use) — a lesson page loads tokens.css/components.css, so these
+        // resolve and theme-adapt there. Token radii are already emitted in
+        // the components.css-compatible r="var(--dia-r-*)" attribute form
+        // by the renderers, so the lesson-side circle[r="var(...)"] CSS
+        // rule (the same fix as Phase 0) applies without extra work here.
+        const svgStr = new XMLSerializer().serializeToString(svgEl);
+        const captionText = (diagramTitleInput.value.trim() || previewTitle.textContent.trim());
+        const html = `<div class="diagram">\n  ${svgStr}\n  <div class="diagram-cap">${captionText}</div>\n</div>`;
+
+        navigator.clipboard.writeText(html).then(() => {
+          copyLessonHtmlBtnLabel.textContent = "Copied ✓";
+          setTimeout(() => { copyLessonHtmlBtnLabel.textContent = "Copy Lesson HTML"; }, 1500);
         }).catch(err => {
           console.error("Clipboard copy failed:", err);
         });
@@ -1087,11 +1153,18 @@
       exportPngBtn.addEventListener("click", () => {
         const svgEl = graphicFrame.querySelector("svg");
         if (!svgEl) return;
-        
+
         const name = filenameInput.value.trim() || "diagram";
         const scale = parseInt(scaleSelect.value) || 2;
-        
-        window.ChemApp.exportPNG(svgEl, name + ".png", scale);
+
+        window.ChemApp.exportPNG(svgEl, name + ".png", scale, {
+          lightTheme: exportLightTheme.checked,
+          transparentBg: exportTransparentBg.checked,
+          onError: (err) => {
+            console.error("PNG export failed:", err);
+            alert("PNG export failed — the diagram may be too large to rasterize. Try a lower resolution.");
+          }
+        });
       });
 
       // Initial run

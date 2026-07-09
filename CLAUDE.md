@@ -119,6 +119,7 @@ scaffold/
   References/        review sheets + convention posters (AUTHORITATIVE content/conventions)
   index.html         Home dashboard page and search portal
   lessons.json       Lessons database metadata (tracks progress and units)
+  diagram-generator/ teacher-facing SVG diagram generator (Bohr/Lewis/models/reactions + PNG export); standalone assets, does NOT load tokens.css/components.css
 ```
 
 Lesson HTML should be **mostly content**. Shared CSS/JS lives in `assets/`. If you find yourself copying a style or behavior between two lessons, lift it into `components.css` / `core.js` instead.

@@ -631,6 +631,15 @@ button, input, select, textarea {
   font-weight: 600;
 }
 
+/* SVG geometry attributes cannot take var() — a circle written as
+   r="var(--dia-r-*)" fails attribute parsing and collapses to r=0.
+   The CSS r property DOES accept var() and wins over the attribute.
+   Tokens are unitless; in SVG, 1px = 1 user unit. (Same fix as
+   components.css, commit 0b98f03 — this file doesn't load that.) */
+circle[r="var(--dia-r-particle)"] { r: calc(var(--dia-r-particle) * 1px); }
+circle[r="var(--dia-r-atom-sm)"] { r: calc(var(--dia-r-atom-sm) * 1px); }
+circle[r="var(--dia-r-atom)"] { r: calc(var(--dia-r-atom) * 1px); }
+
 .d-particle {
   stroke: var(--ink);
   stroke-width: 1.2;
