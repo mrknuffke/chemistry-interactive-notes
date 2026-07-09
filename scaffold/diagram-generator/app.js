@@ -667,7 +667,7 @@
     }
 
     const gapMid = normalizeAngle(gapStart + maxGapSize / 2);
-    const spacing = Math.min(1.0, maxGapSize / (P + 1));
+    const spacing = Math.min(1.5, maxGapSize / (P + 1));
     const angles = [];
     for (let k = 0; k < P; k++) {
       angles.push(normalizeAngle(gapMid + (k - (P - 1) / 2) * spacing));
