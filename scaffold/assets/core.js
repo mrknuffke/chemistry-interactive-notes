@@ -2749,7 +2749,10 @@
     $$('strong.term').forEach(el => {
       const slug = getSlug(el);
       const entry = window.GC_GLOSSARY[slug];
-      if (entry && !seen.has(slug)) seen.set(slug, entry);
+      // key by display term, not slug — an alias slug ('coefficients') and
+      // its canonical slug ('coefficient') share one entry and must not
+      // produce two identical appendix rows
+      if (entry && !seen.has(entry.term)) seen.set(entry.term, entry);
     });
     if (seen.size === 0) return null;
 

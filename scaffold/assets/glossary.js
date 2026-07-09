@@ -3,6 +3,12 @@
    Loaded by lesson pages after core.js and before lesson JS.
    Keys are kebab-case slugs matching normalized <strong class="term">
    text content. Definitions are final; do not rephrase.
+
+   A plural/variant form (e.g. 'shells', 'coefficients') is stored as
+   a STRING naming its canonical key; the expansion loop at the bottom
+   replaces each string with a reference to the canonical entry object,
+   so consumers can always index GC_GLOSSARY[slug] directly and edits
+   to a definition propagate to every alias automatically.
    ============================================================ */
 
 window.GC_GLOSSARY = {
@@ -365,15 +371,9 @@ window.GC_GLOSSARY = {
   },
 
   // Atomic Structure (1-1a) — plural/variant aliases
-  'shells': {
-    term: 'Electron Shell',
-    definition: 'One of the fixed energy levels at set distances from the nucleus where electrons reside. Shells fill from the inside out, with the first holding 2 electrons and the second and third holding up to 8 each for main-group chemistry. The outermost occupied shell determines an element\'s chemical behavior.',
-  },
+  'shells': 'electron-shell',
 
-  'isotopes': {
-    term: 'Isotope',
-    definition: 'An atom of an element with a different number of neutrons than the most common form. Isotopes of the same element have identical chemical behavior because they have the same electron configuration — neutrons add mass but don\'t change the outer shell. Carbon-12 and carbon-14 are both carbon; they just weigh differently.',
-  },
+  'isotopes': 'isotope',
 
   // Bonding & Electronegativity (1-2a) — new entries
   'electrostatic-force': {
@@ -398,37 +398,19 @@ window.GC_GLOSSARY = {
   },
 
   // Lewis Structures (1-3a) — plural alias
-  'lone-pairs': {
-    term: 'Lone Pair',
-    definition: 'A pair of valence electrons on an atom that is not involved in a covalent bond. Lone pairs occupy space and contribute to molecular geometry, even though they don\'t appear as bonds in a structural formula. Oxygen in water has two lone pairs; nitrogen in ammonia has one.',
-  },
+  'lone-pairs': 'lone-pair',
 
   // IMFs & Properties (1-3b) — plural/variant aliases
-  'intermolecular-forces': {
-    term: 'Intermolecular Force (IMF)',
-    definition: 'A force that acts between separate molecules, holding them near each other. These are electrostatic attractions — LDF, dipole-dipole, and hydrogen bonding — and are much weaker than covalent bonds. Phase changes (melting, boiling) involve overcoming intermolecular forces, not breaking covalent bonds.',
-  },
+  'intermolecular-forces': 'intermolecular-force',
 
-  'intramolecular-bonds': {
-    term: 'Intramolecular Force',
-    definition: 'A force that acts within a molecule, between the atoms that make it up — specifically covalent bonds. Intramolecular forces are much stronger than intermolecular forces and require a chemical reaction to break. Boiling water does not break intramolecular bonds — steam is still H₂O.',
-  },
+  'intramolecular-bonds': 'intramolecular-force',
 
-  'hydrogen-bonding': {
-    term: 'Hydrogen Bond',
-    definition: 'An unusually strong intermolecular force that forms when a hydrogen atom bonded directly to N, O, or F is attracted to a lone pair on an N, O, or F atom of a neighboring molecule. Despite the name, it is not a covalent bond — it is a very strong dipole interaction. Hydrogen bonding explains water\'s anomalously high boiling point and surface tension.',
-  },
+  'hydrogen-bonding': 'hydrogen-bond',
 
-  'london-dispersion-forces': {
-    term: 'London Dispersion Force (LDF)',
-    definition: 'A weak, temporary intermolecular attraction that exists between all molecules, polar or nonpolar. It arises from momentary imbalances in electron distribution that create brief partial charges, which induce matching partial charges in neighboring molecules. Larger electron clouds produce stronger LDFs — this is why heavier molecules generally have higher boiling points.',
-  },
+  'london-dispersion-forces': 'london-dispersion-force',
 
   // Reaction Types & Balancing (C-RXN) — plural alias
-  'coefficients': {
-    term: 'Coefficient',
-    definition: 'A number placed in front of a chemical formula in a balanced equation to indicate how many formula units of that substance are involved. Coefficients can be changed when balancing an equation. Changing a coefficient changes the number of molecules; subscripts inside formulas describe the molecule itself and must never be changed.',
-  },
+  'coefficients': 'coefficient',
 
   // The Mole & Molar Mass (2-7a) — new entry
   'grams-per-mole': {
@@ -459,3 +441,12 @@ window.GC_GLOSSARY = {
   },
 
 };
+
+/* Expand string aliases into shared references to their canonical entry.
+   An alias naming a missing key resolves to undefined, which every
+   consumer already treats as "no entry" — same as an unknown slug. */
+(function (g) {
+  Object.keys(g).forEach(function (k) {
+    if (typeof g[k] === 'string') g[k] = g[g[k]];
+  });
+})(window.GC_GLOSSARY);

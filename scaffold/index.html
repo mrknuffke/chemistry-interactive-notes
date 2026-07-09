@@ -750,6 +750,7 @@
 
   </main>
 
+  <script src="assets/glossary.js"></script>
   <script>
     // Embedded Manifest Data for Offline / file:// CORS compatibility
     const MANIFEST_DATA = {
@@ -1630,24 +1631,42 @@
       });
     });
 
-    // Generate Glossary Cards alphabetically with dynamic section anchoring
+    // Generate Glossary Cards alphabetically with dynamic section anchoring.
+    // Display text comes from GC_GLOSSARY (assets/glossary.js) — the same
+    // definitions students see in lesson tooltips — while MANIFEST_DATA.glossary
+    // supplies where each term lives. Variant forms that resolve to the same
+    // canonical entry (e.g. singular + plural) merge into one card. The
+    // embedded term/definition text is only a fallback for unresolved slugs.
     const glossaryGrid = $('#glossaryGrid');
-    const sortedGlossary = [...MANIFEST_DATA.glossary].sort((a, b) => a.term.localeCompare(b.term));
-    
-    sortedGlossary.forEach(g => {
-      const lesson = MANIFEST_DATA.lessons.find(l => l.id === g.lessonId);
-      const url = lesson ? `lessons/${lesson.slug}.html#${g.sectionId}` : '#';
-      const lessonName = lesson ? lesson.id : g.lessonId;
-      
+    const termSlug = t => t.toLowerCase().replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-');
+    const glossaryGroups = new Map();
+    MANIFEST_DATA.glossary.forEach(g => {
+      const entry = (typeof GC_GLOSSARY !== 'undefined' && GC_GLOSSARY[termSlug(g.term)]) || null;
+      const key = entry ? entry.term : g.term;
+      if (!glossaryGroups.has(key)) {
+        glossaryGroups.set(key, { term: key, definition: entry ? entry.definition : g.definition, locations: [] });
+      }
+      glossaryGroups.get(key).locations.push(g);
+    });
+
+    [...glossaryGroups.values()].sort((a, b) => a.term.localeCompare(b.term)).forEach(group => {
+      const links = group.locations.map(g => {
+        const lesson = MANIFEST_DATA.lessons.find(l => l.id === g.lessonId);
+        const url = lesson ? `lessons/${lesson.slug}.html#${g.sectionId}` : '#';
+        const lessonName = lesson ? lesson.id : g.lessonId;
+        return `<a href="${url}" class="glossary-link">Found in Lesson ${lessonName} &rarr;</a>`;
+      }).join('');
+      const lessonNames = group.locations.map(g => g.lessonId).join(' ');
+
       const card = document.createElement('div');
       card.className = 'glossary-card';
-      card.setAttribute('data-search', `${g.term} ${g.definition} ${lessonName}`);
+      card.setAttribute('data-search', `${group.term} ${group.definition} ${lessonNames}`);
       card.innerHTML = `
         <div class="glossary-card-top">
-          <div class="glossary-term">${g.term}</div>
-          <div class="glossary-definition">${g.definition}</div>
+          <div class="glossary-term">${group.term}</div>
+          <div class="glossary-definition">${group.definition}</div>
         </div>
-        <a href="${url}" class="glossary-link">Found in Lesson ${lessonName} &rarr;</a>
+        ${links}
       `;
       glossaryGrid.appendChild(card);
     });
