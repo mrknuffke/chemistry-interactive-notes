@@ -2,8 +2,6 @@
 
 **This is the single source of truth for all outstanding work, active design revisions, and feature backlogs for the Chemistry Interactive Notes project. If you are an AI assistant starting a session, read this file first. Add all new tasks, ideas, or feedback here, and log completed work in `CHANGELOG.md`.**
 
-> **Active side-plan:** [`DIAGRAM_GENERATOR_PLAN.md`](DIAGRAM_GENERATOR_PLAN.md) — remediation & enhancement plan for the teacher-facing diagram generator (`scaffold/diagram-generator/`). Phase 0 is a ship-blocker: every electron dot in the tool currently renders invisible (the `0b98f03` circle fix never reached its standalone `app.css`). Retire the plan doc when all phases are done.
-
 ---
 
 ## 1. Active Design Revision Plan — PENDING PHASES
@@ -63,6 +61,8 @@ Verify these curriculum decisions and rules before starting work on their respec
    - *Status: Resolved (2026-07-09).* Keep current values (H = 2.20, F = 3.98, ΔEN = 1.78) and explain that because both are nonmetals, they share electrons (polar covalent) despite being above the 1.7 threshold (already implemented).
 3. **Sodium GHS pictograms (Unit 1)**:
    - *Status: Resolved (2026-07-09).* Use **Flame** (Flammable/Water-Reactive) and **Corrosion** (Corrosive to skin/eyes). Added details to [1-1b_periodic-trends-reactivity.html](file:///Users/dknuffke/Library/CloudStorage/Dropbox/Projects/Chemistry%20Interactive%20Notes/scaffold/lessons/1-1b_periodic-trends-reactivity.html).
+4. **Diagram generator palette exceptions (was `DIAGRAM_GENERATOR_PLAN.md` P2-4)**:
+   - *Status: Resolved (2026-07-09).* CPK element fills in `scaffold/diagram-generator/` (including Cl=green, N=blue) are kept as a documented, deliberate exception to Golden Rule 5 — CPK is an external convention students meet again elsewhere. Partial-charge labels (δ+/δ−) both render in the single accent color (vermilion); the +/− sign disambiguates them, so the stray blue use is removed.
 
 ---
 
@@ -78,6 +78,7 @@ Verify these curriculum decisions and rules before starting work on their respec
 ## 5. Completed Work
 
 Log details in `CHANGELOG.md` upon pushing to remote.
+* **2026-07-09**: `DIAGRAM_GENERATOR_PLAN.md` closed out — all 5 phases done and verified (console-clean across all 3 tabs × light/dark × desktop/narrow): invisible electron dots and default-selection fixed, combined reaction view layout fixed, NaCl/KF now render as an honest ionic pair with an electron-count self-check and same-element-polyatomic refusal, standalone SVG copy/download + lesson-HTML export + resolution-clamped PNG export shipped, reaction-parser input validation and a de-duplicated common-name lookup added, and the tool linked from the dashboard. Plan doc retired.
 * **2026-07-08**: Standardized all lessons to shared `--dia-*` geometry tokens, conformed particle/atom colors repowide, and resolved Chrome text-size bugs.
 * **2026-07-08**: Shipped data-driven Molecule Renderer (`molecule-renderer.js`) and Particle-Scene Renderer (`particle-renderer.js`), with test coverage in `_widget-test.html`.
 * **2026-07-08**: Shipped persistence layer (state restoration and scroll-to-last-checkpoint on reload) and visual Concept Map tab on the home dashboard.
