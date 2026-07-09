@@ -741,7 +741,8 @@
       });
       const path = createSVGElement("path", {
         d: "M0 0 L8 4 L0 8 z",
-        fill: "var(--ink-mute)"
+        fill: "var(--ink-mute)",
+        opacity: "0.35"
       });
       marker.appendChild(path);
       defs.appendChild(marker);
@@ -752,6 +753,12 @@
 
     let netDx = 0;
     let netDy = 0;
+
+    // Compute molecule centroid for outward-facing dipole arrow offset
+    let centroidX = 0, centroidY = 0;
+    atomList.forEach(a => { centroidX += a.x; centroidY += a.y; });
+    centroidX /= atomList.length;
+    centroidY /= atomList.length;
 
     if (data.bonds) {
       data.bonds.forEach(bond => {
@@ -778,10 +785,21 @@
           netDy += uy * dEN;
 
           if (showBondDipoles) {
-            const nx = -uy;
-            const ny = ux;
+            let nx = -uy;
+            let ny = ux;
+
+            // Flip normal to always point AWAY from molecule centroid (ensures symmetry)
+            const bondMidX = (pos.x + neg.x) / 2;
+            const bondMidY = (pos.y + neg.y) / 2;
+            const toCentroidX = centroidX - bondMidX;
+            const toCentroidY = centroidY - bondMidY;
+            const dot = nx * toCentroidX + ny * toCentroidY;
+            if (dot > 0) {
+              nx = -nx;
+              ny = -ny;
+            }
             
-            const offsetSide = 5.5; // Offset to side of bond line (symmetrical and thin)
+            const offsetSide = 5.5;
             const startDist = pos.radius + 3;
             const endDist = neg.radius + 3;
 
@@ -910,7 +928,8 @@
         x2: (x1 + nx * crossLen).toFixed(1),
         y2: (y1 + ny * crossLen).toFixed(1),
         stroke: "var(--ink-mute)",
-        "stroke-width": 1.1
+        "stroke-width": 1.1,
+        opacity: "0.35"
       }));
 
       // Main arrow body
@@ -921,6 +940,7 @@
         y2: y2.toFixed(1),
         stroke: "var(--ink-mute)",
         "stroke-width": 1.1,
+        opacity: "0.35",
         "marker-end": "url(#net-dipole-arrowhead)"
       }));
     }
