@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chemistry Diagram Generator</title>
+  <link rel="stylesheet" href="app.css">
+  <!-- Elements Database -->
+  <script src="elements.js"></script>
+  <!-- Render Logic Library -->
+  <script src="app.js"></script>
+</head>
+<body>
+
+  <header class="app-header">
+    <div class="app-title-group">
+      <h1>Chemistry Diagram Generator</h1>
+      <span>v1.6.0</span>
+    </div>
+    <div class="header-actions">
+      <button class="theme-toggle" id="themeToggle" title="Toggle Light/Dark Theme">
+        <svg viewBox="0 0 24 24" id="themeIcon">
+          <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-12.37c-.39-.39-1.02-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.38.39-1.02 0-1.41zM6.93 17.01c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="app-container">
+    <!-- SIDEBAR CONTROLS -->
+    <aside class="sidebar">
+      <!-- Navigation tabs -->
+      <nav class="tabs-nav">
+        <button class="tab-btn active" data-tab="bohr">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/><circle cx="12" cy="12" r="6" stroke="currentColor" stroke-dasharray="2 2" fill="none"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>
+          Bohr
+        </button>
+        <button class="tab-btn" data-tab="molecules">
+          <svg viewBox="0 0 24 24"><circle cx="7" cy="12" r="4" fill="currentColor"/><circle cx="17" cy="12" r="3" fill="currentColor"/><line x1="11" y1="12" x2="14" y2="12" stroke="currentColor" stroke-width="3"/></svg>
+          Molecules
+        </button>
+        <button class="tab-btn" data-tab="reaction">
+          <svg viewBox="0 0 24 24"><path d="M4,6 H14 V14 H4 Z" stroke="currentColor" fill="none" stroke-dasharray="2 2"/><circle cx="7" cy="10" r="2" fill="currentColor"/><circle cx="11" cy="9" r="2" fill="currentColor"/><path d="M12,10 L16,10 L14,8 M16,10 L14,12" stroke="currentColor" fill="none"/><circle cx="20" cy="10" r="2.5" fill="currentColor"/></svg>
+          Reactions
+        </button>
+      </nav>
+
+      <!-- Panel contents -->
+      <div class="panel-content">
+        
+        <!-- BOHR MODEL PANEL -->
+        <section id="bohrPanel" class="tab-panel">
+          <div class="form-group stacked">
+            <label for="bohrElement">Select Element</label>
+            <select id="bohrElement" class="form-input"></select>
+          </div>
+          <div class="form-group stacked">
+            <label>Charge (Ion State)</label>
+            <div class="adjuster">
+              <button class="adjuster-btn" id="bohrChargeMinus">&minus;</button>
+              <span class="adjuster-val" id="bohrChargeVal">0</span>
+              <button class="adjuster-btn" id="bohrChargePlus">+</button>
+            </div>
+          </div>
+          <div class="form-group stacked">
+            <label class="form-checkbox">
+              <input type="checkbox" id="bohrHighlightValence" checked>
+              Highlight valence shell
+            </label>
+          </div>
+          <div class="info-box" id="bohrInfo">
+            Ready to generate Bohr model diagram.
+          </div>
+        </section>
+
+        <!-- MOLECULES PANEL (COMBINED LEWIS & MOLECULAR) -->
+        <section id="moleculesPanel" class="tab-panel" style="display:none;">
+          <!-- Style Selection -->
+          <div class="form-group stacked">
+            <label>Representation Style</label>
+            <div class="chips-grid vertical" id="molStyleContainer">
+              <button class="chip active" data-style="lewis">Lewis Structure (2D dots)</button>
+              <button class="chip" data-style="ball-and-stick">Ball & Stick Model</button>
+              <button class="chip" data-style="space-filling">Space-Filling Model</button>
+            </div>
+          </div>
+
+          <!-- Type selection (Atom vs Molecule) -->
+          <div class="form-group stacked" style="border-top: 1px solid var(--hair); padding-top: 0.8rem;">
+            <label>Target Type</label>
+            <div class="chips-grid vertical" id="molTypeContainer">
+              <button class="chip" id="molTypeAtom" data-type="atom">Single Atom / Ion</button>
+              <button class="chip active" id="molTypeMol" data-type="molecule">Molecule</button>
+            </div>
+          </div>
+
+          <!-- Atom/Ion controls -->
+          <div id="molAtomControls" style="display:none; border-top: 1px solid var(--hair); padding-top: 0.8rem;">
+            <div class="form-group stacked">
+              <label for="molElementSelect">Select Element</label>
+              <select id="molElementSelect" class="form-input"></select>
+            </div>
+            <div class="form-group stacked">
+              <label>Charge</label>
+              <div class="adjuster">
+                <button class="adjuster-btn" id="molChargeMinus">&minus;</button>
+                <span class="adjuster-val" id="molChargeVal">0</span>
+                <button class="adjuster-btn" id="molChargePlus">+</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Molecule controls -->
+          <div id="molMolControls" style="border-top: 1px solid var(--hair); padding-top: 0.8rem;">
+            <div class="form-group stacked">
+              <label for="molSearchInput">Formula or Name</label>
+              <input type="text" id="molSearchInput" class="form-input" value="H2O" placeholder="e.g. H2O, ammonia, CH4, BeCl2">
+              <div id="molSearchStatus" class="info-box success" style="margin-top: 0.5rem; padding: 0.4rem 0.6rem; font-size: 0.74rem;">
+                Ready
+              </div>
+            </div>
+
+            <!-- Advanced Collapsible JSON Builder -->
+            <details id="molAdvancedDetails" style="margin-top: 0.8rem;">
+              <summary style="font-family: var(--display); font-weight: 700; font-size: 0.74rem; cursor: pointer; color: var(--ink-soft); text-transform: uppercase;">
+                Advanced JSON Editor
+              </summary>
+              <div style="margin-top: 0.6rem; display: flex; flex-direction: column; gap: 0.6rem;">
+                <label style="font-size: 0.75rem; color: var(--ink-mute);">Edit 2D Coordinate Layout</label>
+                <textarea id="molJsonText" class="form-input json-textarea" style="height: 120px; font-family: var(--mono); font-size: 0.7rem;" placeholder="JSON coordinates..."></textarea>
+                <button class="chip" id="loadPresetJsonBtn" style="align-self: flex-start;">Reset to Preset JSON</button>
+              </div>
+            </details>
+          </div>
+
+          <!-- Polarity & Charge Settings (visible in Molecule mode) -->
+          <div id="molPolarityControls" class="form-group stacked" style="border-top: 1px solid var(--hair); padding-top: 0.8rem; margin-top: 0.8rem;">
+            <label>Polarity & Design Options</label>
+            <div class="options-stack">
+              <label class="form-checkbox">
+                <input type="checkbox" id="molShowCharges">
+                Show partial charges (δ⁺/δ⁻)
+              </label>
+              <label class="form-checkbox">
+                <input type="checkbox" id="molShowBondDipoles">
+                Show bond dipole arrows (⇸)
+              </label>
+              <div style="display: flex; flex-direction: column; gap: 0.3rem;">
+                <label class="form-checkbox">
+                  <input type="checkbox" id="molShowNetDipole">
+                  Show net molecular dipole (⇾)
+                </label>
+                <label class="form-checkbox" id="netDipoleOffsetContainer" style="display: none; margin-left: 1.25rem;">
+                  <input type="checkbox" id="molNetDipoleOffset">
+                  Offset net dipole to the right
+                </label>
+              </div>
+              <label class="form-checkbox" style="border-top: 1px dashed var(--hair); padding-top: 0.5rem; margin-top: 0.2rem;">
+                <input type="checkbox" id="molUseCPKColors" checked>
+                Use CPK colors for Lewis symbols
+              </label>
+              <div style="display: flex; flex-direction: column; gap: 0.3rem;">
+                <label class="form-checkbox">
+                  <input type="checkbox" id="molLewisCardinal">
+                  Align Lewis pairs/bonds to cardinal NSEW
+                </label>
+                <div id="cardinalSnapContainer" style="display: none; margin-left: 1.25rem; flex-direction: column; gap: 0.25rem; margin-top: 0.1rem;">
+                  <label style="font-size: 0.7rem; font-weight: 700; color: var(--ink-mute); margin-bottom: 0;">Cardinal Snap Angle:</label>
+                  <select id="molCardinalSnapStyle" class="form-input" style="padding: 0.25rem 0.4rem; font-size: 0.72rem; height: auto;">
+                    <option value="auto" selected>Auto Snap (nearest 90°)</option>
+                    <option value="bent-down">Bent Down (West + South)</option>
+                    <option value="bent-right">Bent Right (South + East)</option>
+                    <option value="bent-up">Bent Up (East + North)</option>
+                    <option value="bent-left">Bent Left (North + West)</option>
+                    <option value="linear-h">Linear Horizontal (West + East)</option>
+                    <option value="linear-v">Linear Vertical (North + South)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-box" id="moleculesInfo" style="margin-top: 1rem;">
+            Generates representation model vectors.
+          </div>
+        </section>
+
+        <!-- REACTION & PARTICLES PANEL -->
+        <section id="reactionPanel" class="tab-panel" style="display:none;">
+          <div class="form-group stacked">
+            <label for="reactionInput">Chemical Reaction Equation</label>
+            <input type="text" id="reactionInput" class="form-input" value="2 H2 + O2 -> 2 H2O" placeholder="e.g. CH4 + 2 O2 -> CO2 + 2 H2O">
+          </div>
+
+          <div class="form-group stacked" style="border-top: 1px solid var(--hair); padding-top: 0.8rem;">
+            <label>Representations to Show</label>
+            <div class="options-stack">
+              <label class="form-checkbox">
+                <input type="checkbox" id="rxnShowMolecules" checked>
+                Molecular Equation Graphic
+              </label>
+              <label class="form-checkbox">
+                <input type="checkbox" id="rxnShowChambers" checked>
+                Before / After Particle Chambers
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group stacked" style="border-top: 1px solid var(--hair); padding-top: 0.8rem;">
+            <label for="rxnPhaseBefore">Phase (Before Chamber)</label>
+            <select id="rxnPhaseBefore" class="form-input">
+              <option value="gas" selected>Gas (motion tails)</option>
+              <option value="liquid">Liquid (lump curves)</option>
+              <option value="solid">Solid (vibrate brackets)</option>
+            </select>
+          </div>
+
+          <div class="form-group stacked">
+            <label for="rxnPhaseAfter">Phase (After Chamber)</label>
+            <select id="rxnPhaseAfter" class="form-input">
+              <option value="gas" selected>Gas (motion tails)</option>
+              <option value="liquid">Liquid (lump curves)</option>
+              <option value="solid">Solid (vibrate brackets)</option>
+            </select>
+          </div>
+
+          <div class="info-box" id="reactionStatus">
+            Analyzing balanced state...
+          </div>
+        </section>
+
+      </div>
+    </aside>
+
+    <!-- LIVE VIEWPORT PANEL -->
+    <main class="preview-panel">
+      <div class="preview-bar">
+        <h2 class="preview-title" id="activePreviewTitle">Vector Preview</h2>
+        <div class="preview-actions">
+          <button class="action-btn" id="copySvgBtn" title="Copy Raw SVG XML Code">
+            <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+            Copy SVG
+          </button>
+        </div>
+      </div>
+
+      <!-- Canvas Area -->
+      <div class="canvas-area">
+        <div class="canvas-bg-grid"></div>
+        
+        <!-- Target Frame -->
+        <div class="graphic-frame" id="graphicFrame">
+          <!-- Live SVG is injected here -->
+        </div>
+      </div>
+
+      <!-- Downloader bar at the bottom -->
+      <div class="preview-bar" style="height: auto; min-height: 58px; padding: 0.6rem 1.0rem; flex-direction: column; align-items: stretch; gap: 0.5rem; border-top: 1px solid var(--hair); border-bottom: none; overflow: visible;">
+        <!-- Diagram title option row -->
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.85rem; width: 100%;">
+          <div class="form-group" style="flex-direction: row; align-items: center; gap: 0.4rem; margin-bottom: 0; flex-grow: 1;">
+            <label class="form-checkbox" style="white-space: nowrap; font-weight: 700; margin-bottom: 0;">
+              <input type="checkbox" id="showDiagramTitle" checked>
+              Show Title Label:
+            </label>
+            <input type="text" id="diagramTitleInput" class="form-input" style="padding: 0.35rem 0.5rem; font-size: 0.8rem; flex-grow: 1;" value="">
+          </div>
+        </div>
+        <!-- Filename & Resolution & Export row -->
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.85rem; width: 100%;">
+          <div style="display: flex; align-items: center; gap: 0.85rem;">
+            <div class="form-group" style="flex-direction: row; align-items: center; gap: 0.4rem; margin-bottom: 0;">
+              <label for="filenameInput" style="margin-bottom: 0; font-weight: 700;">Filename:</label>
+              <input type="text" id="filenameInput" class="form-input" style="width: 170px; padding: 0.35rem 0.5rem; font-size: 0.8rem;" value="bohr-model">
+            </div>
+            <div class="form-group" style="flex-direction: row; align-items: center; gap: 0.4rem; margin-bottom: 0; cursor: help;" title="Resolution scaling multiplier (e.g., 2x is double resolution, ideal for sharp worksheets).">
+              <label for="scaleSelect" style="margin-bottom: 0; font-weight: 700;">Resolution:</label>
+              <select id="scaleSelect" class="form-input" style="width: 100px; padding: 0.35rem 0.5rem; font-size: 0.8rem;">
+                <option value="1">1x (Web)</option>
+                <option value="2" selected>2x (Print)</option>
+                <option value="3">3x (HD)</option>
+                <option value="4">4x (UHD)</option>
+              </select>
+            </div>
+          </div>
+          <button class="action-btn primary" id="exportPngBtn" style="padding: 0.45rem 1.0rem;">
+            <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+            Export PNG
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- UI Script Coordinator -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      
+      // ============================================================
+      // DOM ELEMENT SELECTIONS (Declared first to avoid TDZ errors)
+      // ============================================================
+      const root = document.documentElement;
+      const themeToggle = document.getElementById("themeToggle");
+      
+      const tabBtns = document.querySelectorAll(".tab-btn");
+      const panels = document.querySelectorAll(".tab-panel");
+      
+      const bohrSelect = document.getElementById("bohrElement");
+      const bohrValenceCheck = document.getElementById("bohrHighlightValence");
+      const chargeMinus = document.getElementById("bohrChargeMinus");
+      const chargePlus = document.getElementById("bohrChargePlus");
+      const chargeVal = document.getElementById("bohrChargeVal");
+      
+      const molStyleChips = document.querySelectorAll("#molStyleContainer .chip");
+      const molTypeAtom = document.getElementById("molTypeAtom");
+      const molTypeMol = document.getElementById("molTypeMol");
+      const molAtomControls = document.getElementById("molAtomControls");
+      const molMolControls = document.getElementById("molMolControls");
+      const molElementSelect = document.getElementById("molElementSelect");
+      const molChargeMinus = document.getElementById("molChargeMinus");
+      const molChargePlus = document.getElementById("molChargePlus");
+      const molChargeVal = document.getElementById("molChargeVal");
+      
+      const molSearchInput = document.getElementById("molSearchInput");
+      const molSearchStatus = document.getElementById("molSearchStatus");
+      const molJsonText = document.getElementById("molJsonText");
+      const loadPresetJsonBtn = document.getElementById("loadPresetJsonBtn");
+      
+      const molShowCharges = document.getElementById("molShowCharges");
+      const molShowBondDipoles = document.getElementById("molShowBondDipoles");
+      const molShowNetDipole = document.getElementById("molShowNetDipole");
+      const molNetDipoleOffset = document.getElementById("molNetDipoleOffset");
+      const netDipoleOffsetContainer = document.getElementById("netDipoleOffsetContainer");
+      const molUseCPKColors = document.getElementById("molUseCPKColors");
+      const molLewisCardinal = document.getElementById("molLewisCardinal");
+      const molCardinalSnapStyle = document.getElementById("molCardinalSnapStyle");
+      const cardinalSnapContainer = document.getElementById("cardinalSnapContainer");
+      const molPolarityControls = document.getElementById("molPolarityControls");
+      
+      const reactionInput = document.getElementById("reactionInput");
+      const rxnShowMolecules = document.getElementById("rxnShowMolecules");
+      const rxnShowChambers = document.getElementById("rxnShowChambers");
+      const rxnPhaseBefore = document.getElementById("rxnPhaseBefore");
+      const rxnPhaseAfter = document.getElementById("rxnPhaseAfter");
+      const reactionStatus = document.getElementById("reactionStatus");
+      
+      const filenameInput = document.getElementById("filenameInput");
+      const scaleSelect = document.getElementById("scaleSelect");
+      const copySvgBtn = document.getElementById("copySvgBtn");
+      const exportPngBtn = document.getElementById("exportPngBtn");
+      
+      const showDiagramTitle = document.getElementById("showDiagramTitle");
+      const diagramTitleInput = document.getElementById("diagramTitleInput");
+      
+      const graphicFrame = document.getElementById("graphicFrame");
+      const previewTitle = document.getElementById("activePreviewTitle");
+
+      // ============================================================
+      // APPLICATION STATE
+      // ============================================================
+      let activeTab = "bohr";
+      let bohrCharge = 0;
+      let molStyle = "lewis"; 
+      let molType = "molecule"; 
+      let molCharge = 0;
+      let currentMoleculeData = null;
+      let currentMoleculeName = "h2o";
+      let isTitleUserEdited = false;
+
+      // ============================================================
+      // THEME & NAVIGATION BINDINGS
+      // ============================================================
+      if (localStorage.getItem("theme") === "dark") {
+        root.classList.add("dark");
+      }
+      
+      themeToggle.addEventListener("click", () => {
+        root.classList.toggle("dark");
+        const isDark = root.classList.contains("dark");
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+        triggerRender();
+      });
+
+      tabBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          tabBtns.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          
+          activeTab = btn.dataset.tab;
+          panels.forEach(p => p.style.display = "none");
+          document.getElementById(activeTab + "Panel").style.display = "flex";
+          
+          updateFilenameAndTitle();
+          triggerRender();
+        });
+      });
+
+      // ============================================================
+      // BOHR PANEL BINDINGS
+      // ============================================================
+      const mainGroupList = window.GC_ELEMENTS.list.filter(e => e.z <= 36);
+      mainGroupList.forEach(e => {
+        const opt = document.createElement("option");
+        opt.value = e.sym;
+        opt.textContent = `${e.sym} - ${e.name} (Z=${e.z})`;
+        if (e.sym === "F") opt.selected = true; 
+        bohrSelect.appendChild(opt.cloneNode(true));
+      });
+
+      chargeMinus.addEventListener("click", () => {
+        if (bohrCharge > -3) {
+          bohrCharge--;
+          chargeVal.textContent = bohrCharge;
+          updateFilenameAndTitle();
+          triggerRender();
+        }
+      });
+      chargePlus.addEventListener("click", () => {
+        if (bohrCharge < 3) {
+          bohrCharge++;
+          chargeVal.textContent = bohrCharge;
+          updateFilenameAndTitle();
+          triggerRender();
+        }
+      });
+      bohrSelect.addEventListener("change", () => {
+        updateFilenameAndTitle();
+        triggerRender();
+      });
+      bohrValenceCheck.addEventListener("change", triggerRender);
+
+      // ============================================================
+      // MOLECULES PANEL BINDINGS
+      // ============================================================
+      mainGroupList.forEach(e => {
+        const opt = document.createElement("option");
+        opt.value = e.sym;
+        opt.textContent = `${e.sym} - ${e.name} (Z=${e.z})`;
+        if (e.sym === "Cl") opt.selected = true; 
+        molElementSelect.appendChild(opt.cloneNode(true));
+      });
+
+      molStyleChips.forEach(chip => {
+        chip.addEventListener("click", () => {
+          molStyleChips.forEach(c => c.classList.remove("active"));
+          chip.classList.add("active");
+          molStyle = chip.dataset.style;
+          updateFilenameAndTitle();
+          triggerRender();
+        });
+      });
+
+      molTypeAtom.addEventListener("click", () => {
+        molTypeAtom.classList.add("active");
+        molTypeMol.classList.remove("active");
+        molAtomControls.style.display = "block";
+        molMolControls.style.display = "none";
+        molPolarityControls.style.display = "none";
+        molType = "atom";
+        updateFilenameAndTitle();
+        triggerRender();
+      });
+
+      molTypeMol.addEventListener("click", () => {
+        molTypeMol.classList.add("active");
+        molTypeAtom.classList.remove("active");
+        molAtomControls.style.display = "none";
+        molMolControls.style.display = "block";
+        molPolarityControls.style.display = "flex";
+        molType = "molecule";
+        updateFilenameAndTitle();
+        triggerRender();
+      });
+
+      molChargeMinus.addEventListener("click", () => {
+        if (molCharge > -3) {
+          molCharge--;
+          molChargeVal.textContent = molCharge;
+          updateFilenameAndTitle();
+          triggerRender();
+        }
+      });
+      molChargePlus.addEventListener("click", () => {
+        if (molCharge < 3) {
+          molCharge++;
+          molChargeVal.textContent = molCharge;
+          updateFilenameAndTitle();
+          triggerRender();
+        }
+      });
+      molElementSelect.addEventListener("change", () => {
+        updateFilenameAndTitle();
+        triggerRender();
+      });
+
+      function performFormulaLookup() {
+        const inputVal = molSearchInput.value.trim();
+        if (!inputVal) {
+          molSearchStatus.className = "info-box warning";
+          molSearchStatus.textContent = "Please enter a formula or common name.";
+          currentMoleculeData = null;
+          return;
+        }
+
+        const res = window.ChemApp.parseFormulaToMolecule(inputVal);
+        if (res) {
+          molSearchStatus.className = "info-box success";
+          molSearchStatus.innerHTML = `<strong>✔ Loaded structure:</strong> ${res.name}`;
+          currentMoleculeData = res.data;
+          currentMoleculeName = res.formula;
+          molJsonText.value = JSON.stringify(res.data, null, 2);
+        } else {
+          try {
+            const parsedJson = JSON.parse(molJsonText.value);
+            if (parsedJson && parsedJson.atoms) {
+              molSearchStatus.className = "info-box success";
+              molSearchStatus.textContent = "✔ Loaded custom JSON structure.";
+              currentMoleculeData = parsedJson;
+              currentMoleculeName = "custom_molecule";
+            } else {
+              throw new Error("Invalid structure");
+            }
+          } catch (e) {
+            molSearchStatus.className = "info-box warning";
+            molSearchStatus.innerHTML = `<strong>⚠ Unknown formula/name.</strong> Edit raw JSON details below to customize.`;
+            currentMoleculeData = null;
+          }
+        }
+        updateFilenameAndTitle();
+      }
+
+      molSearchInput.addEventListener("input", () => {
+        performFormulaLookup();
+        triggerRender();
+      });
+
+      molJsonText.addEventListener("input", () => {
+        performFormulaLookup();
+        triggerRender();
+      });
+
+      loadPresetJsonBtn.addEventListener("click", () => {
+        const inputVal = molSearchInput.value.trim();
+        const res = window.ChemApp.parseFormulaToMolecule(inputVal);
+        if (res) {
+          molJsonText.value = JSON.stringify(res.data, null, 2);
+          performFormulaLookup();
+          triggerRender();
+        }
+      });
+
+      molShowCharges.addEventListener("change", triggerRender);
+      molShowBondDipoles.addEventListener("change", triggerRender);
+      
+      molShowNetDipole.addEventListener("change", () => {
+        if (molShowNetDipole.checked) {
+          netDipoleOffsetContainer.style.display = "flex";
+        } else {
+          netDipoleOffsetContainer.style.display = "none";
+        }
+        triggerRender();
+      });
+      molNetDipoleOffset.addEventListener("change", triggerRender);
+
+      molUseCPKColors.addEventListener("change", triggerRender);
+      
+      molLewisCardinal.addEventListener("change", () => {
+        if (molLewisCardinal.checked) {
+          cardinalSnapContainer.style.display = "flex";
+        } else {
+          cardinalSnapContainer.style.display = "none";
+        }
+        triggerRender();
+      });
+      molCardinalSnapStyle.addEventListener("change", triggerRender);
+
+      // Perform initial lookup
+      performFormulaLookup();
+
+      // ============================================================
+      // REACTION PANEL BINDINGS
+      // ============================================================
+      reactionInput.addEventListener("input", () => {
+        updateFilenameAndTitle();
+        triggerRender();
+      });
+      rxnShowMolecules.addEventListener("change", triggerRender);
+      rxnShowChambers.addEventListener("change", triggerRender);
+      rxnPhaseBefore.addEventListener("change", triggerRender);
+      rxnPhaseAfter.addEventListener("change", triggerRender);
+
+      // ============================================================
+      // DIAGRAM TITLE USER EDITS
+      // ============================================================
+      diagramTitleInput.addEventListener("input", () => {
+        isTitleUserEdited = true;
+        triggerRender();
+      });
+
+      diagramTitleInput.addEventListener("blur", () => {
+        if (!diagramTitleInput.value.trim()) {
+          isTitleUserEdited = false;
+          updateFilenameAndTitle();
+          triggerRender();
+        }
+      });
+
+      showDiagramTitle.addEventListener("change", triggerRender);
+
+      // ============================================================
+      // FILENAME & TITLE SYNCHRONIZATION
+      // ============================================================
+      function updateFilenameAndTitle() {
+        let suggestedTitle = "";
+
+        if (activeTab === "bohr") {
+          const sym = bohrSelect.value;
+          const element = window.GC_ELEMENTS.bySym[sym];
+          if (element) {
+            if (bohrCharge === 0) {
+              suggestedTitle = `${element.name} Atom`;
+              if (filenameInput) filenameInput.value = `${sym.toLowerCase()}_bohr_model`;
+            } else {
+              const sign = bohrCharge > 0 ? `+${bohrCharge}` : `${bohrCharge}`;
+              suggestedTitle = `${element.name} Ion (${sign})`;
+              const chargeStr = bohrCharge > 0 ? `${bohrCharge}plus` : `${Math.abs(bohrCharge)}minus`;
+              if (filenameInput) filenameInput.value = `${sym.toLowerCase()}_${chargeStr}_bohr_model`;
+            }
+          }
+        } 
+        else if (activeTab === "molecules") {
+          if (molType === "atom") {
+            const sym = molElementSelect.value;
+            const element = window.GC_ELEMENTS.bySym[sym];
+            if (element) {
+              const suffix = molStyle === "lewis" ? "Lewis Dot" : (molStyle === "space-filling" ? "Space-Filling" : "Ball-and-Stick");
+              if (molCharge === 0) {
+                suggestedTitle = `${element.name} Atom (${suffix})`;
+                if (filenameInput) filenameInput.value = `${sym.toLowerCase()}_atom_${molStyle.replace(/-/g, "_")}`;
+              } else {
+                const sign = molCharge > 0 ? `+${molCharge}` : `${molCharge}`;
+                suggestedTitle = `${element.name} Ion (${sign} · ${suffix})`;
+                const chargeStr = molCharge > 0 ? `${molCharge}plus` : `${Math.abs(molCharge)}minus`;
+                if (filenameInput) filenameInput.value = `${sym.toLowerCase()}_ion_${chargeStr}_${molStyle.replace(/-/g, "_")}`;
+              }
+            }
+          } else {
+            const inputVal = molSearchInput.value.trim().toLowerCase();
+            const nameMap = {
+              'h2o': 'Water (H₂O)',
+              'nh3': 'Ammonia (NH₃)',
+              'ch4': 'Methane (CH₄)',
+              'co2': 'Carbon Dioxide (CO₂)',
+              'co': 'Carbon Monoxide (CO)',
+              'h2': 'Hydrogen (H₂)',
+              'o2': 'Oxygen (O₂)',
+              'n2': 'Nitrogen (N₂)',
+              'cl2': 'Chlorine (Cl₂)',
+              'f2': 'Fluorine (F₂)',
+              'br2': 'Bromine (Br₂)',
+              'i2': 'Iodine (I₂)',
+              'hf': 'Hydrogen Fluoride (HF)',
+              'hcl': 'Hydrogen Chloride (HCl)',
+              'hbr': 'Hydrogen Bromide (HBr)',
+              'hi': 'Hydrogen Iodide (HI)',
+              'nacl': 'Sodium Chloride (NaCl)',
+              'so2': 'Sulfur Dioxide (SO₂)',
+              'so3': 'Sulfur Trioxide (SO₃)',
+              'h2s': 'Hydrogen Sulfide (H₂S)',
+              'ccl4': 'Carbon Tetrachloride (CCl₄)',
+              'cf4': 'Carbon Tetrafluoride (CF₄)',
+              'sio2': 'Silicon Dioxide (SiO₂)'
+            };
+
+            const styleName = molStyle === "lewis" ? "Lewis Structure" : (molStyle === "space-filling" ? "Space-Filling Model" : "Ball-and-Stick Model");
+            const formulaPretty = nameMap[inputVal] || (currentMoleculeName ? currentMoleculeName.toUpperCase() : "Molecule");
+            suggestedTitle = `${formulaPretty} — ${styleName}`;
+
+            const filePart = currentMoleculeName ? currentMoleculeName.toLowerCase().replace(/[^a-z0-9]/g, "") : "molecule";
+            if (filenameInput) filenameInput.value = `${filePart}_molecule_${molStyle.replace(/-/g, "_")}`;
+          }
+        } 
+        else if (activeTab === "reaction") {
+          suggestedTitle = reactionInput.value.trim() || "Chemical Reaction";
+          const rxnStr = suggestedTitle.toLowerCase()
+            .replace(/\s+/g, "_")
+            .replace(/->|→/g, "to")
+            .replace(/\+/g, "plus")
+            .replace(/[^a-z0-9_]/g, "");
+          if (filenameInput) filenameInput.value = `reaction_${rxnStr}`;
+        }
+
+        if (!isTitleUserEdited && diagramTitleInput) {
+          diagramTitleInput.value = suggestedTitle;
+        }
+      }
+
+      updateFilenameAndTitle();
+
+      // ============================================================
+      // MAIN RENDER CONTROLLER
+      // ============================================================
+      function triggerRender() {
+        if (!graphicFrame) return;
+        graphicFrame.innerHTML = "";
+        
+        if (activeTab === "bohr") {
+          const sym = bohrSelect.value;
+          const element = window.GC_ELEMENTS.bySym[sym];
+          if (!element) return;
+          
+          const chargeLabel = bohrCharge === 0 ? "" : (bohrCharge > 0 ? ` (+${bohrCharge} Ion)` : ` (${bohrCharge} Ion)`);
+          previewTitle.textContent = `Bohr Model: ${element.name}${chargeLabel}`;
+          
+          const svg = window.ChemApp.drawBohrModel(element, bohrCharge, bohrValenceCheck.checked);
+          graphicFrame.appendChild(svg);
+
+          const shells = window.ChemApp.calculateIonShells(element, bohrCharge);
+          const stateStr = bohrCharge !== 0 ? `Ion (${bohrCharge > 0 ? '+' + bohrCharge : bohrCharge})` : 'Neutral';
+          document.getElementById("bohrInfo").innerHTML = `
+            <strong>${element.name} ${stateStr}</strong><br>
+            Z = ${element.z} (${element.z} protons)<br>
+            Electrons shell configuration: <strong>[${shells.join(", ")}]</strong>
+          `;
+        } 
+        
+        else if (activeTab === "molecules") {
+          const opts = {
+            showPartialCharges: molShowCharges.checked,
+            showBondDipoles: molShowBondDipoles.checked,
+            showNetDipole: molShowNetDipole.checked,
+            netDipoleOffset: molNetDipoleOffset.checked,
+            useCPKColors: molUseCPKColors.checked,
+            lewisLayout: molLewisCardinal.checked ? "cardinal" : "repulsion",
+            cardinalSnapStyle: molCardinalSnapStyle.value
+          };
+
+          if (molType === "atom") {
+            const sym = molElementSelect.value;
+            const element = window.GC_ELEMENTS.bySym[sym];
+            if (!element) return;
+            
+            const chargeLabel = molCharge === 0 ? "" : (molCharge > 0 ? ` (+${molCharge} Ion)` : ` (${molCharge} Ion)`);
+            previewTitle.textContent = `Atom Viewer (${molStyle.toUpperCase()}): ${element.name}${chargeLabel}`;
+            
+            if (molStyle === "lewis") {
+              const svg = window.ChemApp.drawLewisAtom(element, molCharge, opts);
+              graphicFrame.appendChild(svg);
+            } else {
+              const data = {
+                atoms: [{ id: "Atom1", el: element.sym, x: 0, y: 0 }],
+                bonds: [],
+                lonePairs: []
+              };
+              const svg = window.ChemApp.drawMolecularModel(data, molStyle, opts);
+              graphicFrame.appendChild(svg);
+            }
+            
+            let v = element.valence;
+            if (molCharge !== 0 && element.mainGroup) {
+              v = Math.max(0, Math.min(8, v - molCharge));
+            }
+            document.getElementById("moleculesInfo").innerHTML = `
+              <strong>${element.name} atom/ion</strong><br>
+              Valence dots/CPK properties mapped.
+            `;
+          } else {
+            if (!currentMoleculeData) {
+              previewTitle.textContent = "Molecules Viewer";
+              document.getElementById("moleculesInfo").innerHTML = "⚠ Enter a valid molecule formula to begin.";
+              return;
+            }
+
+            const styleLabel = molStyle === "lewis" ? "Lewis Structure" : (molStyle === "space-filling" ? "Space-Filling Model" : "Ball-and-Stick Model");
+            previewTitle.textContent = `${styleLabel}: ${currentMoleculeName.toUpperCase()}`;
+
+            if (molStyle === "lewis") {
+              const svg = window.ChemApp.drawLewisMolecule(currentMoleculeData, opts);
+              graphicFrame.appendChild(svg);
+            } else {
+              const svg = window.ChemApp.drawMolecularModel(currentMoleculeData, molStyle, opts);
+              graphicFrame.appendChild(svg);
+            }
+
+            document.getElementById("moleculesInfo").innerHTML = `
+              <strong>Molecule details:</strong> CPK identities and molecular geometry vectors rendered.
+            `;
+          }
+        } 
+        
+        else if (activeTab === "reaction") {
+          const rxnStr = reactionInput.value;
+          const parsed = window.ChemApp.parseReaction(rxnStr);
+
+          if (!parsed) {
+            reactionStatus.className = "info-box warning";
+            reactionStatus.textContent = "Equation syntax invalid. Use format: '2 H2 + O2 -> 2 H2O'";
+            return;
+          }
+
+          previewTitle.textContent = `Reaction Graphic: ${rxnStr}`;
+
+          const showMolecules = rxnShowMolecules.checked;
+          const showChambers = rxnShowChambers.checked;
+
+          if (!showMolecules && !showChambers) {
+            reactionStatus.className = "info-box warning";
+            reactionStatus.textContent = "Please check at least one representation option.";
+            return;
+          }
+
+          let compoundSvg;
+          
+          if (showMolecules && showChambers) {
+            compoundSvg = window.ChemApp.createSVGElement("svg", {
+              viewBox: "0 0 520 320",
+              preserveAspectRatio: "xMidYMid meet"
+            });
+            const eqSvg = window.ChemApp.drawReactionMolecules(parsed);
+            eqSvg.setAttribute("y", "0");
+            compoundSvg.appendChild(eqSvg);
+
+            const chamSvg = window.ChemApp.drawParticleChambers(parsed, rxnPhaseBefore.value, rxnPhaseAfter.value);
+            chamSvg.setAttribute("y", "125");
+            chamSvg.setAttribute("x", "90");
+            compoundSvg.appendChild(chamSvg);
+          } else if (showMolecules) {
+            compoundSvg = window.ChemApp.drawReactionMolecules(parsed);
+          } else {
+            compoundSvg = window.ChemApp.drawParticleChambers(parsed, rxnPhaseBefore.value, rxnPhaseAfter.value);
+          }
+
+          graphicFrame.appendChild(compoundSvg);
+
+          const formatTally = (tally) => Object.entries(tally).map(([el, count]) => `${count} ${el}`).join(", ");
+          
+          if (parsed.balanced) {
+            reactionStatus.className = "info-box success";
+            reactionStatus.innerHTML = `
+              <strong>Equation is BALANCED! ⚑</strong><br>
+              Total atoms conserved: <strong>${formatTally(parsed.leftAtoms)}</strong>.
+            `;
+          } else {
+            reactionStatus.className = "info-box warning";
+            reactionStatus.innerHTML = `
+              <strong>Equation is UNBALANCED!</strong><br>
+              Reactants side has: <em>${formatTally(parsed.leftAtoms)}</em><br>
+              Products side has: <em>${formatTally(parsed.rightAtoms)}</em>
+            `;
+          }
+
+          const uniqueElements = new Set([...Object.keys(parsed.leftAtoms), ...Object.keys(parsed.rightAtoms)]);
+          if (uniqueElements.size > 0) {
+            const legendContainer = document.createElement("div");
+            legendContainer.className = "legend";
+            
+            uniqueElements.forEach(el => {
+              const cpk = window.ChemApp.getCPK(el);
+              const swatch = document.createElement("div");
+              swatch.className = "swatch";
+              
+              const chip = document.createElement("div");
+              chip.className = "chip-swatch";
+              chip.style.backgroundColor = cpk.fill;
+              if (cpk.isSmall) {
+                chip.style.borderRadius = "2px";
+              } else {
+                chip.style.borderRadius = "50%";
+              }
+              
+              swatch.appendChild(chip);
+              
+              const label = document.createElement("span");
+              label.textContent = el;
+              swatch.appendChild(label);
+              
+              legendContainer.appendChild(swatch);
+            });
+            graphicFrame.appendChild(legendContainer);
+          }
+        }
+
+        // ============================================================
+        // DYNAMIC INJECTION OF TITLE & POLARITY LEGEND ON VIEWBOX
+        // ============================================================
+        const svgEl = graphicFrame.querySelector("svg");
+        const showTitle = showDiagramTitle.checked;
+        const titleText = diagramTitleInput.value.trim();
+        const hasTitle = showTitle && titleText;
+
+        const hasLegend = (activeTab === "molecules" && (molShowCharges.checked || molShowBondDipoles.checked || molShowNetDipole.checked));
+
+        if (svgEl && (hasTitle || hasLegend)) {
+          const viewBox = svgEl.getAttribute("viewBox");
+          if (viewBox) {
+            const parts = viewBox.split(/\s+/).map(Number);
+            if (parts.length === 4) {
+              let vx = parts[0];
+              let vy = parts[1];
+              let vw = parts[2];
+              let vh = parts[3];
+
+              // Expand width if too narrow (prevents title or legend cutoff)
+              const minWidth = 200;
+              if (vw < minWidth) {
+                const diff = minWidth - vw;
+                vx = vx - diff / 2; // pad X coordinate to keep centering
+                vw = minWidth;
+              }
+
+              let extraH = 0;
+              if (hasLegend) extraH += 16;
+              if (hasTitle) extraH += 18;
+
+              svgEl.setAttribute("viewBox", `${vx} ${vy} ${vw} ${vh + extraH}`);
+
+              // 1. Draw Legend if active
+              if (hasLegend) {
+                const legendItems = [];
+                if (molShowBondDipoles.checked) legendItems.push("bond-dipole");
+                if (molShowNetDipole.checked) legendItems.push("net-dipole");
+                if (molShowCharges.checked) legendItems.push("partial-charge");
+
+                const totalW = legendItems.length * 60;
+                const startX = vx + vw / 2 - totalW / 2 + 10;
+                const yCenter = vy + vh + 7;
+
+                const legendGroup = window.ChemApp.createSVGElement("g", {
+                  class: "molecule-legend"
+                });
+
+                legendItems.forEach((item, idx) => {
+                  const cx = startX + idx * 60;
+                  if (item === "bond-dipole") {
+                    // Line
+                    legendGroup.appendChild(window.ChemApp.createSVGElement("line", {
+                      x1: (cx - 15).toFixed(1),
+                      y1: yCenter.toFixed(1),
+                      x2: (cx - 2).toFixed(1),
+                      y2: yCenter.toFixed(1),
+                      stroke: "var(--accent)",
+                      "stroke-width": 0.8,
+                      "stroke-dasharray": "2 1.5",
+                      "marker-end": "url(#dipole-arrowhead)"
+                    }));
+                    // Cross
+                    legendGroup.appendChild(window.ChemApp.createSVGElement("line", {
+                      x1: (cx - 15).toFixed(1),
+                      y1: (yCenter - 1.5).toFixed(1),
+                      x2: (cx - 15).toFixed(1),
+                      y2: (yCenter + 1.5).toFixed(1),
+                      stroke: "var(--accent)",
+                      "stroke-width": 0.8
+                    }));
+                    // Label text
+                    const label = window.ChemApp.createSVGElement("text", {
+                      x: (cx + 1).toFixed(1),
+                      y: (yCenter + 1.8).toFixed(1),
+                      fill: "var(--ink-mute)",
+                      "font-family": "var(--display)",
+                      "font-size": "5.5px",
+                      "font-weight": "600"
+                    });
+                    label.textContent = "Bond Dipole";
+                    legendGroup.appendChild(label);
+                  } 
+                  else if (item === "net-dipole") {
+                    // Line (Translucent)
+                    legendGroup.appendChild(window.ChemApp.createSVGElement("line", {
+                      x1: (cx - 15).toFixed(1),
+                      y1: yCenter.toFixed(1),
+                      x2: (cx - 2).toFixed(1),
+                      y2: yCenter.toFixed(1),
+                      stroke: "var(--ink-mute)",
+                      "stroke-width": 1.0,
+                      "marker-end": "url(#net-dipole-arrowhead)",
+                      opacity: "0.35"
+                    }));
+                    // Cross (Translucent)
+                    legendGroup.appendChild(window.ChemApp.createSVGElement("line", {
+                      x1: (cx - 15).toFixed(1),
+                      y1: (yCenter - 1.5).toFixed(1),
+                      x2: (cx - 15).toFixed(1),
+                      y2: (yCenter + 1.5).toFixed(1),
+                      stroke: "var(--ink-mute)",
+                      "stroke-width": 1.0,
+                      opacity: "0.35"
+                    }));
+                    // Label text
+                    const label = window.ChemApp.createSVGElement("text", {
+                      x: (cx + 1).toFixed(1),
+                      y: (yCenter + 1.8).toFixed(1),
+                      fill: "var(--ink-mute)",
+                      "font-family": "var(--display)",
+                      "font-size": "5.5px",
+                      "font-weight": "600"
+                    });
+                    label.textContent = "Net Dipole";
+                    legendGroup.appendChild(label);
+                  } 
+                  else if (item === "partial-charge") {
+                    // Delta text
+                    const sym = window.ChemApp.createSVGElement("text", {
+                      x: (cx - 10).toFixed(1),
+                      y: (yCenter + 1.8).toFixed(1),
+                      fill: "var(--accent)",
+                      "font-family": "var(--mono)",
+                      "font-weight": "700",
+                      "font-size": "6.0px",
+                      "text-anchor": "middle"
+                    });
+                    sym.textContent = "δ⁺/δ⁻";
+                    legendGroup.appendChild(sym);
+                    // Label text
+                    const label = window.ChemApp.createSVGElement("text", {
+                      x: (cx - 4).toFixed(1),
+                      y: (yCenter + 1.8).toFixed(1),
+                      fill: "var(--ink-mute)",
+                      "font-family": "var(--display)",
+                      "font-size": "5.5px",
+                      "font-weight": "600"
+                    });
+                    label.textContent = "Partial Charge";
+                    legendGroup.appendChild(label);
+                  }
+                });
+                svgEl.appendChild(legendGroup);
+              }
+
+              // 2. Draw Title if active
+              if (hasTitle) {
+                const titleY = vy + vh + (hasLegend ? 23 : 9);
+                const titleNode = window.ChemApp.createSVGElement("text", {
+                  x: (vx + vw / 2).toFixed(1),
+                  y: titleY.toFixed(1),
+                  "text-anchor": "middle",
+                  fill: "var(--ink)",
+                  "font-family": "var(--display)",
+                  "font-weight": "700",
+                  "font-size": "8.5px"
+                });
+                titleNode.textContent = titleText;
+                svgEl.appendChild(titleNode);
+              }
+            }
+          }
+        }
+      }
+
+      // ============================================================
+      // DOWNLOAD AND CLIPBOARD BINDINGS
+      // ============================================================
+      copySvgBtn.addEventListener("click", () => {
+        const svgEl = graphicFrame.querySelector("svg");
+        if (!svgEl) return;
+        
+        const serializer = new XMLSerializer();
+        const svgStr = serializer.serializeToString(svgEl);
+        
+        navigator.clipboard.writeText(svgStr).then(() => {
+          alert("SVG Vector code copied to clipboard!");
+        }).catch(err => {
+          console.error("Clipboard copy failed:", err);
+        });
+      });
+
+      exportPngBtn.addEventListener("click", () => {
+        const svgEl = graphicFrame.querySelector("svg");
+        if (!svgEl) return;
+        
+        const name = filenameInput.value.trim() || "diagram";
+        const scale = parseInt(scaleSelect.value) || 2;
+        
+        window.ChemApp.exportPNG(svgEl, name + ".png", scale);
+      });
+
+      // Initial run
+      triggerRender();
+
+    });
+  </script>
+</body>
+</html>

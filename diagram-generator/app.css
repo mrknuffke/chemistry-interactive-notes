@@ -1,0 +1,787 @@
+/* ============================================================
+   DIAGRAM GENERATOR APP — MAIN STYLESHEET
+   Adheres to the project design system & tokens contract.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&family=Spectral:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* color theme variables (light theme default) */
+  --paper: #EDF1EC;
+  --paper-2: #E4EAE3;
+  --paper-3: #DBE2D9;
+  --card: #F5F8F4;
+  --ink: #16201C;
+  --ink-soft: #3A463F;
+  --ink-mute: #6B756D;
+
+  --accent: #D6452A;
+  --accent-soft: #E68A77;
+  --good: #2E7D57;
+  --good-soft: #6FAF8F;
+
+  /* diagram + heat-map families */
+  --nucleus: #D6452A;
+  --electron: #2E7D57;
+  --shell: rgba(22, 32, 28, 0.35);
+  --cool: #3E6FA5;
+  --hot: #D6452A;
+  --water: #3E6FA5;
+
+  /* structure */
+  --grid: rgba(22, 32, 28, 0.02);
+  --grid-bold: rgba(22, 32, 28, 0.04);
+  --hair: rgba(22, 32, 28, 0.16);
+  --hair-soft: rgba(22, 32, 28, 0.09);
+
+  /* type */
+  --display: 'Hanken Grotesk', system-ui, sans-serif;
+  --serif: 'Spectral', Georgia, serif;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* Diagram geometry tokens */
+  --dia-r-particle: 2;
+  --dia-r-atom-sm: 5;
+  --dia-r-atom: 7.5;
+  --dia-stroke: 1;
+  --dia-stroke-bond: 1.2;
+  --dia-label-size: 10px;
+  --dia-caption-size: 7px;
+}
+
+:root.dark {
+  --paper: #131A17;
+  --paper-2: #18211D;
+  --paper-3: #1F2A25;
+  --card: #1B2420;
+  --ink: #E7EDE6;
+  --ink-soft: #C3CCC2;
+  --ink-mute: #8A948B;
+
+  --accent: #F26B4E;
+  --accent-soft: #9E4636;
+  --good: #5FB088;
+  --good-soft: #3A6B53;
+
+  --nucleus: #F26B4E;
+  --electron: #5FB088;
+  --shell: rgba(231, 237, 230, 0.32);
+  --cool: #6B9BD0;
+  --hot: #F26B4E;
+  --water: #6B9BD0;
+
+  --grid: rgba(231, 237, 230, 0.012);
+  --grid-bold: rgba(231, 237, 230, 0.025);
+  --hair: rgba(231, 237, 230, 0.16);
+  --hair-soft: rgba(231, 237, 230, 0.08);
+}
+
+/* ============================================================
+   BASE SETUP
+   ============================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--ink);
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 26px 26px, 26px 26px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--paper-2);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ink-mute);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-soft);
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+  font-family: var(--display);
+  font-weight: 800;
+  color: var(--ink);
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+/* ============================================================
+   APP LAYOUT
+   ============================================================ */
+
+.app-header {
+  height: 60px;
+  background: var(--paper-2);
+  border-bottom: 1px solid var(--hair);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5rem;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.app-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.app-title-group h1 {
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+  font-weight: 800;
+}
+
+.app-title-group span {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  background: var(--accent);
+  color: white;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--hair);
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--paper-3);
+}
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+/* Main Grid Layout */
+.app-container {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  height: calc(100vh - 60px);
+  overflow: hidden;
+}
+
+/* ============================================================
+   SIDEBAR & CONTROLS
+   ============================================================ */
+
+.sidebar {
+  background: var(--paper-2);
+  border-right: 1px solid var(--hair);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.02);
+}
+
+/* Category Tabs */
+.tabs-nav {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: var(--paper-3);
+  border-bottom: 1px solid var(--hair);
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  padding: 0.75rem 0.25rem;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-mute);
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+  border-bottom: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.tab-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.tab-btn:hover {
+  color: var(--accent);
+  background: var(--paper-2);
+}
+
+.tab-btn.active {
+  color: var(--ink);
+  background: var(--paper-2);
+  border-bottom-color: var(--accent);
+}
+
+/* Sidebar Panels content */
+.panel-content {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-group label {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--hair);
+  background: var(--card);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent-soft);
+}
+
+.form-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.form-checkbox input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+}
+
+/* Adjuster row for charge/numbers */
+.adjuster {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.adjuster-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: 1px solid var(--hair);
+  background: var(--card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.adjuster-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--paper-3);
+}
+
+.adjuster-val {
+  font-family: var(--mono);
+  font-weight: bold;
+  font-size: 1rem;
+  width: 40px;
+  text-align: center;
+}
+
+/* Chip/Selector lists */
+.chips-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.25rem;
+}
+
+.chip {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 0.4rem 0.6rem;
+  background: var(--card);
+  border: 1px solid var(--hair);
+  color: var(--ink-soft);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+}
+
+.chip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.chip.active {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+/* JSON Edit Box */
+.json-textarea {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  height: 160px;
+  resize: vertical;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 0.5rem;
+  border: 1px solid var(--hair);
+  border-radius: 4px;
+}
+
+/* Info pill alerts */
+.info-box {
+  background: var(--paper-3);
+  padding: 0.75rem;
+  border-left: 3px solid var(--accent);
+  font-size: 0.8rem;
+  line-height: 1.45;
+  border-radius: 0 6px 6px 0;
+  font-family: var(--serif);
+}
+
+.info-box.success {
+  border-left-color: var(--good);
+  background: rgba(46, 125, 87, 0.05);
+}
+
+.info-box.warning {
+  border-left-color: var(--accent);
+  background: rgba(214, 69, 42, 0.05);
+}
+
+/* ============================================================
+   PREVIEW PANEL & CANVAS
+   ============================================================ */
+
+.preview-panel {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.preview-bar {
+  height: 48px;
+  background: var(--paper-2);
+  border-bottom: 1px solid var(--hair);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.25rem;
+}
+
+.preview-title {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+}
+
+.preview-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--hair);
+  border-radius: 4px;
+  background: var(--card);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all 0.15s;
+}
+
+.action-btn svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+.action-btn:hover {
+  background: var(--paper-3);
+  border-color: var(--ink);
+}
+
+.action-btn.primary {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.action-btn.primary:hover {
+  background: #b5331b;
+  border-color: #b5331b;
+}
+
+/* Live Canvas Area */
+.canvas-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* Background graph grid */
+.canvas-bg-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 26px 26px, 26px 26px;
+  z-index: 0;
+}
+
+/* Main Graphic Frame wrapper */
+.graphic-frame {
+  background: var(--card);
+  border: 1px solid var(--hair);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+  max-width: 90%;
+  max-height: 90%;
+  min-width: 320px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.graphic-frame svg {
+  max-width: 100%;
+  max-height: 550px;
+  display: block;
+}
+
+/* Legend styled elements in the graphic frame */
+.legend {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+}
+
+.swatch {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--ink-soft);
+}
+
+.chip-swatch {
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--ink);
+  flex-shrink: 0;
+}
+
+/* Custom molecule builder row inputs */
+.builder-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.delete-row-btn {
+  background: none;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+  padding: 0.2rem;
+  display: flex;
+  align-items: center;
+}
+
+.delete-row-btn:hover {
+  color: #b5331b;
+}
+
+/* ============================================================
+   DIAGRAM CLASSES (Matching DIAGRAM_CONTRACT.md / components.css)
+   ============================================================ */
+
+.atom-shell {
+  fill: none;
+  stroke: var(--shell);
+  stroke-width: 1;
+}
+
+.atom-e {
+  fill: var(--electron);
+  stroke: var(--ink);
+  stroke-width: 0.6;
+}
+
+.atom-e-val {
+  fill: var(--accent);
+  stroke: var(--ink);
+  stroke-width: 0.6;
+}
+
+.atom-nucleus {
+  fill: var(--nucleus);
+}
+
+.atom-nuc-label {
+  fill: #ffffff;
+  font-family: var(--mono);
+  font-weight: 600;
+}
+
+.d-particle {
+  stroke: var(--ink);
+  stroke-width: 1.2;
+}
+
+.d-metal {
+  stroke: var(--ink);
+  stroke-width: 1.2;
+}
+
+.d-shell {
+  fill: none;
+  stroke: var(--shell);
+  stroke-width: 0.8;
+}
+
+.d-nuc {
+  fill: var(--nucleus);
+}
+
+.d-nuc-t {
+  fill: #fff;
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: 9px;
+}
+
+.d-frame {
+  fill: none;
+  stroke: var(--ink-mute);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 4;
+}
+
+.d-wall {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.d-water {
+  fill: none;
+  stroke: var(--water);
+  stroke-width: 1.8;
+}
+
+.d-arrow {
+  stroke: var(--ink);
+  stroke-width: 1.6;
+}
+
+.d-label {
+  font-family: var(--display);
+  font-weight: 600;
+  fill: var(--ink);
+}
+
+.d-sub {
+  font-family: var(--mono);
+  fill: var(--ink-mute);
+}
+
+/* Bracket wrapper labels for Lewis structures of ions */
+.lewis-bracket {
+  stroke: var(--ink);
+  stroke-width: 1.5;
+  fill: none;
+}
+
+.lewis-bracket-charge {
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: 11px;
+  fill: var(--ink);
+}
+
+/* Vertical stack modifiers and options styling */
+.chips-grid.vertical {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.chips-grid.vertical .chip {
+  text-align: center;
+  font-weight: 600;
+  padding: 0.5rem;
+}
+
+.options-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-top: 0.45rem;
+}
+
+.tab-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+@media print {
+  body {
+    background: #ffffff;
+    color: #000000;
+  }
+  .app-header,
+  .sidebar,
+  .preview-bar,
+  .theme-toggle,
+  .canvas-bg-grid {
+    display: none !important;
+  }
+  .app-container {
+    display: block;
+    height: auto;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .preview-panel {
+    background: none;
+    border: none;
+    box-shadow: none;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .canvas-area {
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .graphic-frame {
+    box-shadow: none;
+    border: none;
+    background: #ffffff;
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
