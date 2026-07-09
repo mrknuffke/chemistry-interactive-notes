@@ -183,9 +183,41 @@ Each blank checks individually on commit (per-step "Check" or a single "Check al
 }
 ```
 
+### 3.5 Sort & Classify — `data-widget="sort-classify"`
+
+**Purpose:** Grouping items into categorical categories (e.g. reaction types, physical vs. chemical changes, polar vs. nonpolar).
+
+**Behavior:**
+- The widget displays the current item card at the top/center of the stage.
+- Category bins are displayed as a responsive grid of buttons at the bottom.
+- Clicking a category bin checks the classification:
+  - **Correct**: Bin button flashes green, displays correctness feedback, and shows a "Next" button to advance.
+  - **Incorrect**: Bin button shakes and flashes vermilion, displays misconception feedback, and disables the button so the student can try other categories.
+- Score and item counts are tracked at the top (`Item N of M · Correct: X / Y`).
+- Fully integrates with the `StorageEngine` persistence layer to restore the finished state on reload.
+
+**Config schema:**
+```json
+{
+  "categories": [
+    {"id": "synthesis", "label": "Synthesis"},
+    {"id": "decomposition", "label": "Decomposition"}
+  ],
+  "items": [
+    {
+      "text": "…item HTML/text…",
+      "category": "synthesis",
+      "feedback_right": "…feedback for correct match…",
+      "feedback_wrong": "…feedback for incorrect match…"
+    }
+  ],
+  "reveal": "…HTML content shown on completion…"
+}
+```
+
 ---
 
-### 3.5 Print/PDF contract (all widgets)
+### 3.6 Print/PDF contract (all widgets)
 
 Every lesson prints to a clean PDF via ⌘P / the topbar Print button (built 2026-07-06, see `CHANGELOG.md`). The print path lives entirely in `scaffold/assets/components.css` (`@media print` block) and `scaffold/assets/core.js` (a `beforeprint`/`afterprint` hook) — no lesson HTML is touched.
 
@@ -206,4 +238,4 @@ Every lesson prints to a clean PDF via ⌘P / the topbar Print button (built 202
 
 ## 5 · Definition of done for the infrastructure sessions
 
-Session complete when: all four widgets + three motion primitives exist in `core.js`/`components.css`; a test page (`lessons/_widget-test.html`) instantiates every widget mode and every primitive with dummy config; all Playwright checks in §4 pass on the test page; zero lesson-specific strings or logic exist in the shared assets.
+Session complete when: all five widgets + three motion primitives exist in `core.js`/`components.css`; a test page (`lessons/_widget-test.html`) instantiates every widget mode and every primitive with dummy config; all Playwright checks in §4 pass on the test page; zero lesson-specific strings or logic exist in the shared assets.

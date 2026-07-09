@@ -54,11 +54,11 @@ These are forward-looking capability ideas. They respect the project ethos: **ze
 Verify these curriculum decisions and rules before starting work on their respective areas:
 
 1. **The Verb Budget constraint (Revision Phase 3)**:
-   - *Status: Open.* Is "no more than two consecutive same-verb sections" right, too strict for short lessons, or too loose? Align with the user before coding.
+   - *Status: Resolved (2026-07-09).* Apply flexibly: allow exceptions for short lessons (under 4 sections) where forcing three distinct verbs might feel contrived.
 2. **H–F polar-covalent boundary framing (Lesson 1-2a)**:
-   - *Status: Open.* For `1-2a_bonding-electronegativity.html`, explain why HF ($\Delta$EN = 1.9) is classified as polar covalent despite exceeding the standard 1.7 ionic threshold.
+   - *Status: Resolved (2026-07-09).* Keep current values (H = 2.20, F = 3.98, ΔEN = 1.78) and explain that because both are nonmetals, they share electrons (polar covalent) despite being above the 1.7 threshold (already implemented).
 3. **Sodium GHS pictograms (Unit 1)**:
-   - *Status: Open.* Confirm exactly which GHS safety symbols the curriculum assessment expects for elemental sodium in Unit 1.
+   - *Status: Resolved (2026-07-09).* Use **Flame** (Flammable/Water-Reactive) and **Corrosion** (Corrosive to skin/eyes). Added details to [1-1b_periodic-trends-reactivity.html](file:///Users/dknuffke/Library/CloudStorage/Dropbox/Projects/Chemistry%20Interactive%20Notes/scaffold/lessons/1-1b_periodic-trends-reactivity.html).
 
 ---
 

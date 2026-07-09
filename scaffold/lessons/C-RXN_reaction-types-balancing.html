@@ -418,79 +418,55 @@
 
       <!-- Classification drill -->
       <h4 class="reveal" style="margin-top:2rem; color:var(--accent);">Practice classifying reactions</h4>
-      <div data-widget="commit-reveal" class="reveal" style="margin-top: 1rem;">
+      <div data-widget="sort-classify" class="reveal" style="margin-top: 1rem;">
         <script type="application/json" class="w-config">
         {
-          "mode": "drill",
+          "categories": [
+            {"id": "synthesis", "label": "Synthesis"},
+            {"id": "decomposition", "label": "Decomposition"},
+            {"id": "single", "label": "Single Replacement"},
+            {"id": "double", "label": "Double Replacement"},
+            {"id": "combustion", "label": "Combustion"}
+          ],
           "items": [
             {
-              "prompt": "Classify this reaction: <strong class='chem'>2 K + Br₂ &rarr; 2 KBr</strong>",
-              "options": [
-                {"label": "Synthesis", "correct": true, "feedback": "Correct! Two reactants combine to form one compound: A + B &rarr; AB."},
-                {"label": "Decomposition", "correct": false, "feedback": "Incorrect. Think of the signature: are reactants breaking down (AB &rarr; A + B), or combining?"},
-                {"label": "Single replacement", "correct": false, "feedback": "Incorrect. Is there a lone element swapping places with another in a compound?"},
-                {"label": "Double replacement", "correct": false, "feedback": "Incorrect. Is this a swap between two compounds?"},
-                {"label": "Combustion", "correct": false, "feedback": "Incorrect. Does it react with O₂ to make CO₂ and H₂O?"},
-                {"label": "Acid-Base neutralization", "correct": false, "feedback": "Incorrect. Do you see an acid (H-) meeting a base (-OH) to form water?"}
-              ]
+              "text": "<strong class='chem'>2 K + Br₂ &rarr; 2 KBr</strong>",
+              "category": "synthesis",
+              "feedback_right": "Correct! Two reactants combine to form one compound: A + B &rarr; AB.",
+              "feedback_wrong": "Incorrect. Think of the signature: are reactants breaking down (AB &rarr; A + B), or combining?"
             },
             {
-              "prompt": "Classify this reaction: <strong class='chem'>CaCO₃ &rarr; CaO + CO₂</strong>",
-              "options": [
-                {"label": "Synthesis", "correct": false, "feedback": "Incorrect. Synthesis combines multiple reactants. Here, we start with a single reactant."},
-                {"label": "Decomposition", "correct": true, "feedback": "Correct! One reactant breaks down into multiple products: AB &rarr; A + B."},
-                {"label": "Single replacement", "correct": false, "feedback": "Incorrect. Look at the reactants: is there an element and a compound, or just one complex compound?"},
-                {"label": "Double replacement", "correct": false, "feedback": "Incorrect. Double replacement starts with two reactants swapping partners."},
-                {"label": "Combustion", "correct": false, "feedback": "Incorrect. Combustion has O₂ as a reactant and CO₂ + H₂O as products."},
-                {"label": "Acid-Base neutralization", "correct": false, "feedback": "Incorrect. Neutralization starts with an acid and base."}
-              ]
+              "text": "<strong class='chem'>CaCO₃ &rarr; CaO + CO₂</strong>",
+              "category": "decomposition",
+              "feedback_right": "Correct! One reactant breaks down into multiple products: AB &rarr; A + B.",
+              "feedback_wrong": "Incorrect. Look at the reactants: is there an element and a compound, or just one complex compound?"
             },
             {
-              "prompt": "Classify this reaction: <strong class='chem'>Fe + CuCl₂ &rarr; FeCl₂ + Cu</strong>",
-              "options": [
-                {"label": "Synthesis", "correct": false, "feedback": "Incorrect. Synthesis makes one product from many reactants. Here we have two reactants and two products."},
-                {"label": "Decomposition", "correct": false, "feedback": "Incorrect. Decomposition starts with one reactant breaking apart."},
-                {"label": "Single replacement", "correct": true, "feedback": "Correct! Fe is a lone element that shoves Cu out of its compound: A + BC &rarr; AC + B."},
-                {"label": "Double replacement", "correct": false, "feedback": "Incorrect. Double replacement has two compounds swapping partners, not a lone element."},
-                {"label": "Combustion", "correct": false, "feedback": "Incorrect. Combustion requires O₂ reactant and carbon dioxide/water products."},
-                {"label": "Acid-Base neutralization", "correct": false, "feedback": "Incorrect. Neutralization is an acid-base double-swap forming water."}
-              ]
+              "text": "<strong class='chem'>Fe + CuCl₂ &rarr; FeCl₂ + Cu</strong>",
+              "category": "single",
+              "feedback_right": "Correct! Fe is a lone element that shoves Cu out of its compound: A + BC &rarr; AC + B.",
+              "feedback_wrong": "Incorrect. Single replacement involves a neutral lone element replacing another inside a compound."
             },
             {
-              "prompt": "Classify this reaction: <strong class='chem'>BaCl₂ + Na₂SO₄ &rarr; BaSO₄ + 2 NaCl</strong>",
-              "options": [
-                {"label": "Synthesis", "correct": false, "feedback": "Incorrect. This reaction has multiple reactants and products. Synthesis has one product."},
-                {"label": "Decomposition", "correct": false, "feedback": "Incorrect. Decomposition starts with one reactant breaking apart."},
-                {"label": "Single replacement", "correct": false, "feedback": "Incorrect. Single replacement involves one lone element; here both reactants are ionic compounds."},
-                {"label": "Double replacement", "correct": true, "feedback": "Correct! Ba and Na swap their partner anions (Cl and SO₄): AB + CD &rarr; AD + CB."},
-                {"label": "Combustion", "correct": false, "feedback": "Incorrect. Combustion requires O₂ reactant."},
-                {"label": "Acid-Base neutralization", "correct": false, "feedback": "Incorrect. Neutralization is a double replacement, but specifically between acid and base, which forms water. No water forms here."}
-              ]
+              "text": "<strong class='chem'>BaCl₂ + Na₂SO₄ &rarr; BaSO₄ + 2 NaCl</strong>",
+              "category": "double",
+              "feedback_right": "Correct! Ba and Na swap their partner anions (Cl and SO₄): AB + CD &rarr; AD + CB.",
+              "feedback_wrong": "Incorrect. Double replacement has two ionic compounds swapping partner ions. No lone elements are involved."
             },
             {
-              "prompt": "Classify this reaction: <strong class='chem'>CH₄ + 2 O₂ &rarr; CO₂ + 2 H₂O</strong>",
-              "options": [
-                {"label": "Synthesis", "correct": false, "feedback": "Incorrect. Multiple products form, not just one synthesis compound."},
-                {"label": "Decomposition", "correct": false, "feedback": "Incorrect. Decomposition has only one reactant."},
-                {"label": "Single replacement", "correct": false, "feedback": "Incorrect. Is a lone metal displacing another metal?"},
-                {"label": "Double replacement", "correct": false, "feedback": "Incorrect. Does it swap ions, or burn in oxygen?"},
-                {"label": "Combustion", "correct": true, "feedback": "Correct! Oxygen (O₂) reacts with a hydrocarbon fuel to yield CO₂ and H₂O."},
-                {"label": "Acid-Base neutralization", "correct": false, "feedback": "Incorrect. Neutralization is specifically acid + base &rarr; water + salt. This is burning fuel in oxygen."}
-              ]
+              "text": "<strong class='chem'>CH₄ + 2 O₂ &rarr; CO₂ + 2 H₂O</strong>",
+              "category": "combustion",
+              "feedback_right": "Correct! Oxygen (O₂) reacts with a hydrocarbon fuel to yield CO₂ and H₂O.",
+              "feedback_wrong": "Incorrect. Combustion requires oxygen gas (O₂) as a reactant and yields carbon dioxide and water."
             },
             {
-              "prompt": "Classify this reaction: <strong class='chem'>H₂SO₄ + 2 KOH &rarr; K₂SO₄ + 2 H₂O</strong>",
-              "options": [
-                {"label": "Synthesis", "correct": false, "feedback": "Incorrect. Synthesis combines elements into one compound; here we form water and salt."},
-                {"label": "Decomposition", "correct": false, "feedback": "Incorrect. Decomposition starts with one reactant."},
-                {"label": "Single replacement", "correct": false, "feedback": "Incorrect. Is there a lone neutral element?"},
-                {"label": "Double replacement", "correct": true, "feedback": "Correct! H and K swap partners between the acid and base: AB + CD &rarr; AD + CB. Chemists call this specific case \"neutralization,\" but the pattern you need to spot is double replacement."},
-                {"label": "Combustion", "correct": false, "feedback": "Incorrect. Does it burn fuel in O₂?"},
-                {"label": "Acid-Base neutralization", "correct": false, "feedback": "That's the precise name chemists use for this reaction, but naming it \"neutralization\" is beyond what this course tests. Look for the pattern instead: an acid and a base swapping partners is still a double replacement."}
-              ]
+              "text": "<strong class='chem'>H₂SO₄ + 2 KOH &rarr; K₂SO₄ + 2 H₂O</strong>",
+              "category": "double",
+              "feedback_right": "Correct! H and K swap partners between the acid and base: AB + CD &rarr; AD + CB. Chemists call this specific case \"neutralization,\" but the pattern is double replacement.",
+              "feedback_wrong": "Incorrect. Although this is an acid-base neutralization reaction, it fits the double replacement pattern (partner swap) and does not represent synthesis, decomposition, single replacement, or combustion."
             }
           ],
-"reveal": "<h4>Perfect!</h4><p>You have classified all five standard reaction types successfully. The signatures are:</p><ul><li><strong>Synthesis:</strong> A + B &rarr; AB (one product)</li><li><strong>Decomposition:</strong> AB &rarr; A + B (one reactant)</li><li><strong>Single Replacement:</strong> A + BC &rarr; AC + B (lone element on each side)</li><li><strong>Double Replacement:</strong> AB + CD &rarr; AD + CB (two compounds swap)</li><li><strong>Combustion:</strong> fuel + O₂ &rarr; CO₂ + H₂O (reacts with oxygen)</li></ul><p>Acid + base &rarr; salt + water (like H₂SO₄ + 2 KOH above) is a double replacement in disguise. Chemists call it \"neutralization,\" but recognizing the double replacement pattern is all this course asks of you.</p>"
+          "reveal": "<h4>Perfect!</h4><p>You have classified all reaction types successfully. The signatures are:</p><ul><li><strong>Synthesis:</strong> A + B &rarr; AB (one product)</li><li><strong>Decomposition:</strong> AB &rarr; A + B (one reactant)</li><li><strong>Single Replacement:</strong> A + BC &rarr; AC + B (lone element on each side)</li><li><strong>Double Replacement:</strong> AB + CD &rarr; AD + CB (two compounds swap)</li><li><strong>Combustion:</strong> fuel + O₂ &rarr; CO₂ + H₂O (reacts with oxygen)</li></ul><p>Acid + base &rarr; salt + water (like H₂SO₄ + 2 KOH above) is a double replacement in disguise. Chemists call it \"neutralization,\" but recognizing the double replacement pattern is all this course asks of you.</p>"
         }
         </script>
       </div>

@@ -653,6 +653,8 @@
         initScaffold(el, config, idx);
       } else if (type === 'step-builder') {
         initStepBuilder(el, config, idx);
+      } else if (type === 'sort-classify') {
+        initSortClassify(el, config, idx);
       }
     });
   }
@@ -1875,6 +1877,200 @@
     }
   }
 
+  // --- 5. Sort & Classify Widget ---
+  function initSortClassify(el, config, widgetIdx) {
+    if (!config.items || !config.items.length || !config.categories) return;
+
+    // State
+    const state = {
+      currentIndex: 0,
+      correctCount: 0,
+      attempts: 0,
+      firstTryCorrect: Array(config.items.length).fill(true)
+    };
+
+    // Create DOM structure
+    const container = document.createElement('div');
+    container.className = 'w-sort-container';
+    el.appendChild(container);
+
+    const header = document.createElement('div');
+    header.className = 'w-sort-header';
+    container.appendChild(header);
+
+    const progressEl = document.createElement('span');
+    progressEl.className = 'w-sort-status';
+    header.appendChild(progressEl);
+
+    const scoreEl = document.createElement('span');
+    scoreEl.className = 'w-sort-status';
+    header.appendChild(scoreEl);
+
+    const cardStage = document.createElement('div');
+    cardStage.className = 'w-sort-card-stage';
+    container.appendChild(cardStage);
+
+    const binsGrid = document.createElement('div');
+    binsGrid.className = 'w-sort-bins';
+    container.appendChild(binsGrid);
+
+    const revealArea = document.createElement('div');
+    revealArea.className = 'w-reveal-area';
+    revealArea.style.display = 'none';
+    el.appendChild(revealArea);
+
+    const updateStatus = () => {
+      progressEl.textContent = `Item ${state.currentIndex + 1} of ${config.items.length}`;
+      scoreEl.textContent = `Correct: ${state.correctCount} / ${config.items.length}`;
+    };
+
+    const renderCard = () => {
+      cardStage.innerHTML = '';
+      if (state.currentIndex >= config.items.length) return;
+
+      const item = config.items[state.currentIndex];
+      const card = document.createElement('div');
+      card.className = 'w-sort-card';
+      card.innerHTML = `<p>${item.text}</p>`;
+      cardStage.appendChild(card);
+    };
+
+    const renderBins = () => {
+      binsGrid.innerHTML = '';
+      config.categories.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.className = 'w-sort-bin';
+        btn.type = 'button';
+        btn.textContent = cat.label;
+        btn.dataset.catId = cat.id;
+
+        btn.addEventListener('click', () => {
+          if (el.dataset.committed === 'true') return;
+          classifyItem(cat.id, btn);
+        });
+
+        binsGrid.appendChild(btn);
+      });
+    };
+
+    const classifyItem = (catId, clickedBtn) => {
+      const item = config.items[state.currentIndex];
+      const isCorrect = (item.category === catId);
+
+      // Disable other buttons during animations or checking state
+      const bins = $$('.w-sort-bin', binsGrid);
+
+      if (isCorrect) {
+        // Success flow
+        el.dataset.committed = 'true';
+        bins.forEach(b => b.setAttribute('disabled', 'true'));
+        clickedBtn.removeAttribute('disabled');
+        clickedBtn.classList.add('correct');
+
+        feedback.innerHTML = item.feedback_right || 'Correct!';
+        feedback.className = 'w-feedback correct';
+
+        if (state.firstTryCorrect[state.currentIndex]) {
+          state.correctCount++;
+        }
+        updateStatus();
+
+        if (state.currentIndex < config.items.length - 1) {
+          checkBtn.style.display = '';
+          checkBtn.textContent = 'Next';
+        } else {
+          checkBtn.style.display = 'none';
+          resetBtn.style.display = '';
+          feedback.textContent = `Completed! Score: ${state.correctCount} / ${config.items.length}`;
+          if (config.reveal) {
+            revealArea.innerHTML = config.reveal;
+            revealArea.style.display = 'block';
+            revealArea.classList.add('show');
+            initWidgets();
+            initMotionPrimitives();
+          }
+          markCheckpointCompleted('sort-classify', widgetIdx);
+        }
+      } else {
+        // Error flow
+        state.firstTryCorrect[state.currentIndex] = false;
+        clickedBtn.classList.add('wrong');
+        clickedBtn.setAttribute('disabled', 'true');
+
+        feedback.innerHTML = item.feedback_wrong || 'Try another category.';
+        feedback.className = 'w-feedback wrong';
+
+        // Clear wrong class after animation completes so it can shake again
+        setTimeout(() => {
+          clickedBtn.classList.remove('wrong');
+        }, 400);
+      }
+    };
+
+    const { checkBtn, resetBtn, feedback } = createWidgetControls(el,
+      // onCheck (Next)
+      (cBtn, rBtn, fb) => {
+        el.removeAttribute('data-committed');
+        state.currentIndex++;
+        state.attempts = 0;
+        cBtn.style.display = 'none';
+        fb.textContent = '';
+        fb.className = 'w-feedback';
+        updateStatus();
+        renderCard();
+        renderBins();
+      },
+      // onReset
+      (cBtn, rBtn, fb) => {
+        el.removeAttribute('data-committed');
+        state.currentIndex = 0;
+        state.correctCount = 0;
+        state.attempts = 0;
+        state.firstTryCorrect = Array(config.items.length).fill(true);
+        cBtn.style.display = 'none';
+        fb.textContent = '';
+        fb.className = 'w-feedback';
+        revealArea.style.display = 'none';
+        revealArea.classList.remove('show');
+        revealArea.innerHTML = '';
+        updateStatus();
+        renderCard();
+        renderBins();
+      }
+    );
+
+    // Initial setup
+    checkBtn.style.display = 'none';
+    updateStatus();
+    renderCard();
+    renderBins();
+
+    // Restore state from persistence layer
+    if (StorageEngine.isCheckpointCompleted('sort-classify', widgetIdx)) {
+      state.currentIndex = config.items.length - 1;
+      state.correctCount = config.items.length; // Assume perfect score on complete restore
+      updateStatus();
+      cardStage.innerHTML = '<div class="w-sort-card"><p>Sorting complete!</p></div>';
+      renderBins();
+      $$('.w-sort-bin', binsGrid).forEach(b => {
+        b.setAttribute('disabled', 'true');
+        const item = config.items[state.currentIndex];
+        if (b.dataset.catId === item.category) {
+          b.classList.add('correct');
+        }
+      });
+      feedback.textContent = `Completed! Score: ${config.items.length} / ${config.items.length}`;
+      feedback.className = 'w-feedback correct';
+      checkBtn.style.display = 'none';
+      resetBtn.style.display = '';
+      if (config.reveal) {
+        revealArea.innerHTML = config.reveal;
+        revealArea.style.display = 'block';
+        revealArea.classList.add('show');
+      }
+    }
+  }
+
   /* ============================================================
      MOTION PRIMITIVES — STEP, SCRUB, ZOOM CONTROLLERS
      ============================================================ */
@@ -2515,6 +2711,21 @@
         if (correctOpt) block.appendChild(renderPrintOption(correctOpt));
       });
       appendRevealHtml(config.finale);
+    } else if (type === 'sort-classify') {
+      (config.items || []).forEach(item => {
+        const q = document.createElement('div');
+        q.className = 'w-print-item';
+        q.innerHTML = '<p>' + item.text + '</p>';
+        block.appendChild(q);
+        const cat = (config.categories || []).find(c => c.id === item.category);
+        if (cat) {
+          const opt = document.createElement('div');
+          opt.className = 'w-opt correct';
+          opt.textContent = `Correct Classification: ${cat.label}`;
+          block.appendChild(opt);
+        }
+      });
+      appendRevealHtml(config.reveal);
     } else {
       return null;
     }
