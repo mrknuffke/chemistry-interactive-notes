@@ -541,7 +541,60 @@
         </div>
       </div>
       
-      <div class="next-cue"><button class="next-btn" data-next>Recall the terminology <span class="chev">↓</span></button></div>
+      <!-- Sort & Classify drill -->
+      <h4 class="reveal" style="margin-top:2.5rem; color:var(--accent);">Practice sorting everyday changes</h4>
+      <p class="reveal" style="margin-top:0.5rem; color:var(--ink-soft);">Same skill, faster reps. Six scenes — commit each one to a bin before you see why.</p>
+      <div data-widget="sort-classify" class="reveal" style="margin-top: 1rem;">
+        <script type="application/json" class="w-config">
+        {
+          "categories": [
+            {"id": "phys", "label": "Physical Change"},
+            {"id": "chem", "label": "Chemical Change"}
+          ],
+          "items": [
+            {
+              "text": "Water boils in a pot. Bubbles rise and pop at the surface.",
+              "category": "phys",
+              "feedback_right": "The bubbles are water vapor — the same H₂O molecules, now moving too fast to stay in the liquid. No bonds inside the molecules broke. Condense the steam and you have your water back.",
+              "feedback_wrong": "Bubbles look like the vinegar-and-baking-soda gas from question 2 — but check what's inside them. It's water vapor: the same H₂O molecules. A brand-new gas means chemical; the same substance escaping as a gas means physical."
+            },
+            {
+              "text": "An iron nail left outside turns orange and flaky over a few months.",
+              "category": "chem",
+              "feedback_right": "Slow and quiet, but the identity changed: gray, magnetic iron became orange, crumbly iron oxide. Iron atoms bonded to oxygen atoms they were never bonded to before. New substance — no flame required.",
+              "feedback_wrong": "No flames, no bubbles, nothing dramatic — so it feels physical. But drama isn't the test; identity is. Rust is a new substance, iron oxide, with new properties: orange instead of gray, crumbly instead of strong."
+            },
+            {
+              "text": "You tear a sheet of aluminum foil into small pieces.",
+              "category": "phys",
+              "feedback_right": "Every scrap is still aluminum — the same substance in smaller portions. Changing size and shape never touches the bonding.",
+              "feedback_wrong": "You can't un-tear it, so it feels permanent — and permanent feels chemical. But reversibility is a hint, not the rule. The real test is identity, and every scrap is still aluminum. Nothing new formed."
+            },
+            {
+              "text": "An egg fries in a pan: the clear liquid turns white and solid.",
+              "category": "chem",
+              "feedback_right": "Heat permanently rearranged the egg proteins into new substances. Cooling the pan never gets the clear liquid back — the change built something new.",
+              "feedback_wrong": "It's just heating, like melting butter — that's the trap. Melted butter re-solidifies as butter. A fried egg never returns to clear liquid, because the heat rebuilt its proteins into new substances."
+            },
+            {
+              "text": "Water droplets appear on the outside of a cold soda can.",
+              "category": "phys",
+              "feedback_right": "That water was already in the room as invisible vapor. The cold can slowed those molecules down enough to condense. Same H₂O, new phase.",
+              "feedback_wrong": "Water appearing out of nowhere looks like a new substance forming. It isn't new — it was in the air all along as invisible vapor, and the cold surface condensed it. A phase change, not a reaction."
+            },
+            {
+              "text": "You snap a glow stick and it starts glowing.",
+              "category": "chem",
+              "feedback_right": "The snap breaks an inner vial and mixes two solutions that react. The glow is the giveaway: the reaction builds new molecules and releases energy as light. Light production signals chemical change.",
+              "feedback_wrong": "The liquid looks the same afterward — just light, so nothing seems to have formed. But that light has to come from somewhere: a reaction inside is building new molecules and releasing energy as it goes. Light production is a sign of chemical change."
+            }
+          ],
+          "reveal": "<h4>The one test that decides them all</h4><p>Every scene above comes down to one question: <strong>is it the same substance afterward?</strong> Dramatic events — bubbles in boiling water, droplets appearing on a cold can — stay physical when the molecules are unchanged. Quiet events — a nail slowly rusting, a stick glowing — are chemical when new substances form. Don't grade the drama. Check the identity.</p>"
+        }
+        </script>
+      </div>
+
+      <div class="next-cue" style="margin-top:2rem;"><button class="next-btn" data-next>Recall the terminology <span class="chev">↓</span></button></div>
     </div>
   </section>
 
