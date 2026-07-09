@@ -1525,10 +1525,10 @@
           if (d > 0 && d < minDist) minDist = d;
         }
       });
-      // Each atom gets half the min distance minus a small gap (stroke overlap only)
-      const maxRadius = Math.max(4, (minDist / 2) - 1);
+      // Each atom gets half the min distance so edges just touch (strokes overlap slightly)
+      const maxRadius = Math.max(4, minDist / 2);
       scaledAtoms.forEach(sa => {
-        sa.radius = sa.cpk.isSmall ? Math.max(4, maxRadius * 0.7) : maxRadius;
+        sa.radius = maxRadius;
       });
     }
 
