@@ -155,6 +155,10 @@
                   Offset net dipole to the right
                 </label>
               </div>
+              <label class="form-checkbox" id="showLegendKeyContainer" style="display: none; margin-left: 0;">
+                <input type="checkbox" id="molShowLegendKey" checked>
+                Show legend key in diagram
+              </label>
               <label class="form-checkbox" style="border-top: 1px dashed var(--hair); padding-top: 0.5rem; margin-top: 0.2rem;">
                 <input type="checkbox" id="molUseCPKColors" checked>
                 Use CPK colors for Lewis symbols
@@ -333,6 +337,8 @@
       const netDipoleOffsetContainer = document.getElementById("netDipoleOffsetContainer");
       const molUseCPKColors = document.getElementById("molUseCPKColors");
       const molLewisCardinal = document.getElementById("molLewisCardinal");
+      const molShowLegendKey = document.getElementById("molShowLegendKey");
+      const showLegendKeyContainer = document.getElementById("showLegendKeyContainer");
       const molCardinalSnapStyle = document.getElementById("molCardinalSnapStyle");
       const cardinalSnapContainer = document.getElementById("cardinalSnapContainer");
       const molPolarityControls = document.getElementById("molPolarityControls");
@@ -549,8 +555,13 @@
         }
       });
 
-      molShowCharges.addEventListener("change", triggerRender);
-      molShowBondDipoles.addEventListener("change", triggerRender);
+      function updateLegendKeyVisibility() {
+        const anyDipoleActive = molShowCharges.checked || molShowBondDipoles.checked || molShowNetDipole.checked;
+        showLegendKeyContainer.style.display = anyDipoleActive ? "flex" : "none";
+      }
+
+      molShowCharges.addEventListener("change", () => { updateLegendKeyVisibility(); triggerRender(); });
+      molShowBondDipoles.addEventListener("change", () => { updateLegendKeyVisibility(); triggerRender(); });
       
       molShowNetDipole.addEventListener("change", () => {
         if (molShowNetDipole.checked) {
@@ -558,9 +569,11 @@
         } else {
           netDipoleOffsetContainer.style.display = "none";
         }
+        updateLegendKeyVisibility();
         triggerRender();
       });
       molNetDipoleOffset.addEventListener("change", triggerRender);
+      molShowLegendKey.addEventListener("change", triggerRender);
 
       molUseCPKColors.addEventListener("change", triggerRender);
       
@@ -888,7 +901,7 @@
         const titleText = diagramTitleInput.value.trim();
         const hasTitle = showTitle && titleText;
 
-        const hasLegend = (activeTab === "molecules" && (molShowCharges.checked || molShowBondDipoles.checked || molShowNetDipole.checked));
+        const hasLegend = (activeTab === "molecules" && molShowLegendKey.checked && (molShowCharges.checked || molShowBondDipoles.checked || molShowNetDipole.checked));
 
         if (svgEl && (hasTitle || hasLegend)) {
           const viewBox = svgEl.getAttribute("viewBox");
