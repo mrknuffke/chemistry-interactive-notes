@@ -6,6 +6,7 @@ A dated, one-line record of what shipped. This is not a to-do list (see [`TODO.m
 
 ---
 
+- **2026-07-09** — Logged two pre-existing issues in `TODO.md` §4: the Sort & Classify restore path fakes a perfect score on reload, and the repo-wide `var(--dia-*)` bare-SVG-attribute pattern floods the console with cosmetic "Expected length" errors.
 - **2026-07-09** — Phase 3 propagation: added a six-item physical-vs-chemical Sort & Classify drill to lesson 2-2a (each item targets a named misconception — bubbles-mean-chemical, no-drama-means-physical, irreversible-means-chemical, condensation-from-nowhere), and fixed a shared-widget bug where the generic reset handler re-showed the sort widget's hidden Check/Next button, letting a click silently skip items after a reset.
 - **2026-07-09** — Implemented the generalized Sort & Classify widget (`sort-classify`), retrofitted the C-RXN lesson's reaction classification drill as the reference implementation, resolved the open decisions (Verb Budget, H-F electronegativity boundary, and Sodium GHS symbols), and updated TODO.md.
 - **2026-07-08** — Consolidated `TODO.md`, `REVISION_PLAN.md`, and `FEATURES.md` into a single source of truth (`TODO.md`), updated development docs and styling comment references, and deleted the redundant spec documents.

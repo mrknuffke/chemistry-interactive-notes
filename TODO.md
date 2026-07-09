@@ -67,6 +67,8 @@ Verify these curriculum decisions and rules before starting work on their respec
 ## 4. Housekeeping & Validation
 
 * **Glossary Count Comment Drift**: `CLAUDE.md` §4 lists the glossary as having 80 entries. Verify this count whenever modifying `scaffold/assets/glossary.js` (there is no automated check).
+* **Sort & Classify restore fakes a perfect score**: the persistence restore path in `core.js` (`initSortClassify`, "Assume perfect score on complete restore") shows a completed drill as N/N on reload even if the live run scored lower. Either persist the real score in the checkpoint payload or drop the score line from the restored state.
+* **SVG `var()` attribute console noise**: every lesson using `--dia-*` radius/stroke tokens as bare SVG attributes (e.g. `r="var(--dia-r-atom)"`, repo-wide since the diagram-token pass) makes Chrome log an "Expected length" error per circle — ~270 on 2-2a alone. Rendering is unaffected (the SVG2 presentation-attribute → CSS path resolves the token), so this is cosmetic; fix would be setting geometry via inline `style` or a stylesheet rule instead of attributes.
 * **Parser Gates**: Run the structural HTML parser and JSON-config validator across all 12 lessons after modifying layout files to prevent DOM corruption.
 
 ---
