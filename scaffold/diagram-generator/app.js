@@ -302,9 +302,11 @@
       }
     }
 
-    // Set scaled dimensions to ensure the browser rasterizes vectors at target scale
-    clonedSvg.setAttribute("width", width * scale);
-    clonedSvg.setAttribute("height", height * scale);
+    // Base multiplier ensures crisp output even for small SVG viewBoxes
+    const baseRes = 8;
+    const totalScale = scale * baseRes;
+    clonedSvg.setAttribute("width", width * totalScale);
+    clonedSvg.setAttribute("height", height * totalScale);
 
     const serializer = new XMLSerializer();
     const svgStr = serializer.serializeToString(clonedSvg);
@@ -315,14 +317,16 @@
     img.src = url;
     img.onload = function () {
       const canvas = document.createElement('canvas');
-      canvas.width = width * scale;
-      canvas.height = height * scale;
+      canvas.width = width * totalScale;
+      canvas.height = height * totalScale;
       const ctx = canvas.getContext('2d');
 
       // Draw background
       ctx.fillStyle = computedStyles.getPropertyValue('--card') || '#F5F8F4';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
       const pngUrl = canvas.toDataURL('image/png');
@@ -663,7 +667,7 @@
     }
 
     const gapMid = normalizeAngle(gapStart + maxGapSize / 2);
-    const spacing = Math.min(0.65, maxGapSize / (P + 1));
+    const spacing = Math.min(1.0, maxGapSize / (P + 1));
     const angles = [];
     for (let k = 0; k < P; k++) {
       angles.push(normalizeAngle(gapMid + (k - (P - 1) / 2) * spacing));
