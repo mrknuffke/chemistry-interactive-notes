@@ -1515,20 +1515,31 @@
 
     // For particle mode, compute radii so atoms never overlap
     if (mode === "particle" && data.bonds && data.bonds.length > 0) {
-      // Find shortest bonded distance
-      let minDist = Infinity;
+      // Size weights: H is smaller, everything else equal
+      const weight = (el) => el === "H" ? 0.6 : 1.0;
+
+      // For each atom, compute the max radius allowed by each of its bonds
+      const maxRadii = {};
+      scaledAtoms.forEach(sa => { maxRadii[sa.id] = Infinity; });
+
       data.bonds.forEach(bond => {
         const a = atomMap[bond.a];
         const b = atomMap[bond.b];
-        if (a && b) {
-          const d = Math.hypot(b.x - a.x, b.y - a.y);
-          if (d > 0 && d < minDist) minDist = d;
-        }
+        if (!a || !b) return;
+        const d = Math.hypot(b.x - a.x, b.y - a.y);
+        if (d <= 0) return;
+
+        const wA = weight(a.el);
+        const wB = weight(b.el);
+        const rA = (wA / (wA + wB)) * d;
+        const rB = (wB / (wA + wB)) * d;
+
+        maxRadii[a.id] = Math.min(maxRadii[a.id], rA);
+        maxRadii[b.id] = Math.min(maxRadii[b.id], rB);
       });
-      // Each atom gets half the min distance so edges just touch (strokes overlap slightly)
-      const maxRadius = Math.max(4, minDist / 2);
+
       scaledAtoms.forEach(sa => {
-        sa.radius = maxRadius;
+        sa.radius = Math.max(4, maxRadii[sa.id] !== Infinity ? maxRadii[sa.id] : 8);
       });
     }
 
