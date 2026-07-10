@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const readoutTitle = document.getElementById("readoutTitle");
   const readoutText = document.getElementById("readoutText");
   const statusBadge = document.getElementById("statusBadge");
+  const builderCanvas = document.getElementById("builderCanvas");
 
   // Conversion Problems Database
   const problems = [
@@ -68,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
       correctUnit: "g CH₄",
       factors: [
         { num: "16.04 g CH₄", den: "1 mol CH₄", numVal: 16.04, denVal: 1, substance: "CH4", isCorrect: true },
-        { num: "1 mol CH₄", den: "16.04 g CH₄", numVal: 1, denVal: 16.04, substance: "CH4", isCorrect: false },
+        { num: "1 mol CH₄", den: "16.04 g CH₄", numVal: 16.04, denVal: 1, substance: "CH4", isCorrect: false },
         { num: "44.01 g CO₂", den: "1 mol CO₂", numVal: 44.01, denVal: 1, substance: "CO2", isCorrect: false },
         { num: "1 mol CO₂", den: "44.01 g CO₂", numVal: 1, denVal: 44.01, substance: "CO2", isCorrect: false }
       ],
@@ -136,6 +137,8 @@ document.addEventListener("DOMContentLoaded", () => {
       card.addEventListener("click", () => selectCard(fIdx));
       factorCards.appendChild(card);
     });
+
+    drawVisualPath("initial");
   }
 
   function selectCard(fIdx) {
@@ -178,20 +181,14 @@ document.addEventListener("DOMContentLoaded", () => {
     slotDen.classList.remove("canceled");
 
     // Extract unit string parts for logic checks
-    // Start unit e.g. "g H₂O" -> quantity unit "g", substance "H₂O"
     const startUnitParts = prob.startUnit.split(" ");
     const startQtyUnit = startUnitParts[0]; // "g" or "mol"
-    const startSubstance = startUnitParts[1]; // "H₂O", "NaCl" etc.
 
-    // Factor Denominator parts e.g. "18.02 g H₂O"
     const denParts = selectedFactor.den.split(" ");
     const denQtyUnit = denParts[1];
-    const denSubstance = denParts[2];
 
-    // Factor Numerator parts e.g. "1 mol H₂O"
     const numParts = selectedFactor.num.split(" ");
     const numQtyUnit = numParts[1];
-    const numSubstance = numParts[2];
 
     // 1. Check if substance matches the problem
     if (selectedFactor.substance !== prob.factors[0].substance) {
@@ -202,6 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
       readoutText.textContent = `You selected a conversion factor for ${selectedFactor.substance}, but this problem is asking about ${prob.factors[0].substance}. Make sure the compound formula in your conversion factor matches.`;
       finalResult.textContent = "?";
       nextBtn.disabled = true;
+      drawVisualPath("wrong-substance");
       return;
     }
 
@@ -213,7 +211,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Calculate value
       const calculatedValue = prob.startVal * (selectedFactor.numVal / selectedFactor.denVal);
-      // Format to matching sig figs or decimal places
       const formattedVal = calculatedValue.toFixed(2);
 
       finalResult.textContent = `${formattedVal} ${prob.correctUnit}`;
@@ -227,6 +224,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Allow navigation to the next problem
       nextBtn.disabled = currentIdx === problems.length - 1;
+      drawVisualPath("correct");
     } else if (numQtyUnit === startQtyUnit) {
       // Flipped conversion factor: starting unit matches numerator
       statusBadge.style.display = "inline-block";
@@ -238,8 +236,8 @@ document.addEventListener("DOMContentLoaded", () => {
       
       finalResult.textContent = "?";
       nextBtn.disabled = true;
+      drawVisualPath("wrong-orientation");
     } else {
-      // Shouldn't happen with our set of cards, but for completeness:
       statusBadge.style.display = "inline-block";
       statusBadge.textContent = "Wrong Layout";
       statusBadge.className = "status-badge wrong";
@@ -247,6 +245,454 @@ document.addEventListener("DOMContentLoaded", () => {
       readoutText.textContent = `The starting unit (${prob.startUnit}) does not match either the numerator or denominator of the card. Choose a card with the correct starting units in the denominator.`;
       finalResult.textContent = "?";
       nextBtn.disabled = true;
+      drawVisualPath("wrong-orientation");
+    }
+  }
+
+  // Navigation Event Listeners
+  prevBtn.addEventListener("click", () => {
+    if (currentIdx > 0) loadProblem(currentIdx - 1);
+  });
+
+  nextBtn.addEventListener("click", () => {
+    if (currentIdx < problems.length - 1) loadProblem(currentIdx + 1);
+  });
+
+  // SVG Drawing Helpers
+  function createSVGElement(tag, attrs = {}) {
+    const el = document.createElementNS("http://www.w3.org/2000/svg", tag);
+    for (let k in attrs) {
+      el.setAttribute(k, attrs[k]);
+    }
+    return el;
+  }
+
+  function drawVisualPath(state) {
+    if (!builderCanvas) return;
+    builderCanvas.innerHTML = "";
+
+    const prob = problems[currentIdx];
+    
+    // Determine start and target quantities/units
+    const startQty = prob.startUnit.split(" ")[0]; // "g" or "mol"
+    const startSubst = prob.startUnit.split(" ")[1]; // "H₂O", "NaCl" etc.
+    const targetQty = prob.correctUnit.split(" ")[0]; // "mol" or "g"
+    
+    // Draw Left Panel (Start State) at x=65, y=60, r=40
+    const leftGroup = createSVGElement("g", { id: "left-panel" });
+    const leftBg = createSVGElement("circle", {
+      cx: 65, cy: 60, r: 40,
+      fill: "none", stroke: "var(--hair)", "stroke-width": 1, "stroke-dasharray": "3 3"
+    });
+    leftGroup.appendChild(leftBg);
+    
+    // Draw start content
+    drawSubstance(leftGroup, startSubst, startQty, 65, 60);
+    
+    // Label for left panel
+    const leftLabel = createSVGElement("text", {
+      x: 65, y: 114, "text-anchor": "middle",
+      "font-family": "var(--mono)", "font-size": "9px", "font-weight": "600",
+      fill: "var(--ink-soft)"
+    });
+    leftLabel.textContent = `${prob.startVal} ${prob.startUnit}`;
+    leftGroup.appendChild(leftLabel);
+    
+    builderCanvas.appendChild(leftGroup);
+
+    // Draw Right Panel (Target State) at x=295, y=60, r=40
+    const rightGroup = createSVGElement("g", { id: "right-panel" });
+    const rightBg = createSVGElement("circle", {
+      cx: 295, cy: 60, r: 40,
+      fill: "none", stroke: "var(--hair)", "stroke-width": 1, "stroke-dasharray": "3 3"
+    });
+    rightGroup.appendChild(rightBg);
+    
+    // Label for right panel
+    const rightLabel = createSVGElement("text", {
+      x: 295, y: 114, "text-anchor": "middle",
+      "font-family": "var(--mono)", "font-size": "9px", "font-weight": "600",
+      fill: "var(--ink-soft)"
+    });
+
+    if (state === "initial") {
+      const qText = createSVGElement("text", {
+        x: 295, y: 68, "text-anchor": "middle",
+        "font-family": "var(--display)", "font-size": "24px", "font-weight": "700",
+        fill: "var(--ink-mute)"
+      });
+      qText.textContent = "?";
+      rightGroup.appendChild(qText);
+      rightLabel.textContent = `? ${prob.correctUnit}`;
+    } else if (state === "correct") {
+      drawSubstance(rightGroup, startSubst, targetQty, 295, 60);
+      rightLabel.textContent = `${prob.correctVal.toFixed(2)} ${prob.correctUnit}`;
+    } else {
+      const errText = createSVGElement("text", {
+        x: 295, y: 68, "text-anchor": "middle",
+        "font-family": "var(--display)", "font-size": "24px", "font-weight": "700",
+        fill: "var(--accent)"
+      });
+      errText.textContent = "⚠";
+      rightGroup.appendChild(errText);
+      rightLabel.textContent = "Error";
+    }
+    rightGroup.appendChild(rightLabel);
+    builderCanvas.appendChild(rightGroup);
+
+    // Draw Middle Arrow & Factor Bridge
+    const bridgeGroup = createSVGElement("g", { id: "bridge" });
+    const arrow = createSVGElement("path", {
+      "marker-end": "url(#bridge-arr)"
+    });
+    
+    const arrowText = createSVGElement("text", {
+      x: 180, "text-anchor": "middle",
+      "font-family": "var(--mono)", "font-size": "8px"
+    });
+    
+    const defs = createSVGElement("defs");
+    const marker = createSVGElement("marker", {
+      id: "bridge-arr", markerWidth: 5, markerHeight: 5,
+      refX: 4, refY: 2.5, orient: "auto", viewBox: "0 0 5 5"
+    });
+    const markerPath = createSVGElement("path", {
+      d: "M 0 0 L 5 2.5 L 0 5 z"
+    });
+    marker.appendChild(markerPath);
+    defs.appendChild(marker);
+    builderCanvas.appendChild(defs);
+
+    if (state === "initial") {
+      arrow.setAttribute("d", "M 115,60 L 240,60");
+      arrow.setAttribute("stroke", "var(--ink-mute)");
+      arrow.setAttribute("stroke-width", "1.5");
+      arrow.setAttribute("stroke-dasharray", "4 4");
+      markerPath.setAttribute("fill", "var(--ink-mute)");
+      
+      arrowText.setAttribute("y", 50);
+      arrowText.setAttribute("fill", "var(--ink-mute)");
+      arrowText.textContent = "Select factor";
+    } else if (state === "correct") {
+      arrow.setAttribute("d", "M 115,60 L 240,60");
+      arrow.setAttribute("stroke", "var(--good)");
+      arrow.setAttribute("stroke-width", "2.5");
+      markerPath.setAttribute("fill", "var(--good)");
+      
+      arrowText.setAttribute("y", 46);
+      arrowText.setAttribute("fill", "var(--good)");
+      arrowText.setAttribute("font-weight", "bold");
+      
+      if (selectedFactor) {
+        const factorNumText = selectedFactor.num.split(" ")[0] + " " + selectedFactor.num.split(" ")[1];
+        const factorDenText = selectedFactor.den.split(" ")[0] + " " + selectedFactor.den.split(" ")[1];
+        arrowText.textContent = `× (${factorNumText} / ${factorDenText})`;
+      }
+      
+      const checkBadgeBg = createSVGElement("circle", {
+        cx: 180, cy: 60, r: 8,
+        fill: "var(--good)"
+      });
+      const checkBadgeText = createSVGElement("text", {
+        x: 180, y: 63, "text-anchor": "middle",
+        "font-family": "var(--display)", "font-size": "10px", "font-weight": "bold",
+        fill: "var(--paper)"
+      });
+      checkBadgeText.textContent = "✓";
+      bridgeGroup.appendChild(checkBadgeBg);
+      bridgeGroup.appendChild(checkBadgeText);
+    } else if (state === "wrong-orientation") {
+      arrow.setAttribute("d", "M 115,60 L 240,60");
+      arrow.setAttribute("stroke", "var(--accent)");
+      arrow.setAttribute("stroke-width", "2");
+      markerPath.setAttribute("fill", "var(--accent)");
+      
+      arrowText.setAttribute("y", 46);
+      arrowText.setAttribute("fill", "var(--accent)");
+      arrowText.textContent = "Units multiply!";
+      
+      const subText = createSVGElement("text", {
+        x: 180, y: 55, "text-anchor": "middle",
+        "font-family": "var(--mono)", "font-size": "7px",
+        fill: "var(--accent)"
+      });
+      subText.textContent = `(${startQty} × ${startQty} = ${startQty}²)`;
+      bridgeGroup.appendChild(subText);
+      
+      const errBadgeBg = createSVGElement("circle", {
+        cx: 180, cy: 60, r: 8,
+        fill: "var(--accent)"
+      });
+      const errBadgeText = createSVGElement("text", {
+        x: 180, y: 63, "text-anchor": "middle",
+        "font-family": "var(--display)", "font-size": "10px", "font-weight": "bold",
+        fill: "var(--paper)"
+      });
+      errBadgeText.textContent = "✗";
+      bridgeGroup.appendChild(errBadgeBg);
+      bridgeGroup.appendChild(errBadgeText);
+    } else if (state === "wrong-substance") {
+      arrow.setAttribute("d", "M 115,60 L 240,60");
+      arrow.setAttribute("stroke", "var(--accent)");
+      arrow.setAttribute("stroke-width", "2");
+      markerPath.setAttribute("fill", "var(--accent)");
+      
+      arrowText.setAttribute("y", 50);
+      arrowText.setAttribute("fill", "var(--accent)");
+      arrowText.textContent = "Wrong compound!";
+      
+      const errBadgeBg = createSVGElement("circle", {
+        cx: 180, cy: 60, r: 8,
+        fill: "var(--accent)"
+      });
+      const errBadgeText = createSVGElement("text", {
+        x: 180, y: 63, "text-anchor": "middle",
+        "font-family": "var(--display)", "font-size": "10px", "font-weight": "bold",
+        fill: "var(--paper)"
+      });
+      errBadgeText.textContent = "✗";
+      bridgeGroup.appendChild(errBadgeBg);
+      bridgeGroup.appendChild(errBadgeText);
+    }
+    
+    bridgeGroup.appendChild(arrow);
+    bridgeGroup.appendChild(arrowText);
+    builderCanvas.appendChild(bridgeGroup);
+  }
+
+  function drawSubstance(group, substance, type, cx, cy) {
+    const isWater = (substance === "H₂O" || substance === "H2O");
+    const isCO2 = (substance === "CO₂" || substance === "CO2");
+    const isCH4 = (substance === "CH₄" || substance === "CH4");
+    const isNaHCO3 = (substance === "NaHCO₃" || substance === "NaHCO3");
+
+    if (type === "g") {
+      if (isWater) {
+        const beaker = createSVGElement("path", {
+          d: `M ${cx - 15},${cy - 12} L ${cx - 15},${cy + 15} L ${cx + 15},${cy + 15} L ${cx + 15},${cy - 12}`,
+          fill: "none", stroke: "var(--ink)", "stroke-width": "1.5", "stroke-linecap": "round"
+        });
+        const spout = createSVGElement("path", {
+          d: `M ${cx - 15},${cy - 12} L ${cx - 18},${cy - 12}`,
+          fill: "none", stroke: "var(--ink)", "stroke-width": "1.5", "stroke-linecap": "round"
+        });
+        const liquid = createSVGElement("path", {
+          d: `M ${cx - 15},${cy} Q ${cx - 7},${cy - 2} ${cx + 7},${cy} T ${cx + 15},${cy} L ${cx + 15},${cy + 14} L ${cx - 15},${cy + 14} Z`,
+          fill: "var(--water)", opacity: "0.3"
+        });
+        const liquidTop = createSVGElement("path", {
+          d: `M ${cx - 15},${cy} Q ${cx - 7},${cy - 2} ${cx + 7},${cy} T ${cx + 15},${cy}`,
+          fill: "none", stroke: "var(--water)", "stroke-width": "1"
+        });
+        group.appendChild(liquid);
+        group.appendChild(liquidTop);
+        group.appendChild(beaker);
+        group.appendChild(spout);
+      } else if (substance === "NaCl") {
+        const boat = createSVGElement("polygon", {
+          points: `${cx - 20},${cy + 5} ${cx - 14},${cy + 18} ${cx + 14},${cy + 18} ${cx + 20},${cy + 5}`,
+          fill: "none", stroke: "var(--ink)", "stroke-width": "1.2", "stroke-linejoin": "round"
+        });
+        const salt = createSVGElement("path", {
+          d: `M ${cx - 12},${cy + 17} Q ${cx},${cy + 2} ${cx + 12},${cy + 17} Z`,
+          fill: "var(--paper-2)", stroke: "var(--ink-mute)", "stroke-width": "0.8"
+        });
+        group.appendChild(boat);
+        group.appendChild(salt);
+      } else if (isCO2) {
+        const flask = createSVGElement("path", {
+          d: `M ${cx - 5},${cy - 15} L ${cx - 5},${cy - 6} L ${cx - 18},${cy + 18} L ${cx + 18},${cy + 18} L ${cx + 5},${cy - 6} L ${cx + 5},${cy - 15} Z`,
+          fill: "none", stroke: "var(--ink)", "stroke-width": "1.5", "stroke-linejoin": "round"
+        });
+        const cork = createSVGElement("rect", {
+          x: cx - 4, y: cy - 18, width: 8, height: 4,
+          fill: "var(--accent-soft)", stroke: "var(--ink)", "stroke-width": "0.8"
+        });
+        group.appendChild(flask);
+        group.appendChild(cork);
+      } else if (isCH4) {
+        const burner = createSVGElement("path", {
+          d: `M ${cx - 3},${cy + 18} L ${cx - 3},${cy + 5} L ${cx + 3},${cy + 5} L ${cx + 3},${cy + 18}`,
+          fill: "var(--ink-mute)", stroke: "var(--ink)", "stroke-width": "1.2"
+        });
+        const base = createSVGElement("path", {
+          d: `M ${cx - 8},${cy + 18} L ${cx + 8},${cy + 18}`,
+          stroke: "var(--ink)", "stroke-width": "2"
+        });
+        const flame = createSVGElement("path", {
+          d: `M ${cx},${cy - 14} Q ${cx - 6},${cy - 2} ${cx},${cy + 4} Q ${cx + 6},${cy - 2} ${cx},${cy - 14} Z`,
+          fill: "var(--water)", opacity: "0.6", stroke: "var(--water)", "stroke-width": "1"
+        });
+        group.appendChild(burner);
+        group.appendChild(base);
+        group.appendChild(flame);
+      } else if (isNaHCO3) {
+        const dish = createSVGElement("path", {
+          d: `M ${cx - 20},${cy + 8} Q ${cx},${cy + 18} ${cx + 20},${cy + 8}`,
+          fill: "none", stroke: "var(--ink)", "stroke-width": "1.2"
+        });
+        const powder = createSVGElement("path", {
+          d: `M ${cx - 15},${cy + 12} Q ${cx},${cy + 2} ${cx + 15},${cy + 12} Z`,
+          fill: "var(--paper-2)", stroke: "var(--ink-mute)", "stroke-width": "0.8"
+        });
+        group.appendChild(dish);
+        group.appendChild(powder);
+      }
+    } else {
+      if (isWater) {
+        const molPos = [
+          { x: cx - 10, y: cy - 10 },
+          { x: cx + 10, y: cy - 10 },
+          { x: cx - 10, y: cy + 12 },
+          { x: cx + 10, y: cy + 12 }
+        ];
+        molPos.forEach(pos => {
+          const ox = createSVGElement("circle", {
+            cx: pos.x, cy: pos.y, r: 4,
+            fill: "var(--accent)"
+          });
+          const h1 = createSVGElement("circle", {
+            cx: pos.x - 3.8, cy: pos.y + 3.8, r: 2.2,
+            fill: "var(--paper)", stroke: "var(--ink)", "stroke-width": "0.6"
+          });
+          const h2 = createSVGElement("circle", {
+            cx: pos.x + 3.8, cy: pos.y + 3.8, r: 2.2,
+            fill: "var(--paper)", stroke: "var(--ink)", "stroke-width": "0.6"
+          });
+          const b1 = createSVGElement("line", {
+            x1: pos.x, y1: pos.y, x2: pos.x - 3.8, y2: pos.y + 3.8,
+            stroke: "var(--ink)", "stroke-width": "0.8"
+          });
+          const b2 = createSVGElement("line", {
+            x1: pos.x, y1: pos.y, x2: pos.x + 3.8, y2: pos.y + 3.8,
+            stroke: "var(--ink)", "stroke-width": "0.8"
+          });
+          group.appendChild(b1);
+          group.appendChild(b2);
+          group.appendChild(ox);
+          group.appendChild(h1);
+          group.appendChild(h2);
+        });
+      } else if (substance === "NaCl") {
+        const spacing = 10;
+        for (let row = -1; row <= 1; row++) {
+          for (let col = -1; col <= 1; col++) {
+            const px = cx + col * spacing;
+            const py = cy + row * spacing;
+            const isCl = (row + col) % 2 !== 0;
+            const ion = createSVGElement("circle", {
+              cx: px, cy: py,
+              r: isCl ? 4.5 : 3,
+              fill: isCl ? "var(--good)" : "var(--ink-mute)",
+              stroke: "var(--ink)", "stroke-width": "0.6"
+            });
+            group.appendChild(ion);
+          }
+        }
+      } else if (isCO2) {
+        const molPos = [
+          { x: cx, y: cy - 12, rot: 0 },
+          { x: cx - 11, y: cy + 4, rot: 40 },
+          { x: cx + 11, y: cy + 4, rot: -40 },
+          { x: cx, y: cy + 16, rot: 10 }
+        ];
+        molPos.forEach(pos => {
+          const g = createSVGElement("g", {
+            transform: `translate(${pos.x}, ${pos.y}) rotate(${pos.rot})`
+          });
+          const b1 = createSVGElement("line", {
+            x1: -7, y1: 0, x2: 7, y2: 0,
+            stroke: "var(--ink)", "stroke-width": "0.8"
+          });
+          const c = createSVGElement("circle", {
+            cx: 0, cy: 0, r: 3.8,
+            fill: "var(--ink-soft)"
+          });
+          const o1 = createSVGElement("circle", {
+            cx: -7, cy: 0, r: 3,
+            fill: "var(--accent)"
+          });
+          const o2 = createSVGElement("circle", {
+            cx: 7, cy: 0, r: 3,
+            fill: "var(--accent)"
+          });
+          g.appendChild(b1);
+          g.appendChild(c);
+          g.appendChild(o1);
+          g.appendChild(o2);
+          group.appendChild(g);
+        });
+      } else if (isCH4) {
+        const molPos = [
+          { x: cx - 11, y: cy - 10 },
+          { x: cx + 11, y: cy - 10 },
+          { x: cx - 11, y: cy + 11 },
+          { x: cx + 11, y: cy + 11 }
+        ];
+        molPos.forEach(pos => {
+          const offsets = [
+            { dx: -4.5, dy: 0 }, { dx: 4.5, dy: 0 },
+            { dx: 0, dy: -4.5 }, { dx: 0, dy: 4.5 }
+          ];
+          offsets.forEach(off => {
+            const b = createSVGElement("line", {
+              x1: pos.x, y1: pos.y, x2: pos.x + off.dx, y2: pos.y + off.dy,
+              stroke: "var(--ink)", "stroke-width": "0.6"
+            });
+            group.appendChild(b);
+          });
+          const c = createSVGElement("circle", {
+            cx: pos.x, cy: pos.y, r: 4,
+            fill: "var(--ink-soft)"
+          });
+          group.appendChild(c);
+          offsets.forEach(off => {
+            const h = createSVGElement("circle", {
+              cx: pos.x + off.dx, cy: pos.y + off.dy, r: 2,
+              fill: "var(--paper)", stroke: "var(--ink)", "stroke-width": "0.5"
+            });
+            group.appendChild(h);
+          });
+        });
+      } else if (isNaHCO3) {
+        const items = [
+          { x: cx - 12, y: cy - 8, isNa: true },
+          { x: cx + 12, y: cy - 8, isNa: false },
+          { x: cx - 10, y: cy + 10, isNa: false },
+          { x: cx + 10, y: cy + 10, isNa: true },
+          { x: cx, y: cy, isNa: true }
+        ];
+        items.forEach(item => {
+          if (item.isNa) {
+            const na = createSVGElement("circle", {
+              cx: item.x, cy: item.y, r: 3.5,
+              fill: "var(--ink-mute)", stroke: "var(--ink)", "stroke-width": "0.8"
+            });
+            group.appendChild(na);
+          } else {
+            const c = createSVGElement("circle", {
+              cx: item.x, cy: item.y, r: 2.8,
+              fill: "var(--ink-soft)"
+            });
+            const o1 = createSVGElement("circle", {
+              cx: item.x - 4, cy: item.y + 2, r: 2.5,
+              fill: "var(--accent)"
+            });
+            const o2 = createSVGElement("circle", {
+              cx: item.x + 4, cy: item.y + 2, r: 2.5,
+              fill: "var(--accent)"
+            });
+            const o3 = createSVGElement("circle", {
+              cx: item.x, cy: item.y - 4, r: 2.5,
+              fill: "var(--accent)"
+            });
+            group.appendChild(o1);
+            group.appendChild(o2);
+            group.appendChild(o3);
+            group.appendChild(c);
+          }
+        });
+      }
     }
   }
 

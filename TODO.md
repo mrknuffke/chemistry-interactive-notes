@@ -25,9 +25,9 @@ Currently, retrieval sections rely on the same physical interaction: *produce so
 
 
 
-### 1.3 Phase 5 — Density Floor & Coverage Sweep
-* **Visual Density Audit**: Every section discussing particulate/atomic-level chemistry must have a corresponding particle diagram. 
-* **Target Lesson**: Retrofit `2-7b` (Mole Conversions), which currently has **0 SVGs**, to include standardized particle diagrams for the conversion paths.
+### 1.3 Phase 5 — Density Floor & Coverage Sweep [COMPLETED]
+* **Visual Density Audit**: Every section discussing particulate/atomic-level chemistry has corresponding particle diagrams.
+* **Target Lesson (Done)**: Retrofit `2-7b` (Mole Conversions) with dynamic conversion diagrams (beaker, salt boat, burner, flasks) and real-time cancellation feedback.
 
 ### 1.4 Phase 6 — Lesson 1-2b Retrofit & Final Sweep
 * **Lesson 1-2b Retrofit**: Retrofit `1-2b_molecular-polarity.html` (built before the design revision pass) to the unified standards (synopsis, verb budget, quick check).
@@ -72,6 +72,8 @@ Verify these curriculum decisions and rules before starting work on their respec
 ## 5. Completed Work
 
 Log details in `CHANGELOG.md` upon pushing to remote.
+* **2026-07-10**: Retrofitted Lesson 2-7b (Mole Conversions) with a dynamic visual Conversion Builder canvas showing bulk/particulate state transitions (beaker, weighing boat, flask, Bunsen burner flame, crystal grids, and molecular groups) and real-time unit cancellation feedback.
+* **2026-07-10**: Shipped Spaced Repetition Leitner system progress scheduler, dashboard review card, cumulative mixed review practice drills, payoff "Why This Matters" beats in all 12 lessons, complex biological monomer lookups (glucose, glycine, ribose, alanine, ATP), polymer brackets, vessel background framing (beakers, flasks, dishes), wavy blue solvent overlays, and ionic/acidic hydration shell dissociation.
 * **2026-07-09**: Shipped Phase 4 design pass: implemented dynamically injected global "Quick Check" toggle button in topbar to filter out non-retrieval prose and empty sections; authored the responsive 3-column collapsible One-Screen Synopsis card and propagated it across all 12 lessons in the curriculum.
 * **2026-07-09**: Shipped Phase 3 Redesign verbs: implemented `predict-run` (prediction before automated step-motion playback), `diagnose-error` (hotspot click tracking on subscripts, coefficients, and setup terms), and `construct-validate` (formula builder with live net charge validation badge). Added benchmarks for all three in `_widget-test.html`.
 * **2026-07-09**: `DIAGRAM_GENERATOR_PLAN.md` closed out — all 5 phases done and verified (console-clean across all 3 tabs × light/dark × desktop/narrow): invisible electron dots and default-selection fixed, combined reaction view layout fixed, NaCl/KF now render as an honest ionic pair with an electron-count self-check and same-element-polyatomic refusal, standalone SVG copy/download + lesson-HTML export + resolution-clamped PNG export shipped, reaction-parser input validation and a de-duplicated common-name lookup added, and the tool linked from the dashboard. Plan doc retired.
