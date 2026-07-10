@@ -283,7 +283,52 @@
           <div class="v">Avogadro's number (6.022 &times; 10²³), molar mass in g/mol, main-group formula calculations, and mathematical scaling.</div>
         </div>
       </div>
-      <div class="next-cue"><button class="next-btn" data-next>Start <span class="chev">↓</span></button></div>
+    <!-- SYNOPSIS collapsible -->
+    <div class="synopsis-wrapper">
+      <button class="w-btn w-btn-synopsis" data-more="Synopsis" type="button">Show Synopsis &rarr;</button>
+      <div class="more-body synopsis-body">
+        <div class="synopsis-grid">
+          <div class="synopsis-claims">
+            <h4>Core Claims</h4>
+            <ul>
+              <li><strong>The Mole count:</strong> Avogadro's number ($6.022 \times 10^{23}$) serves as the macroscopic counting unit ("chemist's dozen") to group atoms into scaleable packets.</li>
+              <li><strong>The Mole Bridge:</strong> Connects sub-microscopic particle counts to macroscopic mass in grams.</li>
+              <li><strong>Molar Mass (g/mol):</strong> The mass of one mole of a substance. Calculated by adding up the individual atomic masses from the Periodic Table.</li>
+            </ul>
+          </div>
+          <div class="synopsis-figure">
+            <h4>The Mole Bridge</h4>
+            <svg viewBox="0 0 200 130">
+              <rect x="10" y="45" width="45" height="25" rx="3" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1"/>
+              <text x="32.5" y="60" font-size="8" font-weight="bold" text-anchor="middle" fill="var(--ink)">Mass (g)</text>
+              
+              <path d="M60 57 L85 57" fill="none" stroke="var(--ink)" stroke-width="1.2" marker-end="url(#syn-arr-27a)"/>
+              
+              <rect x="90" y="45" width="40" height="25" rx="3" fill="var(--card)" stroke="var(--ink)" stroke-width="1.2"/>
+              <text x="110" y="60" font-size="8" font-weight="bold" text-anchor="middle" fill="var(--accent)">Moles</text>
+              
+              <path d="M135 57 L160 57" fill="none" stroke="var(--ink)" stroke-width="1.2" marker-end="url(#syn-arr-27a)"/>
+              
+              <rect x="165" y="45" width="30" height="25" rx="3" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1"/>
+              <text x="180" y="60" font-size="7" font-weight="bold" text-anchor="middle" fill="var(--ink)">Count</text>
+              
+              <defs>
+                <marker id="syn-arr-27a" markerWidth="4" markerHeight="4" refX="3" refY="2" orient="auto" viewBox="0 0 4 4"><path d="M0 0 L4 2 L0 4 z" fill="var(--ink)"/></marker>
+              </defs>
+            </svg>
+          </div>
+          <div class="synopsis-checklist">
+            <h4>Retrieval Checklist</h4>
+            <ul>
+              <li><input type="checkbox" disabled> Define the value and purpose of Avogadro's number.</li>
+              <li><input type="checkbox" disabled> Calculate molar mass of elements and ionic/covalent compounds.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="next-cue"><button class="next-btn" data-next>Start <span class="chev">↓</span></button></div>
     </div>
   </section>
 
@@ -299,7 +344,7 @@
       <div class="diagram reveal figure figure--full">
         <svg viewBox="0 0 300 100" style="width: 100%; border: 1px solid var(--hair-soft); background: var(--paper-2); border-radius: 4px;">
           <!-- Left: 1 atom carbon-12 -->
-          <circle cx="60" cy="50" r="var(--dia-r-atom)" fill="var(--card)" stroke="var(--ink)" stroke-width="1.5"/>
+          <circle cx="60" cy="50" style="r: var(--dia-r-atom)" fill="var(--card)" stroke="var(--ink)" stroke-width="1.5"/>
           <text x="60" y="53" font-family="var(--mono)" font-size="6" text-anchor="middle" font-weight="700">¹²C</text>
           <text x="60" y="78" font-family="var(--display)" style="font-size:var(--dia-caption-size)" text-anchor="middle" font-weight="600">1 atom</text>
           <text x="60" y="88" font-family="var(--mono)" style="font-size:var(--dia-caption-size)" text-anchor="middle" fill="var(--accent)" font-weight="700">12 amu</text>
@@ -589,7 +634,12 @@
           }
           </script>
         </div>
+            <!-- Why This Matters Payoff -->
+      <div class="callout reveal" style="margin-top: 2rem;">
+        <div class="label">Why This Matters</div>
+        <p>Pharmacy and medicine rely on scale conversions. Drug molecules must match receptors in the body molecule-for-molecule. Because molecules are too small to count, pharmacists use molar mass to weigh out the exact mass of active ingredients in grams to achieve the correct molecular dose.</p>
       </div>
+</div>
     </div>
   </section>
 

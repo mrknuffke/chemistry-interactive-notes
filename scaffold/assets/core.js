@@ -142,7 +142,17 @@
       if (!currentLesson) return false;
       const progress = getProgress();
       const lessonProgress = progress[currentLesson.id] || {};
-      return lessonProgress[`${type}-${index}`] === true;
+      const val = lessonProgress[`${type}-${index}`];
+      if (val === true) return true;
+      if (val && typeof val === 'object' && val.completed === true) return true;
+      return false;
+    };
+
+    const getCheckpointValue = (type, index) => {
+      if (!currentLesson) return null;
+      const progress = getProgress();
+      const lessonProgress = progress[currentLesson.id] || {};
+      return lessonProgress[`${type}-${index}`];
     };
 
     return {
@@ -152,19 +162,48 @@
       clear,
       getProgress,
       saveProgress,
-      isCheckpointCompleted
+      isCheckpointCompleted,
+      getCheckpointValue
     };
   })();
 
   // Expose StorageEngine globally
   window.GC_STORAGE = StorageEngine;
 
-  function markCheckpointCompleted(type, index) {
+  function markCheckpointCompleted(type, index, value = true) {
     if (!currentLesson) return;
     const lessonId = currentLesson.id;
     const progress = StorageEngine.getProgress();
     if (!progress[lessonId]) progress[lessonId] = {};
-    progress[lessonId][`${type}-${index}`] = true;
+    
+    const key = `${type}-${index}`;
+    const existing = progress[lessonId][key];
+    const now = Date.now();
+    
+    let metadata = {
+      completed: true,
+      box: 1,
+      interval: 1,
+      nextDue: now + 24 * 60 * 60 * 1000,
+      lastAttempt: now,
+      attempts: 1
+    };
+
+    if (existing && typeof existing === 'object') {
+      metadata.box = existing.box || 1;
+      metadata.interval = existing.interval || 1;
+      metadata.nextDue = existing.nextDue || (now + 24 * 60 * 60 * 1000);
+      metadata.lastAttempt = now;
+      metadata.attempts = (existing.attempts || 0) + 1;
+    } else if (existing === true) {
+      metadata.attempts = 2;
+    }
+
+    if (value && typeof value === 'object') {
+      metadata.score = value.score;
+    }
+
+    progress[lessonId][key] = metadata;
     StorageEngine.saveProgress(progress);
   }
 
@@ -245,6 +284,114 @@
     if (btn) btn.addEventListener('click', () => {
       root.classList.toggle('dark');
       StorageEngine.setItem('gc-theme', root.classList.contains('dark') ? 'dark' : 'light');
+    });
+  })();
+
+  /* ---- quick check review mode ---- */
+  (function () {
+    if (!currentLesson && !window.location.pathname.includes('_widget-test.html')) return;
+    const topbarRight = $('.topbar-right');
+    if (!topbarRight) return;
+
+    const toggle = document.createElement('button');
+    toggle.className = 'quick-check-toggle';
+    toggle.id = 'quickCheckToggle';
+    toggle.type = 'button';
+    toggle.title = 'Toggle Quick Check (Review Mode)';
+    toggle.innerHTML = `
+      <svg class="qc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <span>Quick Check</span>
+    `;
+
+    topbarRight.insertBefore(toggle, topbarRight.firstChild);
+
+    let active = false;
+    toggle.addEventListener('click', () => {
+      active = !active;
+      toggle.classList.toggle('active', active);
+      document.body.classList.toggle('quick-check-active', active);
+
+      // Deactivate Cram View if it is active
+      if (active) {
+        const cvBtn = $('#cramViewToggle');
+        if (cvBtn && cvBtn.classList.contains('active')) {
+          cvBtn.click();
+        }
+      }
+
+      const sections = $$('section');
+      sections.forEach(sec => {
+        if (sec.id === 's-hero') return;
+
+        const hasInteractive = sec.querySelector('[data-widget], .recall, [data-predict], [data-peek], [data-scheme], [data-motion]');
+        if (!hasInteractive) {
+          if (active) {
+            sec.style.display = 'none';
+          } else {
+            sec.style.display = '';
+          }
+        }
+      });
+    });
+  })();
+
+  /* ---- cram view review mode ---- */
+  (function () {
+    if (!currentLesson && !window.location.pathname.includes('_widget-test.html')) return;
+    const topbarRight = $('.topbar-right');
+    if (!topbarRight) return;
+
+    const toggle = document.createElement('button');
+    toggle.className = 'cram-view-toggle';
+    toggle.id = 'cramViewToggle';
+    toggle.type = 'button';
+    toggle.title = 'Toggle Cram View (Exam Questions Only)';
+    toggle.innerHTML = `
+      <svg class="cv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+      <span>Cram View</span>
+    `;
+
+    topbarRight.insertBefore(toggle, topbarRight.firstChild);
+
+    let active = false;
+    toggle.addEventListener('click', () => {
+      active = !active;
+      toggle.classList.toggle('active', active);
+      document.body.classList.toggle('cram-view-active', active);
+
+      // Deactivate Quick Check if active
+      if (active) {
+        const qcBtn = $('#quickCheckToggle');
+        if (qcBtn && qcBtn.classList.contains('active')) {
+          qcBtn.click();
+        }
+      }
+
+      const sections = $$('section');
+      sections.forEach(sec => {
+        if (sec.id === 's-hero') {
+          const extra = sec.querySelector('.lede, .meta-strip, .synopsis-wrapper, .next-cue');
+          if (extra) {
+            extra.style.display = active ? 'none' : '';
+          }
+          return;
+        }
+
+        const hasExam = sec.querySelector('.exam-frame');
+        if (!hasExam) {
+          if (active) {
+            sec.style.display = 'none';
+          } else {
+            sec.style.display = '';
+          }
+        } else {
+          // Keep the section containing the exam, but hide everything except exam-frame and headings
+          const nonExamElements = sec.querySelectorAll('.narrow > *:not(.exam-frame):not(h2):not(.section-tag), > *:not(.narrow):not(.section-tag)');
+          nonExamElements.forEach(el => {
+            el.style.display = active ? 'none' : '';
+          });
+        }
+      });
     });
   })();
 
@@ -655,6 +802,12 @@
         initStepBuilder(el, config, idx);
       } else if (type === 'sort-classify') {
         initSortClassify(el, config, idx);
+      } else if (type === 'predict-run') {
+        initPredictRun(el, config, idx);
+      } else if (type === 'diagnose-error') {
+        initDiagnoseError(el, config, idx);
+      } else if (type === 'construct-validate') {
+        initConstructValidate(el, config, idx);
       }
     });
   }
@@ -1989,7 +2142,7 @@
             initWidgets();
             initMotionPrimitives();
           }
-          markCheckpointCompleted('sort-classify', widgetIdx);
+          markCheckpointCompleted('sort-classify', widgetIdx, { completed: true, score: state.correctCount });
         }
       } else {
         // Error flow
@@ -2051,8 +2204,12 @@
 
     // Restore state from persistence layer
     if (StorageEngine.isCheckpointCompleted('sort-classify', widgetIdx)) {
+      const saved = StorageEngine.getCheckpointValue('sort-classify', widgetIdx);
       state.currentIndex = config.items.length - 1;
-      state.correctCount = config.items.length; // Assume perfect score on complete restore
+      
+      const hasScore = saved && typeof saved === 'object' && saved.score !== undefined;
+      state.correctCount = hasScore ? saved.score : 0;
+      
       updateStatus();
       cardStage.innerHTML = '<div class="w-sort-card"><p>Sorting complete!</p></div>';
       renderBins();
@@ -2063,10 +2220,617 @@
           b.classList.add('correct');
         }
       });
-      feedback.textContent = `Completed! Score: ${config.items.length} / ${config.items.length}`;
-      feedback.className = 'w-feedback correct';
+      
+      if (hasScore) {
+        feedback.textContent = `Completed! Score: ${state.correctCount} / ${config.items.length}`;
+        feedback.className = 'w-feedback correct';
+      } else {
+        feedback.textContent = `Completed!`;
+        feedback.className = 'w-feedback correct';
+        scoreEl.textContent = ''; // Clear the default score status line
+      }
+      
       checkBtn.style.display = 'none';
       resetBtn.style.display = '';
+      if (config.reveal) {
+        revealArea.innerHTML = config.reveal;
+        revealArea.style.display = 'block';
+        revealArea.classList.add('show');
+      }
+    }
+  }
+
+  // --- 6. Predict & Run Widget ---
+  function initPredictRun(el, config, widgetIdx) {
+    const predictionType = config.predictionType || 'choice';
+
+    // Create prompt
+    const promptDiv = document.createElement('div');
+    promptDiv.className = 'w-prompt';
+    promptDiv.innerHTML = config.prompt || '';
+    el.appendChild(promptDiv);
+
+    // Create workspace
+    const workspace = document.createElement('div');
+    workspace.className = 'w-workspace';
+    el.appendChild(workspace);
+
+    // Create reveal area
+    const revealArea = document.createElement('div');
+    revealArea.className = 'w-reveal-area';
+    revealArea.style.display = 'none';
+    el.appendChild(revealArea);
+
+    let state = {
+      selectedOptIdx: null,
+      committed: false,
+      simRunning: false,
+      simCompleted: false
+    };
+
+    let grid, textarea, hint;
+
+    if (predictionType === 'choice') {
+      grid = document.createElement('div');
+      grid.className = 'w-options-grid';
+      config.options.forEach((opt, oIdx) => {
+        const btn = document.createElement('button');
+        btn.className = 'w-opt';
+        btn.type = 'button';
+        btn.innerHTML = opt.label;
+        btn.addEventListener('click', () => {
+          if (state.committed) return;
+          $$('.w-opt', grid).forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          state.selectedOptIdx = oIdx;
+          checkBtn.removeAttribute('disabled');
+        });
+        grid.appendChild(btn);
+      });
+      workspace.appendChild(grid);
+    } else if (predictionType === 'free') {
+      textarea = document.createElement('textarea');
+      textarea.className = 'w-textarea';
+      textarea.placeholder = 'Write your prediction first...';
+      workspace.appendChild(textarea);
+
+      const minChars = config.minChars || 25;
+      hint = document.createElement('div');
+      hint.className = 'w-progress-hint';
+      workspace.appendChild(hint);
+
+      textarea.addEventListener('input', () => {
+        const len = textarea.value.trim().length;
+        if (len === 0) {
+          hint.textContent = '';
+          hint.classList.remove('ready');
+        } else if (len < minChars) {
+          hint.textContent = 'Keep going…';
+          hint.classList.remove('ready');
+        } else {
+          hint.textContent = 'Ready';
+          hint.classList.add('ready');
+        }
+        if (len >= minChars) {
+          checkBtn.removeAttribute('disabled');
+        } else {
+          checkBtn.setAttribute('disabled', 'true');
+        }
+      });
+    }
+
+    const startSimulation = (onDone) => {
+      state.simRunning = true;
+      const stepEl = el.querySelector('[data-motion="step"]');
+      if (stepEl) {
+        const firstDot = stepEl.querySelector('.step-dot[data-step-dot-idx="1"]');
+        if (firstDot) firstDot.click();
+
+        const prevBtn = stepEl.querySelector('.step-prev');
+        const nextBtn = stepEl.querySelector('.step-next');
+        const dots = stepEl.querySelectorAll('.step-dot');
+        if (prevBtn) prevBtn.disabled = true;
+        if (nextBtn) nextBtn.disabled = true;
+        dots.forEach(d => d.style.pointerEvents = 'none');
+
+        const interval = setInterval(() => {
+          const nextBtnLive = stepEl.querySelector('.step-next');
+          if (nextBtnLive && !nextBtnLive.disabled) {
+            nextBtnLive.click();
+          } else {
+            clearInterval(interval);
+            dots.forEach(d => d.style.pointerEvents = '');
+            state.simRunning = false;
+            state.simCompleted = true;
+            onDone();
+          }
+        }, 900);
+      } else if (config.simName && window.GC_SIMULATIONS && window.GC_SIMULATIONS[config.simName]) {
+        window.GC_SIMULATIONS[config.simName](el, () => {
+          state.simRunning = false;
+          state.simCompleted = true;
+          onDone();
+        });
+      } else {
+        setTimeout(() => {
+          state.simRunning = false;
+          state.simCompleted = true;
+          onDone();
+        }, 500);
+      }
+    };
+
+    const { checkBtn, resetBtn, feedback } = createWidgetControls(el,
+      (cBtn, rBtn, fb) => {
+        if (!state.committed) {
+          state.committed = true;
+          el.dataset.committed = 'true';
+          if (predictionType === 'choice') {
+            const chosen = config.options[state.selectedOptIdx];
+            const opts = $$('.w-opt', grid);
+            opts.forEach(o => o.setAttribute('disabled', 'true'));
+            opts[state.selectedOptIdx].classList.add(chosen.correct ? 'correct' : 'wrong');
+            
+            config.options.forEach((opt, oIdx) => {
+              if (opt.correct) opts[oIdx].classList.add('correct');
+            });
+            fb.innerHTML = chosen.feedback + ' <br><b>Now, run the simulation to see the molecular behavior.</b>';
+            fb.className = 'w-feedback ' + (chosen.correct ? 'correct' : 'wrong');
+          } else {
+            textarea.setAttribute('disabled', 'true');
+            if (hint) hint.style.display = 'none';
+            fb.innerHTML = 'Prediction committed. <br><b>Now, run the simulation to observe the outcome.</b>';
+            fb.className = 'w-feedback correct';
+          }
+          cBtn.textContent = 'Run Simulation';
+        } else if (!state.simCompleted && !state.simRunning) {
+          cBtn.setAttribute('disabled', 'true');
+          cBtn.textContent = 'Simulating...';
+          startSimulation(() => {
+            cBtn.style.display = 'none';
+            rBtn.style.display = '';
+            
+            fb.innerHTML = (predictionType === 'choice') 
+              ? config.options[state.selectedOptIdx].feedback 
+              : 'Simulation complete. Compare your prediction with the molecular outcome.';
+            fb.className = 'w-feedback correct';
+
+            if (config.reveal) {
+              revealArea.innerHTML = config.reveal;
+              revealArea.style.display = 'block';
+              revealArea.classList.add('show');
+              initWidgets();
+              initMotionPrimitives();
+            }
+            markCheckpointCompleted('predict-run', widgetIdx);
+          });
+        }
+      },
+      (cBtn, rBtn, fb) => {
+        el.removeAttribute('data-committed');
+        state.committed = false;
+        state.simRunning = false;
+        state.simCompleted = false;
+        cBtn.textContent = 'Check';
+        cBtn.setAttribute('disabled', 'true');
+        revealArea.style.display = 'none';
+        revealArea.classList.remove('show');
+        revealArea.innerHTML = '';
+
+        if (predictionType === 'choice') {
+          state.selectedOptIdx = null;
+          const opts = $$('.w-opt', grid);
+          opts.forEach(o => {
+            o.removeAttribute('disabled');
+            o.classList.remove('selected', 'correct', 'wrong');
+          });
+        } else if (predictionType === 'free') {
+          textarea.removeAttribute('disabled');
+          textarea.value = '';
+          if (hint) {
+            hint.style.display = '';
+            hint.textContent = '';
+            hint.classList.remove('ready');
+          }
+        }
+
+        const stepEl = el.querySelector('[data-motion="step"]');
+        if (stepEl) {
+          const firstDot = stepEl.querySelector('.step-dot[data-step-dot-idx="1"]');
+          if (firstDot) firstDot.click();
+        }
+      }
+    );
+
+    checkBtn.setAttribute('disabled', 'true');
+
+    if (StorageEngine.isCheckpointCompleted('predict-run', widgetIdx)) {
+      state.committed = true;
+      state.simCompleted = true;
+      el.dataset.committed = 'true';
+      checkBtn.style.display = 'none';
+      resetBtn.style.display = '';
+
+      if (predictionType === 'choice') {
+        const correctIdx = config.options.findIndex(opt => opt.correct);
+        state.selectedOptIdx = correctIdx >= 0 ? correctIdx : 0;
+        const opts = $$('.w-opt', grid);
+        opts.forEach(o => o.setAttribute('disabled', 'true'));
+        if (correctIdx >= 0 && opts[correctIdx]) {
+          opts[correctIdx].classList.add('correct');
+        }
+        feedback.innerHTML = config.options[state.selectedOptIdx].feedback;
+      } else {
+        if (textarea) textarea.setAttribute('disabled', 'true');
+        if (hint) hint.style.display = 'none';
+        feedback.textContent = 'Simulation complete. Review the explanation below.';
+      }
+      feedback.className = 'w-feedback correct';
+
+      if (config.reveal) {
+        revealArea.innerHTML = config.reveal;
+        revealArea.style.display = 'block';
+        revealArea.classList.add('show');
+      }
+
+      const stepEl = el.querySelector('[data-motion="step"]');
+      if (stepEl) {
+        const count = parseInt(stepEl.dataset.stepCount) || 1;
+        const lastDot = stepEl.querySelector(`.step-dot[data-step-dot-idx="${count}"]`);
+        if (lastDot) lastDot.click();
+      }
+    }
+  }
+
+  // --- 7. Diagnose the Error Widget ---
+  function initDiagnoseError(el, config, widgetIdx) {
+    const spots = el.querySelectorAll('.w-spot');
+    
+    const revealArea = document.createElement('div');
+    revealArea.className = 'w-reveal-area';
+    revealArea.style.display = 'none';
+    el.appendChild(revealArea);
+
+    let state = {
+      selectedSpotId: null,
+      committed: false
+    };
+
+    spots.forEach(spot => {
+      spot.addEventListener('click', () => {
+        if (state.committed) return;
+        spots.forEach(s => s.classList.remove('selected'));
+        spot.classList.add('selected');
+        state.selectedSpotId = spot.dataset.spotId;
+        checkBtn.removeAttribute('disabled');
+      });
+    });
+
+    const { checkBtn, resetBtn, feedback } = createWidgetControls(el,
+      (cBtn, rBtn, fb) => {
+        if (!state.selectedSpotId) return;
+        state.committed = true;
+        el.dataset.committed = 'true';
+        cBtn.style.display = 'none';
+        rBtn.style.display = '';
+
+        const chosenSpot = config.spots.find(s => s.id === state.selectedSpotId);
+        const correctSpot = config.spots.find(s => s.correct);
+        
+        spots.forEach(s => {
+          s.style.pointerEvents = 'none';
+          if (s.dataset.spotId === correctSpot.id) {
+            s.classList.add('correct');
+          }
+        });
+
+        const isCorrect = chosenSpot && chosenSpot.correct;
+        const chosenSpotEl = el.querySelector(`.w-spot[data-spot-id="${state.selectedSpotId}"]`);
+        
+        if (isCorrect) {
+          fb.innerHTML = chosenSpot.feedback || 'Correct! You diagnosed the error.';
+          fb.className = 'w-feedback correct';
+        } else {
+          if (chosenSpotEl) {
+            chosenSpotEl.classList.add('wrong');
+          }
+          fb.innerHTML = (chosenSpot ? chosenSpot.feedback : '') || 'Incorrect diagnosis. Look at the highlighted correct error area.';
+          fb.className = 'w-feedback wrong';
+        }
+
+        if (config.reveal) {
+          revealArea.innerHTML = config.reveal;
+          revealArea.style.display = 'block';
+          revealArea.classList.add('show');
+          initWidgets();
+          initMotionPrimitives();
+        }
+        markCheckpointCompleted('diagnose-error', widgetIdx);
+      },
+      (cBtn, rBtn, fb) => {
+        el.removeAttribute('data-committed');
+        state.committed = false;
+        state.selectedSpotId = null;
+        cBtn.setAttribute('disabled', 'true');
+        revealArea.style.display = 'none';
+        revealArea.classList.remove('show');
+        revealArea.innerHTML = '';
+
+        spots.forEach(s => {
+          s.style.pointerEvents = '';
+          s.classList.remove('selected', 'correct', 'wrong');
+        });
+      }
+    );
+
+    checkBtn.setAttribute('disabled', 'true');
+
+    if (StorageEngine.isCheckpointCompleted('diagnose-error', widgetIdx)) {
+      state.committed = true;
+      el.dataset.committed = 'true';
+      checkBtn.style.display = 'none';
+      resetBtn.style.display = '';
+
+      const correctSpot = config.spots.find(s => s.correct);
+      spots.forEach(s => {
+        s.style.pointerEvents = 'none';
+        if (s.dataset.spotId === correctSpot.id) {
+          s.classList.add('correct');
+        }
+      });
+
+      feedback.innerHTML = correctSpot.feedback || 'Correct diagnosis highlighted.';
+      feedback.className = 'w-feedback correct';
+
+      if (config.reveal) {
+        revealArea.innerHTML = config.reveal;
+        revealArea.style.display = 'block';
+        revealArea.classList.add('show');
+      }
+    }
+  }
+
+  // --- 8. Construct with Live Validation Widget ---
+  function initConstructValidate(el, config, widgetIdx) {
+    if (!config.items || !config.items.length) return;
+
+    const workspace = document.createElement('div');
+    workspace.className = 'w-workspace';
+    el.appendChild(workspace);
+
+    const revealArea = document.createElement('div');
+    revealArea.className = 'w-reveal-area';
+    revealArea.style.display = 'none';
+    el.appendChild(revealArea);
+
+    let state = {
+      counts: {},
+      committed: false
+    };
+
+    config.items.forEach(item => {
+      state.counts[item.id] = 0;
+    });
+
+    const constructContainer = document.createElement('div');
+    constructContainer.className = 'w-construct-container';
+    workspace.appendChild(constructContainer);
+
+    const poolEl = document.createElement('div');
+    poolEl.className = 'w-construct-pool';
+    constructContainer.appendChild(poolEl);
+
+    const workspaceEl = document.createElement('div');
+    workspaceEl.className = 'w-construct-workspace';
+    constructContainer.appendChild(workspaceEl);
+
+    const formulaEl = document.createElement('div');
+    formulaEl.className = 'w-construct-formula';
+    workspaceEl.appendChild(formulaEl);
+
+    const badgeEl = document.createElement('div');
+    badgeEl.className = 'w-construct-badge';
+    workspaceEl.appendChild(badgeEl);
+
+    const updateValidation = () => {
+      let netCharge = 0;
+      let totalItems = 0;
+
+      config.items.forEach(item => {
+        const count = state.counts[item.id];
+        totalItems += count;
+        if (item.charge !== undefined) {
+          netCharge += item.charge * count;
+        }
+      });
+
+      let formulaHtml = '';
+      config.items.forEach(item => {
+        const count = state.counts[item.id];
+        if (count > 0) {
+          formulaHtml += `${item.id}${count > 1 ? `<sub>${count}</sub>` : ''}`;
+        }
+      });
+      formulaEl.innerHTML = formulaHtml;
+
+      if (totalItems === 0) {
+        badgeEl.textContent = '';
+        badgeEl.className = 'w-construct-badge';
+        checkBtn.setAttribute('disabled', 'true');
+      } else {
+        if (netCharge === 0) {
+          badgeEl.textContent = '0 (Neutral & Balanced)';
+          badgeEl.className = 'w-construct-badge balanced';
+          if (!state.committed) checkBtn.removeAttribute('disabled');
+        } else {
+          const sign = netCharge > 0 ? '+' : '';
+          badgeEl.textContent = `${sign}${netCharge} (Unbalanced)`;
+          badgeEl.className = 'w-construct-badge unbalanced';
+          checkBtn.setAttribute('disabled', 'true');
+        }
+      }
+    };
+
+    const renderPool = () => {
+      poolEl.innerHTML = '';
+      config.items.forEach(item => {
+        const poolItem = document.createElement('div');
+        poolItem.className = 'w-construct-pool-item';
+
+        const label = document.createElement('span');
+        label.className = 'w-construct-label';
+        label.innerHTML = item.label;
+        poolItem.appendChild(label);
+
+        const controls = document.createElement('div');
+        controls.className = 'w-construct-controls';
+
+        const minusBtn = document.createElement('button');
+        minusBtn.className = 'w-construct-btn';
+        minusBtn.type = 'button';
+        minusBtn.textContent = '−';
+        minusBtn.disabled = state.committed || state.counts[item.id] <= 0;
+        minusBtn.addEventListener('click', () => {
+          if (state.counts[item.id] > 0) {
+            state.counts[item.id]--;
+            renderPool();
+            updateValidation();
+          }
+        });
+
+        const val = document.createElement('span');
+        val.className = 'w-construct-val';
+        val.textContent = state.counts[item.id];
+
+        const plusBtn = document.createElement('button');
+        plusBtn.className = 'w-construct-btn';
+        plusBtn.type = 'button';
+        plusBtn.textContent = '+';
+        plusBtn.disabled = state.committed || state.counts[item.id] >= 8;
+        plusBtn.addEventListener('click', () => {
+          state.counts[item.id]++;
+          renderPool();
+          updateValidation();
+        });
+
+        controls.appendChild(minusBtn);
+        controls.appendChild(val);
+        controls.appendChild(plusBtn);
+        poolItem.appendChild(controls);
+        poolEl.appendChild(poolItem);
+      });
+    };
+
+    const { checkBtn, resetBtn, feedback } = createWidgetControls(el,
+      (cBtn, rBtn, fb) => {
+        state.committed = true;
+        el.dataset.committed = 'true';
+        cBtn.style.display = 'none';
+        rBtn.style.display = '';
+
+        $$('.w-construct-btn', poolEl).forEach(b => b.disabled = true);
+
+        let isCorrect = true;
+        let isMultiple = false;
+
+        if (config.targetRatio) {
+          const userRatio = {};
+          config.items.forEach(item => {
+            userRatio[item.id] = state.counts[item.id];
+          });
+
+          let targetMatch = true;
+          config.items.forEach(item => {
+            if (userRatio[item.id] !== config.targetRatio[item.id]) {
+              targetMatch = false;
+            }
+          });
+
+          if (targetMatch) {
+            isCorrect = true;
+          } else {
+            let factor = null;
+            let multipleMatch = true;
+            config.items.forEach(item => {
+              const userVal = userRatio[item.id];
+              const targetVal = config.targetRatio[item.id];
+              if (targetVal === 0 && userVal !== 0) multipleMatch = false;
+              if (targetVal > 0) {
+                if (userVal % targetVal !== 0) {
+                  multipleMatch = false;
+                } else {
+                  const currentFactor = userVal / targetVal;
+                  if (factor === null) factor = currentFactor;
+                  else if (factor !== currentFactor) multipleMatch = false;
+                }
+              }
+            });
+
+            if (multipleMatch && factor > 1) {
+              isMultiple = true;
+              isCorrect = false;
+            } else {
+              isCorrect = false;
+            }
+          }
+        }
+
+        if (isCorrect) {
+          fb.innerHTML = config.feedback_right || 'Correct! You constructed the neutral compound in its simplest whole-number ratio.';
+          fb.className = 'w-feedback correct';
+        } else if (isMultiple) {
+          fb.innerHTML = 'The compound is charge-balanced, but this is not the simplest whole-number ratio. Reduce the subscripts (e.g., Al<sub>2</sub>O<sub>3</sub> instead of Al<sub>4</sub>O<sub>6</sub>).';
+          fb.className = 'w-feedback wrong';
+        } else {
+          fb.innerHTML = config.feedback_wrong || 'Incorrect ratio. Review the charges and try again.';
+          fb.className = 'w-feedback wrong';
+        }
+
+        if (config.reveal) {
+          revealArea.innerHTML = config.reveal;
+          revealArea.style.display = 'block';
+          revealArea.classList.add('show');
+          initWidgets();
+          initMotionPrimitives();
+        }
+        markCheckpointCompleted('construct-validate', widgetIdx);
+      },
+      (cBtn, rBtn, fb) => {
+        el.removeAttribute('data-committed');
+        state.committed = false;
+        config.items.forEach(item => {
+          state.counts[item.id] = 0;
+        });
+        cBtn.setAttribute('disabled', 'true');
+        revealArea.style.display = 'none';
+        revealArea.classList.remove('show');
+        revealArea.innerHTML = '';
+        renderPool();
+        updateValidation();
+      }
+    );
+
+    renderPool();
+    updateValidation();
+
+    if (StorageEngine.isCheckpointCompleted('construct-validate', widgetIdx)) {
+      state.committed = true;
+      el.dataset.committed = 'true';
+      checkBtn.style.display = 'none';
+      resetBtn.style.display = '';
+
+      if (config.targetRatio) {
+        config.items.forEach(item => {
+          state.counts[item.id] = config.targetRatio[item.id] || 0;
+        });
+      }
+
+      renderPool();
+      updateValidation();
+
+      feedback.innerHTML = config.feedback_right || 'Compound successfully balanced.';
+      feedback.className = 'w-feedback correct';
+
       if (config.reveal) {
         revealArea.innerHTML = config.reveal;
         revealArea.style.display = 'block';

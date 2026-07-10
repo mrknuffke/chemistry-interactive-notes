@@ -16,13 +16,14 @@ Currently, retrieval sections rely on the same physical interaction: *produce so
 4. **Construct with Live Validation**: Build an configuration, formula, or structure with real-time valence, charge, or octet alerts as they assemble it.
 * **The Verb Budget Constraint**: No more than two consecutive sections in a lesson may share the same interaction verb. Every lesson must have at least one dynamic `manipulate → observe consequence` interactive.
 * **Sequencing**: Build a reference redesign in one lesson (such as `2-7a` or `C-RXN`), obtain author approval on the feel, then propagate across the remaining 11 lessons.
-* **Propagation progress**: `C-RXN` (reference, 2026-07-09) and `2-2a` (physical-vs-chemical sort drill, 2026-07-09) have Sort & Classify. Remaining candidates: `1-2b` (polar vs. nonpolar — fold into the Phase 6 retrofit), plus Diagnose-the-Error and Construct-with-Live-Validation verbs, which have no implementation yet.
+* **Propagation progress**: `C-RXN` (reference, 2026-07-09) and `2-2a` (physical-vs-chemical sort drill, 2026-07-09) have Sort & Classify. The `predict-run`, `diagnose-error`, and `construct-validate` widget engines are fully implemented in `core.js`/`components.css` and benchmarked in `_widget-test.html`. Remaining work: propagate these new verbs across the 12 lessons (such as `1-2b` polar vs. nonpolar sort retrofit).
 * **Open note (spine tail)**: every lesson's mandated recall → self-explain → exam tail is three consecutive produce-check sections; decide whether the verb budget counts these as one verb or whether the tail needs its own variety treatment before propagating further.
 
-### 1.2 Phase 4 (Remaining) — Synopsis & "Quick Check"
-While the persistence layer is complete, we still need features that make the lessons functional as returning *study notes* rather than a linear, one-time textbook:
-* **One-Screen Synopsis**: Place a collapsed element at the top of every lesson outlining its 3–5 core claims, displaying the primary visual figure, and listing a retrieval checklist.
-* **"Quick Check" Path**: Add a toggle button at the top of the lesson that filters out narrative prose, collapsing the page down strictly to the interactive retrieval widgets for quick spaced review.
+### 1.2 Phase 4 — Synopsis & "Quick Check" (Done)
+* **One-Screen Synopsis**: Collapsible card outlining core claims, key figures, and checklists. Implemented in CSS/JS and propagated across all 12 lessons in the curriculum.
+* **"Quick Check" Path**: Global toggle button dynamically injected in topbar via `core.js` to collapse narrative prose, showing only interactive widgets and non-empty sections. Works repowide.
+
+
 
 ### 1.3 Phase 5 — Density Floor & Coverage Sweep
 * **Visual Density Audit**: Every section discussing particulate/atomic-level chemistry must have a corresponding particle diagram. 
@@ -34,20 +35,13 @@ While the persistence layer is complete, we still need features that make the le
 
 ---
 
-## 2. Feature Backlog & Study Utilities
+## 2. Feature Backlog & Study Utilities [COMPLETED]
 
-These are forward-looking capability ideas. They respect the project ethos: **zero-build, shared-asset, no backend, local-only (localStorage).**
-
-### 2.1 Spaced Retrieval & Practice
-* **Scheduled Spaced Retrieval**: Add a "Review Due Today" mode on the index dashboard (`index.html`) that pulls questions the student previously missed or needs to retrieve based on spacing algorithms.
-* **Cumulative / Interleaved Practice**: Create a "Mixed Review" practice mode that samples retrieval items randomly across all 12 lessons.
-
-### 2.2 Pedagogical Reinforcements
-* **Payoff Beats**: Add a closing "why this matters" payoff beat to the end of each lesson—connecting the core chemistry reasoning to a real-world macroscopic phenomenon without adding heavy narrative baggage.
-
-### 2.3 Index Study Utilities
-* **Deep Content Search**: Upgrade the search filter on `index.html` to index and search glossary terms (`glossary.js`) and actual section texts inside the HTML files, rather than only matching titles and hardcoded card tags.
-* **Cram View**: Add a toggle on the index or within lessons to collapse a lesson strictly down to its constructed-response exam questions and mark schemes.
+All of these planned utilities have been successfully implemented and integrated:
+- **Deep Content Search**: Extends search input to query glossary terms and full section text from all 12 lesson files at runtime (shipped 2026-07-10).
+- **Cram View / Mode**: Dynamically collapses lessons to constructed-response frames, and compiles a curriculum-wide Cram Mode tab on the home dashboard (shipped 2026-07-10).
+- **Spaced Retrieval & Mixed Practice**: Implements a Leitner repetition scheduler for due reviews today and cumulative 5-card interleaved practice drills on the home page (shipped 2026-07-10).
+- **Pedagogical Payoff Beats**: Added macroscopic "Why This Matters" concluding connections inside all 12 lessons (shipped 2026-07-10).
 
 ---
 
@@ -78,6 +72,8 @@ Verify these curriculum decisions and rules before starting work on their respec
 ## 5. Completed Work
 
 Log details in `CHANGELOG.md` upon pushing to remote.
+* **2026-07-09**: Shipped Phase 4 design pass: implemented dynamically injected global "Quick Check" toggle button in topbar to filter out non-retrieval prose and empty sections; authored the responsive 3-column collapsible One-Screen Synopsis card and propagated it across all 12 lessons in the curriculum.
+* **2026-07-09**: Shipped Phase 3 Redesign verbs: implemented `predict-run` (prediction before automated step-motion playback), `diagnose-error` (hotspot click tracking on subscripts, coefficients, and setup terms), and `construct-validate` (formula builder with live net charge validation badge). Added benchmarks for all three in `_widget-test.html`.
 * **2026-07-09**: `DIAGRAM_GENERATOR_PLAN.md` closed out — all 5 phases done and verified (console-clean across all 3 tabs × light/dark × desktop/narrow): invisible electron dots and default-selection fixed, combined reaction view layout fixed, NaCl/KF now render as an honest ionic pair with an electron-count self-check and same-element-polyatomic refusal, standalone SVG copy/download + lesson-HTML export + resolution-clamped PNG export shipped, reaction-parser input validation and a de-duplicated common-name lookup added, and the tool linked from the dashboard. Plan doc retired.
 * **2026-07-08**: Standardized all lessons to shared `--dia-*` geometry tokens, conformed particle/atom colors repowide, and resolved Chrome text-size bugs.
 * **2026-07-08**: Shipped data-driven Molecule Renderer (`molecule-renderer.js`) and Particle-Scene Renderer (`particle-renderer.js`), with test coverage in `_widget-test.html`.

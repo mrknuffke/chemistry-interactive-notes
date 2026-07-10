@@ -59,7 +59,23 @@
     { formula: 'H2S', commonName: 'hydrogen sulfide', display: 'Hydrogen Sulfide (H₂S)' },
     { formula: 'CCl4', commonName: 'carbon tetrachloride', display: 'Carbon Tetrachloride (CCl₄)' },
     { formula: 'CF4', commonName: 'carbon tetrafluoride', display: 'Carbon Tetrafluoride (CF₄)' },
-    { formula: 'SiO2', commonName: 'silicon dioxide', display: 'Silicon Dioxide (SiO₂)' }
+    { formula: 'SiO2', commonName: 'silicon dioxide', display: 'Silicon Dioxide (SiO₂)' },
+    { formula: 'C2H5NO2', commonName: 'glycine', display: 'Glycine (C₂H₅NO₂)' },
+    { formula: 'C3H7NO2', commonName: 'alanine', display: 'Alanine (C₃H₇NO₂)' },
+    { formula: 'C6H12O6', commonName: 'glucose', display: 'Glucose (C₆H₁₂O₆)' },
+    { formula: 'C5H10O5', commonName: 'ribose', display: 'Ribose (C₅H₁₀O₅)' },
+    { formula: 'ATP', commonName: 'atp', display: 'Adenosine Triphosphate (ATP)' },
+    { formula: 'Polypeptide', commonName: 'polypeptide', display: 'Polypeptide Chain (Gly-Ala-Ser)' },
+    { formula: 'Cellulose', commonName: 'cellulose', display: 'Cellulose (β-1,4-Glucan Polymer)' },
+    { formula: 'Glycogen', commonName: 'glycogen', display: 'Glycogen (α-1,4 & α-1,6 Branched Polymer)' },
+    { formula: 'DNA', commonName: 'dna', display: 'DNA Fragment (A-T-C Trinucleotide)' },
+    { formula: 'RNA', commonName: 'rna', display: 'RNA Fragment (A-U-C Trinucleotide)' },
+    { formula: 'Triglyceride', commonName: 'triglyceride', display: 'Triglyceride (Fat/Lipid)' },
+    { formula: 'Phospholipid', commonName: 'phospholipid', display: 'Phospholipid' },
+    { formula: 'Cholesterol', commonName: 'cholesterol', display: 'Cholesterol' },
+    { formula: 'Estrogen', commonName: 'estrogen', display: 'Estrogen (Estradiol)' },
+    { formula: 'Testosterone', commonName: 'testosterone', display: 'Testosterone' },
+    { formula: 'Epinephrine', commonName: 'epinephrine', display: 'Epinephrine (Adrenaline)' }
   ];
   const NAME_TO_FORMULA = {};
   const FORMULA_TO_DISPLAY = {};
@@ -243,6 +259,977 @@
       lonePairs: [
         { on: "Cl1", count: 4 }
       ]
+    },
+    C2H5NO2: {
+      atoms: [
+        { id: "C1", el: "C", x: 0, y: 0 },
+        { id: "N1", el: "N", x: -1.3, y: -0.2 },
+        { id: "C2", el: "C", x: 1.3, y: 0.2 },
+        { id: "O1", el: "O", x: 1.8, y: 1.3 },
+        { id: "O2", el: "O", x: 2.2, y: -0.7 },
+        { id: "H1", el: "H", x: -2.1, y: 0.5 },
+        { id: "H2", el: "H", x: -1.8, y: -1.1 },
+        { id: "H3", el: "H", x: -0.2, y: 1.1 },
+        { id: "H4", el: "H", x: 0.2, y: -1.1 },
+        { id: "H5", el: "H", x: 3.1, y: -0.5 }
+      ],
+      bonds: [
+        { a: "C1", b: "N1", order: 1 },
+        { a: "C1", b: "C2", order: 1 },
+        { a: "C2", b: "O1", order: 2 },
+        { a: "C2", b: "O2", order: 1 },
+        { a: "N1", b: "H1", order: 1 },
+        { a: "N1", b: "H2", order: 1 },
+        { a: "C1", b: "H3", order: 1 },
+        { a: "C1", b: "H4", order: 1 },
+        { a: "O2", b: "H5", order: 1 }
+      ],
+      lonePairs: [
+        { on: "N1", count: 1 },
+        { on: "O1", count: 2 },
+        { on: "O2", count: 2 }
+      ]
+    },
+    C3H7NO2: {
+      atoms: [
+        { id: "C1", el: "C", x: 0, y: 0 },
+        { id: "N1", el: "N", x: -1.3, y: -0.2 },
+        { id: "C2", el: "C", x: 1.3, y: 0.2 },
+        { id: "O1", el: "O", x: 1.8, y: 1.3 },
+        { id: "O2", el: "O", x: 2.2, y: -0.7 },
+        { id: "C3", el: "C", x: -0.2, y: 1.3 },
+        { id: "H1", el: "H", x: -2.1, y: 0.5 },
+        { id: "H2", el: "H", x: -1.8, y: -1.1 },
+        { id: "H3", el: "H", x: 0.2, y: -1.1 },
+        { id: "H4", el: "H", x: 3.1, y: -0.5 },
+        { id: "H5", el: "H", x: -1.2, y: 1.7 },
+        { id: "H6", el: "H", x: 0.4, y: 2.1 },
+        { id: "H7", el: "H", x: 0.2, y: 0.9 }
+      ],
+      bonds: [
+        { a: "C1", b: "N1", order: 1 },
+        { a: "C1", b: "C2", order: 1 },
+        { a: "C2", b: "O1", order: 2 },
+        { a: "C2", b: "O2", order: 1 },
+        { a: "C1", b: "C3", order: 1 },
+        { a: "N1", b: "H1", order: 1 },
+        { a: "N1", b: "H2", order: 1 },
+        { a: "C1", b: "H3", order: 1 },
+        { a: "O2", b: "H4", order: 1 },
+        { a: "C3", b: "H5", order: 1 },
+        { a: "C3", b: "H6", order: 1 },
+        { a: "C3", b: "H7", order: 1 }
+      ],
+      lonePairs: [
+        { on: "N1", count: 1 },
+        { on: "O1", count: 2 },
+        { on: "O2", count: 2 }
+      ]
+    },
+    C6H12O6: {
+      atoms: [
+        { id: "O1", el: "O", x: 0.6, y: 0.8 },
+        { id: "C1", el: "C", x: 1.2, y: 0 },
+        { id: "C2", el: "C", x: 0.6, y: -0.8 },
+        { id: "C3", el: "C", x: -0.6, y: -0.8 },
+        { id: "C4", el: "C", x: -1.2, y: 0 },
+        { id: "C5", el: "C", x: -0.6, y: 0.8 },
+        { id: "C6", el: "C", x: -1.2, y: 1.9 },
+        { id: "O6", el: "O", x: -2.1, y: 1.9 },
+        { id: "H6", el: "H", x: -2.6, y: 2.4 },
+        { id: "H7", el: "H", x: -0.8, y: 2.7 },
+        { id: "H8", el: "H", x: -1.6, y: 2.7 },
+        { id: "H5", el: "H", x: -0.2, y: 1.6 },
+        { id: "O4", el: "O", x: -2.2, y: 0 },
+        { id: "H4", el: "H", x: -2.7, y: -0.5 },
+        { id: "H12", el: "H", x: -1.2, y: -0.8 },
+        { id: "O3", el: "O", x: -1.0, y: -1.8 },
+        { id: "H3", el: "H", x: -1.6, y: -2.3 },
+        { id: "H11", el: "H", x: -0.6, y: -0.2 },
+        { id: "O2", el: "O", x: 1.0, y: -1.8 },
+        { id: "H2", el: "H", x: 1.6, y: -2.3 },
+        { id: "H10", el: "H", x: 0.6, y: -0.2 },
+        { id: "O5", el: "O", x: 2.2, y: 0 },
+        { id: "H1", el: "H", x: 2.7, y: 0.5 },
+        { id: "H9", el: "H", x: 1.2, y: 0.8 }
+      ],
+      bonds: [
+        { a: "O1", b: "C1", order: 1 },
+        { a: "C1", b: "C2", order: 1 },
+        { a: "C2", b: "C3", order: 1 },
+        { a: "C3", b: "C4", order: 1 },
+        { a: "C4", b: "C5", order: 1 },
+        { a: "C5", b: "O1", order: 1 },
+        { a: "C5", b: "C6", order: 1 },
+        { a: "C6", b: "O6", order: 1 },
+        { a: "O6", b: "H6", order: 1 },
+        { a: "C6", b: "H7", order: 1 },
+        { a: "C6", b: "H8", order: 1 },
+        { a: "C5", b: "H5", order: 1 },
+        { a: "C4", b: "O4", order: 1 },
+        { a: "O4", b: "H4", order: 1 },
+        { a: "C4", b: "H12", order: 1 },
+        { a: "C3", b: "O3", order: 1 },
+        { a: "O3", b: "H3", order: 1 },
+        { a: "C3", b: "H11", order: 1 },
+        { a: "C2", b: "O2", order: 1 },
+        { a: "O2", b: "H2", order: 1 },
+        { a: "C2", b: "H10", order: 1 },
+        { a: "C1", b: "O5", order: 1 },
+        { a: "O5", b: "H1", order: 1 },
+        { a: "C1", b: "H9", order: 1 }
+      ],
+      lonePairs: [
+        { on: "O1", count: 2 },
+        { on: "O2", count: 2 },
+        { on: "O3", count: 2 },
+        { on: "O4", count: 2 },
+        { on: "O5", count: 2 },
+        { on: "O6", count: 2 }
+      ]
+    },
+    C5H10O5: {
+      atoms: [
+        { id: "O1", el: "O", x: 0, y: 0.7 },
+        { id: "C1", el: "C", x: 1.0, y: 0.2 },
+        { id: "C2", el: "C", x: 0.6, y: -0.8 },
+        { id: "C3", el: "C", x: -0.6, y: -0.8 },
+        { id: "C4", el: "C", x: -1.0, y: 0.2 },
+        { id: "C5", el: "C", x: -1.8, y: 1.2 },
+        { id: "O5", el: "O", x: -2.7, y: 0.8 },
+        { id: "H5", el: "H", x: -3.2, y: 1.3 },
+        { id: "H6", el: "H", x: -1.6, y: 2.1 },
+        { id: "H7", el: "H", x: -2.1, y: 1.4 },
+        { id: "H8", el: "H", x: -0.6, y: 0.9 },
+        { id: "O3", el: "O", x: -1.2, y: -1.8 },
+        { id: "H3", el: "H", x: -1.8, y: -2.2 },
+        { id: "H10", el: "H", x: -0.6, y: -0.2 },
+        { id: "O2", el: "O", x: 1.2, y: -1.8 },
+        { id: "H2", el: "H", x: 1.8, y: -2.2 },
+        { id: "H9", el: "H", x: 0.6, y: -0.2 },
+        { id: "O4", el: "O", x: 2.0, y: 0.8 },
+        { id: "H1", el: "H", x: 2.5, y: 1.3 },
+        { id: "H4", el: "H", x: 1.3, y: -0.5 }
+      ],
+      bonds: [
+        { a: "O1", b: "C1", order: 1 },
+        { a: "C1", b: "C2", order: 1 },
+        { a: "C2", b: "C3", order: 1 },
+        { a: "C3", b: "C4", order: 1 },
+        { a: "C4", b: "O1", order: 1 },
+        { a: "C4", b: "C5", order: 1 },
+        { a: "C5", b: "O5", order: 1 },
+        { a: "O5", b: "H5", order: 1 },
+        { a: "C5", b: "H6", order: 1 },
+        { a: "C5", b: "H7", order: 1 },
+        { a: "C4", b: "H8", order: 1 },
+        { a: "C3", b: "O3", order: 1 },
+        { a: "O3", b: "H3", order: 1 },
+        { a: "C3", b: "H10", order: 1 },
+        { a: "C2", b: "O2", order: 1 },
+        { a: "O2", b: "H2", order: 1 },
+        { a: "C2", b: "H9", order: 1 },
+        { a: "C1", b: "O4", order: 1 },
+        { a: "O4", b: "H1", order: 1 },
+        { a: "C1", b: "H4", order: 1 }
+      ],
+      lonePairs: [
+        { on: "O1", count: 2 },
+        { on: "O2", count: 2 },
+        { on: "O3", count: 2 },
+        { on: "O4", count: 2 },
+        { on: "O5", count: 2 }
+      ]
+    },
+    ATP: {
+      atoms: [
+        { id: "O_rib", el: "O", x: 0, y: 0.6 },
+        { id: "C1_rib", el: "C", x: 0.8, y: 0.1 },
+        { id: "C2_rib", el: "C", x: 0.5, y: -0.8 },
+        { id: "C3_rib", el: "C", x: -0.5, y: -0.8 },
+        { id: "C4_rib", el: "C", x: -0.8, y: 0.1 },
+        { id: "C5_rib", el: "C", x: -1.6, y: 0.9 },
+        { id: "O3_rib", el: "O", x: -0.9, y: -1.8 },
+        { id: "O2_rib", el: "O", x: 0.9, y: -1.8 },
+        { id: "N9", el: "N", x: 1.8, y: 0.5 },
+        { id: "C8", el: "C", x: 2.1, y: 1.7 },
+        { id: "N7", el: "N", x: 3.2, y: 1.8 },
+        { id: "C5", el: "C", x: 3.6, y: 0.6 },
+        { id: "C4", el: "C", x: 2.7, y: -0.2 },
+        { id: "C6", el: "C", x: 4.8, y: 0.1 },
+        { id: "N6", el: "N", x: 5.8, y: 0.8 },
+        { id: "N1", el: "N", x: 5.0, y: -1.2 },
+        { id: "C2", el: "C", x: 4.1, y: -1.9 },
+        { id: "N3", el: "N", x: 3.0, y: -1.5 },
+        { id: "O_alpha", el: "O", x: -2.4, y: 0.5 },
+        { id: "P_alpha", el: "P", x: -3.3, y: 0.9 },
+        { id: "O1_alpha", el: "O", x: -3.0, y: 2.1 },
+        { id: "O2_alpha", el: "O", x: -3.7, y: -0.3 },
+        { id: "O_beta", el: "O", x: -4.5, y: 1.4 },
+        { id: "P_beta", el: "P", x: -5.4, y: 1.8 },
+        { id: "O1_beta", el: "O", x: -5.0, y: 3.0 },
+        { id: "O2_beta", el: "O", x: -5.8, y: 0.6 },
+        { id: "O_gamma", el: "O", x: -6.6, y: 2.3 },
+        { id: "P_gamma", el: "P", x: -7.5, y: 2.7 },
+        { id: "O1_gamma", el: "O", x: -7.1, y: 3.9 },
+        { id: "O2_gamma", el: "O", x: -7.9, y: 1.5 },
+        { id: "O3_gamma", el: "O", x: -8.6, y: 3.2 }
+      ],
+      bonds: [
+        { a: "O_rib", b: "C1_rib", order: 1 },
+        { a: "C1_rib", b: "C2_rib", order: 1 },
+        { a: "C2_rib", b: "C3_rib", order: 1 },
+        { a: "C3_rib", b: "C4_rib", order: 1 },
+        { a: "C4_rib", b: "O_rib", order: 1 },
+        { a: "C4_rib", b: "C5_rib", order: 1 },
+        { a: "C3_rib", b: "O3_rib", order: 1 },
+        { a: "C2_rib", b: "O2_rib", order: 1 },
+        { a: "C1_rib", b: "N9", order: 1 },
+        { a: "N9", b: "C8", order: 1 },
+        { a: "C8", b: "N7", order: 2 },
+        { a: "N7", b: "C5", order: 1 },
+        { a: "C5", b: "C4", order: 2 },
+        { a: "C4", b: "N9", order: 1 },
+        { a: "C5", b: "C6", order: 1 },
+        { a: "C6", b: "N6", order: 1 },
+        { a: "C6", b: "N1", order: 2 },
+        { a: "N1", b: "C2", order: 1 },
+        { a: "C2", b: "N3", order: 2 },
+        { a: "N3", b: "C4", order: 1 },
+        { a: "C5_rib", b: "O_alpha", order: 1 },
+        { a: "O_alpha", b: "P_alpha", order: 1 },
+        { a: "P_alpha", b: "O1_alpha", order: 2 },
+        { a: "P_alpha", b: "O2_alpha", order: 1 },
+        { a: "P_alpha", b: "O_beta", order: 1 },
+        { a: "O_beta", b: "P_beta", order: 1 },
+        { a: "P_beta", b: "O1_beta", order: 2 },
+        { a: "P_beta", b: "O2_beta", order: 1 },
+        { a: "P_beta", b: "O_gamma", order: 1 },
+        { a: "O_gamma", b: "P_gamma", order: 1 },
+        { a: "P_gamma", b: "O1_gamma", order: 2 },
+        { a: "P_gamma", b: "O2_gamma", order: 1 },
+        { a: "P_gamma", b: "O3_gamma", order: 1 }
+      ],
+      lonePairs: [
+        { on: "O_rib", count: 2 },
+        { on: "O2_rib", count: 2 },
+        { on: "O3_rib", count: 2 },
+        { on: "O_alpha", count: 2 },
+        { on: "O1_alpha", count: 2 },
+        { on: "O2_alpha", count: 2 },
+        { on: "O_beta", count: 2 },
+        { on: "O1_beta", count: 2 },
+        { on: "O2_beta", count: 2 },
+        { on: "O_gamma", count: 2 },
+        { on: "O1_gamma", count: 2 },
+        { on: "O2_gamma", count: 2 },
+        { on: "O3_gamma", count: 2 }
+      ]
+    },
+    Polypeptide: {
+      atoms: [
+        { id: "ext1", el: "ext", x: -4.5, y: 0 },
+        { id: "N1", el: "N", x: -3.5, y: 0 },
+        { id: "HN1", el: "H", x: -3.5, y: 1.0 },
+        { id: "C1", el: "C", x: -2.3, y: -0.5 },
+        { id: "C2", el: "C", x: -1.1, y: 0.2 },
+        { id: "O1", el: "O", x: -1.1, y: 1.3 },
+        { id: "N2", el: "N", x: 0, y: -0.4 },
+        { id: "HN2", el: "H", x: 0, y: -1.4 },
+        { id: "C3", el: "C", x: 1.2, y: 0.3 },
+        { id: "C4", el: "C", x: 1.2, y: 1.5 },
+        { id: "C5", el: "C", x: 2.4, y: -0.4 },
+        { id: "O2", el: "O", x: 2.4, y: -1.5 },
+        { id: "N3", el: "N", x: 3.5, y: 0.2 },
+        { id: "HN3", el: "H", x: 3.5, y: 1.2 },
+        { id: "C6", el: "C", x: 4.7, y: -0.5 },
+        { id: "C7", el: "C", x: 4.7, y: -1.7 },
+        { id: "O3", el: "O", x: 5.7, y: -2.3 },
+        { id: "C8", el: "C", x: 5.9, y: 0.2 },
+        { id: "O4", el: "O", x: 5.9, y: 1.3 },
+        { id: "ext2", el: "ext", x: 6.9, y: -0.2 }
+      ],
+      bonds: [
+        { a: "ext1", b: "N1", order: 1, style: "dashed" },
+        { a: "N1", b: "HN1", order: 1 },
+        { a: "N1", b: "C1", order: 1 },
+        { a: "C1", b: "C2", order: 1 },
+        { a: "C2", b: "O1", order: 2 },
+        { a: "C2", b: "N2", order: 1 },
+        { a: "N2", b: "HN2", order: 1 },
+        { a: "N2", b: "C3", order: 1 },
+        { a: "C3", b: "C4", order: 1 },
+        { a: "C3", b: "C5", order: 1 },
+        { a: "C5", b: "O2", order: 2 },
+        { a: "C5", b: "N3", order: 1 },
+        { a: "N3", b: "HN3", order: 1 },
+        { a: "N3", b: "C6", order: 1 },
+        { a: "C6", b: "C7", order: 1 },
+        { a: "C7", b: "O3", order: 1 },
+        { a: "C6", b: "C8", order: 1 },
+        { a: "C8", b: "O4", order: 2 },
+        { a: "C8", b: "ext2", order: 1, style: "dashed" }
+      ],
+      brackets: [
+        { x: -3.8, yMin: -1.8, yMax: 1.8, type: "left" },
+        { x: 6.4, yMin: -1.8, yMax: 1.8, type: "right" }
+      ],
+      lonePairs: [
+        { on: "O1", count: 2 },
+        { on: "O2", count: 2 },
+        { on: "O3", count: 2 },
+        { on: "O4", count: 2 }
+      ]
+    },
+    Cellulose: {
+      atoms: [
+        { id: "ext1", el: "ext", x: -5.2, y: 0.1 },
+        { id: "O4", el: "O", x: -4.2, y: 0.1 },
+        { id: "C4", el: "C", x: -3.2, y: 0.1 },
+        { id: "C3", el: "C", x: -2.6, y: -0.9 },
+        { id: "C2", el: "C", x: -1.4, y: -0.9 },
+        { id: "C1", el: "C", x: -0.8, y: 0.1 },
+        { id: "O1", el: "O", x: -1.4, y: 1.1 },
+        { id: "C5", el: "C", x: -2.6, y: 1.1 },
+        { id: "C6", el: "C", x: -3.2, y: 2.2 },
+        { id: "O6", el: "O", x: -4.3, y: 2.2 },
+        { id: "O_link", el: "O", x: 0, y: 0.1 },
+        { id: "C4_2", el: "C", x: 0.8, y: 0.1 },
+        { id: "C3_2", el: "C", x: 1.4, y: 1.1 },
+        { id: "C2_2", el: "C", x: 2.6, y: 1.1 },
+        { id: "C1_2", el: "C", x: 3.2, y: 0.1 },
+        { id: "O1_2", el: "O", x: 2.6, y: -0.9 },
+        { id: "C5_2", el: "C", x: 1.4, y: -0.9 },
+        { id: "C6_2", el: "C", x: 0.8, y: -2.0 },
+        { id: "O6_2", el: "O", x: -0.3, y: -2.0 },
+        { id: "O4_2", el: "O", x: 4.2, y: 0.1 },
+        { id: "ext2", el: "ext", x: 5.2, y: 0.1 }
+      ],
+      bonds: [
+        { a: "ext1", b: "O4", order: 1, style: "dashed" },
+        { a: "O4", b: "C4", order: 1 },
+        { a: "C4", b: "C3", order: 1 },
+        { a: "C3", b: "C2", order: 1 },
+        { a: "C2", b: "C1", order: 1 },
+        { a: "C1", b: "O1", order: 1 },
+        { a: "O1", b: "C5", order: 1 },
+        { a: "C5", b: "C4", order: 1 },
+        { a: "C5", b: "C6", order: 1 },
+        { a: "C6", b: "O6", order: 1 },
+        { a: "C1", b: "O_link", order: 1 },
+        { a: "O_link", b: "C4_2", order: 1 },
+        { a: "C4_2", b: "C3_2", order: 1 },
+        { a: "C3_2", b: "C2_2", order: 1 },
+        { a: "C2_2", b: "C1_2", order: 1 },
+        { a: "C1_2", b: "O1_2", order: 1 },
+        { a: "O1_2", b: "C5_2", order: 1 },
+        { a: "C5_2", b: "C4_2", order: 1 },
+        { a: "C5_2", b: "C6_2", order: 1 },
+        { a: "C6_2", b: "O6_2", order: 1 },
+        { a: "C1_2", b: "O4_2", order: 1 },
+        { a: "O4_2", b: "ext2", order: 1, style: "dashed" }
+      ],
+      brackets: [
+        { x: -4.5, yMin: -2.3, yMax: 2.3 },
+        { x: 4.5, yMin: -2.3, yMax: 2.3 }
+      ],
+      lonePairs: [
+        { on: "O1", count: 2 },
+        { on: "O4", count: 2 },
+        { on: "O6", count: 2 },
+        { on: "O_link", count: 2 },
+        { on: "O1_2", count: 2 },
+        { on: "O6_2", count: 2 },
+        { on: "O4_2", count: 2 }
+      ]
+    },
+    Glycogen: {
+      atoms: [
+        { id: "ext_main_L", el: "ext", x: -4.8, y: 0 },
+        { id: "O4_A", el: "O", x: -3.8, y: 0 },
+        { id: "C4_A", el: "C", x: -2.8, y: 0 },
+        { id: "C3_A", el: "C", x: -2.2, y: -0.9 },
+        { id: "C2_A", el: "C", x: -1.0, y: -0.9 },
+        { id: "C1_A", el: "C", x: -0.4, y: 0 },
+        { id: "O1_A", el: "O", x: -1.0, y: 0.9 },
+        { id: "C5_A", el: "C", x: -2.2, y: 0.9 },
+        { id: "C6_A", el: "C", x: -2.8, y: 2.0 },
+        { id: "O_branch", el: "O", x: -2.8, y: 2.9 },
+        { id: "C1_C", el: "C", x: -2.8, y: 3.8 },
+        { id: "C2_C", el: "C", x: -3.8, y: 4.4 },
+        { id: "C3_C", el: "C", x: -3.8, y: 5.6 },
+        { id: "C4_C", el: "C", x: -2.8, y: 6.2 },
+        { id: "O1_C", el: "O", x: -1.8, y: 5.3 },
+        { id: "C5_C", el: "C", x: -1.8, y: 4.4 },
+        { id: "ext_branch", el: "ext", x: -2.8, y: 7.2 },
+        { id: "O_link", el: "O", x: 0.4, y: 0 },
+        { id: "C4_B", el: "C", x: 1.2, y: 0 },
+        { id: "C3_B", el: "C", x: 1.8, y: -0.9 },
+        { id: "C2_B", el: "C", x: 3.0, y: -0.9 },
+        { id: "C1_B", el: "C", x: 3.6, y: 0 },
+        { id: "O1_B", el: "O", x: 3.0, y: 0.9 },
+        { id: "C5_B", el: "C", x: 1.8, y: 0.9 },
+        { id: "C6_B", el: "C", x: 1.2, y: 2.0 },
+        { id: "O6_B", el: "O", x: 0.2, y: 2.0 },
+        { id: "ext_main_R", el: "ext", x: 4.6, y: 0 }
+      ],
+      bonds: [
+        { a: "ext_main_L", b: "O4_A", order: 1, style: "dashed" },
+        { a: "O4_A", b: "C4_A", order: 1 },
+        { a: "C4_A", b: "C3_A", order: 1 },
+        { a: "C3_A", b: "C2_A", order: 1 },
+        { a: "C2_A", b: "C1_A", order: 1 },
+        { a: "C1_A", b: "O1_A", order: 1 },
+        { a: "O1_A", b: "C5_A", order: 1 },
+        { a: "C5_A", b: "C4_A", order: 1 },
+        { a: "C5_A", b: "C6_A", order: 1 },
+        { a: "C6_A", b: "O_branch", order: 1 },
+        { a: "O_branch", b: "C1_C", order: 1 },
+        { a: "C1_C", b: "C2_C", order: 1 },
+        { a: "C2_C", b: "C3_C", order: 1 },
+        { a: "C3_C", b: "C4_C", order: 1 },
+        { a: "C4_C", b: "ext_branch", order: 1, style: "dashed" },
+        { a: "C4_C", b: "C5_C", order: 1 },
+        { a: "C5_C", b: "O1_C", order: 1 },
+        { a: "O1_C", b: "C1_C", order: 1 },
+        { a: "C1_A", b: "O_link", order: 1 },
+        { a: "O_link", b: "C4_B", order: 1 },
+        { a: "C4_B", b: "C3_B", order: 1 },
+        { a: "C3_B", b: "C2_B", order: 1 },
+        { a: "C2_B", b: "C1_B", order: 1 },
+        { a: "C1_B", b: "O1_B", order: 1 },
+        { a: "O1_B", b: "C5_B", order: 1 },
+        { a: "C5_B", b: "C4_B", order: 1 },
+        { a: "C5_B", b: "C6_B", order: 1 },
+        { a: "C6_B", b: "O6_B", order: 1 },
+        { a: "C1_B", b: "ext_main_R", order: 1, style: "dashed" }
+      ],
+      brackets: [
+        { x: -4.2, yMin: -1.3, yMax: 2.3 },
+        { x: 4.1, yMin: -1.3, yMax: 2.3 }
+      ],
+      lonePairs: [
+        { on: "O4_A", count: 2 },
+        { on: "O1_A", count: 2 },
+        { on: "O_branch", count: 2 },
+        { on: "O1_C", count: 2 },
+        { on: "O_link", count: 2 },
+        { on: "O1_B", count: 2 },
+        { on: "O6_B", count: 2 }
+      ]
+    },
+    DNA: {
+      atoms: [
+        { id: "O_S1", el: "O", x: -0.4, y: 3.6 },
+        { id: "C1_S1", el: "C", x: 0.6, y: 3.1 },
+        { id: "C2_S1", el: "C", x: 0.3, y: 2.2 },
+        { id: "C3_S1", el: "C", x: -0.7, y: 2.2 },
+        { id: "C4_S1", el: "C", x: -1.0, y: 3.1 },
+        { id: "C5_S1", el: "C", x: -1.8, y: 3.9 },
+        { id: "O_P1", el: "O", x: -2.4, y: 4.4 },
+        { id: "P1", el: "P", x: -3.3, y: 4.8 },
+        { id: "O1_P1", el: "O", x: -3.0, y: 6.0 },
+        { id: "O2_P1", el: "O", x: -3.7, y: 3.6 },
+        { id: "ext1", el: "ext", x: -4.2, y: 5.2 },
+        { id: "O_S2", el: "O", x: -0.4, y: 0.6 },
+        { id: "C1_S2", el: "C", x: 0.6, y: 0.1 },
+        { id: "C2_S2", el: "C", x: 0.3, y: -0.8 },
+        { id: "C3_S2", el: "C", x: -0.7, y: -0.8 },
+        { id: "C4_S2", el: "C", x: -1.0, y: 0.1 },
+        { id: "C5_S2", el: "C", x: -1.8, y: 0.9 },
+        { id: "O_P2", el: "O", x: -2.4, y: 1.4 },
+        { id: "P2", el: "P", x: -3.3, y: 1.8 },
+        { id: "O1_P2", el: "O", x: -3.0, y: 3.0 },
+        { id: "O2_P2", el: "O", x: -3.7, y: 0.6 },
+        { id: "O_S3", el: "O", x: -0.4, y: -2.4 },
+        { id: "C1_S3", el: "C", x: 0.6, y: -2.9 },
+        { id: "C2_S3", el: "C", x: 0.3, y: -3.8 },
+        { id: "C3_S3", el: "C", x: -0.7, y: -3.8 },
+        { id: "C4_S3", el: "C", x: -1.0, y: -2.9 },
+        { id: "C5_S3", el: "C", x: -1.8, y: -2.1 },
+        { id: "O_P3", el: "O", x: -2.4, y: -1.6 },
+        { id: "P3", el: "P", x: -3.3, y: -1.2 },
+        { id: "O1_P3", el: "O", x: -3.0, y: 0 },
+        { id: "O2_P3", el: "O", x: -3.7, y: -2.4 },
+        { id: "ext2", el: "ext", x: -0.7, y: -4.8 },
+        { id: "Base_A", el: "N", x: 1.6, y: 3.1 },
+        { id: "Base_T", el: "N", x: 1.6, y: 0.1 },
+        { id: "Base_C", el: "N", x: 1.6, y: -2.9 }
+      ],
+      bonds: [
+        { a: "O_S1", b: "C1_S1", order: 1 },
+        { a: "C1_S1", b: "C2_S1", order: 1 },
+        { a: "C2_S1", b: "C3_S1", order: 1 },
+        { a: "C3_S1", b: "C4_S1", order: 1 },
+        { a: "C4_S1", b: "O_S1", order: 1 },
+        { a: "C4_S1", b: "C5_S1", order: 1 },
+        { a: "C1_S1", b: "Base_A", order: 1 },
+        { a: "P1", b: "ext1", order: 1, style: "dashed" },
+        { a: "P1", b: "O1_P1", order: 2 },
+        { a: "P1", b: "O2_P1", order: 1 },
+        { a: "P1", b: "O_P1", order: 1 },
+        { a: "O_P1", b: "C5_S1", order: 1 },
+        { a: "C3_S1", b: "O_P2", order: 1 },
+        { a: "O_S2", b: "C1_S2", order: 1 },
+        { a: "C1_S2", b: "C2_S2", order: 1 },
+        { a: "C2_S2", b: "C3_S2", order: 1 },
+        { a: "C3_S2", b: "C4_S2", order: 1 },
+        { a: "C4_S2", b: "O_S2", order: 1 },
+        { a: "C4_S2", b: "C5_S2", order: 1 },
+        { a: "C1_S2", b: "Base_T", order: 1 },
+        { a: "O_P2", b: "P2", order: 1 },
+        { a: "P2", b: "O1_P2", order: 2 },
+        { a: "P2", b: "O2_P2", order: 1 },
+        { a: "P2", b: "O_P3", order: 1 },
+        { a: "O_P3", b: "C5_S3", order: 1 },
+        { a: "O_S3", b: "C1_S3", order: 1 },
+        { a: "C1_S3", b: "C2_S3", order: 1 },
+        { a: "C2_S3", b: "C3_S3", order: 1 },
+        { a: "C3_S3", b: "C4_S3", order: 1 },
+        { a: "C4_S3", b: "O_S3", order: 1 },
+        { a: "C4_S3", b: "C5_S3", order: 1 },
+        { a: "C1_S3", b: "Base_C", order: 1 },
+        { a: "C3_S3", b: "ext2", order: 1, style: "dashed" }
+      ],
+      brackets: [
+        { x: -3.8, yMin: -4.4, yMax: 5.6 },
+        { x: 2.2, yMin: -4.4, yMax: 5.6 }
+      ],
+      lonePairs: [
+        { on: "O_S1", count: 2 },
+        { on: "O_S2", count: 2 },
+        { on: "O_S3", count: 2 }
+      ]
+    },
+    RNA: {
+      atoms: [
+        { id: "O_S1", el: "O", x: -0.4, y: 3.6 },
+        { id: "C1_S1", el: "C", x: 0.6, y: 3.1 },
+        { id: "C2_S1", el: "C", x: 0.3, y: 2.2 },
+        { id: "OH_S1", el: "O", x: 0.8, y: 1.2 },
+        { id: "C3_S1", el: "C", x: -0.7, y: 2.2 },
+        { id: "C4_S1", el: "C", x: -1.0, y: 3.1 },
+        { id: "C5_S1", el: "C", x: -1.8, y: 3.9 },
+        { id: "O_P1", el: "O", x: -2.4, y: 4.4 },
+        { id: "P1", el: "P", x: -3.3, y: 4.8 },
+        { id: "O1_P1", el: "O", x: -3.0, y: 6.0 },
+        { id: "O2_P1", el: "O", x: -3.7, y: 3.6 },
+        { id: "ext1", el: "ext", x: -4.2, y: 5.2 },
+        { id: "O_S2", el: "O", x: -0.4, y: 0.6 },
+        { id: "C1_S2", el: "C", x: 0.6, y: 0.1 },
+        { id: "C2_S2", el: "C", x: 0.3, y: -0.8 },
+        { id: "OH_S2", el: "O", x: 0.8, y: -1.8 },
+        { id: "C3_S2", el: "C", x: -0.7, y: -0.8 },
+        { id: "C4_S2", el: "C", x: -1.0, y: 0.1 },
+        { id: "C5_S2", el: "C", x: -1.8, y: 0.9 },
+        { id: "O_P2", el: "O", x: -2.4, y: 1.4 },
+        { id: "P2", el: "P", x: -3.3, y: 1.8 },
+        { id: "O1_P2", el: "O", x: -3.0, y: 3.0 },
+        { id: "O2_P2", el: "O", x: -3.7, y: 0.6 },
+        { id: "O_S3", el: "O", x: -0.4, y: -2.4 },
+        { id: "C1_S3", el: "C", x: 0.6, y: -2.9 },
+        { id: "C2_S3", el: "C", x: 0.3, y: -3.8 },
+        { id: "OH_S3", el: "O", x: 0.8, y: -4.8 },
+        { id: "C3_S3", el: "C", x: -0.7, y: -3.8 },
+        { id: "C4_S3", el: "C", x: -1.0, y: -2.9 },
+        { id: "C5_S3", el: "C", x: -1.8, y: -2.1 },
+        { id: "O_P3", el: "O", x: -2.4, y: -1.6 },
+        { id: "P3", el: "P", x: -3.3, y: -1.2 },
+        { id: "O1_P3", el: "O", x: -3.0, y: 0 },
+        { id: "O2_P3", el: "O", x: -3.7, y: -2.4 },
+        { id: "ext2", el: "ext", x: -0.7, y: -4.8 },
+        { id: "Base_A", el: "N", x: 1.6, y: 3.1 },
+        { id: "Base_U", el: "N", x: 1.6, y: 0.1 },
+        { id: "Base_C", el: "N", x: 1.6, y: -2.9 }
+      ],
+      bonds: [
+        { a: "O_S1", b: "C1_S1", order: 1 },
+        { a: "C1_S1", b: "C2_S1", order: 1 },
+        { a: "C2_S1", b: "OH_S1", order: 1 },
+        { a: "C2_S1", b: "C3_S1", order: 1 },
+        { a: "C3_S1", b: "C4_S1", order: 1 },
+        { a: "C4_S1", b: "O_S1", order: 1 },
+        { a: "C4_S1", b: "C5_S1", order: 1 },
+        { a: "C1_S1", b: "Base_A", order: 1 },
+        { a: "P1", b: "ext1", order: 1, style: "dashed" },
+        { a: "P1", b: "O1_P1", order: 2 },
+        { a: "P1", b: "O2_P1", order: 1 },
+        { a: "P1", b: "O_P1", order: 1 },
+        { a: "O_P1", b: "C5_S1", order: 1 },
+        { a: "C3_S1", b: "O_P2", order: 1 },
+        { a: "O_S2", b: "C1_S2", order: 1 },
+        { a: "C1_S2", b: "C2_S2", order: 1 },
+        { a: "C2_S2", b: "OH_S2", order: 1 },
+        { a: "C2_S2", b: "C3_S2", order: 1 },
+        { a: "C3_S2", b: "C4_S2", order: 1 },
+        { a: "C4_S2", b: "O_S2", order: 1 },
+        { a: "C4_S2", b: "C5_S2", order: 1 },
+        { a: "C1_S2", b: "Base_U", order: 1 },
+        { a: "O_P2", b: "P2", order: 1 },
+        { a: "P2", b: "O1_P2", order: 2 },
+        { a: "P2", b: "O2_P2", order: 1 },
+        { a: "P2", b: "O_P3", order: 1 },
+        { a: "O_P3", b: "C5_S3", order: 1 },
+        { a: "O_S3", b: "C1_S3", order: 1 },
+        { a: "C1_S3", b: "C2_S3", order: 1 },
+        { a: "C2_S3", b: "OH_S3", order: 1 },
+        { a: "C2_S3", b: "C3_S3", order: 1 },
+        { a: "C3_S3", b: "C4_S3", order: 1 },
+        { a: "C4_S3", b: "O_S3", order: 1 },
+        { a: "C4_S3", b: "C5_S3", order: 1 },
+        { a: "C1_S3", b: "Base_C", order: 1 },
+        { a: "C3_S3", b: "ext2", order: 1, style: "dashed" }
+      ],
+      brackets: [
+        { x: -3.8, yMin: -4.4, yMax: 5.6 },
+        { x: 2.2, yMin: -4.4, yMax: 5.6 }
+      ],
+      lonePairs: [
+        { on: "O_S1", count: 2 },
+        { on: "OH_S1", count: 2 },
+        { on: "O_S2", count: 2 },
+        { on: "OH_S2", count: 2 },
+        { on: "O_S3", count: 2 },
+        { on: "OH_S3", count: 2 }
+      ]
+    },
+    Triglyceride: {
+      atoms: [
+        { id: "C1", el: "C", x: -2.2, y: 1.2 },
+        { id: "C2", el: "C", x: -2.2, y: 0 },
+        { id: "C3", el: "C", x: -2.2, y: -1.2 },
+        { id: "O1", el: "O", x: -1.2, y: 1.2 },
+        { id: "C_FA1", el: "C", x: -0.2, y: 1.2 },
+        { id: "O_FA1", el: "O", x: -0.2, y: 2.1 },
+        { id: "O2", el: "O", x: -1.2, y: 0 },
+        { id: "C_FA2", el: "C", x: -0.2, y: 0 },
+        { id: "O_FA2", el: "O", x: -0.2, y: -0.9 },
+        { id: "O3", el: "O", x: -1.2, y: -1.2 },
+        { id: "C_FA3", el: "C", x: -0.2, y: -1.2 },
+        { id: "O_FA3", el: "O", x: -0.2, y: -2.1 },
+        { id: "C11", el: "C", x: 0.8, y: 1.5 },
+        { id: "C12", el: "C", x: 1.6, y: 0.9 },
+        { id: "C13", el: "C", x: 2.4, y: 1.5 },
+        { id: "C14", el: "C", x: 3.2, y: 0.9 },
+        { id: "C21", el: "C", x: 0.8, y: 0.3 },
+        { id: "C22", el: "C", x: 1.6, y: -0.3 },
+        { id: "C23", el: "C", x: 2.3, y: -1.0 },
+        { id: "C24", el: "C", x: 2.0, y: -2.0 },
+        { id: "C31", el: "C", x: 0.8, y: -0.9 },
+        { id: "C32", el: "C", x: 1.6, y: -1.5 },
+        { id: "C33", el: "C", x: 2.4, y: -0.9 },
+        { id: "C34", el: "C", x: 3.2, y: -1.5 }
+      ],
+      bonds: [
+        { a: "C1", b: "C2", order: 1 },
+        { a: "C2", b: "C3", order: 1 },
+        { a: "C1", b: "O1", order: 1 },
+        { a: "C2", b: "O2", order: 1 },
+        { a: "C3", b: "O3", order: 1 },
+        { a: "O1", b: "C_FA1", order: 1 },
+        { a: "C_FA1", b: "O_FA1", order: 2 },
+        { a: "O2", b: "C_FA2", order: 1 },
+        { a: "C_FA2", b: "O_FA2", order: 2 },
+        { a: "O3", b: "C_FA3", order: 1 },
+        { a: "C_FA3", b: "O_FA3", order: 2 },
+        { a: "C_FA1", b: "C11", order: 1 },
+        { a: "C11", b: "C12", order: 1 },
+        { a: "C12", b: "C13", order: 1 },
+        { a: "C13", b: "C14", order: 1 },
+        { a: "C_FA2", b: "C21", order: 1 },
+        { a: "C21", b: "C22", order: 1 },
+        { a: "C22", b: "C23", order: 2 },
+        { a: "C23", b: "C24", order: 1 },
+        { a: "C_FA3", b: "C31", order: 1 },
+        { a: "C31", b: "C32", order: 1 },
+        { a: "C32", b: "C33", order: 1 },
+        { a: "C33", b: "C34", order: 1 }
+      ],
+      lonePairs: [
+        { on: "O1", count: 2 },
+        { on: "O2", count: 2 },
+        { on: "O3", count: 2 },
+        { on: "O_FA1", count: 2 },
+        { on: "O_FA2", count: 2 },
+        { on: "O_FA3", count: 2 }
+      ]
+    },
+    Phospholipid: {
+      atoms: [
+        { id: "C1", el: "C", x: -2.2, y: 1.2 },
+        { id: "C2", el: "C", x: -2.2, y: 0 },
+        { id: "C3", el: "C", x: -2.2, y: -1.2 },
+        { id: "O1", el: "O", x: -1.2, y: 1.2 },
+        { id: "C_FA1", el: "C", x: -0.2, y: 1.2 },
+        { id: "O_FA1", el: "O", x: -0.2, y: 2.1 },
+        { id: "O2", el: "O", x: -1.2, y: 0 },
+        { id: "C_FA2", el: "C", x: -0.2, y: 0 },
+        { id: "O_FA2", el: "O", x: -0.2, y: -0.9 },
+        { id: "C11", el: "C", x: 0.8, y: 1.5 },
+        { id: "C12", el: "C", x: 1.6, y: 0.9 },
+        { id: "C13", el: "C", x: 2.4, y: 1.5 },
+        { id: "C14", el: "C", x: 3.2, y: 0.9 },
+        { id: "C21", el: "C", x: 0.8, y: 0.3 },
+        { id: "C22", el: "C", x: 1.6, y: -0.3 },
+        { id: "C23", el: "C", x: 2.3, y: -1.0 },
+        { id: "C24", el: "C", x: 2.0, y: -2.0 },
+        { id: "O3", el: "O", x: -1.2, y: -1.2 },
+        { id: "P", el: "P", x: -1.2, y: -2.3 },
+        { id: "O1_P", el: "O", x: -2.3, y: -2.3 },
+        { id: "O2_P", el: "O", x: -0.1, y: -2.3 },
+        { id: "O_head", el: "O", x: -1.2, y: -3.4 },
+        { id: "C_head", el: "C", x: -2.1, y: -4.1 },
+        { id: "N_head", el: "N", x: -1.7, y: -5.2 }
+      ],
+      bonds: [
+        { a: "C1", b: "C2", order: 1 },
+        { a: "C2", b: "C3", order: 1 },
+        { a: "C1", b: "O1", order: 1 },
+        { a: "C2", b: "O2", order: 1 },
+        { a: "C3", b: "O3", order: 1 },
+        { a: "O1", b: "C_FA1", order: 1 },
+        { a: "C_FA1", b: "O_FA1", order: 2 },
+        { a: "O2", b: "C_FA2", order: 1 },
+        { a: "C_FA2", b: "O_FA2", order: 2 },
+        { a: "C_FA1", b: "C11", order: 1 },
+        { a: "C11", b: "C12", order: 1 },
+        { a: "C12", b: "C13", order: 1 },
+        { a: "C13", b: "C14", order: 1 },
+        { a: "C_FA2", b: "C21", order: 1 },
+        { a: "C21", b: "C22", order: 1 },
+        { a: "C22", b: "C23", order: 2 },
+        { a: "C23", b: "C24", order: 1 },
+        { a: "O3", b: "P", order: 1 },
+        { a: "P", b: "O1_P", order: 2 },
+        { a: "P", b: "O2_P", order: 1 },
+        { a: "P", b: "O_head", order: 1 },
+        { a: "O_head", b: "C_head", order: 1 },
+        { a: "C_head", b: "N_head", order: 1 }
+      ],
+      lonePairs: [
+        { on: "O1", count: 2 },
+        { on: "O2", count: 2 },
+        { on: "O3", count: 2 },
+        { on: "O_FA1", count: 2 },
+        { on: "O_FA2", count: 2 },
+        { on: "O1_P", count: 2 },
+        { on: "O2_P", count: 2 },
+        { on: "O_head", count: 2 }
+      ]
+    },
+    Cholesterol: {
+      atoms: [
+        { id: "C3", el: "C", x: -4.5, y: 0 },
+        { id: "O3", el: "O", x: -5.5, y: -0.5 },
+        { id: "C4", el: "C", x: -3.6, y: -1.0 },
+        { id: "C5", el: "C", x: -2.4, y: -1.0 },
+        { id: "C10", el: "C", x: -2.4, y: 0.2 },
+        { id: "C1", el: "C", x: -3.6, y: 1.2 },
+        { id: "C2", el: "C", x: -4.5, y: 1.0 },
+        { id: "C19", el: "C", x: -2.4, y: 1.3 },
+        { id: "C6", el: "C", x: -1.3, y: -2.0 },
+        { id: "C7", el: "C", x: -0.1, y: -2.0 },
+        { id: "C8", el: "C", x: 0.5, y: -0.8 },
+        { id: "C9", el: "C", x: -1.2, y: 0.2 },
+        { id: "C11", el: "C", x: -0.6, y: 1.4 },
+        { id: "C12", el: "C", x: 0.6, y: 1.4 },
+        { id: "C13", el: "C", x: 1.3, y: 0.2 },
+        { id: "C14", el: "C", x: 0.5, y: -0.8 },
+        { id: "C18", el: "C", x: 1.3, y: 1.3 },
+        { id: "C15", el: "C", x: 1.5, y: -1.8 },
+        { id: "C16", el: "C", x: 2.7, y: -1.2 },
+        { id: "C17", el: "C", x: 2.5, y: 0.2 },
+        { id: "C20", el: "C", x: 3.5, y: 0.8 },
+        { id: "C21", el: "C", x: 3.2, y: 2.0 },
+        { id: "C22", el: "C", x: 4.6, y: 0.5 },
+        { id: "C23", el: "C", x: 5.5, y: 1.1 },
+        { id: "C24", el: "C", x: 6.5, y: 0.4 },
+        { id: "C25", el: "C", x: 7.5, y: 1.0 },
+        { id: "C26", el: "C", x: 7.3, y: 2.2 },
+        { id: "C27", el: "C", x: 8.5, y: 0.4 }
+      ],
+      bonds: [
+        { a: "C3", b: "O3", order: 1 },
+        { a: "C3", b: "C4", order: 1 },
+        { a: "C4", b: "C5", order: 1 },
+        { a: "C5", b: "C10", order: 1 },
+        { a: "C10", b: "C1", order: 1 },
+        { a: "C1", b: "C2", order: 1 },
+        { a: "C2", b: "C3", order: 1 },
+        { a: "C10", b: "C19", order: 1 },
+        { a: "C5", b: "C6", order: 2 },
+        { a: "C6", b: "C7", order: 1 },
+        { a: "C7", b: "C8", order: 1 },
+        { a: "C8", b: "C9", order: 1 },
+        { a: "C9", b: "C10", order: 1 },
+        { a: "C9", b: "C11", order: 1 },
+        { a: "C11", b: "C12", order: 1 },
+        { a: "C12", b: "C13", order: 1 },
+        { a: "C13", b: "C14", order: 1 },
+        { a: "C14", b: "C8", order: 1 },
+        { a: "C13", b: "C18", order: 1 },
+        { a: "C14", b: "C15", order: 1 },
+        { a: "C15", b: "C16", order: 1 },
+        { a: "C16", b: "C17", order: 1 },
+        { a: "C17", b: "C13", order: 1 },
+        { a: "C17", b: "C20", order: 1 },
+        { a: "C20", b: "C21", order: 1 },
+        { a: "C20", b: "C22", order: 1 },
+        { a: "C22", b: "C23", order: 1 },
+        { a: "C23", b: "C24", order: 1 },
+        { a: "C24", b: "C25", order: 1 },
+        { a: "C25", b: "C26", order: 1 },
+        { a: "C25", b: "C27", order: 1 }
+      ],
+      lonePairs: [
+        { on: "O3", count: 2 }
+      ]
+    },
+    Estrogen: {
+      atoms: [
+        { id: "C3", el: "C", x: -4.5, y: 0 },
+        { id: "O3", el: "O", x: -5.5, y: -0.5 },
+        { id: "C4", el: "C", x: -3.6, y: -1.0 },
+        { id: "C5", el: "C", x: -2.4, y: -1.0 },
+        { id: "C10", el: "C", x: -2.4, y: 0.2 },
+        { id: "C1", el: "C", x: -3.6, y: 1.2 },
+        { id: "C2", el: "C", x: -4.5, y: 1.0 },
+        { id: "C6", el: "C", x: -1.3, y: -2.0 },
+        { id: "C7", el: "C", x: -0.1, y: -2.0 },
+        { id: "C8", el: "C", x: 0.5, y: -0.8 },
+        { id: "C9", el: "C", x: -1.2, y: 0.2 },
+        { id: "C11", el: "C", x: -0.6, y: 1.4 },
+        { id: "C12", el: "C", x: 0.6, y: 1.4 },
+        { id: "C13", el: "C", x: 1.3, y: 0.2 },
+        { id: "C14", el: "C", x: 0.5, y: -0.8 },
+        { id: "C18", el: "C", x: 1.3, y: 1.3 },
+        { id: "C15", el: "C", x: 1.5, y: -1.8 },
+        { id: "C16", el: "C", x: 2.7, y: -1.2 },
+        { id: "C17", el: "C", x: 2.5, y: 0.2 },
+        { id: "O17", el: "O", x: 3.4, y: 0.8 }
+      ],
+      bonds: [
+        { a: "C3", b: "O3", order: 1 },
+        { a: "C3", b: "C4", order: 1 },
+        { a: "C4", b: "C5", order: 2 },
+        { a: "C5", b: "C10", order: 1 },
+        { a: "C10", b: "C1", order: 2 },
+        { a: "C1", b: "C2", order: 1 },
+        { a: "C2", b: "C3", order: 2 },
+        { a: "C5", b: "C6", order: 1 },
+        { a: "C6", b: "C7", order: 1 },
+        { a: "C7", b: "C8", order: 1 },
+        { a: "C8", b: "C9", order: 1 },
+        { a: "C9", b: "C10", order: 1 },
+        { a: "C9", b: "C11", order: 1 },
+        { a: "C11", b: "C12", order: 1 },
+        { a: "C12", b: "C13", order: 1 },
+        { a: "C13", b: "C14", order: 1 },
+        { a: "C14", b: "C8", order: 1 },
+        { a: "C13", b: "C18", order: 1 },
+        { a: "C14", b: "C15", order: 1 },
+        { a: "C15", b: "C16", order: 1 },
+        { a: "C16", b: "C17", order: 1 },
+        { a: "C17", b: "C13", order: 1 },
+        { a: "C17", b: "O17", order: 1 }
+      ],
+      lonePairs: [
+        { on: "O3", count: 2 },
+        { on: "O17", count: 2 }
+      ]
+    },
+    Testosterone: {
+      atoms: [
+        { id: "C3", el: "C", x: -4.5, y: 0 },
+        { id: "O3", el: "O", x: -5.6, y: 0 },
+        { id: "C4", el: "C", x: -3.6, y: -1.0 },
+        { id: "C5", el: "C", x: -2.4, y: -1.0 },
+        { id: "C10", el: "C", x: -2.4, y: 0.2 },
+        { id: "C1", el: "C", x: -3.6, y: 1.2 },
+        { id: "C2", el: "C", x: -4.5, y: 1.0 },
+        { id: "C19", el: "C", x: -2.4, y: 1.3 },
+        { id: "C6", el: "C", x: -1.3, y: -2.0 },
+        { id: "C7", el: "C", x: -0.1, y: -2.0 },
+        { id: "C8", el: "C", x: 0.5, y: -0.8 },
+        { id: "C9", el: "C", x: -1.2, y: 0.2 },
+        { id: "C11", el: "C", x: -0.6, y: 1.4 },
+        { id: "C12", el: "C", x: 0.6, y: 1.4 },
+        { id: "C13", el: "C", x: 1.3, y: 0.2 },
+        { id: "C14", el: "C", x: 0.5, y: -0.8 },
+        { id: "C18", el: "C", x: 1.3, y: 1.3 },
+        { id: "C15", el: "C", x: 1.5, y: -1.8 },
+        { id: "C16", el: "C", x: 2.7, y: -1.2 },
+        { id: "C17", el: "C", x: 2.5, y: 0.2 },
+        { id: "O17", el: "O", x: 3.4, y: 0.8 }
+      ],
+      bonds: [
+        { a: "C3", b: "O3", order: 2 },
+        { a: "C3", b: "C4", order: 1 },
+        { a: "C4", b: "C5", order: 2 },
+        { a: "C5", b: "C10", order: 1 },
+        { a: "C10", b: "C1", order: 1 },
+        { a: "C1", b: "C2", order: 1 },
+        { a: "C2", b: "C3", order: 1 },
+        { a: "C10", b: "C19", order: 1 },
+        { a: "C5", b: "C6", order: 1 },
+        { a: "C6", b: "C7", order: 1 },
+        { a: "C7", b: "C8", order: 1 },
+        { a: "C8", b: "C9", order: 1 },
+        { a: "C9", b: "C10", order: 1 },
+        { a: "C9", b: "C11", order: 1 },
+        { a: "C11", b: "C12", order: 1 },
+        { a: "C12", b: "C13", order: 1 },
+        { a: "C13", b: "C14", order: 1 },
+        { a: "C14", b: "C8", order: 1 },
+        { a: "C13", b: "C18", order: 1 },
+        { a: "C14", b: "C15", order: 1 },
+        { a: "C15", b: "C16", order: 1 },
+        { a: "C16", b: "C17", order: 1 },
+        { a: "C17", b: "C13", order: 1 },
+        { a: "C17", b: "O17", order: 1 }
+      ],
+      lonePairs: [
+        { on: "O3", count: 2 },
+        { on: "O17", count: 2 }
+      ]
+    },
+    Epinephrine: {
+      atoms: [
+        { id: "C1", el: "C", x: 0, y: 0 },
+        { id: "C2", el: "C", x: -0.6, y: -1.1 },
+        { id: "C3", el: "C", x: -1.8, y: -1.1 },
+        { id: "O3", el: "O", x: -2.4, y: -2.2 },
+        { id: "C4", el: "C", x: -2.4, y: 0 },
+        { id: "O4", el: "O", x: -3.6, y: 0 },
+        { id: "C5", el: "C", x: -1.8, y: 1.1 },
+        { id: "C6", el: "C", x: -0.6, y: 1.1 },
+        { id: "C_alpha", el: "C", x: 1.3, y: 0 },
+        { id: "O_side", el: "O", x: 1.3, y: -1.1 },
+        { id: "C_beta", el: "C", x: 2.3, y: 0.8 },
+        { id: "N_amine", el: "N", x: 3.5, y: 0.2 },
+        { id: "C_methyl", el: "C", x: 4.5, y: 1.0 }
+      ],
+      bonds: [
+        { a: "C1", b: "C2", order: 1 },
+        { a: "C2", b: "C3", order: 2 },
+        { a: "C3", b: "O3", order: 1 },
+        { a: "C3", b: "C4", order: 1 },
+        { a: "C4", b: "O4", order: 1 },
+        { a: "C4", b: "C5", order: 2 },
+        { a: "C5", b: "C6", order: 1 },
+        { a: "C6", b: "C1", order: 2 },
+        { a: "C1", b: "C_alpha", order: 1 },
+        { a: "C_alpha", b: "O_side", order: 1 },
+        { a: "C_alpha", b: "C_beta", order: 1 },
+        { a: "C_beta", b: "N_amine", order: 1 },
+        { a: "N_amine", b: "C_methyl", order: 1 }
+      ],
+      lonePairs: [
+        { on: "O3", count: 2 },
+        { on: "O4", count: 2 },
+        { on: "O_side", count: 2 },
+        { on: "N_amine", count: 1 }
+      ]
     }
   };
 
@@ -257,6 +1244,182 @@
       }
     }
     return el;
+  }
+
+  function drawContainerFrame(svg, viewBoxX, viewBoxY, boxW, boxH, options) {
+    if (!options || !options.showContainerFrame || options.showContainerFrame === "none") return;
+    
+    const frameType = options.showContainerFrame;
+    const inWater = options.inWater;
+    
+    // Margin from viewBox edge
+    const m = 6;
+    const x1 = viewBoxX + m;
+    const x2 = viewBoxX + boxW - m;
+    const y1 = viewBoxY + m;
+    const y2 = viewBoxY + boxH - m;
+    const cx = (x1 + x2) / 2;
+    const w = x2 - x1;
+    const h = y2 - y1;
+    
+    // 1. Draw water if requested (draw behind glass frame)
+    if (inWater) {
+      const y_water = y1 + h * 0.45; // 55% full
+      let waterPath = "";
+      
+      if (frameType === "beaker") {
+        const r = 8;
+        waterPath = `M ${x1} ${y_water} 
+                     Q ${(x1 + cx)/2} ${y_water - 3}, ${cx} ${y_water} 
+                     T ${x2} ${y_water} 
+                     L ${x2} ${y2 - r} 
+                     Q ${x2} ${y2}, ${x2 - r} ${y2} 
+                     L ${x1 + r} ${y2} 
+                     Q ${x1} ${y2}, ${x1} ${y2 - r} Z`;
+      } else if (frameType === "flask") {
+        const neckW = w * 0.35;
+        const neckH = h * 0.35;
+        const neckBottomY = y1 + neckH;
+        
+        // If water level is in the conical part vs neck
+        const yw = Math.max(neckBottomY, y_water);
+        // Calculate width at water level yw
+        const pct = (y2 - yw) / (y2 - neckBottomY);
+        const halfW = neckW / 2 + (w - neckW) / 2 * pct;
+        
+        waterPath = `M ${cx - halfW} ${yw} 
+                     Q ${(cx - halfW + cx)/2} ${yw - 2}, ${cx} ${yw} 
+                     T ${cx + halfW} ${yw} 
+                     L ${x2} ${y2} 
+                     L ${x1} ${y2} Z`;
+      } else if (frameType === "dish") {
+        const y1_dish = y1 + h * 0.3;
+        const rx = w * 0.6;
+        const ry = h * 0.8;
+        const yw = y_water;
+        waterPath = `M ${x1} ${yw} 
+                     Q ${(x1 + cx)/2} ${yw - 2}, ${cx} ${yw} 
+                     T ${x2} ${yw} 
+                     A ${rx} ${ry} 0 0 1 ${x1} ${yw} Z`;
+      }
+      
+      if (waterPath) {
+        const waterEl = createSVGElement("path", {
+          d: waterPath,
+          fill: "var(--water, #3E6FA5)",
+          "fill-opacity": 0.28,
+          stroke: "var(--water, #3E6FA5)",
+          "stroke-width": 1.0,
+          "stroke-opacity": 0.6
+        });
+        svg.appendChild(waterEl);
+      }
+    }
+    
+    // 2. Draw container glass outline
+    let glassPath = "";
+    if (frameType === "beaker") {
+      const r = 8;
+      glassPath = `M ${x1 - 3} ${y1 - 1} 
+                   L ${x1} ${y1 + 2} 
+                   L ${x1} ${y2 - r} 
+                   Q ${x1} ${y2}, ${x1 + r} ${y2} 
+                   L ${x2 - r} ${y2} 
+                   Q ${x2} ${y2}, ${x2} ${y2 - r} 
+                   L ${x2} ${y1} 
+                   L ${x2 + 3} ${y1}`;
+    } else if (frameType === "flask") {
+      const neckW = w * 0.35;
+      const neckH = h * 0.35;
+      const neckBottomY = y1 + neckH;
+      
+      glassPath = `M ${cx - neckW/2} ${y1} 
+                   L ${cx + neckW/2} ${y1} 
+                   M ${cx - neckW/2} ${y1} 
+                   L ${cx - neckW/2} ${neckBottomY} 
+                   L ${x1} ${y2} 
+                   L ${x2} ${y2} 
+                   L ${cx + neckW/2} ${neckBottomY} 
+                   L ${cx + neckW/2} ${y1}`;
+    } else if (frameType === "dish") {
+      const y1_dish = y1 + h * 0.3;
+      const rx = w * 0.6;
+      const ry = h * 0.8;
+      glassPath = `M ${x1 - 4} ${y1_dish} 
+                   L ${x1} ${y1_dish} 
+                   A ${rx} ${ry} 0 0 0 ${x2} ${y1_dish} 
+                   L ${x2 + 4} ${y1_dish}`;
+    }
+    
+    if (glassPath) {
+      const glassEl = createSVGElement("path", {
+        d: glassPath,
+        fill: "none",
+        stroke: "var(--ink-soft, #3A463F)",
+        "stroke-width": 1.5,
+        "stroke-linecap": "round",
+        "stroke-linejoin": "round"
+      });
+      svg.appendChild(glassEl);
+    }
+  }
+
+  function drawHydrationShells(svg, scaledAtoms, options) {
+    if (!options || !options.inWater || !options.showContainerFrame || options.showContainerFrame === "none") return;
+    
+    scaledAtoms.forEach(atom => {
+      let isCation = false;
+      let isAnion = false;
+      
+      if (atom.el === "Na" || atom.el === "H" || atom.el === "K" || atom.el === "Ca") {
+        isCation = true;
+      } else if (atom.el === "Cl" || atom.el === "Br" || atom.el === "I" || atom.el === "F") {
+        isAnion = true;
+      }
+      
+      if (!isCation && !isAnion) return;
+      
+      // Draw 3 water molecules around this ion
+      const angles = [0.5, 2.594, 4.688]; // staggered angles in radians
+      const r_ion = atom.radius || 7.5;
+      const d_oxy = isCation ? r_ion + 9 : r_ion + 14;
+      const d_hyd = isCation ? r_ion + 15 : r_ion + 8;
+      
+      angles.forEach(alpha => {
+        const ox = atom.x + d_oxy * Math.cos(alpha);
+        const oy = atom.y + d_oxy * Math.sin(alpha);
+        
+        const h1x = atom.x + d_hyd * Math.cos(alpha - 0.45);
+        const h1y = atom.y + d_hyd * Math.sin(alpha - 0.45);
+        const h2x = atom.x + d_hyd * Math.cos(alpha + 0.45);
+        const h2y = atom.y + d_hyd * Math.sin(alpha + 0.45);
+        
+        svg.appendChild(createSVGElement("line", {
+          x1: ox.toFixed(1), y1: oy.toFixed(1),
+          x2: h1x.toFixed(1), y2: h1y.toFixed(1),
+          stroke: "var(--ink-mute, #6B756D)", "stroke-width": 0.8
+        }));
+        svg.appendChild(createSVGElement("line", {
+          x1: ox.toFixed(1), y1: oy.toFixed(1),
+          x2: h2x.toFixed(1), y2: h2y.toFixed(1),
+          stroke: "var(--ink-mute, #6B756D)", "stroke-width": 0.8
+        }));
+        
+        svg.appendChild(createSVGElement("circle", {
+          cx: ox.toFixed(1), cy: oy.toFixed(1), r: 2.5,
+          fill: "var(--accent, #E15554)", stroke: "var(--ink)", "stroke-width": 0.5
+        }));
+        
+        svg.appendChild(createSVGElement("circle", {
+          cx: h1x.toFixed(1), cy: h1y.toFixed(1), r: 1.6,
+          fill: "#ffffff", stroke: "var(--ink)", "stroke-width": 0.4
+        }));
+        svg.appendChild(createSVGElement("circle", {
+          cx: h2x.toFixed(1), cy: h2y.toFixed(1), r: 1.6,
+          fill: "#ffffff", stroke: "var(--ink)", "stroke-width": 0.4
+        }));
+      });
+    });
   }
 
   // ============================================================
@@ -1186,19 +2349,43 @@
       preserveAspectRatio: "xMidYMid meet"
     });
 
+    const inWater = options.inWater && options.showContainerFrame && options.showContainerFrame !== "none";
+    
+    // Draw container frame and water if selected
+    drawContainerFrame(svg, 0, 0, 300, 150, options);
+
+    let catX = 0;
+    let anX = 150;
+    
+    if (inWater) {
+      // Dissociate: separate them further
+      catX = -25;
+      anX = 175;
+    }
+
     const catSvg = drawLewisAtom(catEl, catTend.need, { ...options, noBracket: true });
-    catSvg.setAttribute("x", "0");
+    catSvg.setAttribute("x", catX.toString());
     catSvg.setAttribute("y", "0");
     catSvg.setAttribute("width", "150");
     catSvg.setAttribute("height", "150");
     svg.appendChild(catSvg);
 
     const anSvg = drawLewisAtom(anEl, -anTend.need, options);
-    anSvg.setAttribute("x", "150");
+    anSvg.setAttribute("x", anX.toString());
     anSvg.setAttribute("y", "0");
     anSvg.setAttribute("width", "150");
     anSvg.setAttribute("height", "150");
     svg.appendChild(anSvg);
+
+    if (inWater) {
+      // Cation centered at (catX + 75, 75)
+      // Anion centered at (anX + 75, 75)
+      const centers = [
+        { x: catX + 75, y: 75, el: catEl.sym, radius: 24 },
+        { x: anX + 75, y: 75, el: anEl.sym, radius: 24 }
+      ];
+      drawHydrationShells(svg, centers, options);
+    }
 
     return svg;
   }
@@ -1324,6 +2511,9 @@
 
     svg.setAttribute("viewBox", `${viewBoxX} ${viewBoxY} ${boxW} ${boxH}`);
 
+    // Draw container and solvent framing if selected
+    drawContainerFrame(svg, viewBoxX, viewBoxY, boxW, boxH, options);
+
     // 3. Draw Bonds (lines)
     if (data.bonds) {
       data.bonds.forEach(bond => {
@@ -1341,23 +2531,32 @@
         const nx = -uy;
         const ny = ux;
 
-        const offsetDist = 8.5;
-        const x1 = atomA.x + ux * offsetDist;
-        const y1 = atomA.y + uy * offsetDist;
-        const x2 = atomB.x - ux * offsetDist;
-        const y2 = atomB.y - uy * offsetDist;
+        const isVirtualA = (atomA.el === "" || atomA.el === "*" || atomA.el.startsWith("ext"));
+        const isVirtualB = (atomB.el === "" || atomB.el === "*" || atomB.el.startsWith("ext"));
+        const offsetA = isVirtualA ? 0 : 8.5;
+        const offsetB = isVirtualB ? 0 : 8.5;
+        
+        const x1 = atomA.x + ux * offsetA;
+        const y1 = atomA.y + uy * offsetA;
+        const x2 = atomB.x - ux * offsetB;
+        const y2 = atomB.y - uy * offsetB;
 
         const order = bond.order || 1;
+        const isDashed = bond.style === "dashed" || isVirtualA || isVirtualB;
 
         if (order === 1) {
-          svg.appendChild(createSVGElement("line", {
+          const attrs = {
             x1: x1.toFixed(1),
             y1: y1.toFixed(1),
             x2: x2.toFixed(1),
             y2: y2.toFixed(1),
-            stroke: "var(--ink)",
+            stroke: isDashed ? "var(--ink-mute, #6B756D)" : "var(--ink)",
             "stroke-width": "var(--dia-stroke-bond)"
-          }));
+          };
+          if (isDashed) {
+            attrs["stroke-dasharray"] = "3 3";
+          }
+          svg.appendChild(createSVGElement("line", attrs));
         } else if (order === 2) {
           const offset = 2.2;
           const lines = [
@@ -1447,6 +2646,7 @@
 
     // 5. Draw Atom Symbols
     scaledAtoms.forEach(atom => {
+      if (atom.el === "" || atom.el === "*" || atom.el.startsWith("ext")) return;
       let textFill = "var(--ink)";
       if (options.useCPKColors) {
         const cpk = getCPK(atom.el);
@@ -1471,6 +2671,32 @@
     // 7. Draw dipoles/partial charges
     renderDipoleAnnotations(svg, data, scale, padding, options);
 
+    // Draw polymer brackets if present
+    if (data.brackets) {
+      data.brackets.forEach(b => {
+        const bx = b.x * scale;
+        const byMin = b.yMin * scale;
+        const byMax = b.yMax * scale;
+        const lip = b.lip !== undefined ? b.lip * scale : 4;
+        
+        let pathD = "";
+        if (b.type === "left" || bx < 0) {
+          pathD = `M ${bx + lip} ${byMin} L ${bx} ${byMin} L ${bx} ${byMax} L ${bx + lip} ${byMax}`;
+        } else {
+          pathD = `M ${bx - lip} ${byMin} L ${bx} ${byMin} L ${bx} ${byMax} L ${bx - lip} ${byMax}`;
+        }
+        
+        svg.appendChild(createSVGElement("path", {
+          d: pathD,
+          fill: "none",
+          stroke: "var(--ink)",
+          "stroke-width": 1.5,
+          "stroke-linecap": "round",
+          "stroke-linejoin": "round"
+        }));
+      });
+    }
+
     return svg;
   }
 
@@ -1481,10 +2707,26 @@
 
     if (!data || !data.atoms || data.atoms.length === 0) return svg;
 
+    const formula = (data && data.formula) || "";
+    const inWater = options.inWater && options.showContainerFrame && options.showContainerFrame !== "none";
+    const isDissociable = ["nacl", "hcl", "hbr", "hi"].includes(formula.toLowerCase());
+    
+    let activeData = data;
+    if (isDissociable && inWater) {
+      activeData = JSON.parse(JSON.stringify(data));
+      if (activeData.atoms && activeData.atoms.length === 2) {
+        activeData.atoms[0].x = -1.6;
+        activeData.atoms[0].y = -0.5;
+        activeData.atoms[1].x = 1.6;
+        activeData.atoms[1].y = 0.5;
+      }
+      activeData.bonds = [];
+    }
+
     const scale = (mode === "particle") ? 18 : 22;
     const padding = (options.showPartialCharges || options.showNetDipole) ? 26 : 20;
 
-    const sortedAtoms = [...data.atoms].sort((a, b) => {
+    const sortedAtoms = [...activeData.atoms].sort((a, b) => {
       if (a.el === "H" && b.el !== "H") return 1;
       if (a.el !== "H" && b.el === "H") return -1;
       return 0;
@@ -1514,7 +2756,7 @@
     });
 
     // For particle mode, compute radii so atoms never overlap
-    if (mode === "particle" && data.bonds && data.bonds.length > 0) {
+    if (mode === "particle" && activeData.bonds && activeData.bonds.length > 0) {
       // Size weights: H is smaller, everything else equal
       const weight = (el) => el === "H" ? 0.6 : 1.0;
 
@@ -1522,7 +2764,7 @@
       const maxRadii = {};
       scaledAtoms.forEach(sa => { maxRadii[sa.id] = Infinity; });
 
-      data.bonds.forEach(bond => {
+      activeData.bonds.forEach(bond => {
         const a = atomMap[bond.a];
         const b = atomMap[bond.b];
         if (!a || !b) return;
@@ -1568,9 +2810,12 @@
 
     svg.setAttribute("viewBox", `${viewBoxX} ${viewBoxY} ${boxW} ${boxH}`);
 
+    // Draw container and solvent framing if selected
+    drawContainerFrame(svg, viewBoxX, viewBoxY, boxW, boxH, options);
+
     // 3. Draw Bonds (Ball & Stick mode only)
-    if (mode === "ball-and-stick" && data.bonds) {
-      data.bonds.forEach(bond => {
+    if (mode === "ball-and-stick" && activeData.bonds) {
+      activeData.bonds.forEach(bond => {
         const atomA = atomMapById[bond.a];
         const atomB = atomMapById[bond.b];
         if (!atomA || !atomB) return;
@@ -1585,24 +2830,31 @@
         const nx = -uy;
         const ny = ux;
 
-        const rA = atomA.radius;
-        const rB = atomB.radius;
+        const isVirtualA = (atomA.el === "" || atomA.el === "*" || atomA.el.startsWith("ext"));
+        const isVirtualB = (atomB.el === "" || atomB.el === "*" || atomB.el.startsWith("ext"));
+        const rA = isVirtualA ? 0 : atomA.radius;
+        const rB = isVirtualB ? 0 : atomB.radius;
         const x1 = atomA.x + ux * rA;
         const y1 = atomA.y + uy * rA;
         const x2 = atomB.x - ux * rB;
         const y2 = atomB.y - uy * rB;
 
         const order = bond.order || 1;
+        const isDashed = bond.style === "dashed" || isVirtualA || isVirtualB;
 
         if (order === 1) {
-          svg.appendChild(createSVGElement("line", {
+          const attrs = {
             x1: x1.toFixed(1),
             y1: y1.toFixed(1),
             x2: x2.toFixed(1),
             y2: y2.toFixed(1),
             stroke: "var(--ink-mute)",
             "stroke-width": "var(--dia-stroke-bond)"
-          }));
+          };
+          if (isDashed) {
+            attrs["stroke-dasharray"] = "3 3";
+          }
+          svg.appendChild(createSVGElement("line", attrs));
         } else if (order === 2) {
           const offset = 2.2;
           const lines = [
@@ -1668,7 +2920,38 @@
     });
 
     // 5. Draw dipoles/partial charges
-    renderDipoleAnnotations(svg, data, scale, padding, options);
+    renderDipoleAnnotations(svg, activeData, scale, padding, options);
+
+    // Draw hydration shells if dissociated and in water
+    if (inWater && isDissociable) {
+      drawHydrationShells(svg, scaledAtoms, options);
+    }
+
+    // Draw polymer brackets if present
+    if (activeData.brackets) {
+      activeData.brackets.forEach(b => {
+        const bx = b.x * scale;
+        const byMin = b.yMin * scale;
+        const byMax = b.yMax * scale;
+        const lip = b.lip !== undefined ? b.lip * scale : 4;
+        
+        let pathD = "";
+        if (b.type === "left" || bx < 0) {
+          pathD = `M ${bx + lip} ${byMin} L ${bx} ${byMin} L ${bx} ${byMax} L ${bx + lip} ${byMax}`;
+        } else {
+          pathD = `M ${bx - lip} ${byMin} L ${bx} ${byMin} L ${bx} ${byMax} L ${bx - lip} ${byMax}`;
+        }
+        
+        svg.appendChild(createSVGElement("path", {
+          d: pathD,
+          fill: "none",
+          stroke: "var(--ink)",
+          "stroke-width": 1.5,
+          "stroke-linecap": "round",
+          "stroke-linejoin": "round"
+        }));
+      });
+    }
 
     return svg;
   }

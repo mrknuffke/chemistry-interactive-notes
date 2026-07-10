@@ -191,6 +191,202 @@
         min-width: 680px; /* Keep nodes legible on mobile by scrolling instead of extreme shrinking */
       }
     }
+
+    /* Cram Mode Styles */
+    .cram-spinner-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem 0;
+      gap: 1rem;
+    }
+    .cram-spinner {
+      border: 4px solid var(--hair-soft);
+      border-top: 4px solid var(--accent);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .cram-lesson-group {
+      border: 1px solid var(--hair);
+      background: var(--card);
+      border-radius: 12px;
+      padding: clamp(1.2rem, 3vw, 2rem);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    }
+    .cram-lesson-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--hair-soft);
+      padding-bottom: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .cram-lesson-title {
+      font-family: var(--display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .cram-lesson-badge {
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      font-weight: 600;
+      background: var(--paper-3);
+      border: 1px solid var(--hair);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      color: var(--ink-soft);
+    }
+
+    /* Practice & Review Layout */
+    .practice-dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .practice-dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .practice-main-card {
+      border: 1px solid var(--hair);
+      background: var(--card);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .practice-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border-bottom: 1px solid var(--hair-soft);
+      padding-bottom: 0.75rem;
+    }
+    .practice-card-header h3 {
+      font-family: var(--display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 0;
+      flex-grow: 1;
+    }
+    .practice-icon {
+      color: var(--accent);
+    }
+    .practice-badge {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: var(--accent);
+      color: #fff;
+      padding: 0.15rem 0.5rem;
+      border-radius: 99px;
+      border: none;
+    }
+    .practice-badge.zero {
+      background: var(--paper-3);
+      color: var(--ink-mute);
+      border: 1px solid var(--hair);
+    }
+    .practice-card-content {
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .practice-placeholder-text {
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+      text-align: center;
+      line-height: 1.5;
+      padding: 2.5rem 1rem;
+      align-self: center;
+    }
+    
+    /* Interactive Review Session CSS */
+    .review-session-card {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      text-align: left;
+    }
+    .review-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--ink-mute);
+    }
+    .review-prompt-container {
+      border-left: 3px solid var(--accent);
+      padding-left: 1rem;
+      font-size: 0.94rem;
+      color: var(--ink);
+      line-height: 1.6;
+    }
+    .review-prompt-container input.blank {
+      width: 100px;
+      padding: 0.15rem 0.4rem;
+      border: 1px solid var(--hair);
+      border-radius: 4px;
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      background: var(--paper-2);
+      color: var(--ink);
+      text-align: center;
+    }
+    .review-prompt-container .exam-meta {
+      display: none; /* Hide internal metadata inside exam frame */
+    }
+    .review-prompt-container textarea {
+      width: 100%;
+      min-height: 80px;
+      margin-top: 0.5rem;
+      border-radius: 6px;
+      border: 1px solid var(--hair);
+      background: var(--paper-2);
+      color: var(--ink);
+      padding: 0.5rem;
+      font-family: var(--font-body);
+    }
+    .review-action-area {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+    .review-grading-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.5rem;
+    }
+    
+    .review-answer-display {
+      background: var(--paper-2);
+      border: 1px solid var(--hair);
+      border-radius: 8px;
+      padding: 1rem;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: var(--ink-soft);
+    }
+    .review-answer-display strong.term {
+      color: var(--accent);
+      font-weight: 700;
+    }
   </style>
 </head>
 <body>
@@ -242,6 +438,8 @@
       <button class="dashboard-tab" data-panel="glossary">Glossary</button>
       <button class="dashboard-tab" data-panel="unit1-res">Unit 1 Resources</button>
       <button class="dashboard-tab" data-panel="unit2-res">Unit 2 Resources</button>
+      <button class="dashboard-tab" data-panel="cram-mode">Cram Mode</button>
+      <button class="dashboard-tab" data-panel="practice-review">Practice &amp; Review</button>
     </div>
   </div>
 
@@ -747,6 +945,53 @@
         <div class="resource-group">
           <h3>Readings &amp; Simulations</h3>
           <div class="resource-list" id="unit2-texts-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= CRAM MODE PANEL ================= -->
+    <div class="dashboard-panel" id="panel-cram-mode">
+      <div style="margin-bottom: 2rem;">
+        <h2>Cram Mode Review</h2>
+        <p class="lede" style="margin-top: 0.5rem;">Solve all 12 constructed-response exam questions and practice grading yourself against their official mark schemes in one place.</p>
+      </div>
+      <div id="cramSpinner" class="cram-spinner-container">
+        <div class="cram-spinner"></div>
+        <div style="font-family: var(--mono); font-size: 0.88rem; color: var(--ink-soft);">Compiling exam questions...</div>
+      </div>
+      <div id="cramList" style="display: none; flex-direction: column; gap: 2rem;"></div>
+    </div>
+
+    <!-- ================= PRACTICE & REVIEW PANEL ================= -->
+    <div class="dashboard-panel" id="panel-practice-review">
+      <div style="margin-bottom: 2rem;">
+        <h2>Practice &amp; Review</h2>
+        <p class="lede" style="margin-top: 0.5rem;">Strengthen your long-term memory with Spaced Repetition reviews and Interleaved Mixed Practice drills.</p>
+      </div>
+
+      <div class="practice-dashboard-grid">
+        <!-- Spaced Repetition Card -->
+        <div class="practice-main-card">
+          <div class="practice-card-header">
+            <svg class="practice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            <h3>Spaced Retrieval (Due Today)</h3>
+            <span class="practice-badge zero" id="dueCountBadge">0 Due</span>
+          </div>
+          <div id="spacedReviewArea" class="practice-card-content">
+            <div class="practice-placeholder-text">Checking completed checkpoints...</div>
+          </div>
+        </div>
+
+        <!-- Mixed Practice Card -->
+        <div class="practice-main-card">
+          <div class="practice-card-header">
+            <svg class="practice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px;"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+            <h3>Mixed Review Drill</h3>
+            <button class="btn btn-sm" id="startMixedReviewBtn" style="padding: 0.25rem 0.5rem; font-size: 0.78rem;">Start Drill</button>
+          </div>
+          <div id="mixedReviewArea" class="practice-card-content">
+            <div class="practice-placeholder-text">Click "Start Drill" to load a random sample of 5 recall and exam questions across all units.</div>
+          </div>
         </div>
       </div>
     </div>
@@ -1617,9 +1862,7 @@
     $('#themeToggle').addEventListener('click', () => {
       root.classList.toggle('dark');
       StorageEngine.setItem('gc-theme', root.classList.contains('dark') ? 'dark' : 'light');
-    });
-
-    // Tab Switching Logic
+    });    // Tab Switching Logic
     $$('.dashboard-tab').forEach(tab => {
       tab.addEventListener('click', () => {
         $$('.dashboard-tab').forEach(t => t.classList.remove('active'));
@@ -1631,9 +1874,14 @@
         // Reset search filter when switching tabs
         $('#searchInput').value = '';
         filterItems('');
+
+        if (tab.dataset.panel === 'cram-mode') {
+          loadCramModeData();
+        } else if (tab.dataset.panel === 'practice-review') {
+          initPracticeReview();
+        }
       });
     });
-
     // Generate Glossary Cards alphabetically with dynamic section anchoring.
     // Display text comes from GC_GLOSSARY (assets/glossary.js) — the same
     // definitions students see in lesson tooltips — while MANIFEST_DATA.glossary
@@ -1842,16 +2090,495 @@
       });
     }
 
+    // Helper to generate canonical glossary slugs
+    const termSlug = t => t.toLowerCase().replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-');
+
+    // Deep Search Index state
+    let fullTextIndexed = false;
+    const lessonTextIndex = {};
+
+    async function buildDeepSearchIndex() {
+      try {
+        const promises = MANIFEST_DATA.lessons.map(async (lesson) => {
+          const url = `lessons/${lesson.slug}.html`;
+          const res = await fetch(url);
+          if (!res.ok) throw new Error("CORS or not found");
+          const htmlText = await res.text();
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(htmlText, 'text/html');
+          
+          let textContent = '';
+          const sections = doc.querySelectorAll('section');
+          sections.forEach(sec => {
+            if (sec.classList.contains('hero')) return;
+            const prose = sec.querySelectorAll('p, h2, h3, h4, li, .callout, .w-prompt, td, th');
+            prose.forEach(p => {
+              textContent += ' ' + p.textContent;
+            });
+          });
+          
+          lessonTextIndex[lesson.id] = textContent.toLowerCase();
+        });
+        
+        await Promise.all(promises);
+        fullTextIndexed = true;
+        console.log("Deep search index built successfully!");
+      } catch (e) {
+        console.warn("Could not build deep search index (likely CORS or network limit). Falling back to static data-search.", e);
+      }
+    }
+
+    // --- Practice & Review SRS Memory Engine (Leitner Box System) ---
+    const domCache = {};
+    async function fetchLessonDOM(slug) {
+      if (domCache[slug]) return domCache[slug];
+      const res = await fetch(`lessons/${slug}.html`);
+      if (!res.ok) throw new Error("Fetch failed");
+      const html = await res.text();
+      const parser = new DOMParser();
+      domCache[slug] = parser.parseFromString(html, 'text/html');
+      return domCache[slug];
+    }
+
+    function checkAndMigrateSRS() {
+      const progress = StorageEngine.getProgress();
+      let migrated = false;
+      
+      MANIFEST_DATA.lessons.forEach(lesson => {
+        const lessonProgress = progress[lesson.id];
+        if (!lessonProgress) return;
+        
+        Object.keys(lessonProgress).forEach(key => {
+          if (key === '_total') return;
+          if (key.startsWith('recall-') || key.startsWith('scheme-')) {
+            const val = lessonProgress[key];
+            if (val === true || (val && typeof val === 'object' && val.completed === true && !val.nextDue)) {
+              lessonProgress[key] = {
+                completed: true,
+                box: 1,
+                interval: 1,
+                nextDue: Date.now(), // due immediately for review
+                lastAttempt: Date.now(),
+                attempts: 1
+              };
+              migrated = true;
+            }
+          }
+        });
+      });
+      
+      if (migrated) {
+        StorageEngine.saveProgress(progress);
+      }
+    }
+
+    function updateItemRepetition(lessonId, type, index, grade) {
+      const progress = StorageEngine.getProgress();
+      if (!progress[lessonId]) progress[lessonId] = {};
+      
+      const key = `${type}-${index}`;
+      const existing = progress[lessonId][key] || { completed: true };
+      
+      let box = existing.box || 1;
+      let attempts = (existing.attempts || 0) + 1;
+      
+      if (grade === 'forgot') {
+        box = 1;
+      } else if (grade === 'easy') {
+        box = Math.min(5, box + 1);
+      }
+      
+      const intervals = { 1: 1, 2: 3, 3: 7, 4: 14, 5: 30 };
+      const interval = intervals[box];
+      const nextDue = Date.now() + interval * 24 * 60 * 60 * 1000;
+      
+      progress[lessonId][key] = {
+        completed: true,
+        box: box,
+        interval: interval,
+        nextDue: nextDue,
+        lastAttempt: Date.now(),
+        attempts: attempts
+      };
+      
+      StorageEngine.saveProgress(progress);
+      renderProgress();
+    }
+
+    let currentDueItems = [];
+    let currentDueIdx = 0;
+
+    function initPracticeReview() {
+      checkAndMigrateSRS();
+      
+      const progress = StorageEngine.getProgress();
+      currentDueItems = [];
+      
+      MANIFEST_DATA.lessons.forEach(lesson => {
+        const lessonProgress = progress[lesson.id];
+        if (!lessonProgress) return;
+        
+        Object.keys(lessonProgress).forEach(key => {
+          if (key.startsWith('recall-') || key.startsWith('scheme-')) {
+            const val = lessonProgress[key];
+            if (val && typeof val === 'object' && val.completed === true) {
+              if (val.nextDue <= Date.now()) {
+                const parts = key.split('-');
+                const type = parts[0];
+                const index = parseInt(parts[1], 10);
+                currentDueItems.push({ lessonId: lesson.id, type, index });
+              }
+            }
+          }
+        });
+      });
+      
+      const badge = $('#dueCountBadge');
+      if (badge) {
+        badge.textContent = `${currentDueItems.length} Due`;
+        if (currentDueItems.length === 0) {
+          badge.classList.add('zero');
+        } else {
+          badge.classList.remove('zero');
+        }
+      }
+      
+      currentDueIdx = 0;
+      showNextSpacedReview();
+    }
+
+    function showNextSpacedReview() {
+      const area = $('#spacedReviewArea');
+      if (!area) return;
+      
+      if (currentDueItems.length === 0) {
+        area.innerHTML = `
+          <div class="practice-placeholder-text">
+            <span style="font-size: 1.5rem; display:block; margin-bottom: 0.5rem;">🎉</span>
+            <strong>All caught up!</strong><br>
+            You have 0 reviews due today. Complete checkpoints inside lessons to schedule reviews, or run a Mixed Review drill.
+          </div>
+        `;
+        return;
+      }
+      
+      if (currentDueIdx >= currentDueItems.length) {
+        area.innerHTML = `
+          <div class="practice-placeholder-text" style="color: var(--green);">
+            <span style="font-size: 1.5rem; display:block; margin-bottom: 0.5rem;">✅</span>
+            <strong>Reviews completed!</strong><br>
+            You have finished all spacing reviews scheduled for today. Check back tomorrow!
+          </div>
+        `;
+        initPracticeReview();
+        return;
+      }
+      
+      const item = currentDueItems[currentDueIdx];
+      renderReviewCard(item, area, (grade) => {
+        updateItemRepetition(item.lessonId, item.type, item.index, grade);
+        currentDueIdx++;
+        showNextSpacedReview();
+      });
+    }
+
+    async function renderReviewCard(item, container, onCompleteCallback) {
+      container.innerHTML = '<div style="text-align:center; padding: 2.5rem 1rem; font-family: var(--mono); font-size: 0.88rem; color: var(--ink-soft);">Loading review question...</div>';
+      
+      const lesson = MANIFEST_DATA.lessons.find(l => l.id === item.lessonId);
+      if (!lesson) {
+        container.innerHTML = '<div class="no-results">Error finding lesson data.</div>';
+        return;
+      }
+      
+      try {
+        const doc = await fetchLessonDOM(lesson.slug);
+        
+        const card = document.createElement('div');
+        card.className = 'review-session-card';
+        
+        const meta = document.createElement('div');
+        meta.className = 'review-meta';
+        meta.innerHTML = `
+          <span>Lesson ${lesson.id}</span>
+          <span>${item.type === 'recall' ? 'Vocabulary Recall' : 'Constructed Response'}</span>
+        `;
+        card.appendChild(meta);
+        
+        const promptContainer = document.createElement('div');
+        promptContainer.className = 'review-prompt-container';
+        
+        if (item.type === 'recall') {
+          const recallEl = doc.querySelector('.recall');
+          if (recallEl) {
+            const sentence = recallEl.querySelector('.recall-sentence');
+            const fields = recallEl.querySelector('.st-fields');
+            if (sentence) {
+              const clone = sentence.cloneNode(true);
+              clone.querySelectorAll('input').forEach(inp => {
+                inp.value = '';
+                inp.disabled = false;
+              });
+              promptContainer.appendChild(clone);
+            } else if (fields) {
+              const clone = fields.cloneNode(true);
+              clone.querySelectorAll('input').forEach(inp => {
+                inp.value = '';
+                inp.disabled = false;
+              });
+              promptContainer.appendChild(clone);
+            } else {
+              promptContainer.innerHTML = 'Recall exercise content missing.';
+            }
+          } else {
+            promptContainer.innerHTML = 'Recall exercise missing.';
+          }
+        } else {
+          const examFrame = doc.querySelector('.exam-frame');
+          if (examFrame) {
+            const q = examFrame.querySelector('.exam-q');
+            if (q) {
+              promptContainer.appendChild(q.cloneNode(true));
+            }
+            const textarea = document.createElement('textarea');
+            textarea.placeholder = 'Type your draft answer here before revealing mark scheme...';
+            promptContainer.appendChild(textarea);
+          } else {
+            promptContainer.innerHTML = 'Exam practice missing.';
+          }
+        }
+        card.appendChild(promptContainer);
+        
+        const actionArea = document.createElement('div');
+        actionArea.className = 'review-action-area';
+        
+        const revealBtn = document.createElement('button');
+        revealBtn.className = 'btn';
+        revealBtn.textContent = 'Reveal Answer';
+        actionArea.appendChild(revealBtn);
+        card.appendChild(actionArea);
+        
+        container.innerHTML = '';
+        container.appendChild(card);
+        
+        revealBtn.addEventListener('click', () => {
+          revealBtn.style.display = 'none';
+          promptContainer.querySelectorAll('input, textarea').forEach(el => el.disabled = true);
+          
+          const answerDisplay = document.createElement('div');
+          answerDisplay.className = 'review-answer-display';
+          
+          if (item.type === 'recall') {
+            const recallEl = doc.querySelector('.recall');
+            answerDisplay.innerHTML = '<h4 style="margin: 0 0 0.5rem 0; font-family: var(--display); font-size: 0.94rem;">Answer Key:</h4>';
+            let answers = [];
+            recallEl.querySelectorAll('input.blank').forEach((input, idx) => {
+              const ansStr = input.getAttribute('data-answer').split('|')[0];
+              answers.push(`${idx + 1}. <strong class="term">${ansStr}</strong>`);
+            });
+            answerDisplay.innerHTML += answers.join('<br>');
+          } else {
+            const examFrame = doc.querySelector('.exam-frame');
+            const scheme = examFrame ? examFrame.querySelector('.scheme') : null;
+            if (scheme) {
+              answerDisplay.innerHTML = scheme.innerHTML;
+              const sc = answerDisplay.querySelector('.scheme-card') || answerDisplay;
+              sc.style.display = 'block';
+            } else {
+              answerDisplay.innerHTML = 'Mark scheme missing.';
+            }
+          }
+          
+          actionArea.appendChild(answerDisplay);
+          
+          const ratingContainer = document.createElement('div');
+          ratingContainer.className = 'review-action-area';
+          ratingContainer.innerHTML = `
+            <div style="font-family: var(--mono); font-size: 0.74rem; text-align: center; color: var(--ink-soft); margin-top: 0.5rem;">How well did you recall this?</div>
+            <div class="review-grading-buttons" style="margin-top:0.25rem;">
+              <button class="btn btn-forgot" data-grade="forgot">Forgot</button>
+              <button class="btn btn-hard" data-grade="hard">Hard</button>
+              <button class="btn btn-easy" data-grade="easy">Easy</button>
+            </div>
+          `;
+          actionArea.appendChild(ratingContainer);
+          
+          ratingContainer.addEventListener('click', e => {
+            const gradeBtn = e.target.closest('[data-grade]');
+            if (!gradeBtn) return;
+            onCompleteCallback(gradeBtn.dataset.grade);
+          });
+        });
+        
+      } catch (err) {
+        console.error(err);
+        container.innerHTML = '<div class="no-results">Error loading question content. Make sure your local server is running.</div>';
+      }
+    }
+
+    let currentMixedItems = [];
+    let currentMixedIdx = 0;
+
+    function startMixedReview() {
+      const pool = [];
+      MANIFEST_DATA.lessons.forEach(lesson => {
+        pool.push({ lessonId: lesson.id, type: 'recall', index: 0 });
+        pool.push({ lessonId: lesson.id, type: 'scheme', index: 0 });
+      });
+      
+      const shuffled = pool.sort(() => 0.5 - Math.random());
+      currentMixedItems = shuffled.slice(0, 5);
+      currentMixedIdx = 0;
+      
+      showNextMixedReview();
+    }
+
+    function showNextMixedReview() {
+      const area = $('#mixedReviewArea');
+      if (!area) return;
+      
+      if (currentMixedItems.length === 0) {
+        area.innerHTML = `
+          <div class="practice-placeholder-text">
+            Click "Start Drill" to load a random sample of 5 recall and exam questions across all units.
+          </div>
+        `;
+        return;
+      }
+      
+      if (currentMixedIdx >= currentMixedItems.length) {
+        area.innerHTML = `
+          <div class="practice-placeholder-text" style="color: var(--green);">
+            <span style="font-size: 1.5rem; display:block; margin-bottom: 0.5rem;">💪</span>
+            <strong>Mixed Review Complete!</strong><br>
+            Excellent job! You've completed your interleaving study drill of 5 questions.
+          </div>
+        `;
+        initPracticeReview();
+        return;
+      }
+      
+      const item = currentMixedItems[currentMixedIdx];
+      
+      const wrapper = document.createElement('div');
+      wrapper.style.display = 'flex';
+      wrapper.style.flexDirection = 'column';
+      wrapper.style.gap = '1rem';
+      
+      const progressLabel = document.createElement('div');
+      progressLabel.style.fontFamily = 'var(--mono)';
+      progressLabel.style.fontSize = '0.74rem';
+      progressLabel.style.color = 'var(--ink-mute)';
+      progressLabel.textContent = `Card ${currentMixedIdx + 1} of 5`;
+      wrapper.appendChild(progressLabel);
+      
+      const contentCard = document.createElement('div');
+      wrapper.appendChild(contentCard);
+      area.innerHTML = '';
+      area.appendChild(wrapper);
+      
+      renderReviewCard(item, contentCard, (grade) => {
+        updateItemRepetition(item.lessonId, item.type, item.index, grade);
+        currentMixedIdx++;
+        showNextMixedReview();
+      });
+    }
+
+    // Cram Mode Loading & Binding
+    let cramModeLoaded = false;
+
+    async function loadCramModeData() {
+      if (cramModeLoaded) return;
+      const cramSpinner = $('#cramSpinner');
+      const cramList = $('#cramList');
+      
+      cramSpinner.style.display = 'flex';
+      cramList.style.display = 'none';
+      cramList.innerHTML = '';
+      
+      try {
+        const promises = MANIFEST_DATA.lessons.map(async (lesson) => {
+          const url = `lessons/${lesson.slug}.html`;
+          const res = await fetch(url);
+          if (!res.ok) throw new Error("Could not fetch " + lesson.title);
+          const htmlText = await res.text();
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(htmlText, 'text/html');
+          
+          const examFrame = doc.querySelector('.exam-frame');
+          if (!examFrame) return null;
+          
+          // Set unique ID for answers and bind live saving to StorageEngine
+          const textarea = examFrame.querySelector('textarea');
+          if (textarea) {
+            textarea.id = `cramAns-${lesson.id}`;
+            const savedAns = StorageEngine.getItem(`cram-ans-${lesson.id}`);
+            if (savedAns) textarea.value = savedAns;
+            textarea.addEventListener('input', (evt) => {
+              StorageEngine.setItem(`cram-ans-${lesson.id}`, evt.target.value);
+            });
+          }
+          
+          const card = document.createElement('div');
+          card.className = 'cram-lesson-group';
+          card.innerHTML = `
+            <div class="cram-lesson-header">
+              <span class="cram-lesson-title">${lesson.title}</span>
+              <span class="cram-lesson-badge">${lesson.id}</span>
+            </div>
+          `;
+          card.appendChild(examFrame);
+          return { lesson, card };
+        });
+        
+        const results = await Promise.all(promises);
+        results.forEach(res => {
+          if (res) cramList.appendChild(res.card);
+        });
+        
+        cramSpinner.style.display = 'none';
+        cramList.style.display = 'flex';
+        cramModeLoaded = true;
+      } catch (err) {
+        console.error(err);
+        cramSpinner.style.display = 'none';
+        cramList.innerHTML = '<div class="no-results">Error loading exam questions. Please ensure you are serving this folder via a local server (e.g. VS Code Live Server or Python HTTP server) rather than opening the HTML file directly.</div>';
+        cramList.style.display = 'flex';
+      }
+    }
+
     // Search Filtering Engine
     function filterItems(query) {
       const q = query.trim().toLowerCase();
       
-      // Filter Lessons
+      // Filter Lessons using static tags + deep text index + glossary matching
+      const matchingGlossaryLessons = new Set();
+      MANIFEST_DATA.glossary.forEach(g => {
+        const entry = (typeof GC_GLOSSARY !== 'undefined' && GC_GLOSSARY[termSlug(g.term)]) || null;
+        const term = entry ? entry.term : g.term;
+        const definition = entry ? entry.definition : g.definition;
+        if (term.toLowerCase().includes(q) || definition.toLowerCase().includes(q)) {
+          matchingGlossaryLessons.add(g.lessonId);
+        }
+      });
+
       const lessonCards = $$('#panel-lessons .lesson-card');
       let visibleLessons = 0;
       lessonCards.forEach(card => {
-        const searchText = card.getAttribute('data-search').toLowerCase() + ' ' + card.querySelector('h3').textContent.toLowerCase();
-        if (searchText.includes(q)) {
+        const lessonId = card.querySelector('.lesson-badge').textContent.trim();
+        const staticSearchText = card.getAttribute('data-search').toLowerCase() + ' ' + card.querySelector('h3').textContent.toLowerCase();
+        
+        let match = staticSearchText.includes(q);
+        
+        if (!match && fullTextIndexed && lessonTextIndex[lessonId]) {
+          match = lessonTextIndex[lessonId].includes(q);
+        }
+        
+        if (!match && matchingGlossaryLessons.has(lessonId)) {
+          match = true;
+        }
+
+        if (match) {
           card.style.display = 'flex';
           visibleLessons++;
         } else {
@@ -1950,6 +2677,19 @@
         group.style.display = visible > 0 ? 'block' : 'none';
       });
 
+      // Filter Cram Mode
+      const cramGroups = $$('#panel-cram-mode .cram-lesson-group');
+      let visibleCram = 0;
+      cramGroups.forEach(group => {
+        const searchText = group.textContent.toLowerCase();
+        if (searchText.includes(q)) {
+          group.style.display = 'block';
+          visibleCram++;
+        } else {
+          group.style.display = 'none';
+        }
+      });
+
       // Handle "No Results" placeholders
       const activeTab = $('.dashboard-tab.active').dataset.panel;
       removeNoResults();
@@ -1964,6 +2704,8 @@
         showNoResults('#panel-unit1-res');
       } else if (activeTab === 'unit2-res' && visibleU2 === 0) {
         showNoResults('#panel-unit2-res');
+      } else if (activeTab === 'cram-mode' && visibleCram === 0) {
+        showNoResults('#panel-cram-mode');
       }
     }
 
@@ -1979,15 +2721,50 @@
       $$('.no-results').forEach(el => el.remove());
     }
 
+    // Bind click delegation for Cram Mode scheme reveals
+    const cramList = $('#cramList');
+    if (cramList) {
+      cramList.addEventListener('click', e => {
+        const btn = e.target.closest('[data-scheme]');
+        if (!btn) return;
+        
+        const frame = btn.closest('.exam-frame');
+        if (!frame) return;
+        
+        const scheme = frame.querySelector('.scheme');
+        if (!scheme) return;
+        
+        const isVisible = scheme.classList.contains('show') || getComputedStyle(scheme).display !== 'none';
+        if (isVisible) {
+          scheme.style.display = 'none';
+          scheme.classList.remove('show');
+          btn.textContent = 'Reveal mark scheme';
+        } else {
+          scheme.style.display = 'block';
+          scheme.classList.add('show');
+          btn.textContent = 'Hide mark scheme';
+        }
+      });
+    }
+
     // Search Input Event
     $('#searchInput').addEventListener('input', e => {
       filterItems(e.target.value);
     });
 
+    // Practice mixed review start button
+    const startMixedBtn = $('#startMixedReviewBtn');
+    if (startMixedBtn) {
+      startMixedBtn.addEventListener('click', () => {
+        startMixedReview();
+      });
+    }
+
     // Run on Load
     renderProgress();
     renderResources('unit1', 'unit1');
     renderResources('unit2', 'unit2');
+    buildDeepSearchIndex();
 
     // Clear Progress Button Event
     const clearBtn = $('#clearProgressBtn');

@@ -794,3 +794,25 @@ circle[r="var(--dia-r-atom)"] { r: calc(var(--dia-r-atom) * 1px); }
     max-height: 100%;
   }
 }
+
+/* Back Link pointing to home dashboard */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  text-decoration: none;
+  margin-right: 1rem;
+  border: 1px solid var(--hair);
+  border-radius: 6px;
+  padding: 0.35rem 0.6rem;
+  transition: all 0.15s ease;
+}
+.back-link:hover {
+  background: var(--paper-3);
+  color: var(--ink);
+  border-color: var(--ink-soft);
+}

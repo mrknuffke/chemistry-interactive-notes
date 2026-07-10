@@ -38,6 +38,45 @@
       <div class="meta-block"><div class="k">Objective</div><div class="v">Identify and compare London dispersion, dipole-dipole, and hydrogen bonding forces, and predict relative boiling points, vapor pressures, and solubility.</div></div>
       <div class="meta-block"><div class="k">Scope</div><div class="v">Covalent molecular compounds containing main-group elements Z&nbsp;&le;&nbsp;36. Focuses on intermolecular interactions; VSEPR molecular shapes are referenced only as inputs.</div></div>
     </div>
+    <!-- SYNOPSIS collapsible -->
+    <div class="synopsis-wrapper">
+      <button class="w-btn w-btn-synopsis" data-more="Synopsis" type="button">Show Synopsis &rarr;</button>
+      <div class="more-body synopsis-body">
+        <div class="synopsis-grid">
+          <div class="synopsis-claims">
+            <h4>Core Claims</h4>
+            <ul>
+              <li><strong>Bonds vs. IMFs:</strong> Intramolecular bonds hold atoms together *within* a molecule. Intermolecular forces (IMFs) are weaker electrical attractions *between* molecules.</li>
+              <li><strong>IMF Types:</strong> London dispersion (LDF, in all molecules), dipole-dipole (between polar molecules), and hydrogen bonding (strongest, H-O, H-N, H-F).</li>
+              <li><strong>Bulk Properties:</strong> Phase transitions disrupt IMFs, not covalent bonds. Stronger IMFs result in higher boiling/melting points and lower evaporation rates.</li>
+            </ul>
+          </div>
+          <div class="synopsis-figure">
+            <h4>Intermolecular Attractions</h4>
+            <svg viewBox="0 0 200 130">
+              <rect x="25" y="35" width="40" height="25" rx="4" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1"/>
+              <text x="45" y="50" font-size="8" text-anchor="middle" fill="var(--ink)">Mol 1</text>
+              
+              <rect x="135" y="35" width="40" height="25" rx="4" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1"/>
+              <text x="155" y="50" font-size="8" text-anchor="middle" fill="var(--ink)">Mol 2</text>
+              
+              <line x1="72" y1="47" x2="128" y2="47" stroke="var(--accent)" stroke-width="1.8" stroke-dasharray="2 3"/>
+              <text x="100" y="70" font-size="8" font-weight="bold" fill="var(--accent)" text-anchor="middle">Intermolecular Force</text>
+              <text x="100" y="82" font-size="6" text-anchor="middle" fill="var(--ink-mute)">(Attraction between neighbors)</text>
+            </svg>
+          </div>
+          <div class="synopsis-checklist">
+            <h4>Retrieval Checklist</h4>
+            <ul>
+              <li><input type="checkbox" disabled> Identify the types of IMFs present in a compound.</li>
+              <li><input type="checkbox" disabled> Relate IMF strength to boiling points and evaporation rates.</li>
+              <li><input type="checkbox" disabled> Explain phase changes as spacing transitions without breaking bonds.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="next-cue"><button class="next-btn" data-next>Start <span class="chev">↓</span></button></div>
   </div>
 </section>
@@ -52,11 +91,11 @@
     
     <div class="diagram reveal figure figure--full"><svg viewBox="0 0 400 180" role="img" aria-label="Comparison showing intramolecular covalent bonds inside a water molecule vs weak intermolecular forces attracting separate water molecules.">
       <!-- Left Water Molecule -->
-      <circle cx="90" cy="70" r="var(--dia-r-atom)" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1.8"/>
+      <circle cx="90" cy="70" style="r: var(--dia-r-atom)" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1.8"/>
       <text x="90" y="75" font-family="var(--mono)" font-size="16" font-weight="700" fill="var(--ink)" text-anchor="middle">O</text>
-      <circle cx="55" cy="40" r="var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/>
+      <circle cx="55" cy="40" style="r: var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/>
       <text x="55" y="44" font-family="var(--mono)" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">H</text>
-      <circle cx="55" cy="100" r="var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/>
+      <circle cx="55" cy="100" style="r: var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/>
       <text x="55" y="104" font-family="var(--mono)" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">H</text>
       <!-- Covalent bonds (solid lines) -->
       <line x1="76" y1="58" x2="63" y2="47" stroke="var(--ink)" stroke-width="2.5"/>
@@ -68,11 +107,11 @@
       <path d="M75 34 Q69 42 69 50" fill="none" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke)" stroke-dasharray="2 1"/>
 
       <!-- Right Water Molecule -->
-      <circle cx="310" cy="100" r="var(--dia-r-atom)" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1.8"/>
+      <circle cx="310" cy="100" style="r: var(--dia-r-atom)" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1.8"/>
       <text x="310" y="105" font-family="var(--mono)" font-size="16" font-weight="700" fill="var(--ink)" text-anchor="middle">O</text>
-      <circle cx="200" cy="70" r="var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/>
+      <circle cx="200" cy="70" style="r: var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/>
       <text x="200" y="74" font-family="var(--mono)" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">H</text>
-      <circle cx="345" cy="130" r="var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/>
+      <circle cx="345" cy="130" style="r: var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.5"/>
       <text x="345" y="134" font-family="var(--mono)" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">H</text>
       <!-- Covalent bonds (solid lines) -->
       <line x1="293" y1="95" x2="210" y2="73" stroke="var(--ink)" stroke-width="2.5"/>
@@ -114,13 +153,13 @@
         <!-- Atom 1 (Electron cloud shifted right) -->
         <circle cx="90" cy="60" r="40" fill="url(#cloudGrad)"/>
         <circle cx="90" cy="60" r="40" fill="none" stroke="var(--hair)" stroke-width="var(--dia-stroke-bond)" stroke-dasharray="3 3"/>
-        <circle cx="90" cy="60" r="var(--dia-r-atom)" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+        <circle cx="90" cy="60" style="r: var(--dia-r-atom)" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
         <text x="90" y="63" font-family="var(--mono)" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">+</text>
 
         <!-- Atom 2 (Induced dipole, cloud shifted right) -->
         <circle cx="270" cy="60" r="40" fill="url(#cloudGrad)"/>
         <circle cx="270" cy="60" r="40" fill="none" stroke="var(--hair)" stroke-width="var(--dia-stroke-bond)" stroke-dasharray="3 3"/>
-        <circle cx="270" cy="60" r="var(--dia-r-atom)" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+        <circle cx="270" cy="60" style="r: var(--dia-r-atom)" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
         <text x="270" y="63" font-family="var(--mono)" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">+</text>
 
         <!-- Charges aligned cleanly above the atoms -->
@@ -141,17 +180,17 @@
       
       <div class="diagram figure figure--full"><svg viewBox="0 0 360 120" role="img" aria-label="Dipole-dipole forces diagram: permanent polar alignment of two HCl molecules.">
         <!-- Mol 1 -->
-        <circle cx="60" cy="60" r="var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+        <circle cx="60" cy="60" style="r: var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
         <text x="60" y="64" font-family="var(--mono)" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">H</text>
         <line x1="70" y1="60" x2="112" y2="60" stroke="var(--ink)" stroke-width="2"/>
-        <circle cx="130" cy="60" r="var(--dia-r-atom)" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1.5"/>
+        <circle cx="130" cy="60" style="r: var(--dia-r-atom)" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1.5"/>
         <text x="130" y="64" font-family="var(--mono)" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">Cl</text>
         
         <!-- Mol 2 -->
-        <circle cx="230" cy="60" r="var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+        <circle cx="230" cy="60" style="r: var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
         <text x="230" y="64" font-family="var(--mono)" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">H</text>
         <line x1="240" y1="60" x2="282" y2="60" stroke="var(--ink)" stroke-width="2"/>
-        <circle cx="300" cy="60" r="var(--dia-r-atom)" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1.5"/>
+        <circle cx="300" cy="60" style="r: var(--dia-r-atom)" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1.5"/>
         <text x="300" y="64" font-family="var(--mono)" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">Cl</text>
         
         <!-- Charges cleanly aligned above the atoms -->
@@ -172,24 +211,24 @@
       
       <div class="diagram figure figure--full"><svg viewBox="0 0 360 120" role="img" aria-label="Hydrogen bonding diagram: attraction between hydrogen of one water molecule and the lone pair of oxygen on another.">
         <!-- Water Left -->
-        <circle cx="80" cy="60" r="var(--dia-r-atom)" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1.5"/>
+        <circle cx="80" cy="60" style="r: var(--dia-r-atom)" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1.5"/>
         <text x="80" y="65" font-family="var(--mono)" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">O</text>
-        <circle cx="48" cy="32" r="var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+        <circle cx="48" cy="32" style="r: var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
         <text x="48" y="36" font-family="var(--mono)" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">H</text>
-        <circle cx="48" cy="88" r="var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+        <circle cx="48" cy="88" style="r: var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
         <text x="48" y="92" font-family="var(--mono)" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">H</text>
         <line x1="69" y1="50" x2="57" y2="40" stroke="var(--ink)" stroke-width="1.8"/>
         <line x1="69" y1="70" x2="57" y2="80" stroke="var(--ink)" stroke-width="1.8"/>
         <!-- Lone pair dots on Oxygen pointing right -->
-        <circle cx="96" cy="56" r="var(--dia-r-particle)" fill="var(--accent)"/>
-        <circle cx="96" cy="64" r="var(--dia-r-particle)" fill="var(--accent)"/>
+        <circle cx="96" cy="56" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
+        <circle cx="96" cy="64" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
         
         <!-- Water Right -->
-        <circle cx="200" cy="60" r="var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+        <circle cx="200" cy="60" style="r: var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
         <text x="200" y="64" font-family="var(--mono)" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">H</text>
-        <circle cx="250" cy="60" r="var(--dia-r-atom)" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1.5"/>
+        <circle cx="250" cy="60" style="r: var(--dia-r-atom)" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1.5"/>
         <text x="250" y="65" font-family="var(--mono)" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">O</text>
-        <circle cx="282" cy="88" r="var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+        <circle cx="282" cy="88" style="r: var(--dia-r-atom-sm)" fill="var(--paper)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
         <text x="282" y="92" font-family="var(--mono)" style="font-size:var(--dia-label-size)" fill="var(--ink)" text-anchor="middle">H</text>
         <line x1="234" y1="60" x2="209" y2="60" stroke="var(--ink)" stroke-width="1.8"/>
         <line x1="259" y1="69" x2="273" y2="80" stroke="var(--ink)" stroke-width="1.8"/>
@@ -469,7 +508,12 @@
           <li class="cap">Links this to <strong>vapor pressure</strong>: the greater concentration of gas molecules above the liquid results in a <strong>higher vapor pressure</strong> for acetone. <em>(Linking the molecular escape rate directly to the pressure exerted by the gas is the key to demonstrating bulk-scale understanding.)</em></li>
         </ul>
         <p style="font-family:var(--mono);font-size:.72rem;color:var(--ink-mute);margin-top:.9rem;letter-spacing:.04em;">Self-score: 4 = all four · 3 = missing the connection to gas pressure · 2 = relative strengths + evaporation prediction, no molecular escape explanation · ≤1 = simple definition of hydrogen bonds/dipole-dipole only.</p></div></div>
-    </div>
+          <!-- Why This Matters Payoff -->
+      <div class="callout reveal" style="margin-top: 2rem;">
+        <div class="label">Why This Matters</div>
+        <p>Geckos walk on glass using intermolecular forces. Geckos scale sheer vertical walls using millions of microscopic hairs (setae) on their feet. Because the hairs can get incredibly close to smooth glass, the gecko's grip relies entirely on the weak, collective attraction of London dispersion forces (LDFs).</p>
+      </div>
+</div>
   </div>
 </section>
 

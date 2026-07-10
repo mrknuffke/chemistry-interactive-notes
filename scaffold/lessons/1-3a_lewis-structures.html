@@ -38,6 +38,48 @@
       <div class="meta-block"><div class="k">Objective</div><div class="v">Apply the octet/duet rules to draw covalent bonds and lone pairs, and verify that a molecule's Lewis structure is chemically stable.</div></div>
       <div class="meta-block"><div class="k">Scope</div><div class="v">Covalent molecules containing main-group elements Z&nbsp;&le;&nbsp;36. No VSEPR geometry or molecular polarity headlines here; those live in their own canonical section.</div></div>
     </div>
+    <!-- SYNOPSIS collapsible -->
+    <div class="synopsis-wrapper">
+      <button class="w-btn w-btn-synopsis" data-more="Synopsis" type="button">Show Synopsis &rarr;</button>
+      <div class="more-body synopsis-body">
+        <div class="synopsis-grid">
+          <div class="synopsis-claims">
+            <h4>Core Claims</h4>
+            <ul>
+              <li><strong>Lewis Map:</strong> Represents valence electrons as dots and bonds as lines to track electron sharing in covalent compounds.</li>
+              <li><strong>Octet &amp; Duet Rules:</strong> Main-group nonmetal atoms share electrons to obtain a stable set of 8 valence electrons. Hydrogen only requires 2 (duet).</li>
+              <li><strong>Bond Orders:</strong> Single, double, and triple bonds share 2, 4, and 6 electrons respectively between two nuclei.</li>
+            </ul>
+          </div>
+          <div class="synopsis-figure">
+            <h4>H₂O Lewis Structure Map</h4>
+            <svg viewBox="0 0 200 130">
+              <text x="100" y="65" font-family="var(--mono)" font-size="16" font-weight="bold" text-anchor="middle" fill="var(--ink)">O</text>
+              <text x="50" y="65" font-family="var(--mono)" font-size="14" text-anchor="middle" fill="var(--ink)">H</text>
+              <text x="150" y="65" font-family="var(--mono)" font-size="14" text-anchor="middle" fill="var(--ink)">H</text>
+              
+              <line x1="62" y1="60" x2="88" y2="60" stroke="var(--ink)" stroke-width="1.5"/>
+              <line x1="112" y1="60" x2="138" y2="60" stroke="var(--ink)" stroke-width="1.5"/>
+              
+              <circle cx="98" cy="46" r="1.8" fill="var(--accent)"/>
+              <circle cx="106" cy="46" r="1.8" fill="var(--accent)"/>
+              
+              <circle cx="98" cy="74" r="1.8" fill="var(--accent)"/>
+              <circle cx="106" cy="74" r="1.8" fill="var(--accent)"/>
+            </svg>
+          </div>
+          <div class="synopsis-checklist">
+            <h4>Retrieval Checklist</h4>
+            <ul>
+              <li><input type="checkbox" disabled> Calculate total valence electron count for a molecule.</li>
+              <li><input type="checkbox" disabled> Assemble Lewis structures using octet/duet constraints.</li>
+              <li><input type="checkbox" disabled> Differentiate bonding pairs from lone pairs.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="next-cue"><button class="next-btn" data-next>Start <span class="chev">↓</span></button></div>
   </div>
 </section>
@@ -55,11 +97,11 @@
       <!-- Oxygen -->
       <text x="160" y="68" font-family="var(--mono)" font-size="28" font-weight="700" fill="var(--ink)" text-anchor="middle">O</text>
       <!-- Lone pair top -->
-      <circle cx="152" cy="38" r="var(--dia-r-particle)" fill="var(--accent)"/>
-      <circle cx="168" cy="38" r="var(--dia-r-particle)" fill="var(--accent)"/>
+      <circle cx="152" cy="38" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
+      <circle cx="168" cy="38" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
       <!-- Lone pair bottom -->
-      <circle cx="152" cy="82" r="var(--dia-r-particle)" fill="var(--accent)"/>
-      <circle cx="168" cy="82" r="var(--dia-r-particle)" fill="var(--accent)"/>
+      <circle cx="152" cy="82" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
+      <circle cx="168" cy="82" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
       
       <!-- Hydrogen Left -->
       <text x="80" y="68" font-family="var(--mono)" font-size="24" font-weight="700" fill="var(--ink)" text-anchor="middle">H</text>
@@ -146,19 +188,19 @@
           <line x1="100" y1="64" x2="140" y2="64" stroke="var(--ink)" stroke-width="2"/>
           <line x1="180" y1="64" x2="220" y2="64" stroke="var(--ink)" stroke-width="2"/>
           <!-- Oxygen left: 3 lone pairs (top, bottom, outer) -->
-          <circle cx="72" cy="38" r="var(--dia-r-particle)" fill="var(--accent)"/>
-          <circle cx="88" cy="38" r="var(--dia-r-particle)" fill="var(--accent)"/>
-          <circle cx="72" cy="82" r="var(--dia-r-particle)" fill="var(--accent)"/>
-          <circle cx="88" cy="82" r="var(--dia-r-particle)" fill="var(--accent)"/>
-          <circle cx="56" cy="60" r="var(--dia-r-particle)" fill="var(--accent)"/>
-          <circle cx="56" cy="76" r="var(--dia-r-particle)" fill="var(--accent)"/>
+          <circle cx="72" cy="38" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
+          <circle cx="88" cy="38" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
+          <circle cx="72" cy="82" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
+          <circle cx="88" cy="82" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
+          <circle cx="56" cy="60" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
+          <circle cx="56" cy="76" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
           <!-- Oxygen right: 3 lone pairs (top, bottom, outer) -->
-          <circle cx="232" cy="38" r="var(--dia-r-particle)" fill="var(--accent)"/>
-          <circle cx="248" cy="38" r="var(--dia-r-particle)" fill="var(--accent)"/>
-          <circle cx="232" cy="82" r="var(--dia-r-particle)" fill="var(--accent)"/>
-          <circle cx="248" cy="82" r="var(--dia-r-particle)" fill="var(--accent)"/>
-          <circle cx="264" cy="60" r="var(--dia-r-particle)" fill="var(--accent)"/>
-          <circle cx="264" cy="76" r="var(--dia-r-particle)" fill="var(--accent)"/>
+          <circle cx="232" cy="38" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
+          <circle cx="248" cy="38" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
+          <circle cx="232" cy="82" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
+          <circle cx="248" cy="82" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
+          <circle cx="264" cy="60" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
+          <circle cx="264" cy="76" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
         </svg>
         <div class="diagram-cap">all 16 electrons are placed, but carbon only has 4 around it &mdash; octet violated</div>
       </div>
@@ -175,10 +217,10 @@
           <line x1="100" y1="60" x2="140" y2="60" stroke="var(--ink)" stroke-width="2"/>
           <line x1="100" y1="68" x2="140" y2="68" stroke="var(--ink)" stroke-width="2"/>
           <!-- Lone pairs oxygen left (symmetrical top/bottom) -->
-          <circle cx="72" cy="38" r="var(--dia-r-particle)" fill="var(--accent)"/>
-          <circle cx="88" cy="38" r="var(--dia-r-particle)" fill="var(--accent)"/>
-          <circle cx="72" cy="82" r="var(--dia-r-particle)" fill="var(--accent)"/>
-          <circle cx="88" cy="82" r="var(--dia-r-particle)" fill="var(--accent)"/>
+          <circle cx="72" cy="38" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
+          <circle cx="88" cy="38" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
+          <circle cx="72" cy="82" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
+          <circle cx="88" cy="82" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
 
           <!-- Oxygen Right -->
           <text x="240" y="68" font-family="var(--mono)" font-size="28" font-weight="700" fill="var(--ink)" text-anchor="middle">O</text>
@@ -186,10 +228,10 @@
           <line x1="180" y1="60" x2="220" y2="60" stroke="var(--ink)" stroke-width="2"/>
           <line x1="180" y1="68" x2="220" y2="68" stroke="var(--ink)" stroke-width="2"/>
           <!-- Lone pairs oxygen right (symmetrical top/bottom) -->
-          <circle cx="232" cy="38" r="var(--dia-r-particle)" fill="var(--accent)"/>
-          <circle cx="248" cy="38" r="var(--dia-r-particle)" fill="var(--accent)"/>
-          <circle cx="232" cy="82" r="var(--dia-r-particle)" fill="var(--accent)"/>
-          <circle cx="248" cy="82" r="var(--dia-r-particle)" fill="var(--accent)"/>
+          <circle cx="232" cy="38" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
+          <circle cx="248" cy="38" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
+          <circle cx="232" cy="82" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
+          <circle cx="248" cy="82" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
         </svg>
         <div class="diagram-cap">carbon dioxide (O=C=O) has two double bonds and four lone pairs</div>
       </div>
@@ -351,7 +393,12 @@
           <li>Details the Chlorines: Each of the three Chlorine atoms forms a single bond and holds <strong>3 lone pairs</strong> (6 electrons) to satisfy its own octet.</li>
         </ul>
         <p style="font-family:var(--mono);font-size:.72rem;color:var(--ink-mute);margin-top:.9rem;letter-spacing:.04em;">Self-score: 4 = all four · 3 = missing chlorine details · 2 = valence count + nitrogen bonds, no EN/octet explanation · ≤1 = valence count only.</p></div></div>
-    </div>
+          <!-- Why This Matters Payoff -->
+      <div class="callout reveal" style="margin-top: 2rem;">
+        <div class="label">Why This Matters</div>
+        <p>Carbon monoxide poisoning is a consequence of molecular mimicry. Carbon monoxide (CO) has a triple bond and a lone pair on carbon, structurally mimicking the size and shape of an oxygen molecule (O₂) so perfectly that it binds to hemoglobin 200 times more tightly and blocks oxygen transport in our blood.</p>
+      </div>
+</div>
   </div>
 </section>
 

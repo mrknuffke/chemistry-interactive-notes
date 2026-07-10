@@ -2609,5 +2609,311 @@ circle[r="var(--dia-r-atom)"]{r:calc(var(--dia-r-atom) * 1px);}
   40%, 80% { transform: translateX(4px); }
 }
 
+/* --- Diagnose the Error (.w-spot) --- */
+.w-spot {
+  cursor: pointer;
+  transition: outline 0.15s ease, filter 0.15s ease, background-color 0.15s ease;
+  outline: 2px transparent solid;
+  outline-offset: 2px;
+  border-radius: var(--radius-sm, 4px);
+}
+.w-spot:hover:not(.correct):not(.wrong) {
+  outline: 2px dashed var(--accent);
+}
+.w-spot.selected {
+  outline: 2px solid var(--accent);
+}
+.w-spot.correct {
+  outline: 2px solid var(--green) !important;
+  box-shadow: 0 0 6px color-mix(in srgb, var(--green) 25%, transparent);
+}
+.w-spot.wrong {
+  outline: 2px solid var(--accent) !important;
+  animation: w-shake 0.4s ease-in-out;
+}
+
+/* --- Construct with Live Validation --- */
+.w-construct-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin: 1.5rem auto;
+  max-width: 520px;
+  align-items: center;
+}
+.w-construct-pool {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  justify-content: center;
+  width: 100%;
+}
+.w-construct-pool-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--card-bg, rgba(0,0,0,0.02));
+  border: 1px solid var(--dia-stroke, rgba(0,0,0,0.1));
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-md, 8px);
+}
+.w-construct-label {
+  font-family: var(--font-chem, monospace);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.w-construct-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.w-construct-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--dia-stroke, rgba(0,0,0,0.2));
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.w-construct-btn:hover:not(:disabled) {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.w-construct-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.w-construct-val {
+  font-family: var(--font-chem, monospace);
+  font-size: 1.1rem;
+  min-width: 1.5rem;
+  text-align: center;
+}
+.w-construct-workspace {
+  width: 100%;
+  min-height: 80px;
+  border: 2px dashed var(--dia-stroke, rgba(0,0,0,0.15));
+  border-radius: var(--radius-lg, 12px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: var(--paper);
+  gap: 0.75rem;
+}
+.w-construct-formula {
+  font-family: var(--font-chem, monospace);
+  font-size: 1.8rem;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+.w-construct-formula:empty::before {
+  content: "Add components to build formula";
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: normal;
+  color: var(--ink);
+  opacity: 0.5;
+}
+.w-construct-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 99px;
+  border: 1px solid transparent;
+}
+.w-construct-badge.unbalanced {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 6%, var(--paper));
+}
+.w-construct-badge.balanced {
+  border-color: var(--green);
+  color: var(--green);
+  background: color-mix(in srgb, var(--green) 6%, var(--paper));
+}
+.w-construct-badge:empty {
+  display: none;
+}
+
+/* --- Quick Check (Review Mode) --- */
+/* --- Quick Check & Cram View (Review Modes) --- */
+.quick-check-toggle, .cram-view-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: none;
+  border: 1px solid var(--dia-stroke, rgba(0,0,0,0.15));
+  border-radius: var(--radius-sm, 6px);
+  padding: 0.35rem 0.6rem;
+  color: var(--ink);
+  cursor: pointer;
+  font-family: var(--font-ui, sans-serif);
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.15s ease;
+  margin-right: 0.5rem;
+}
+.quick-check-toggle:hover, .cram-view-toggle:hover {
+  background: var(--card-bg, rgba(0,0,0,0.04));
+  border-color: var(--ink);
+}
+.quick-check-toggle.active {
+  background: var(--green);
+  color: #fff;
+  border-color: var(--green);
+}
+.cram-view-toggle.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.quick-check-toggle svg, .cram-view-toggle svg {
+  width: 15px;
+  height: 15px;
+}
+@media (max-width: 580px) {
+  .quick-check-toggle span, .cram-view-toggle span {
+    display: none;
+  }
+  .quick-check-toggle, .cram-view-toggle {
+    padding: 0.35rem;
+    margin-right: 0.25rem;
+  }
+}
+
+/* Exclude narrative prose when Quick Check is active */
+body.quick-check-active p:not(.w-prompt):not(.w-feedback):not(.w-opt):not(.w-progress-hint):not(.d-cap):not(.diagram-cap):not(.lede):not(.w-construct-label):not(.w-construct-val),
+body.quick-check-active ul:not(.w-sort-bins):not(.w-construct-pool):not(.toc-drop ul):not(.synopsis-claims ul):not(.synopsis-checklist ul),
+body.quick-check-active ol,
+body.quick-check-active blockquote,
+body.quick-check-active .meta-strip,
+body.quick-check-active h2:not(.w-prompt h2):not(.w-prompt > h2):not(.widget-section h2):not(.w-sort-card h2) {
+  display: none !important;
+}
+
+/* --- One-Screen Synopsis --- */
+.synopsis-wrapper {
+  margin: 1.5rem 0;
+  width: 100%;
+}
+.w-btn-synopsis {
+  width: 100%;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-ui, sans-serif);
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md, 8px) !important;
+  background: var(--paper-2, rgba(0,0,0,0.01));
+}
+.synopsis-body {
+  border: 1px solid var(--dia-stroke, rgba(0,0,0,0.15));
+  border-radius: var(--radius-lg, 12px);
+  padding: 1.5rem;
+  background: var(--paper);
+  margin-top: 0.5rem;
+  box-shadow: var(--shadow-sm);
+}
+.synopsis-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+.synopsis-claims h4,
+.synopsis-figure h4,
+.synopsis-checklist h4 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-family: var(--font-ui, sans-serif);
+  font-weight: 700;
+  color: var(--ink);
+  border-bottom: 1px solid var(--dia-stroke, rgba(0,0,0,0.1));
+  padding-bottom: 0.35rem;
+}
+.synopsis-claims ul {
+  padding-left: 1.25rem;
+  margin: 0;
+}
+.synopsis-claims li {
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+  font-size: 0.95rem;
+}
+.synopsis-figure {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.synopsis-figure svg,
+.synopsis-figure img {
+  max-width: 100%;
+  height: auto;
+  max-height: 120px;
+}
+.synopsis-checklist ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+.synopsis-checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+.synopsis-checklist input[type="checkbox"] {
+  margin-top: 0.2rem;
+  accent-color: var(--green);
+}
+
+/* --- Practice Review Grading Buttons --- */
+.btn-forgot {
+  background: var(--bad, #e06c75);
+  color: #fff !important;
+  border-color: var(--bad, #e06c75) !important;
+}
+.btn-forgot:hover {
+  background: color-mix(in srgb, var(--bad, #e06c75) 80%, black) !important;
+  border-color: color-mix(in srgb, var(--bad, #e06c75) 80%, black) !important;
+}
+.btn-hard {
+  background: var(--warn, #d19a66);
+  color: #fff !important;
+  border-color: var(--warn, #d19a66) !important;
+}
+.btn-hard:hover {
+  background: color-mix(in srgb, var(--warn, #d19a66) 80%, black) !important;
+  border-color: color-mix(in srgb, var(--warn, #d19a66) 80%, black) !important;
+}
+.btn-easy {
+  background: var(--good, #98c379);
+  color: #fff !important;
+  border-color: var(--good, #98c379) !important;
+}
+.btn-easy:hover {
+  background: color-mix(in srgb, var(--good, #98c379) 80%, black) !important;
+  border-color: color-mix(in srgb, var(--good, #98c379) 80%, black) !important;
+}
+
+
+
 
 

@@ -220,17 +220,17 @@
             <!-- Reactants -->
             <g transform="translate(60, 50)">
               <!-- 2 separate Na atoms -->
-              <circle cx="-25" cy="10" r="var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+              <circle cx="-25" cy="10" style="r: var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
               <text x="-25" y="12" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" font-weight="700" fill="var(--paper)" text-anchor="middle">Na</text>
               
-              <circle cx="-10" cy="-15" r="var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+              <circle cx="-10" cy="-15" style="r: var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
               <text x="-10" y="-13" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" font-weight="700" fill="var(--paper)" text-anchor="middle">Na</text>
 
               <!-- 1 Cl2 molecule (two gray atoms bonded) -->
               <line x1="20" y1="0" x2="36" y2="0" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke-bond)"/>
-              <circle cx="20" cy="0" r="var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+              <circle cx="20" cy="0" style="r: var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
               <text x="20" y="2" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" font-weight="700" fill="var(--paper)" text-anchor="middle">Cl</text>
-              <circle cx="36" cy="0" r="var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+              <circle cx="36" cy="0" style="r: var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
               <text x="36" y="2" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" font-weight="700" fill="var(--paper)" text-anchor="middle">Cl</text>
               
               <text x="5" y="38" font-family="var(--display)" style="font-size: var(--dia-label-size);" font-weight="700" text-anchor="middle">2 Na + Cl₂</text>
@@ -262,12 +262,12 @@
             <!-- Rearranging: bonds breaking -->
             <g transform="translate(60, 50)">
               <!-- Na losing e- (dashed orbits/arrows) -->
-              <circle cx="-25" cy="10" r="var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" opacity="0.6"/>
-              <circle cx="-10" cy="-15" r="var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" opacity="0.6"/>
+              <circle cx="-25" cy="10" style="r: var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" opacity="0.6"/>
+              <circle cx="-10" cy="-15" style="r: var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" opacity="0.6"/>
               <!-- Cl2 bond breaking -->
               <line x1="20" y1="0" x2="36" y2="0" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke)" stroke-dasharray="2 2"/>
-              <circle cx="20" cy="0" r="var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" opacity="0.6"/>
-              <circle cx="36" cy="0" r="var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" opacity="0.6"/>
+              <circle cx="20" cy="0" style="r: var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" opacity="0.6"/>
+              <circle cx="36" cy="0" style="r: var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" opacity="0.6"/>
               
               <!-- Curving energy arrows representing electron transfer -->
               <path d="M -17 -10 Q 0 -15 11 -3" fill="none" stroke="var(--accent)" stroke-width="var(--dia-stroke)" stroke-dasharray="2 1.5"/>
@@ -312,16 +312,16 @@
             <!-- Products: NaCl ionic lattice -->
             <g transform="translate(230, 50)">
               <!-- Ions Na+ and Cl- stacked -->
-              <circle cx="-12" cy="-10" r="var(--dia-r-atom-sm)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+              <circle cx="-12" cy="-10" style="r: var(--dia-r-atom-sm)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
               <text x="-12" y="-8" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" font-weight="700" fill="var(--paper)" text-anchor="middle">Na⁺</text>
               
-              <circle cx="8" cy="-10" r="var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+              <circle cx="8" cy="-10" style="r: var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
               <text x="8" y="-8" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" font-weight="700" fill="var(--paper)" text-anchor="middle">Cl⁻</text>
               
-              <circle cx="-12" cy="12" r="var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+              <circle cx="-12" cy="12" style="r: var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
               <text x="-12" y="14" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" font-weight="700" fill="var(--paper)" text-anchor="middle">Cl⁻</text>
               
-              <circle cx="8" cy="12" r="var(--dia-r-atom-sm)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+              <circle cx="8" cy="12" style="r: var(--dia-r-atom-sm)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
               <text x="8" y="14" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" font-weight="700" fill="var(--paper)" text-anchor="middle">Na⁺</text>
 
               <text x="0" y="38" font-family="var(--display)" style="font-size: var(--dia-label-size);" font-weight="700" text-anchor="middle">2 NaCl (crystal)</text>
@@ -353,7 +353,53 @@
           <div class="v">Five main reaction categories plus acid-base recognition, coefficient balancing rules, atomic conservation.</div>
         </div>
       </div>
-      <div class="next-cue"><button class="next-btn" data-next>Start <span class="chev">↓</span></button></div>
+    <!-- SYNOPSIS collapsible -->
+    <div class="synopsis-wrapper">
+      <button class="w-btn w-btn-synopsis" data-more="Synopsis" type="button">Show Synopsis &rarr;</button>
+      <div class="more-body synopsis-body">
+        <div class="synopsis-grid">
+          <div class="synopsis-claims">
+            <h4>Core Claims</h4>
+            <ul>
+              <li><strong>Reaction Types:</strong> Chemical reactions are categorized into distinct classes based on rearranging patterns (synthesis, decomposition, single-replacement, double-replacement, combustion, and acid-base).</li>
+              <li><strong>Law of Conservation:</strong> Atoms are never created or destroyed; every single atom in the reactants must appear in the products.</li>
+              <li><strong>Balancing Rules:</strong> Adjust coefficients (moles) to level the atomic inventory. Subscripts define chemical identity and must never be altered.</li>
+            </ul>
+          </div>
+          <div class="synopsis-figure">
+            <h4>Synthesis Blueprint (A + B &rarr; AB)</h4>
+            <svg viewBox="0 0 200 130">
+              <rect x="15" y="30" width="20" height="20" rx="3" fill="var(--card)" stroke="var(--ink)" stroke-width="1"/>
+              <text x="25" y="42" font-size="8" font-weight="bold" text-anchor="middle" fill="var(--ink)">A</text>
+              <text x="45" y="42" font-size="10" font-weight="bold" text-anchor="middle" fill="var(--ink-mute)">+</text>
+              <circle cx="65" cy="40" r="10" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1"/>
+              <text x="65" y="43" font-size="8" font-weight="bold" text-anchor="middle" fill="var(--ink)">B</text>
+              
+              <path d="M82 40 L98 40" fill="none" stroke="var(--ink)" stroke-width="1.2" marker-end="url(#syn-arr-crxn)"/>
+              
+              <g transform="translate(110, 30)">
+                <rect x="0" y="0" width="20" height="20" rx="3" fill="var(--card)" stroke="var(--ink)" stroke-width="1"/>
+                <circle cx="28" cy="10" r="10" fill="var(--paper-3)" stroke="var(--ink)" stroke-width="1"/>
+              </g>
+              
+              <defs>
+                <marker id="syn-arr-crxn" markerWidth="4" markerHeight="4" refX="3" refY="2" orient="auto" viewBox="0 0 4 4"><path d="M0 0 L4 2 L0 4 z" fill="var(--ink)"/></marker>
+              </defs>
+            </svg>
+          </div>
+          <div class="synopsis-checklist">
+            <h4>Retrieval Checklist</h4>
+            <ul>
+              <li><input type="checkbox" disabled> Classify a reaction into one of the six standard types.</li>
+              <li><input type="checkbox" disabled> Balance chemical equations by adjusting coefficients.</li>
+              <li><input type="checkbox" disabled> Verify atom conservation on both sides of the arrow.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="next-cue"><button class="next-btn" data-next>Start <span class="chev">↓</span></button></div>
     </div>
   </section>
 
@@ -544,7 +590,7 @@
                 <text x="35" y="81" fill="var(--ink)">Hydrogen (H)</text>
                 <text x="115" y="81" text-anchor="middle" fill="var(--ink)">4</text>
                 <text x="175" y="81" text-anchor="middle" fill="var(--ink)">4</text>
-                <circle cx="145" cy="78" r="var(--dia-r-atom-sm)" fill="none" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+                <circle cx="145" cy="78" style="r: var(--dia-r-atom-sm)" fill="none" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
                 
                 <!-- O row (still imbalanced) -->
                 <text x="35" y="91" fill="var(--accent)">Oxygen (O)</text>
@@ -581,7 +627,7 @@
                 <text x="35" y="91" fill="var(--ink)">Oxygen (O)</text>
                 <text x="115" y="91" text-anchor="middle" fill="var(--ink)">4</text>
                 <text x="175" y="91" text-anchor="middle" fill="var(--ink)">4</text>
-                <circle cx="145" cy="88" r="var(--dia-r-atom-sm)" fill="none" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+                <circle cx="145" cy="88" style="r: var(--dia-r-atom-sm)" fill="none" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
               </g>
             </g>
 
@@ -856,7 +902,12 @@
           }
           </script>
         </div>
+            <!-- Why This Matters Payoff -->
+      <div class="callout reveal" style="margin-top: 2rem;">
+        <div class="label">Why This Matters</div>
+        <p>Automobile airbags rely on precise stoichiometry. In a crash, a sensor triggers the rapid decomposition reaction of solid sodium azide (NaN₃). Balancing the equation shows how a small, dense pellet of reactant rapidly yields a massive volume of nitrogen gas (N₂) in milliseconds, cushioning the impact.</p>
       </div>
+</div>
     </div>
   </section>
 

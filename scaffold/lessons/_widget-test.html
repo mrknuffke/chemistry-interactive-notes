@@ -366,6 +366,114 @@
   </div>
 </section>
 
+<!-- 14. PREDICT & RUN -->
+<section id="s-predict-run" class="widget-section" data-toc="Predict & Run" data-widget="predict-run">
+  <script type="application/json" class="w-config">
+  {
+    "predictionType": "choice",
+    "prompt": "Predict what happens to the molecular motion of water as it is heated from ice to liquid water.",
+    "options": [
+      {"label": "The molecular motion increases and particles move faster", "correct": true, "feedback": "Correct prediction! Let's watch the step-by-step phase transition."},
+      {"label": "The molecular motion decreases and particles slow down", "correct": false, "feedback": "Incorrect prediction. Let's run the simulation to see the phase change behavior."}
+    ],
+    "reveal": "<p>When heat is added to a solid, the kinetic energy of the particles increases, causing them to move and vibrate faster, breaking their rigid crystal structure.</p>"
+  }
+  </script>
+  
+  <div data-motion="step" data-step-count="3" data-step-start="1" data-step-labels="Ice (Solid)|Water (Liquid)|Steam (Gas)" style="max-width: 500px; margin: 1.5rem auto;">
+    <div data-step="1" style="text-align: center; padding: 2rem;">
+      <span style="font-size: 3rem;">🧊</span>
+      <p>Ice - Fixed grid structure, vibrating in place</p>
+    </div>
+    <div data-step="2" style="text-align: center; padding: 2rem;">
+      <span style="font-size: 3rem;">💧</span>
+      <p>Liquid - Fluid arrangement, sliding past each other</p>
+    </div>
+    <div data-step="3" style="text-align: center; padding: 2rem;">
+      <span style="font-size: 3rem;">💨</span>
+      <p>Gas - Complete separation, high velocity random motion</p>
+    </div>
+  </div>
+</section>
+
+<!-- 15. DIAGNOSE THE ERROR (EQUATION BALANCING) -->
+<section id="s-diagnose-error" class="widget-section" data-toc="Diagnose Error" data-widget="diagnose-error">
+  <script type="application/json" class="w-config">
+  {
+    "spots": [
+      {"id": "coeff", "correct": true, "feedback": "Excellent balancing check! The coefficient for H<sub>2</sub>O is incorrect. Balancing requires 2 H<sub>2</sub>O, not 3."},
+      {"id": "formula", "correct": false, "feedback": "Incorrect. O<sub>2</sub> is the correct formula for diatomic oxygen gas reactants."},
+      {"id": "op", "correct": false, "feedback": "Incorrect. The yield arrow (&rarr;) is the correct chemical reaction operator here."},
+      {"id": "subscript", "correct": false, "feedback": "Incorrect. H<sub>2</sub> is correct for hydrogen gas."}
+    ],
+    "reveal": "<p>To balance the combustion of hydrogen (2 H<sub>2</sub> + O<sub>2</sub> &rarr; 2 H<sub>2</sub>O), we need a coefficient of 2 for water to conserve oxygen atoms.</p>"
+  }
+  </script>
+  
+  <div class="w-prompt">Find and click the balancing or structural error in the equation below:</div>
+  <div class="w-workspace" style="display: flex; gap: 0.5rem; justify-content: center; align-items: center; font-family: var(--font-chem, monospace); font-size: 1.5rem; padding: 1.5rem 0; flex-wrap: wrap;">
+    <span>2</span>
+    <span class="w-spot" data-spot-id="formula" style="padding: 0.1rem 0.3rem;">H<sub class="w-spot" data-spot-id="subscript" style="padding: 0.05rem 0.15rem; cursor: pointer;">2</sub></span>
+    <span class="w-spot" data-spot-id="op" style="padding: 0.1rem 0.3rem;">+</span>
+    <span>O<sub>2</sub></span>
+    <span>&rarr;</span>
+    <span class="w-spot" data-spot-id="coeff" style="padding: 0.1rem 0.3rem; font-weight: bold; text-decoration: underline;">3</span>
+    <span>H<sub>2</sub>O</span>
+  </div>
+</section>
+
+<!-- 15b. DIAGNOSE THE ERROR (EQUATION SETUP) -->
+<section id="s-diagnose-setup-error" class="widget-section" data-toc="Diagnose Setup" data-widget="diagnose-error">
+  <script type="application/json" class="w-config">
+  {
+    "spots": [
+      {"id": "mass-term", "correct": false, "feedback": "Incorrect. 36.04 grams of water is the given starting mass, which is set up correctly."},
+      {"id": "conv-1", "correct": false, "feedback": "Incorrect. This conversion factor (1 mol / 18.02 g) correctly converts grams of H<sub>2</sub>O to moles."},
+      {"id": "conv-2-ratio", "correct": true, "feedback": "Excellent! The mole ratio term is inverted. It should be 1 mol O<sub>2</sub> over 2 mol H<sub>2</sub>O to cancel moles of water and solve for oxygen."},
+      {"id": "op-mult", "correct": false, "feedback": "Incorrect. Multiplication is the correct operation between dimensional analysis terms."}
+    ],
+    "reveal": "<p>In dimensional analysis setups, units must cancel diagonally. The mole ratio term must have 2 mol H<sub>2</sub>O in the denominator (bottom) to cancel the preceding mole term.</p>"
+  }
+  </script>
+  
+  <div class="w-prompt">Find and click the incorrect term or operation in this stoichiometry setup calculating moles of O<sub>2</sub> produced from 36.04g of H<sub>2</sub>O:</div>
+  <div class="w-workspace" style="display: flex; gap: 0.75rem; justify-content: center; align-items: center; font-family: var(--font-chem, monospace); font-size: 1.1rem; padding: 1.5rem 0; flex-wrap: wrap;">
+    <span class="w-spot" data-spot-id="mass-term" style="padding: 0.5rem 0.75rem; border: 1px solid var(--dia-stroke, rgba(0,0,0,0.15)); border-radius: 6px;">36.04 g H<sub>2</sub>O</span>
+    <span class="w-spot" data-spot-id="op-mult" style="font-weight: bold; padding: 0.25rem 0.5rem;">&times;</span>
+    <span class="w-spot" data-spot-id="conv-1" style="display: inline-flex; flex-direction: column; align-items: center; padding: 0.5rem 0.75rem; border: 1px solid var(--dia-stroke, rgba(0,0,0,0.15)); border-radius: 6px;">
+      <span>1 mol H<sub>2</sub>O</span>
+      <span style="border-top: 1px solid var(--ink); width: 100%; margin: 4px 0;"></span>
+      <span>18.02 g H<sub>2</sub>O</span>
+    </span>
+    <span style="font-weight: bold; padding: 0.25rem 0.5rem;">&times;</span>
+    <span class="w-spot" data-spot-id="conv-2-ratio" style="display: inline-flex; flex-direction: column; align-items: center; padding: 0.5rem 0.75rem; border: 1px solid var(--dia-stroke, rgba(0,0,0,0.15)); border-radius: 6px;">
+      <span>2 mol H<sub>2</sub>O</span>
+      <span style="border-top: 1px solid var(--ink); width: 100%; margin: 4px 0;"></span>
+      <span>1 mol O<sub>2</sub></span>
+    </span>
+  </div>
+</section>
+
+<!-- 16. CONSTRUCT WITH LIVE VALIDATION -->
+<section id="s-construct-validate" class="widget-section" data-toc="Construct Validate" data-widget="construct-validate">
+  <script type="application/json" class="w-config">
+  {
+    "items": [
+      {"id": "Al", "label": "Al<sup>3+</sup>", "charge": 3},
+      {"id": "O", "label": "O<sup>2-</sup>", "charge": -2}
+    ],
+    "targetRatio": {
+      "Al": 2,
+      "O": 3
+    },
+    "feedback_right": "Correct! Two Al<sup>3+</sup> ions (+6) balance three O<sup>2-</sup> ions (-6) to make neutral Al<sub>2</sub>O<sub>3</sub>.",
+    "feedback_wrong": "Incorrect ratio. Keep adjusting the counts until you form Al<sub>2</sub>O<sub>3</sub>.",
+    "reveal": "<p>Aluminum oxide forms a crystal lattice with a 2:3 ratio of aluminum cations to oxide anions to achieve charge neutrality.</p>"
+  }
+  </script>
+  <div class="w-prompt">Construct a neutral ionic compound by adjusting the positive Al<sup>3+</sup> and negative O<sup>2&ndash;</sup> ions. Your compound must be electrically neutral to check it.</div>
+</section>
+
 <div class="footer"></div>
 
 <script src="../assets/core.js"></script>

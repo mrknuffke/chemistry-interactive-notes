@@ -38,6 +38,56 @@
       <div class="meta-block"><div class="k">Objective</div><div class="v">Define chemical bonding as an electrostatic force, explain how electronegativity differences determine electron behavior, and predict bond types.</div></div>
       <div class="meta-block"><div class="k">Scope</div><div class="v">Main-group elements through Z&nbsp;&le;&nbsp;36, plus transition metals Sc&ndash;Zn in the context of metallic bonding. Noble gases are excluded since they do not bond.</div></div>
     </div>
+    <!-- SYNOPSIS collapsible -->
+    <div class="synopsis-wrapper">
+      <button class="w-btn w-btn-synopsis" data-more="Synopsis" type="button">Show Synopsis &rarr;</button>
+      <div class="more-body synopsis-body">
+        <div class="synopsis-grid">
+          <div class="synopsis-claims">
+            <h4>Core Claims</h4>
+            <ul>
+              <li><strong>Electrostatics:</strong> Chemical bonds are attractive electrostatic forces between opposite charges (positive nuclei pulling negative electrons).</li>
+              <li><strong>Electronegativity Difference (&Delta;EN):</strong> Determines how valence electrons are distributed.</li>
+              <li><strong>Covalent Sharing:</strong> Forms between nonmetals. Shared equally in nonpolar covalent (&Delta;EN &lt; 0.5), shared unequally in polar covalent (0.5 &le; &Delta;EN &lt; 1.7).</li>
+              <li><strong>Ionic Transfer:</strong> Metal transfers electrons to nonmetal (&Delta;EN &ge; 1.7), creating charged ions that attract.</li>
+              <li><strong>Metallic Lattice:</strong> Metal atoms share delocalized valence electrons in a collective "sea of electrons."</li>
+            </ul>
+          </div>
+          <div class="synopsis-figure">
+            <h4>Bonding Types Map</h4>
+            <svg viewBox="0 0 200 130">
+              <!-- Nonpolar Covalent (equal share) -->
+              <circle cx="45" cy="40" r="10" fill="var(--card)" stroke="var(--ink)" stroke-width="1"/>
+              <circle cx="75" cy="40" r="10" fill="var(--card)" stroke="var(--ink)" stroke-width="1"/>
+              <circle cx="60" cy="40" r="3" fill="var(--accent)"/>
+              <text x="60" y="65" font-size="7" font-weight="bold" text-anchor="middle">Covalent (Share)</text>
+              
+              <!-- Ionic (Transfer) -->
+              <circle cx="130" cy="40" r="8" fill="none" stroke="var(--ink)" stroke-width="1"/>
+              <circle cx="165" cy="40" r="12" fill="var(--green-soft)" stroke="var(--green)" stroke-width="1"/>
+              <circle cx="157" cy="40" r="3" fill="var(--accent)"/>
+              <path d="M136 40 L152 40" fill="none" stroke="var(--accent)" stroke-width="1" marker-end="url(#syn-arr-12a)"/>
+              <text x="147" y="65" font-size="7" font-weight="bold" text-anchor="middle">Ionic (Transfer)</text>
+              
+              <defs>
+                <marker id="syn-arr-12a" markerWidth="4" markerHeight="4" refX="3" refY="2" orient="auto" viewBox="0 0 4 4">
+                  <path d="M0 0 L4 2 L0 4 z" fill="var(--accent)"/>
+                </marker>
+              </defs>
+            </svg>
+          </div>
+          <div class="synopsis-checklist">
+            <h4>Retrieval Checklist</h4>
+            <ul>
+              <li><input type="checkbox" disabled> Classify bond type using electronegativity differences (&Delta;EN).</li>
+              <li><input type="checkbox" disabled> Differentiate covalent, ionic, and metallic bonding models.</li>
+              <li><input type="checkbox" disabled> Match GHS hazard labels (flame, corrosion) to sodium/alkali metals.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="next-cue"><button class="next-btn" data-next>Start <span class="chev">↓</span></button></div>
   </div>
 </section>
@@ -51,19 +101,19 @@
     
     <div class="diagram reveal figure figure--full"><svg viewBox="0 0 400 160" role="img" aria-label="A diagram showing the electrostatic forces of attraction and repulsion between two hydrogen atoms.">
       <!-- Nucleus A -->
-      <circle class="d-nuc" cx="100" cy="80" r="var(--dia-r-atom)"/><text class="d-nuc-t" x="100" y="83" text-anchor="middle">1+</text>
+      <circle class="d-nuc" cx="100" cy="80" style="r: var(--dia-r-atom)"/><text class="d-nuc-t" x="100" y="83" text-anchor="middle">1+</text>
       <text class="d-label" x="100" y="112" style="font-size:var(--dia-label-size)" text-anchor="middle">nucleus A</text>
 
       <!-- Nucleus B -->
-      <circle class="d-nuc" cx="300" cy="80" r="var(--dia-r-atom)"/><text class="d-nuc-t" x="300" y="83" text-anchor="middle">1+</text>
+      <circle class="d-nuc" cx="300" cy="80" style="r: var(--dia-r-atom)"/><text class="d-nuc-t" x="300" y="83" text-anchor="middle">1+</text>
       <text class="d-label" x="300" y="112" style="font-size:var(--dia-label-size)" text-anchor="middle">nucleus B</text>
 
       <!-- Electron A -->
-      <circle class="d-particle" cx="150" cy="45" r="var(--dia-r-particle)"/>
+      <circle class="d-particle" cx="150" cy="45" style="r: var(--dia-r-particle)"/>
       <text class="d-sub" x="130" y="42" style="font-size:var(--dia-label-size)" text-anchor="end">electron A</text>
 
       <!-- Electron B -->
-      <circle class="d-particle" cx="250" cy="45" r="var(--dia-r-particle)"/>
+      <circle class="d-particle" cx="250" cy="45" style="r: var(--dia-r-particle)"/>
       <text class="d-sub" x="270" y="42" style="font-size:var(--dia-label-size)" text-anchor="start">electron B</text>
 
       <!-- Force Arrows (Attraction: Nucleus to opposite electron) -->
@@ -310,7 +360,12 @@
           <li>Identifies a correct <strong>macroscopic property</strong> of aluminum: electrical conductivity (free-flowing electrons carry current), thermal conductivity, or malleability/ductility (atoms can slide past each other in the fluid sea without breaking the bond).</li>
         </ul>
         <p style="font-family:var(--mono);font-size:.72rem;color:var(--ink-mute);margin-top:.9rem;letter-spacing:.04em;">Self-score: 4 = all four · 3 = missing the EN explanation · 2 = described both bonds but omitted EN and properties · ≤1 = simple definition of one bond type.</p></div></div>
-    </div>
+          <!-- Why This Matters Payoff -->
+      <div class="callout reveal" style="margin-top: 2rem;">
+        <div class="label">Why This Matters</div>
+        <p>Dental crowns and joint replacements utilize custom bond properties. Biocompatible dental ceramics use strong ionic bonds that resist thermal shock and food acids, while metallic titanium implants use delocalized electron seas to absorb stress and blend with bone, merging different chemical bond structures to repair the human body.</p>
+      </div>
+</div>
   </div>
 </section>
 

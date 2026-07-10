@@ -38,6 +38,51 @@
       <div class="meta-block"><div class="k">Objective</div><div class="v">Predict and compare an element's atomic radius, ionization energy, and electronegativity from its position — and reason about how reactive it will be, and why.</div></div>
       <div class="meta-block"><div class="k">Scope</div><div class="v">Main-group elements through krypton (Z&nbsp;&le;&nbsp;36) — the range you draw Bohr diagrams for. Transition metals come later; their trends are messier.</div></div>
     </div>
+    <!-- SYNOPSIS collapsible -->
+    <div class="synopsis-wrapper">
+      <button class="w-btn w-btn-synopsis" data-more="Synopsis" type="button">Show Synopsis &rarr;</button>
+      <div class="more-body synopsis-body">
+        <div class="synopsis-grid">
+          <div class="synopsis-claims">
+            <h4>Core Claims</h4>
+            <ul>
+              <li><strong>Atomic Radius:</strong> Decreases left-to-right (more protons pull the same shell tighter); increases top-to-bottom (each row adds a new electron shell).</li>
+              <li><strong>Ionization Energy (IE):</strong> Energy to remove an electron. Increases left-to-right (tighter nuclear grip); decreases top-to-bottom (outer electrons farther and shielded).</li>
+              <li><strong>Electronegativity (EN):</strong> Atom's power to pull shared electrons. Follows the same trends as IE (excluding noble gases).</li>
+              <li><strong>Reactivity:</strong> Metals react by <em>losing</em> electrons (highest bottom-left); nonmetals react by <em>gaining</em> electrons (highest top-right).</li>
+            </ul>
+          </div>
+          <div class="synopsis-figure">
+            <h4>Trend Summary Map</h4>
+            <svg viewBox="0 0 200 130">
+              <rect x="20" y="20" width="160" height="90" rx="3" fill="none" stroke="var(--ink)" stroke-opacity="0.3" stroke-width="1"/>
+              <path d="M170 30 L30 30 L30 100" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-dasharray="2" marker-end="url(#syn-arr)"/>
+              <text x="35" y="45" font-size="8" font-weight="bold" fill="var(--accent)">Radius increases</text>
+              <path d="M30 100 L170 100 L170 30" fill="none" stroke="var(--green)" stroke-width="1.8" marker-end="url(#syn-arr-green)"/>
+              <text x="75" y="92" font-size="8" font-weight="bold" fill="var(--green)">IE &amp; EN increase</text>
+              <defs>
+                <marker id="syn-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" viewBox="0 0 6 6">
+                  <path d="M0 0 L6 3 L0 6 z" fill="var(--accent)"/>
+                </marker>
+                <marker id="syn-arr-green" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" viewBox="0 0 6 6">
+                  <path d="M0 0 L6 3 L0 6 z" fill="var(--green)"/>
+                </marker>
+              </defs>
+            </svg>
+          </div>
+          <div class="synopsis-checklist">
+            <h4>Retrieval Checklist</h4>
+            <ul>
+              <li><input type="checkbox" disabled> Recall trend direction for radius, IE, and EN.</li>
+              <li><input type="checkbox" disabled> Explain radius shrink using nuclear pull (protons) in same shell.</li>
+              <li><input type="checkbox" disabled> Explain shielding/distance effect on ionization energy down groups.</li>
+              <li><input type="checkbox" disabled> Contrast metal and nonmetal reactivity trends based on electron loss/gain.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="next-cue"><button class="next-btn" data-next>Start <span class="chev">↓</span></button></div>
   </div>
 </section>
@@ -52,26 +97,26 @@
       <div class="lever reveal"><div class="arrow">→</div><h4>Across a period</h4>
         <p>Each step right adds <strong>one proton</strong>, but the new electron joins the <strong>same shell</strong>. More pull at the same distance: the grip <strong>tightens</strong> and the atom shrinks.</p>
         <div class="diagram figure figure--sm" style="margin:1rem 0 0;"><svg viewBox="0 0 280 110" role="img" aria-label="Atom shrinking as protons are added to the same shell">
-          <circle class="d-shell" cx="55" cy="55" r="40"/><circle class="d-nuc" cx="55" cy="55" r="var(--dia-r-atom)"/><text class="d-nuc-t" x="55" y="58" text-anchor="middle">3+</text>
-          <circle class="d-particle" cx="55" cy="15" r="var(--dia-r-particle)"/><circle class="d-particle" cx="92" cy="68" r="var(--dia-r-particle)"/><circle class="d-particle" cx="22" cy="74" r="var(--dia-r-particle)"/>
+          <circle class="d-shell" cx="55" cy="55" r="40"/><circle class="d-nuc" cx="55" cy="55" style="r: var(--dia-r-atom)"/><text class="d-nuc-t" x="55" y="58" text-anchor="middle">3+</text>
+          <circle class="d-particle" cx="55" cy="15" style="r: var(--dia-r-particle)"/><circle class="d-particle" cx="92" cy="68" style="r: var(--dia-r-particle)"/><circle class="d-particle" cx="22" cy="74" style="r: var(--dia-r-particle)"/>
           <line x1="110" y1="55" x2="150" y2="55" class="d-arrow" marker-end="url(#lev-arr)"/>
-          <circle class="d-shell" cx="215" cy="55" r="26"/><circle class="d-shell" cx="215" cy="55" r="17"/><circle class="d-nuc" cx="215" cy="55" r="var(--dia-r-atom)"/><text class="d-nuc-t" x="215" y="58" text-anchor="middle">9+</text>
-          <circle class="d-particle" cx="215" cy="29" r="var(--dia-r-particle)"/><circle class="d-particle" cx="239" cy="64" r="var(--dia-r-particle)"/><circle class="d-particle" cx="193" cy="68" r="var(--dia-r-particle)"/>
+          <circle class="d-shell" cx="215" cy="55" r="26"/><circle class="d-shell" cx="215" cy="55" r="17"/><circle class="d-nuc" cx="215" cy="55" style="r: var(--dia-r-atom)"/><text class="d-nuc-t" x="215" y="58" text-anchor="middle">9+</text>
+          <circle class="d-particle" cx="215" cy="29" style="r: var(--dia-r-particle)"/><circle class="d-particle" cx="239" cy="64" style="r: var(--dia-r-particle)"/><circle class="d-particle" cx="193" cy="68" style="r: var(--dia-r-particle)"/>
           <defs><marker id="lev-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" viewBox="0 0 6 6"><path d="M0 0 L6 3 L0 6 z" fill="var(--ink)"/></marker></defs>
         </svg></div>
       </div>
       <div class="lever reveal"><div class="arrow">↓</div><h4>Down a group</h4>
         <p>Each step down adds a whole <strong>new shell</strong>. The outer electrons sit farther out and <strong>shielded</strong> by inner electrons, so the grip <strong>loosens</strong> and the atom grows.</p>
         <div class="diagram figure figure--sm" style="margin:1rem 0 0;"><svg viewBox="0 0 280 110" role="img" aria-label="Atom growing as new shells are added">
-          <circle class="d-shell" cx="55" cy="55" r="15"/><circle class="d-shell" cx="55" cy="55" r="22"/><circle class="d-nuc" cx="55" cy="55" r="var(--dia-r-atom)"/><text class="d-nuc-t" x="55" y="58" text-anchor="middle">3+</text>
-          <circle class="d-particle" cx="55" cy="40" r="var(--dia-r-particle)"/><circle class="d-particle" cx="55" cy="70" r="var(--dia-r-particle)"/><circle class="d-particle" cx="55" cy="33" r="var(--dia-r-particle)"/>
+          <circle class="d-shell" cx="55" cy="55" r="15"/><circle class="d-shell" cx="55" cy="55" r="22"/><circle class="d-nuc" cx="55" cy="55" style="r: var(--dia-r-atom)"/><text class="d-nuc-t" x="55" y="58" text-anchor="middle">3+</text>
+          <circle class="d-particle" cx="55" cy="40" style="r: var(--dia-r-particle)"/><circle class="d-particle" cx="55" cy="70" style="r: var(--dia-r-particle)"/><circle class="d-particle" cx="55" cy="33" style="r: var(--dia-r-particle)"/>
           <line x1="92" y1="55" x2="132" y2="55" class="d-arrow" marker-end="url(#lev-arr2)"/>
           <circle class="d-shell" cx="210" cy="55" r="12"/><circle class="d-shell" cx="210" cy="55" r="24"/><circle class="d-shell" cx="210" cy="55" r="36"/><circle class="d-shell" cx="210" cy="55" r="46"/>
-          <circle class="d-nuc" cx="210" cy="55" r="var(--dia-r-atom)"/><text class="d-nuc-t" x="210" y="58" text-anchor="middle">19+</text>
-          <circle class="d-particle" cx="210" cy="43" r="var(--dia-r-particle)"/><circle class="d-particle" cx="210" cy="67" r="var(--dia-r-particle)"/>
-          <circle class="d-particle" cx="210" cy="31" r="var(--dia-r-particle)"/><circle class="d-particle" cx="227" cy="38" r="var(--dia-r-particle)"/><circle class="d-particle" cx="234" cy="55" r="var(--dia-r-particle)"/><circle class="d-particle" cx="227" cy="72" r="var(--dia-r-particle)"/><circle class="d-particle" cx="210" cy="79" r="var(--dia-r-particle)"/><circle class="d-particle" cx="193" cy="72" r="var(--dia-r-particle)"/><circle class="d-particle" cx="186" cy="55" r="var(--dia-r-particle)"/><circle class="d-particle" cx="193" cy="38" r="var(--dia-r-particle)"/>
-          <circle class="d-particle" cx="210" cy="19" r="var(--dia-r-particle)"/><circle class="d-particle" cx="235.5" cy="29.5" r="var(--dia-r-particle)"/><circle class="d-particle" cx="246" cy="55" r="var(--dia-r-particle)"/><circle class="d-particle" cx="235.5" cy="80.5" r="var(--dia-r-particle)"/><circle class="d-particle" cx="210" cy="91" r="var(--dia-r-particle)"/><circle class="d-particle" cx="184.5" cy="80.5" r="var(--dia-r-particle)"/><circle class="d-particle" cx="174" cy="55" r="var(--dia-r-particle)"/><circle class="d-particle" cx="184.5" cy="29.5" r="var(--dia-r-particle)"/>
-          <circle class="d-particle" cx="210" cy="9" r="var(--dia-r-particle)"/>
+          <circle class="d-nuc" cx="210" cy="55" style="r: var(--dia-r-atom)"/><text class="d-nuc-t" x="210" y="58" text-anchor="middle">19+</text>
+          <circle class="d-particle" cx="210" cy="43" style="r: var(--dia-r-particle)"/><circle class="d-particle" cx="210" cy="67" style="r: var(--dia-r-particle)"/>
+          <circle class="d-particle" cx="210" cy="31" style="r: var(--dia-r-particle)"/><circle class="d-particle" cx="227" cy="38" style="r: var(--dia-r-particle)"/><circle class="d-particle" cx="234" cy="55" style="r: var(--dia-r-particle)"/><circle class="d-particle" cx="227" cy="72" style="r: var(--dia-r-particle)"/><circle class="d-particle" cx="210" cy="79" style="r: var(--dia-r-particle)"/><circle class="d-particle" cx="193" cy="72" style="r: var(--dia-r-particle)"/><circle class="d-particle" cx="186" cy="55" style="r: var(--dia-r-particle)"/><circle class="d-particle" cx="193" cy="38" style="r: var(--dia-r-particle)"/>
+          <circle class="d-particle" cx="210" cy="19" style="r: var(--dia-r-particle)"/><circle class="d-particle" cx="235.5" cy="29.5" style="r: var(--dia-r-particle)"/><circle class="d-particle" cx="246" cy="55" style="r: var(--dia-r-particle)"/><circle class="d-particle" cx="235.5" cy="80.5" style="r: var(--dia-r-particle)"/><circle class="d-particle" cx="210" cy="91" style="r: var(--dia-r-particle)"/><circle class="d-particle" cx="184.5" cy="80.5" style="r: var(--dia-r-particle)"/><circle class="d-particle" cx="174" cy="55" style="r: var(--dia-r-particle)"/><circle class="d-particle" cx="184.5" cy="29.5" style="r: var(--dia-r-particle)"/>
+          <circle class="d-particle" cx="210" cy="9" style="r: var(--dia-r-particle)"/>
           <defs><marker id="lev-arr2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" viewBox="0 0 6 6"><path d="M0 0 L6 3 L0 6 z" fill="var(--ink)"/></marker></defs>
         </svg></div>
       </div>
@@ -270,18 +315,18 @@
     <div class="diagram reveal figure figure--full"><svg viewBox="0 0 360 170" role="img" aria-label="A single sodium atom losing its loosely-held outer electron to become a sodium ion.">
       <!-- sodium atom: nucleus + 3 shells (2,8,1), outer electron leaving -->
       <circle class="d-shell" cx="95" cy="90" r="22"/><circle class="d-shell" cx="95" cy="90" r="42"/><circle class="d-shell" cx="95" cy="90" r="62"/>
-      <circle class="d-nuc" cx="95" cy="90" r="var(--dia-r-atom)"/><text class="d-nuc-t" x="95" y="93" text-anchor="middle">11+</text>
+      <circle class="d-nuc" cx="95" cy="90" style="r: var(--dia-r-atom)"/><text class="d-nuc-t" x="95" y="93" text-anchor="middle">11+</text>
       <!-- inner electrons (schematic, a few) -->
-      <circle class="d-particle" cx="95" cy="68" r="var(--dia-r-particle)"/><circle class="d-particle" cx="117" cy="90" r="var(--dia-r-particle)"/><circle class="d-particle" cx="73" cy="90" r="var(--dia-r-particle)"/>
-      <circle class="d-particle" cx="95" cy="48" r="var(--dia-r-particle)"/><circle class="d-particle" cx="137" cy="90" r="var(--dia-r-particle)"/><circle class="d-particle" cx="53" cy="90" r="var(--dia-r-particle)"/>
+      <circle class="d-particle" cx="95" cy="68" style="r: var(--dia-r-particle)"/><circle class="d-particle" cx="117" cy="90" style="r: var(--dia-r-particle)"/><circle class="d-particle" cx="73" cy="90" style="r: var(--dia-r-particle)"/>
+      <circle class="d-particle" cx="95" cy="48" style="r: var(--dia-r-particle)"/><circle class="d-particle" cx="137" cy="90" style="r: var(--dia-r-particle)"/><circle class="d-particle" cx="53" cy="90" style="r: var(--dia-r-particle)"/>
       <!-- the lone outer (valence) electron, leaving -->
       <circle cx="95" cy="28" r="5.5" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
       <path d="M110 28 Q180 20 235 55" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#na-arr)"/>
       <text class="d-sub" x="150" y="14" style="font-size:var(--dia-label-size)" fill="var(--accent)">leaves easily — low IE (496 kJ/mol)</text>
       <!-- result: Na+ -->
       <circle class="d-shell" cx="285" cy="95" r="20"/><circle class="d-shell" cx="285" cy="95" r="40"/>
-      <circle class="d-nuc" cx="285" cy="95" r="var(--dia-r-atom)"/><text class="d-nuc-t" x="285" y="98" text-anchor="middle">11+</text>
-      <circle class="d-particle" cx="285" cy="75" r="var(--dia-r-particle)"/><circle class="d-particle" cx="305" cy="95" r="var(--dia-r-particle)"/><circle class="d-particle" cx="265" cy="95" r="var(--dia-r-particle)"/>
+      <circle class="d-nuc" cx="285" cy="95" style="r: var(--dia-r-atom)"/><text class="d-nuc-t" x="285" y="98" text-anchor="middle">11+</text>
+      <circle class="d-particle" cx="285" cy="75" style="r: var(--dia-r-particle)"/><circle class="d-particle" cx="305" cy="95" style="r: var(--dia-r-particle)"/><circle class="d-particle" cx="265" cy="95" style="r: var(--dia-r-particle)"/>
       <text class="d-label" x="285" y="150" text-anchor="middle" font-size="13">Na⁺ — stable octet</text>
       <defs><marker id="na-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" viewBox="0 0 6 6"><path d="M0 0 L6 3 L0 6 z" fill="var(--accent)"/></marker></defs>
     </svg><div class="diagram-cap">● electron · ● valence electron (leaving) · sodium gives up one electron almost for free</div></div>
@@ -359,7 +404,12 @@
           <li>Names a real <strong>limit</strong>: the trend predicts intrinsic reactivity, not quantity, concentration, or storage conditions.</li>
         </ul>
         <p style="font-family:var(--mono);font-size:.72rem;color:var(--ink-mute);margin-top:.9rem;letter-spacing:.04em;">Self-score: 4 = all four · 3 = missing the limit · 2 = prediction + position, no IE link · ≤1 = prediction only.</p></div></div>
-    </div>
+          <!-- Why This Matters Payoff -->
+      <div class="callout reveal" style="margin-top: 2rem;">
+        <div class="label">Why This Matters</div>
+        <p>Lithium battery technology relies on periodic trends. Lithium's extremely low ionization energy and small atomic radius make it incredibly eager to shed its single valence electron. This high electron-releasing drive is what makes lithium the optimal anode material for the lightweight, high-energy rechargeable batteries in our smartphones.</p>
+      </div>
+</div>
   </div>
 </section>
 

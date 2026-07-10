@@ -18,6 +18,10 @@
       <span>v1.6.0</span>
     </div>
     <div class="header-actions">
+      <a href="../index.html" class="back-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:14px; height:14px; vertical-align: middle;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>Back to Dashboard</span>
+      </a>
       <button class="theme-toggle" id="themeToggle" title="Toggle Light/Dark Theme">
         <svg viewBox="0 0 24 24" id="themeIcon">
           <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-12.37c-.39-.39-1.02-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.38.39-1.02 0-1.41zM6.93 17.01c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41z"/>
@@ -185,6 +189,23 @@
                 <input type="checkbox" id="molShowElectronClouds">
                 Show electron density clouds
               </label>
+
+              <!-- Container Framing controls -->
+              <div style="border-top: 1px dashed var(--hair); padding-top: 0.6rem; margin-top: 0.4rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                  <label style="font-size: 0.72rem; font-weight: 700; color: var(--ink-mute); margin-bottom: 0;">Vessel / Container Framing:</label>
+                  <select id="molContainerFrame" class="form-input" style="padding: 0.25rem 0.4rem; font-size: 0.72rem; height: auto;">
+                    <option value="none" selected>None (No Vessel)</option>
+                    <option value="beaker">Beaker</option>
+                    <option value="flask">Erlenmeyer Flask</option>
+                    <option value="dish">Evaporating Dish</option>
+                  </select>
+                </div>
+                <label class="form-checkbox" id="molInWaterContainer" style="display: none; margin-top: 0.25rem;">
+                  <input type="checkbox" id="molInWater">
+                  Submerge in solvent (water)
+                </label>
+              </div>
             </div>
           </div>
 
@@ -363,6 +384,9 @@
       const molCardinalSnapStyle = document.getElementById("molCardinalSnapStyle");
       const cardinalSnapContainer = document.getElementById("cardinalSnapContainer");
       const molPolarityControls = document.getElementById("molPolarityControls");
+      const molContainerFrame = document.getElementById("molContainerFrame");
+      const molInWaterContainer = document.getElementById("molInWaterContainer");
+      const molInWater = document.getElementById("molInWater");
       
       const reactionInput = document.getElementById("reactionInput");
       const rxnShowMolecules = document.getElementById("rxnShowMolecules");
@@ -622,6 +646,17 @@
       molUseCPKColors.addEventListener("change", triggerRender);
       molShowElectronClouds.addEventListener("change", triggerRender);
       
+      molContainerFrame.addEventListener("change", () => {
+        if (molContainerFrame.value !== "none") {
+          molInWaterContainer.style.display = "flex";
+        } else {
+          molInWaterContainer.style.display = "none";
+          molInWater.checked = false;
+        }
+        triggerRender();
+      });
+      molInWater.addEventListener("change", triggerRender);
+      
       molLewisCardinal.addEventListener("change", () => {
         if (molLewisCardinal.checked) {
           cardinalSnapContainer.style.display = "flex";
@@ -765,7 +800,9 @@
             useCPKColors: molUseCPKColors.checked,
             lewisLayout: molLewisCardinal.checked ? "cardinal" : "repulsion",
             cardinalSnapStyle: molCardinalSnapStyle.value,
-            showElectronClouds: molShowElectronClouds.checked
+            showElectronClouds: molShowElectronClouds.checked,
+            showContainerFrame: molContainerFrame.value,
+            inWater: molInWater.checked
           };
 
           if (molType === "atom") {
@@ -807,6 +844,7 @@
             const styleLabel = molStyle === "lewis" ? "Lewis Structure" : (molStyle === "particle" ? "Particle View" : "Ball-and-Stick Model");
             previewTitle.textContent = `${styleLabel}: ${currentMoleculeName.toUpperCase()}`;
 
+            currentMoleculeData.formula = currentMoleculeName;
             if (molStyle === "lewis") {
               const svg = window.ChemApp.drawLewisMolecule(currentMoleculeData, opts);
               graphicFrame.appendChild(svg);
