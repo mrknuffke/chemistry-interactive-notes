@@ -6,6 +6,7 @@ A dated, one-line record of what shipped. This is not a to-do list (see [`TODO.m
 
 ---
 
+- **2026-07-18** — Added Acetone (C₃H₆O) and Ethanol (C₂H₆O) molecule templates to the teacher-facing diagram generator with Lewis structures, CPK color mapping, and common-name lookups.
 - **2026-07-10** — Retrofitted Lesson 2-7b (Mole Conversions) with a dynamic visual Conversion Builder canvas showing bulk/particulate state transitions (beaker, weighing boat, flask, Bunsen burner flame, crystal grids, and molecular groups) and real-time unit cancellation feedback.
 - **2026-07-10** — Shipped Spaced Repetition (Leitner system progress loops and dashboard review panel), Cumulative Mixed drills, curriculum payoff "Why This Matters" callouts, biological monomer maps (glycine, alanine, glucose, ribose, ATP), polymer bracket drawers, container vessel backgrounds (beaker, flask, dish) with solvent water overlays, and electrolyte dissociation with polar-oriented hydration shells.
 - **2026-07-09** — Shipped Phase 4 design pass: implemented the global "Quick Check" toggle button in the topbar to collapse lessons to retrieval elements, and built the collapsible 3-column One-Screen Synopsis card, propagating it across all 12 lessons in the curriculum.

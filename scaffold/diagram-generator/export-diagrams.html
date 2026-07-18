@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Export Chemistry Diagrams</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+body { font-family: 'Hanken Grotesk', system-ui, sans-serif; background: #EDF1EC; color: #16201C; padding: 2rem; }
+h2 { margin: 1.5rem 0 0.5rem; }
+#status { font-size: 1.1rem; padding: 1rem; background: #2E7D57; color: #fff; border-radius: 8px; margin-top: 1rem; }
+</style>
+</head>
+<body>
+<h1>Chemistry Diagram Export</h1>
+<p id="msg">Waiting for fonts…</p>
+<div id="status">Rendering…</div>
+
+<script>
+const C = {
+  ink: '#16201C', inkSoft: '#3A463F', inkMute: '#6B756D',
+  accent: '#D6452A', accentSoft: '#E68A77',
+  electron: '#2E7D57', nucleus: '#D6452A',
+  shell: 'rgba(22,32,28,0.35)', cool: '#3E6FA5',
+  white: '#ffffff', amber: '#E8A317',
+  mono: "'IBM Plex Mono', ui-monospace, monospace",
+  display: "'Hanken Grotesk', system-ui, sans-serif"
+};
+const NS = "http://www.w3.org/2000/svg";
+function E(tag, a={}) { const e = document.createElementNS(NS, tag); for (const [k,v] of Object.entries(a)) e.setAttribute(k, String(v)); return e; }
+
+/* ── DIAGRAM 1: BOHR ── */
+function buildBohr() {
+  const elems = [
+    { sym:'Na', z:11, shells:[2,8,1], r:190 },
+    { sym:'Mg', z:12, shells:[2,8,2], r:145 },
+    { sym:'Al', z:13, shells:[2,8,3], r:118 }
+  ];
+  const cellW=320, cellH=340, totalW=cellW*3, labelH=38, totalH=cellH+labelH;
+  const svg = E('svg',{xmlns:NS, viewBox:`0 0 ${totalW} ${totalH}`, width:totalW, height:totalH});
+
+  elems.forEach((el,idx)=>{
+    const cx=idx*cellW+cellW/2, cy=cellH/2, s=el.r/190;
+    const sR=[38,74,110].map(r=>r*s);
+    el.shells.forEach((_,i)=>svg.appendChild(E('circle',{cx,cy,r:sR[i].toFixed(1),fill:'none',stroke:C.shell,'stroke-width':'1'})));
+    const last=el.shells.length-1;
+    el.shells.forEach((cnt,i)=>{
+      for(let k=0;k<cnt;k++){
+        const a=(2*Math.PI/cnt)*k-Math.PI/2;
+        svg.appendChild(E('circle',{cx:(cx+sR[i]*Math.cos(a)).toFixed(2),cy:(cy+sR[i]*Math.sin(a)).toFixed(2),r:(5*s).toFixed(1),fill:i===last?C.accent:C.electron,stroke:C.ink,'stroke-width':'0.6'}));
+      }
+    });
+    svg.appendChild(E('circle',{cx,cy,r:(18*s).toFixed(1),fill:C.nucleus}));
+    const t=E('text',{x:cx,y:cy+1,'text-anchor':'middle','dominant-baseline':'middle',fill:C.white,'font-family':C.mono,'font-weight':'600','font-size':`${Math.max(7,10*s).toFixed(0)}px`}); t.textContent=el.z+'p'; svg.appendChild(t);
+    const n=E('text',{x:cx,y:cellH+22,'text-anchor':'middle',fill:C.ink,'font-family':C.display,'font-weight':'700','font-size':'16px'}); n.textContent=`${el.sym} (${el.r} pm)`; svg.appendChild(n);
+  });
+  const aY=cellH+10;
+  svg.appendChild(E('line',{x1:80,y1:aY,x2:totalW-60,y2:aY,stroke:C.inkMute,'stroke-width':'1.5','stroke-dasharray':'6 3'}));
+  svg.appendChild(E('polygon',{points:`${totalW-60},${aY} ${totalW-68},${aY-4} ${totalW-68},${aY+4}`,fill:C.inkMute}));
+  const al=E('text',{x:totalW/2,y:aY-6,'text-anchor':'middle',fill:C.inkMute,'font-family':C.display,'font-weight':'600','font-size':'11px'}); al.textContent='Decreasing Atomic Radius →'; svg.appendChild(al);
+  return svg;
+}
+
+/* ── LEWIS HELPERS ── */
+function normA(a){let r=a%(2*Math.PI);if(r<0)r+=2*Math.PI;return r;}
+function lpAngles(bA,n){
+  if(n<=0)return[];
+  if(!bA.length){if(n===1)return[-Math.PI/2];if(n===2)return[-Math.PI/2,Math.PI/2];if(n===3)return[0,(2*Math.PI)/3,(4*Math.PI)/3];return[0,Math.PI/2,Math.PI,(3*Math.PI)/2];}
+  if(bA.length===1){const b=bA[0],al=normA(b+Math.PI);if(n===1)return[al];if(n===2)return[al-0.6,al+0.6];if(n===3)return[al-0.75,al,al+0.75];return[al-0.9,al-0.3,al+0.3,al+0.9];}
+  const s=[...bA].map(normA).sort((a,b)=>a-b);let mg=0,gs=0;for(let i=0;i<s.length;i++){const c=s[i],nx=s[(i+1)%s.length];let g=nx-c;if(g<0)g+=2*Math.PI;if(g>mg){mg=g;gs=c;}}
+  const gm=normA(gs+mg/2),sp=Math.min(1.5,mg/(n+1)),out=[];for(let k=0;k<n;k++)out.push(normA(gm+(k-(n-1)/2)*sp));return out;
+}
+function drawLewis(data,sc,ox,oy,parent,hl){
+  const g=E('g',{transform:`translate(${ox},${oy})`}),am={};
+  const sa=data.atoms.map(a=>{const s={id:a.id,el:a.el,x:a.x*sc,y:a.y*sc,r:a.el==='H'?5:7.5};am[a.id]=s;return s;});
+  if(data.bonds)data.bonds.forEach(b=>{
+    const a=am[b.a],bb=am[b.b];if(!a||!bb)return;const dx=bb.x-a.x,dy=bb.y-a.y,l=Math.hypot(dx,dy);if(!l)return;
+    const ux=dx/l,uy=dy/l,nx=-uy,ny=ux,x1=a.x+ux*8.5,y1=a.y+uy*8.5,x2=bb.x-ux*8.5,y2=bb.y-uy*8.5,o=b.order||1;
+    if(o===1)g.appendChild(E('line',{x1:x1.toFixed(1),y1:y1.toFixed(1),x2:x2.toFixed(1),y2:y2.toFixed(1),stroke:C.ink,'stroke-width':'1.2'}));
+    else if(o===2)[1,-1].forEach(d=>g.appendChild(E('line',{x1:(x1+nx*2.2*d).toFixed(1),y1:(y1+ny*2.2*d).toFixed(1),x2:(x2+nx*2.2*d).toFixed(1),y2:(y2+ny*2.2*d).toFixed(1),stroke:C.ink,'stroke-width':'1'})));
+  });
+  if(data.lonePairs)data.lonePairs.forEach(lp=>{
+    const at=am[lp.on];if(!at)return;const ba=[];
+    if(data.bonds)data.bonds.forEach(b=>{let o=null;if(b.a===at.id)o=b.b;else if(b.b===at.id)o=b.a;if(o&&am[o])ba.push(Math.atan2(am[o].y-at.y,am[o].x-at.x));});
+    lpAngles(ba,lp.count).forEach(al=>{const lx=at.x+11.5*Math.cos(al),ly=at.y+11.5*Math.sin(al),px=-Math.sin(al),py=Math.cos(al);
+      [1,-1].forEach(d=>g.appendChild(E('circle',{cx:(lx+px*2.5*d).toFixed(1),cy:(ly+py*2.5*d).toFixed(1),r:'2',fill:C.accent})));});
+  });
+  sa.forEach(a=>{const t=E('text',{x:a.x.toFixed(1),y:(a.y+3).toFixed(1),'text-anchor':'middle',fill:C.ink,'font-family':C.mono,'font-weight':'700','font-size':'11px'});t.textContent=a.el;g.appendChild(t);});
+  if(hl)hl.forEach(h=>{
+    if(h.ids){let sx=0,sy=0;const pts=[];h.ids.forEach(id=>{const a=am[id];if(a){sx+=a.x;sy+=a.y;pts.push(a);}});
+      if(pts.length){const cx=sx/pts.length,cy=sy/pts.length;let mdx=0,mdy=0;pts.forEach(p=>{mdx=Math.max(mdx,Math.abs(p.x-cx));mdy=Math.max(mdy,Math.abs(p.y-cy));});
+        g.appendChild(E('ellipse',{cx:cx.toFixed(1),cy:cy.toFixed(1),rx:(mdx+14).toFixed(1),ry:(mdy+14).toFixed(1),fill:'none',stroke:C.amber,'stroke-width':'1.8','stroke-dasharray':'5 3',opacity:'0.9'}));}}
+    else{const a=am[h.id];if(a)g.appendChild(E('circle',{cx:a.x.toFixed(1),cy:a.y.toFixed(1),r:(h.r||10).toString(),fill:'none',stroke:C.amber,'stroke-width':'1.8','stroke-dasharray':'5 3',opacity:'0.9'}));}
+  });
+  parent.appendChild(g);
+}
+
+/* ── DIAGRAM 2: LEWIS ── */
+function buildLewis(){
+  const H2O={atoms:[{id:"O1",el:"O",x:0,y:-0.2},{id:"H1",el:"H",x:-0.9,y:0.5},{id:"H2",el:"H",x:0.9,y:0.5}],bonds:[{a:"O1",b:"H1",order:1},{a:"O1",b:"H2",order:1}],lonePairs:[{on:"O1",count:2}]};
+  const eth={atoms:[{id:"C1",el:"C",x:-0.7,y:0},{id:"C2",el:"C",x:0.7,y:0},{id:"O1",el:"O",x:1.7,y:0.7},{id:"H1",el:"H",x:-1.5,y:-0.7},{id:"H2",el:"H",x:-1.5,y:0.7},{id:"H3",el:"H",x:-0.7,y:-1.0},{id:"H4",el:"H",x:0.7,y:-1.0},{id:"H5",el:"H",x:0.7,y:1.0},{id:"H6",el:"H",x:2.5,y:0.2}],bonds:[{a:"C1",b:"C2",order:1},{a:"C2",b:"O1",order:1},{a:"O1",b:"H6",order:1},{a:"C1",b:"H1",order:1},{a:"C1",b:"H2",order:1},{a:"C1",b:"H3",order:1},{a:"C2",b:"H4",order:1},{a:"C2",b:"H5",order:1}],lonePairs:[{on:"O1",count:2}]};
+  const ace={atoms:[{id:"C1",el:"C",x:-1.3,y:0},{id:"C2",el:"C",x:0,y:0},{id:"C3",el:"C",x:1.3,y:0},{id:"O1",el:"O",x:0,y:-1.2},{id:"H1",el:"H",x:-2.1,y:-0.7},{id:"H2",el:"H",x:-2.1,y:0.7},{id:"H3",el:"H",x:-1.3,y:1.0},{id:"H4",el:"H",x:2.1,y:-0.7},{id:"H5",el:"H",x:2.1,y:0.7},{id:"H6",el:"H",x:1.3,y:1.0}],bonds:[{a:"C1",b:"C2",order:1},{a:"C2",b:"C3",order:1},{a:"C2",b:"O1",order:2},{a:"C1",b:"H1",order:1},{a:"C1",b:"H2",order:1},{a:"C1",b:"H3",order:1},{a:"C3",b:"H4",order:1},{a:"C3",b:"H5",order:1},{a:"C3",b:"H6",order:1}],lonePairs:[{on:"O1",count:2}]};
+  const sc=22,mW=180,mH=120,gap=50,lH=30,tW=mW*3+gap*2,tH=mH+lH;
+  const svg=E('svg',{xmlns:NS,viewBox:`0 0 ${tW} ${tH}`,width:tW,height:tH});
+  drawLewis(H2O,sc,mW/2,mH/2-5,svg,[{id:'H1',r:10},{id:'H2',r:10}]);
+  drawLewis(eth,sc,mW+gap+mW/2,mH/2,svg,[{ids:['O1','H6'],r:12}]);
+  drawLewis(ace,sc,mW*2+gap*2+mW/2,mH/2,svg,[]);
+  [{x:mW/2,t:'Water (H₂O)'},{x:mW+gap+mW/2,t:'Ethanol (C₂H₅OH)'},{x:mW*2+gap*2+mW/2,t:'Acetone (C₃H₆O)'}].forEach(lb=>{const t=E('text',{x:lb.x,y:tH-4,'text-anchor':'middle',fill:C.ink,'font-family':C.display,'font-weight':'700','font-size':'13px'});t.textContent=lb.t;svg.appendChild(t);});
+  return svg;
+}
+
+/* ── DIAGRAM 3: TRANSFER ── */
+function buildTransfer(){
+  const tW=520,tH=270;
+  const svg=E('svg',{xmlns:NS,viewBox:`0 0 ${tW} ${tH}`,width:tW,height:tH});
+  const defs=E('defs'),mk=E('marker',{id:'ta',markerWidth:'10',markerHeight:'8',refX:'8',refY:'4',orient:'auto',viewBox:'0 0 10 8'});
+  mk.appendChild(E('path',{d:'M0 0 L10 4 L0 8 Z',fill:C.accent}));defs.appendChild(mk);svg.appendChild(defs);
+  const NX=140,CY=125,CX=380,nR=18;
+  function drawAtom(cx,shells,z,label){
+    [38,74,110].forEach(r=>svg.appendChild(E('circle',{cx,cy:CY,r,fill:'none',stroke:C.shell,'stroke-width':'1'})));
+    const last=shells.length-1;
+    shells.forEach((cnt,i)=>{for(let k=0;k<cnt;k++){const a=(2*Math.PI/cnt)*k-Math.PI/2;svg.appendChild(E('circle',{cx:(cx+[38,74,110][i]*Math.cos(a)).toFixed(2),cy:(CY+[38,74,110][i]*Math.sin(a)).toFixed(2),r:'5',fill:i===last?C.accent:C.electron,stroke:C.ink,'stroke-width':'0.6'}));}});
+    svg.appendChild(E('circle',{cx,cy:CY,r:nR,fill:C.nucleus}));
+    const t=E('text',{x:cx,y:CY+1,'text-anchor':'middle','dominant-baseline':'middle',fill:C.white,'font-family':C.mono,'font-weight':'600','font-size':'10px'});t.textContent=z+'p';svg.appendChild(t);
+    const n=E('text',{x:cx,y:CY+140,'text-anchor':'middle',fill:C.ink,'font-family':C.display,'font-weight':'700','font-size':'14px'});n.textContent=label;svg.appendChild(n);
+  }
+  drawAtom(NX,[2,8,1],11,'Na');
+  drawAtom(CX,[2,8,7],17,'Cl');
+  // Arrow
+  const vX=NX,vY=CY-110,eX=CX-110,eY=CY-106,cpX=(vX+10+eX)/2,cpY=Math.min(vY,eY)-30;
+  svg.appendChild(E('path',{d:`M ${vX+10} ${vY+2} Q ${cpX} ${cpY} ${eX} ${eY}`,fill:'none',stroke:C.accent,'stroke-width':'2','stroke-dasharray':'6 3','marker-end':'url(#ta)'}));
+  const el=E('text',{x:cpX,y:cpY-4,'text-anchor':'middle',fill:C.accent,'font-family':C.mono,'font-weight':'700','font-size':'13px'});el.textContent='e⁻';svg.appendChild(el);
+  return svg;
+}
+
+/* ── EXPORT ── */
+async function toCanvas(svg,sf=4){
+  return new Promise((res,rej)=>{
+    const s=new XMLSerializer().serializeToString(svg);
+    const b=new Blob([s],{type:'image/svg+xml;charset=utf-8'}),u=URL.createObjectURL(b);
+    const vb=svg.getAttribute('viewBox').split(/\s+/).map(Number),w=vb[2],h=vb[3];
+    const img=new Image();
+    img.onload=()=>{const c=document.createElement('canvas');c.width=w*sf;c.height=h*sf;const ctx=c.getContext('2d');ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';ctx.drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(u);res(c);};
+    img.onerror=()=>{URL.revokeObjectURL(u);rej(new Error('fail'));};
+    img.src=u;
+  });
+}
+function dl(c,fn){const a=document.createElement('a');a.download=fn;a.href=c.toDataURL('image/png');document.body.appendChild(a);a.click();document.body.removeChild(a);}
+
+async function run(){
+  const msg=document.getElementById('msg'), st=document.getElementById('status');
+  await document.fonts.ready; await new Promise(r=>setTimeout(r,800));
+  msg.textContent='Rendering diagrams…';
+  const s1=buildBohr(),s2=buildLewis(),s3=buildTransfer();
+  msg.textContent='Rasterizing to PNG (4×)…';
+  const c1=await toCanvas(s1,4), c2=await toCanvas(s2,4), c3=await toCanvas(s3,4);
+  msg.textContent='Downloading…';
+  dl(c1,'bohr-atomic-radius.png');
+  await new Promise(r=>setTimeout(r,500));
+  dl(c2,'lewis-water-ethanol-acetone.png');
+  await new Promise(r=>setTimeout(r,500));
+  dl(c3,'nacl-electron-transfer.png');
+  st.textContent='✓ All 3 transparent PNGs downloaded! Move them from Downloads → Desktop.';
+  msg.textContent='Done — check your Downloads folder.';
+}
+window.addEventListener('load',()=>setTimeout(run,300));
+</script>
+</body>
+</html>

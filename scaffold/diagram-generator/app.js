@@ -75,7 +75,9 @@
     { formula: 'Cholesterol', commonName: 'cholesterol', display: 'Cholesterol' },
     { formula: 'Estrogen', commonName: 'estrogen', display: 'Estrogen (Estradiol)' },
     { formula: 'Testosterone', commonName: 'testosterone', display: 'Testosterone' },
-    { formula: 'Epinephrine', commonName: 'epinephrine', display: 'Epinephrine (Adrenaline)' }
+    { formula: 'Epinephrine', commonName: 'epinephrine', display: 'Epinephrine (Adrenaline)' },
+    { formula: 'C3H6O', commonName: 'acetone', display: 'Acetone (C₃H₆O)' },
+    { formula: 'C2H6O', commonName: 'ethanol', display: 'Ethanol (C₂H₆O)' }
   ];
   const NAME_TO_FORMULA = {};
   const FORMULA_TO_DISPLAY = {};
@@ -1229,6 +1231,60 @@
         { on: "O4", count: 2 },
         { on: "O_side", count: 2 },
         { on: "N_amine", count: 1 }
+      ]
+    },
+    C3H6O: {
+      atoms: [
+        { id: "C1", el: "C", x: -1.3, y: 0 },
+        { id: "C2", el: "C", x: 0, y: 0 },
+        { id: "C3", el: "C", x: 1.3, y: 0 },
+        { id: "O1", el: "O", x: 0, y: -1.2 },
+        { id: "H1", el: "H", x: -2.1, y: -0.7 },
+        { id: "H2", el: "H", x: -2.1, y: 0.7 },
+        { id: "H3", el: "H", x: -1.3, y: 1.0 },
+        { id: "H4", el: "H", x: 2.1, y: -0.7 },
+        { id: "H5", el: "H", x: 2.1, y: 0.7 },
+        { id: "H6", el: "H", x: 1.3, y: 1.0 }
+      ],
+      bonds: [
+        { a: "C1", b: "C2", order: 1 },
+        { a: "C2", b: "C3", order: 1 },
+        { a: "C2", b: "O1", order: 2 },
+        { a: "C1", b: "H1", order: 1 },
+        { a: "C1", b: "H2", order: 1 },
+        { a: "C1", b: "H3", order: 1 },
+        { a: "C3", b: "H4", order: 1 },
+        { a: "C3", b: "H5", order: 1 },
+        { a: "C3", b: "H6", order: 1 }
+      ],
+      lonePairs: [
+        { on: "O1", count: 2 }
+      ]
+    },
+    C2H6O: {
+      atoms: [
+        { id: "C1", el: "C", x: -0.7, y: 0 },
+        { id: "C2", el: "C", x: 0.7, y: 0 },
+        { id: "O1", el: "O", x: 1.7, y: 0.7 },
+        { id: "H1", el: "H", x: -1.5, y: -0.7 },
+        { id: "H2", el: "H", x: -1.5, y: 0.7 },
+        { id: "H3", el: "H", x: -0.7, y: -1.0 },
+        { id: "H4", el: "H", x: 0.7, y: -1.0 },
+        { id: "H5", el: "H", x: 0.7, y: 1.0 },
+        { id: "H6", el: "H", x: 2.5, y: 0.2 }
+      ],
+      bonds: [
+        { a: "C1", b: "C2", order: 1 },
+        { a: "C2", b: "O1", order: 1 },
+        { a: "O1", b: "H6", order: 1 },
+        { a: "C1", b: "H1", order: 1 },
+        { a: "C1", b: "H2", order: 1 },
+        { a: "C1", b: "H3", order: 1 },
+        { a: "C2", b: "H4", order: 1 },
+        { a: "C2", b: "H5", order: 1 }
+      ],
+      lonePairs: [
+        { on: "O1", count: 2 }
       ]
     }
   };
