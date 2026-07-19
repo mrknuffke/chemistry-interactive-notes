@@ -558,6 +558,7 @@
             molSearchStatus.innerHTML = "<strong>✔ Loaded custom JSON structure.</strong>";
             currentMoleculeData = parsedCustom;
             currentMoleculeName = "custom_molecule";
+            molSearchInput.value = "Custom JSON";
           } else {
             molSearchStatus.className = "info-box warning";
             molSearchStatus.innerHTML = `<strong>⚠ Invalid custom JSON structure.</strong> Please check JSON format (must include an "atoms" array).`;
@@ -572,6 +573,23 @@
           molSearchStatus.className = "info-box warning";
           molSearchStatus.textContent = "Please enter a formula or common name.";
           currentMoleculeData = null;
+          return;
+        }
+
+        if (inputVal === "Custom JSON" && currentMoleculeData) {
+          updateFilenameAndTitle();
+          return;
+        }
+
+        const directJson = window.ChemApp.parseMoleculeJson(inputVal);
+        if (directJson) {
+          currentMoleculeData = directJson;
+          currentMoleculeName = "custom_molecule";
+          molJsonText.value = JSON.stringify(directJson, null, 2);
+          molSearchInput.value = "Custom JSON";
+          molSearchStatus.className = "info-box success";
+          molSearchStatus.innerHTML = "<strong>✔ Loaded custom JSON structure.</strong>";
+          updateFilenameAndTitle();
           return;
         }
 
@@ -626,7 +644,11 @@
       });
 
       loadPresetJsonBtn.addEventListener("click", () => {
-        const inputVal = molSearchInput.value.trim();
+        let inputVal = molSearchInput.value.trim();
+        if (inputVal === "Custom JSON" || inputVal === "custom_molecule" || !inputVal) {
+          inputVal = "H2O";
+          molSearchInput.value = "H2O";
+        }
         const res = window.ChemApp.parseFormulaToMolecule(inputVal);
         if (res) {
           molJsonText.value = JSON.stringify(res.data, null, 2);

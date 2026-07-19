@@ -6,7 +6,7 @@ A dated, one-line record of what shipped. This is not a to-do list (see [`TODO.m
 
 ---
 
-- **2026-07-19** — Fixed custom JSON rendering in the diagram generator: pasting custom JSON structures into the search field or Advanced JSON Editor now renders live without being overwritten by preset formula lookups, with support for direct templates, wrapped formulas, bare atom arrays, and JS object notation.
+- **2026-07-19** — Fixed custom JSON rendering in the diagram generator: custom structures pasted into the search box or Advanced JSON Editor now automatically synchronize to 'Custom JSON', preventing preset formula lookups (like 'H2O') from overwriting custom JSON structures without needing to clear the search box first.
 - **2026-07-18** — Added Acetone (C₃H₆O) and Ethanol (C₂H₆O) molecule templates to the teacher-facing diagram generator with Lewis structures, CPK color mapping, and common-name lookups.
 - **2026-07-10** — Retrofitted Lesson 2-7b (Mole Conversions) with a dynamic visual Conversion Builder canvas showing bulk/particulate state transitions (beaker, weighing boat, flask, Bunsen burner flame, crystal grids, and molecular groups) and real-time unit cancellation feedback.
 - **2026-07-10** — Shipped Spaced Repetition (Leitner system progress loops and dashboard review panel), Cumulative Mixed drills, curriculum payoff "Why This Matters" callouts, biological monomer maps (glycine, alanine, glucose, ribose, ATP), polymer bracket drawers, container vessel backgrounds (beaker, flask, dish) with solvent water overlays, and electrolyte dissociation with polar-oriented hydration shells.
