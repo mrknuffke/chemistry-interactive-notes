@@ -3479,9 +3479,83 @@
     return svg;
   }
 
+  function parseMoleculeJson(inputStr) {
+    if (!inputStr || typeof inputStr !== "string") return null;
+    let str = inputStr.trim();
+    if (!str) return null;
+
+    if (!str.startsWith("{") && !str.startsWith("[")) return null;
+
+    let obj = null;
+    try {
+      obj = JSON.parse(str);
+    } catch (e1) {
+      try {
+        const sanitized = str
+          .replace(/'/g, '"')
+          .replace(/([{,]\s*)([a-zA-Z0-9_$]+)\s*:/g, '$1"$2":');
+        obj = JSON.parse(sanitized);
+      } catch (e2) {
+        return null;
+      }
+    }
+
+    if (!obj || typeof obj !== "object") return null;
+
+    if (Array.isArray(obj)) {
+      if (obj.length > 0 && obj[0] && (obj[0].el || obj[0].id)) {
+        return {
+          atoms: obj.map((a, i) => ({
+            id: a.id || (a.el ? a.el + (i + 1) : "A" + (i + 1)),
+            el: a.el || "",
+            x: typeof a.x === "number" ? a.x : 0,
+            y: typeof a.y === "number" ? a.y : 0
+          })),
+          bonds: [],
+          lonePairs: [],
+          brackets: []
+        };
+      }
+      return null;
+    }
+
+    let root = obj;
+    if (!root.atoms && typeof root === "object") {
+      const keys = Object.keys(root);
+      if (keys.length === 1 && root[keys[0]] && typeof root[keys[0]] === "object" && root[keys[0]].atoms) {
+        root = root[keys[0]];
+      }
+    }
+
+    if (Array.isArray(root.atoms) && root.atoms.length > 0) {
+      return {
+        atoms: root.atoms.map((a, i) => ({
+          id: a.id || (a.el ? a.el + (i + 1) : "A" + (i + 1)),
+          el: a.el || "",
+          x: typeof a.x === "number" ? a.x : 0,
+          y: typeof a.y === "number" ? a.y : 0
+        })),
+        bonds: Array.isArray(root.bonds) ? root.bonds : [],
+        lonePairs: Array.isArray(root.lonePairs) ? root.lonePairs : [],
+        brackets: Array.isArray(root.brackets) ? root.brackets : []
+      };
+    }
+
+    return null;
+  }
+
   function parseFormulaToMolecule(inputStr) {
     inputStr = inputStr.trim();
     if (!inputStr) return null;
+
+    const jsonParsed = parseMoleculeJson(inputStr);
+    if (jsonParsed) {
+      return {
+        formula: "custom",
+        name: "Custom JSON Structure",
+        data: jsonParsed
+      };
+    }
 
     const lowerInput = inputStr.toLowerCase();
     let formula = NAME_TO_FORMULA[lowerInput] || inputStr;
@@ -3783,6 +3857,7 @@
     calculateIonShells,
     createSVGElement,
     parseFormulaToMolecule,
+    parseMoleculeJson,
     isIonicPair,
     checkElectronCount,
     COMMON_NAMES,

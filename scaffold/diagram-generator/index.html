@@ -551,6 +551,22 @@
       });
 
       function performFormulaLookup(fromJsonEdit = false) {
+        if (fromJsonEdit) {
+          const parsedCustom = window.ChemApp.parseMoleculeJson(molJsonText.value);
+          if (parsedCustom) {
+            molSearchStatus.className = "info-box success";
+            molSearchStatus.innerHTML = "<strong>✔ Loaded custom JSON structure.</strong>";
+            currentMoleculeData = parsedCustom;
+            currentMoleculeName = "custom_molecule";
+          } else {
+            molSearchStatus.className = "info-box warning";
+            molSearchStatus.innerHTML = `<strong>⚠ Invalid custom JSON structure.</strong> Please check JSON format (must include an "atoms" array).`;
+            currentMoleculeData = null;
+          }
+          updateFilenameAndTitle();
+          return;
+        }
+
         const inputVal = molSearchInput.value.trim();
         if (!inputVal) {
           molSearchStatus.className = "info-box warning";
@@ -566,26 +582,6 @@
           currentMoleculeData = res.data;
           currentMoleculeName = res.formula;
           molJsonText.value = JSON.stringify(res.data, null, 2);
-        } else if (fromJsonEdit) {
-          // Only trust the JSON box as a fallback when the user is actively
-          // editing it themselves — otherwise it still holds the last
-          // successfully-loaded (unrelated) molecule and would silently
-          // relabel that stale structure under the new, unrecognized formula.
-          try {
-            const parsedJson = JSON.parse(molJsonText.value);
-            if (parsedJson && parsedJson.atoms) {
-              molSearchStatus.className = "info-box success";
-              molSearchStatus.textContent = "✔ Loaded custom JSON structure.";
-              currentMoleculeData = parsedJson;
-              currentMoleculeName = "custom_molecule";
-            } else {
-              throw new Error("Invalid structure");
-            }
-          } catch (e) {
-            molSearchStatus.className = "info-box warning";
-            molSearchStatus.innerHTML = `<strong>⚠ Unknown formula/name.</strong> Edit raw JSON details below to customize.`;
-            currentMoleculeData = null;
-          }
         } else {
           molSearchStatus.className = "info-box warning";
           molSearchStatus.innerHTML = `<strong>⚠ Unknown formula/name.</strong> Edit raw JSON details below to customize.`;
@@ -607,8 +603,24 @@
         performFormulaLookup();
         triggerRender();
       });
+      molSearchInput.addEventListener("paste", () => {
+        setTimeout(() => {
+          performFormulaLookup();
+          triggerRender();
+        }, 10);
+      });
 
       molJsonText.addEventListener("input", () => {
+        performFormulaLookup(true);
+        triggerRender();
+      });
+      molJsonText.addEventListener("paste", () => {
+        setTimeout(() => {
+          performFormulaLookup(true);
+          triggerRender();
+        }, 10);
+      });
+      molJsonText.addEventListener("change", () => {
         performFormulaLookup(true);
         triggerRender();
       });
