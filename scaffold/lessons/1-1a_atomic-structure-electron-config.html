@@ -53,10 +53,10 @@
           <!-- Left side: Fluorine -->
           <g transform="translate(75, 60)">
             <!-- Shells -->
-            <circle r="22" fill="none" stroke="var(--hair-soft)" stroke-width="var(--dia-stroke)"/>
-            <circle r="38" fill="none" stroke="var(--hair-soft)" stroke-width="var(--dia-stroke)"/>
+            <circle r="22" fill="none" stroke="var(--hair-soft)" style="stroke-width: var(--dia-stroke)"/>
+            <circle r="38" fill="none" stroke="var(--hair-soft)" style="stroke-width: var(--dia-stroke)"/>
             <!-- Nucleus -->
-            <circle style="r: var(--dia-r-atom)" fill="var(--card)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+            <circle style="r: var(--dia-r-atom); stroke-width: var(--dia-stroke-bond)" fill="var(--card)" stroke="var(--ink)"/>
             <text y="3" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" font-weight="700" text-anchor="middle">9+</text>
             <!-- Core electrons: shell 1 (2) -->
             <circle cx="0" cy="-22" style="r: var(--dia-r-particle)" fill="var(--ink-mute)"/>
@@ -71,20 +71,20 @@
             <circle cx="27" cy="-27" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
             <circle cx="-27" cy="-27" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
             <!-- Gap at 27, 27 -->
-            <circle cx="27" cy="27" style="r: var(--dia-r-particle)" fill="none" stroke="var(--accent)" stroke-width="var(--dia-stroke)" stroke-dasharray="1.5 1.5"/>
+            <circle cx="27" cy="27" style="r: var(--dia-r-particle); stroke-width: var(--dia-stroke)" fill="none" stroke="var(--accent)" stroke-dasharray="1.5 1.5"/>
             <text x="0" y="55" font-family="var(--display)" style="font-size: var(--dia-caption-size);" font-weight="700" text-anchor="middle">Fluorine (2, 7)</text>
           </g>
 
           <!-- Divider -->
-          <line x1="150" y1="15" x2="150" y2="115" stroke="var(--hair)" stroke-width="var(--dia-stroke)"/>
+          <line x1="150" y1="15" x2="150" y2="115" stroke="var(--hair)" style="stroke-width: var(--dia-stroke)"/>
 
           <!-- Right side: Neon -->
           <g transform="translate(225, 60)">
             <!-- Shells -->
-            <circle r="22" fill="none" stroke="var(--hair-soft)" stroke-width="var(--dia-stroke)"/>
-            <circle r="38" fill="none" stroke="var(--hair-soft)" stroke-width="var(--dia-stroke)"/>
+            <circle r="22" fill="none" stroke="var(--hair-soft)" style="stroke-width: var(--dia-stroke)"/>
+            <circle r="38" fill="none" stroke="var(--hair-soft)" style="stroke-width: var(--dia-stroke)"/>
             <!-- Nucleus -->
-            <circle style="r: var(--dia-r-atom)" fill="var(--card)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+            <circle style="r: var(--dia-r-atom); stroke-width: var(--dia-stroke-bond)" fill="var(--card)" stroke="var(--ink)"/>
             <text y="3" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" font-weight="700" text-anchor="middle">10+</text>
             <!-- Core electrons: shell 1 (2) -->
             <circle cx="0" cy="-22" style="r: var(--dia-r-particle)" fill="var(--ink-mute)"/>
@@ -320,49 +320,49 @@
         <div class="diagram" data-step="1" style="width: 100%; text-align: center;">
           <svg viewBox="0 0 300 145" preserveAspectRatio="xMidYMid meet" style="width: 100%; max-width: 300px; display: block; margin: 0 auto; border: 1px solid var(--hair-soft); background: var(--paper-2); border-radius: 4px;">
             <!-- Backdrop energy line -->
-            <line x1="80" y1="10" x2="80" y2="135" stroke="var(--hair-soft)" stroke-width="var(--dia-stroke)"/>
+            <line x1="80" y1="10" x2="80" y2="135" stroke="var(--hair-soft)" style="stroke-width: var(--dia-stroke)"/>
             <!-- Rung labels and lines -->
-            <line x1="65" y1="20" x2="95" y2="20" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="20" x2="95" y2="20" stroke="var(--ink-mute)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="23" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-mute)">4p</text>
             
             <!-- 3d (5 orbital segments) -->
-            <line x1="65" y1="35" x2="69" y2="35" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke)"/>
-            <line x1="71" y1="35" x2="75" y2="35" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke)"/>
-            <line x1="77" y1="35" x2="81" y2="35" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke)"/>
-            <line x1="83" y1="35" x2="87" y2="35" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke)"/>
-            <line x1="89" y1="35" x2="93" y2="35" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="35" x2="69" y2="35" stroke="var(--ink-mute)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="71" y1="35" x2="75" y2="35" stroke="var(--ink-mute)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="77" y1="35" x2="81" y2="35" stroke="var(--ink-mute)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="83" y1="35" x2="87" y2="35" stroke="var(--ink-mute)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="89" y1="35" x2="93" y2="35" stroke="var(--ink-mute)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="38" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-mute)">3d</text>
             
             <!-- 4s -->
-            <line x1="65" y1="50" x2="95" y2="50" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="50" x2="95" y2="50" stroke="var(--ink-mute)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="53" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-mute)">4s</text>
             
             <!-- 3p (3 orbital segments) -->
-            <line x1="65" y1="65" x2="73" y2="65" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
-            <line x1="76" y1="65" x2="84" y2="65" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
-            <line x1="87" y1="65" x2="95" y2="65" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+            <line x1="65" y1="65" x2="73" y2="65" stroke="var(--ink)" style="stroke-width: var(--dia-stroke-bond)"/>
+            <line x1="76" y1="65" x2="84" y2="65" stroke="var(--ink)" style="stroke-width: var(--dia-stroke-bond)"/>
+            <line x1="87" y1="65" x2="95" y2="65" stroke="var(--ink)" style="stroke-width: var(--dia-stroke-bond)"/>
             <text x="50" y="68" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink)">3p</text>
             
             <!-- 3s -->
-            <line x1="65" y1="80" x2="95" y2="80" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+            <line x1="65" y1="80" x2="95" y2="80" stroke="var(--ink)" style="stroke-width: var(--dia-stroke-bond)"/>
             <text x="50" y="83" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink)">3s</text>
             
             <!-- 2p (3 orbital segments) -->
-            <line x1="65" y1="95" x2="73" y2="95" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="76" y1="95" x2="84" y2="95" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="87" y1="95" x2="95" y2="95" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="95" x2="73" y2="95" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="76" y1="95" x2="84" y2="95" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="87" y1="95" x2="95" y2="95" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="98" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-soft)">2p</text>
             
             <!-- 2s -->
-            <line x1="65" y1="110" x2="95" y2="110" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="110" x2="95" y2="110" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="113" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-soft)">2s</text>
             
             <!-- 1s -->
-            <line x1="65" y1="125" x2="95" y2="125" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="125" x2="95" y2="125" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="128" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-soft)">1s</text>
 
             <!-- Crossover Bracket -->
-            <path d="M 115 32 L 125 32 L 125 53 L 115 53" fill="none" stroke="var(--accent)" stroke-width="var(--dia-stroke)"/>
+            <path d="M 115 32 L 125 32 L 125 53 L 115 53" fill="none" stroke="var(--accent)" style="stroke-width: var(--dia-stroke)"/>
             <text x="130" y="46" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--accent)" font-weight="700">crossover</text>
 
             <!-- Argon electrons: 18 placed -->
@@ -400,49 +400,49 @@
         <div class="diagram" data-step="2" style="width: 100%; text-align: center;">
           <svg viewBox="0 0 300 145" preserveAspectRatio="xMidYMid meet" style="width: 100%; max-width: 300px; display: block; margin: 0 auto; border: 1px solid var(--hair-soft); background: var(--paper-2); border-radius: 4px;">
             <!-- Backdrop energy line -->
-            <line x1="80" y1="10" x2="80" y2="135" stroke="var(--hair-soft)" stroke-width="var(--dia-stroke)"/>
+            <line x1="80" y1="10" x2="80" y2="135" stroke="var(--hair-soft)" style="stroke-width: var(--dia-stroke)"/>
             <!-- Rung labels and lines -->
-            <line x1="65" y1="20" x2="95" y2="20" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="20" x2="95" y2="20" stroke="var(--ink-mute)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="23" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-mute)">4p</text>
             
             <!-- 3d (5 segments) -->
-            <line x1="65" y1="35" x2="69" y2="35" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke)"/>
-            <line x1="71" y1="35" x2="75" y2="35" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke)"/>
-            <line x1="77" y1="35" x2="81" y2="35" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke)"/>
-            <line x1="83" y1="35" x2="87" y2="35" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke)"/>
-            <line x1="89" y1="35" x2="93" y2="35" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="35" x2="69" y2="35" stroke="var(--ink-mute)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="71" y1="35" x2="75" y2="35" stroke="var(--ink-mute)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="77" y1="35" x2="81" y2="35" stroke="var(--ink-mute)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="83" y1="35" x2="87" y2="35" stroke="var(--ink-mute)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="89" y1="35" x2="93" y2="35" stroke="var(--ink-mute)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="38" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-mute)">3d</text>
             
             <!-- 4s -->
-            <line x1="65" y1="50" x2="95" y2="50" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+            <line x1="65" y1="50" x2="95" y2="50" stroke="var(--ink)" style="stroke-width: var(--dia-stroke-bond)"/>
             <text x="50" y="53" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink)" font-weight="700">4s</text>
             
             <!-- 3p (3 segments) -->
-            <line x1="65" y1="65" x2="73" y2="65" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="76" y1="65" x2="84" y2="65" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="87" y1="65" x2="95" y2="65" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="65" x2="73" y2="65" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="76" y1="65" x2="84" y2="65" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="87" y1="65" x2="95" y2="65" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="68" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-mute)">3p</text>
             
             <!-- 3s -->
-            <line x1="65" y1="80" x2="95" y2="80" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="80" x2="95" y2="80" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="83" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-mute)">3s</text>
             
             <!-- 2p (3 segments) -->
-            <line x1="65" y1="95" x2="73" y2="95" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="76" y1="95" x2="84" y2="95" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="87" y1="95" x2="95" y2="95" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="95" x2="73" y2="95" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="76" y1="95" x2="84" y2="95" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="87" y1="95" x2="95" y2="95" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="98" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-soft)">2p</text>
             
             <!-- 2s -->
-            <line x1="65" y1="110" x2="95" y2="110" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="110" x2="95" y2="110" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="113" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-soft)">2s</text>
             
             <!-- 1s -->
-            <line x1="65" y1="125" x2="95" y2="125" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="125" x2="95" y2="125" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="128" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-soft)">1s</text>
 
             <!-- Crossover Bracket -->
-            <path d="M 115 32 L 125 32 L 125 53 L 115 53" fill="none" stroke="var(--accent)" stroke-width="var(--dia-stroke)"/>
+            <path d="M 115 32 L 125 32 L 125 53 L 115 53" fill="none" stroke="var(--accent)" style="stroke-width: var(--dia-stroke)"/>
             <text x="130" y="46" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--accent)" font-weight="700">crossover</text>
 
             <!-- Core electrons -->
@@ -483,49 +483,49 @@
         <div class="diagram" data-step="3" style="width: 100%; text-align: center;">
           <svg viewBox="0 0 300 145" preserveAspectRatio="xMidYMid meet" style="width: 100%; max-width: 300px; display: block; margin: 0 auto; border: 1px solid var(--hair-soft); background: var(--paper-2); border-radius: 4px;">
             <!-- Backdrop energy line -->
-            <line x1="80" y1="10" x2="80" y2="135" stroke="var(--hair-soft)" stroke-width="var(--dia-stroke)"/>
+            <line x1="80" y1="10" x2="80" y2="135" stroke="var(--hair-soft)" style="stroke-width: var(--dia-stroke)"/>
             <!-- Rung labels and lines -->
-            <line x1="65" y1="20" x2="95" y2="20" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="20" x2="95" y2="20" stroke="var(--ink-mute)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="23" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-mute)">4p</text>
             
             <!-- 3d (5 segments) -->
-            <line x1="65" y1="35" x2="69" y2="35" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke)"/>
-            <line x1="71" y1="35" x2="75" y2="35" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke)"/>
-            <line x1="77" y1="35" x2="81" y2="35" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke)"/>
-            <line x1="83" y1="35" x2="87" y2="35" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke)"/>
-            <line x1="89" y1="35" x2="93" y2="35" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="35" x2="69" y2="35" stroke="var(--ink-mute)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="71" y1="35" x2="75" y2="35" stroke="var(--ink-mute)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="77" y1="35" x2="81" y2="35" stroke="var(--ink-mute)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="83" y1="35" x2="87" y2="35" stroke="var(--ink-mute)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="89" y1="35" x2="93" y2="35" stroke="var(--ink-mute)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="38" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-mute)">3d</text>
             
             <!-- 4s -->
-            <line x1="65" y1="50" x2="95" y2="50" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+            <line x1="65" y1="50" x2="95" y2="50" stroke="var(--ink)" style="stroke-width: var(--dia-stroke-bond)"/>
             <text x="50" y="53" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink)" font-weight="700">4s</text>
             
             <!-- 3p (3 segments) -->
-            <line x1="65" y1="65" x2="73" y2="65" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="76" y1="65" x2="84" y2="65" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="87" y1="65" x2="95" y2="65" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="65" x2="73" y2="65" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="76" y1="65" x2="84" y2="65" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="87" y1="65" x2="95" y2="65" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="68" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-mute)">3p</text>
             
             <!-- 3s -->
-            <line x1="65" y1="80" x2="95" y2="80" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="80" x2="95" y2="80" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="83" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-mute)">3s</text>
             
             <!-- 2p (3 segments) -->
-            <line x1="65" y1="95" x2="73" y2="95" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="76" y1="95" x2="84" y2="95" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="87" y1="95" x2="95" y2="95" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="95" x2="73" y2="95" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="76" y1="95" x2="84" y2="95" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="87" y1="95" x2="95" y2="95" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="98" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-soft)">2p</text>
             
             <!-- 2s -->
-            <line x1="65" y1="110" x2="95" y2="110" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="110" x2="95" y2="110" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="113" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-soft)">2s</text>
             
             <!-- 1s -->
-            <line x1="65" y1="125" x2="95" y2="125" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="125" x2="95" y2="125" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="128" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-soft)">1s</text>
 
             <!-- Crossover Bracket -->
-            <path d="M 115 32 L 125 32 L 125 53 L 115 53" fill="none" stroke="var(--accent)" stroke-width="var(--dia-stroke)"/>
+            <path d="M 115 32 L 125 32 L 125 53 L 115 53" fill="none" stroke="var(--accent)" style="stroke-width: var(--dia-stroke)"/>
             <text x="130" y="46" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--accent)" font-weight="700">crossover</text>
 
             <!-- Core electrons -->
@@ -567,49 +567,49 @@
         <div class="diagram" data-step="4" style="width: 100%; text-align: center;">
           <svg viewBox="0 0 300 145" preserveAspectRatio="xMidYMid meet" style="width: 100%; max-width: 300px; display: block; margin: 0 auto; border: 1px solid var(--hair-soft); background: var(--paper-2); border-radius: 4px;">
             <!-- Backdrop energy line -->
-            <line x1="80" y1="10" x2="80" y2="135" stroke="var(--hair-soft)" stroke-width="var(--dia-stroke)"/>
+            <line x1="80" y1="10" x2="80" y2="135" stroke="var(--hair-soft)" style="stroke-width: var(--dia-stroke)"/>
             <!-- Rung labels and lines -->
-            <line x1="65" y1="20" x2="95" y2="20" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="20" x2="95" y2="20" stroke="var(--ink-mute)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="23" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-mute)">4p</text>
             
             <!-- 3d (5 segments, active rung) -->
-            <line x1="65" y1="35" x2="69" y2="35" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
-            <line x1="71" y1="35" x2="75" y2="35" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
-            <line x1="77" y1="35" x2="81" y2="35" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
-            <line x1="83" y1="35" x2="87" y2="35" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
-            <line x1="89" y1="35" x2="93" y2="35" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+            <line x1="65" y1="35" x2="69" y2="35" stroke="var(--ink)" style="stroke-width: var(--dia-stroke-bond)"/>
+            <line x1="71" y1="35" x2="75" y2="35" stroke="var(--ink)" style="stroke-width: var(--dia-stroke-bond)"/>
+            <line x1="77" y1="35" x2="81" y2="35" stroke="var(--ink)" style="stroke-width: var(--dia-stroke-bond)"/>
+            <line x1="83" y1="35" x2="87" y2="35" stroke="var(--ink)" style="stroke-width: var(--dia-stroke-bond)"/>
+            <line x1="89" y1="35" x2="93" y2="35" stroke="var(--ink)" style="stroke-width: var(--dia-stroke-bond)"/>
             <text x="50" y="38" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink)" font-weight="700">3d</text>
             
             <!-- 4s -->
-            <line x1="65" y1="50" x2="95" y2="50" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="50" x2="95" y2="50" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="53" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-mute)">4s</text>
             
             <!-- 3p (3 segments) -->
-            <line x1="65" y1="65" x2="73" y2="65" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="76" y1="65" x2="84" y2="65" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="87" y1="65" x2="95" y2="65" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="65" x2="73" y2="65" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="76" y1="65" x2="84" y2="65" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="87" y1="65" x2="95" y2="65" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="68" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-mute)">3p</text>
             
             <!-- 3s -->
-            <line x1="65" y1="80" x2="95" y2="80" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="80" x2="95" y2="80" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="83" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-mute)">3s</text>
             
             <!-- 2p (3 segments) -->
-            <line x1="65" y1="95" x2="73" y2="95" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="76" y1="95" x2="84" y2="95" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="87" y1="95" x2="95" y2="95" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="95" x2="73" y2="95" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="76" y1="95" x2="84" y2="95" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="87" y1="95" x2="95" y2="95" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="98" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-soft)">2p</text>
             
             <!-- 2s -->
-            <line x1="65" y1="110" x2="95" y2="110" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="110" x2="95" y2="110" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="113" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-soft)">2s</text>
             
             <!-- 1s -->
-            <line x1="65" y1="125" x2="95" y2="125" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="125" x2="95" y2="125" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="128" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-soft)">1s</text>
 
             <!-- Crossover Bracket -->
-            <path d="M 115 32 L 125 32 L 125 53 L 115 53" fill="none" stroke="var(--accent)" stroke-width="var(--dia-stroke)"/>
+            <path d="M 115 32 L 125 32 L 125 53 L 115 53" fill="none" stroke="var(--accent)" style="stroke-width: var(--dia-stroke)"/>
             <text x="130" y="46" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--accent)" font-weight="700">crossover</text>
 
             <!-- Core electrons -->
@@ -654,49 +654,49 @@
         <div class="diagram" data-step="5" style="width: 100%; text-align: center;">
           <svg viewBox="0 0 300 145" preserveAspectRatio="xMidYMid meet" style="width: 100%; max-width: 300px; display: block; margin: 0 auto; border: 1px solid var(--hair-soft); background: var(--paper-2); border-radius: 4px;">
             <!-- Backdrop energy line -->
-            <line x1="80" y1="10" x2="80" y2="135" stroke="var(--hair-soft)" stroke-width="var(--dia-stroke)"/>
+            <line x1="80" y1="10" x2="80" y2="135" stroke="var(--hair-soft)" style="stroke-width: var(--dia-stroke)"/>
             <!-- Rung labels and lines -->
-            <line x1="65" y1="20" x2="95" y2="20" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="20" x2="95" y2="20" stroke="var(--ink-mute)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="23" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-mute)">4p</text>
 
             <!-- 3d (5 segments, now complete) -->
-            <line x1="65" y1="35" x2="69" y2="35" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="71" y1="35" x2="75" y2="35" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="77" y1="35" x2="81" y2="35" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="83" y1="35" x2="87" y2="35" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="89" y1="35" x2="93" y2="35" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="35" x2="69" y2="35" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="71" y1="35" x2="75" y2="35" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="77" y1="35" x2="81" y2="35" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="83" y1="35" x2="87" y2="35" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="89" y1="35" x2="93" y2="35" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="38" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink)" font-weight="700">3d</text>
 
             <!-- 4s -->
-            <line x1="65" y1="50" x2="95" y2="50" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="50" x2="95" y2="50" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="53" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-mute)">4s</text>
 
             <!-- 3p (3 segments) -->
-            <line x1="65" y1="65" x2="73" y2="65" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="76" y1="65" x2="84" y2="65" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="87" y1="65" x2="95" y2="65" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="65" x2="73" y2="65" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="76" y1="65" x2="84" y2="65" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="87" y1="65" x2="95" y2="65" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="68" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-mute)">3p</text>
 
             <!-- 3s -->
-            <line x1="65" y1="80" x2="95" y2="80" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="80" x2="95" y2="80" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="83" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-mute)">3s</text>
 
             <!-- 2p (3 segments) -->
-            <line x1="65" y1="95" x2="73" y2="95" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="76" y1="95" x2="84" y2="95" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="87" y1="95" x2="95" y2="95" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="95" x2="73" y2="95" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="76" y1="95" x2="84" y2="95" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="87" y1="95" x2="95" y2="95" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="98" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-soft)">2p</text>
 
             <!-- 2s -->
-            <line x1="65" y1="110" x2="95" y2="110" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="110" x2="95" y2="110" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="113" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-soft)">2s</text>
 
             <!-- 1s -->
-            <line x1="65" y1="125" x2="95" y2="125" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="125" x2="95" y2="125" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="128" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-soft)">1s</text>
 
             <!-- Crossover Bracket -->
-            <path d="M 115 32 L 125 32 L 125 53 L 115 53" fill="none" stroke="var(--accent)" stroke-width="var(--dia-stroke)"/>
+            <path d="M 115 32 L 125 32 L 125 53 L 115 53" fill="none" stroke="var(--accent)" style="stroke-width: var(--dia-stroke)"/>
             <text x="130" y="46" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--accent)" font-weight="700">crossover</text>
 
             <!-- Core electrons -->
@@ -750,49 +750,49 @@
         <div class="diagram" data-step="6" style="width: 100%; text-align: center;">
           <svg viewBox="0 0 300 145" preserveAspectRatio="xMidYMid meet" style="width: 100%; max-width: 300px; display: block; margin: 0 auto; border: 1px solid var(--hair-soft); background: var(--paper-2); border-radius: 4px;">
             <!-- Backdrop energy line -->
-            <line x1="80" y1="10" x2="80" y2="135" stroke="var(--hair-soft)" stroke-width="var(--dia-stroke)"/>
+            <line x1="80" y1="10" x2="80" y2="135" stroke="var(--hair-soft)" style="stroke-width: var(--dia-stroke)"/>
             <!-- Rung labels and lines -->
-            <line x1="65" y1="20" x2="95" y2="20" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+            <line x1="65" y1="20" x2="95" y2="20" stroke="var(--ink)" style="stroke-width: var(--dia-stroke-bond)"/>
             <text x="50" y="23" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink)" font-weight="700">4p</text>
 
             <!-- 3d (5 segments, complete/core) -->
-            <line x1="65" y1="35" x2="69" y2="35" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="71" y1="35" x2="75" y2="35" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="77" y1="35" x2="81" y2="35" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="83" y1="35" x2="87" y2="35" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="89" y1="35" x2="93" y2="35" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="35" x2="69" y2="35" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="71" y1="35" x2="75" y2="35" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="77" y1="35" x2="81" y2="35" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="83" y1="35" x2="87" y2="35" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="89" y1="35" x2="93" y2="35" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="38" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-mute)">3d</text>
 
             <!-- 4s -->
-            <line x1="65" y1="50" x2="95" y2="50" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="50" x2="95" y2="50" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="53" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-mute)">4s</text>
 
             <!-- 3p (3 segments) -->
-            <line x1="65" y1="65" x2="73" y2="65" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="76" y1="65" x2="84" y2="65" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="87" y1="65" x2="95" y2="65" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="65" x2="73" y2="65" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="76" y1="65" x2="84" y2="65" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="87" y1="65" x2="95" y2="65" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="68" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-mute)">3p</text>
 
             <!-- 3s -->
-            <line x1="65" y1="80" x2="95" y2="80" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="80" x2="95" y2="80" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="83" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-mute)">3s</text>
 
             <!-- 2p (3 segments) -->
-            <line x1="65" y1="95" x2="73" y2="95" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="76" y1="95" x2="84" y2="95" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
-            <line x1="87" y1="95" x2="95" y2="95" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="95" x2="73" y2="95" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="76" y1="95" x2="84" y2="95" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
+            <line x1="87" y1="95" x2="95" y2="95" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="98" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-soft)">2p</text>
 
             <!-- 2s -->
-            <line x1="65" y1="110" x2="95" y2="110" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="110" x2="95" y2="110" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="113" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-soft)">2s</text>
 
             <!-- 1s -->
-            <line x1="65" y1="125" x2="95" y2="125" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <line x1="65" y1="125" x2="95" y2="125" stroke="var(--ink)" style="stroke-width: var(--dia-stroke)"/>
             <text x="50" y="128" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--ink-soft)">1s</text>
 
             <!-- Crossover Bracket -->
-            <path d="M 115 32 L 125 32 L 125 53 L 115 53" fill="none" stroke="var(--accent)" stroke-width="var(--dia-stroke)"/>
+            <path d="M 115 32 L 125 32 L 125 53 L 115 53" fill="none" stroke="var(--accent)" style="stroke-width: var(--dia-stroke)"/>
             <text x="130" y="46" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--accent)" font-weight="700">crossover</text>
 
             <!-- Core electrons -->
@@ -949,7 +949,8 @@
             {"label": "Lose its 6 outer electrons to empty the shell", "correct": false, "feedback": "This lands on a full shell too — the 8 underneath. But moving six electrons is enormously more expensive than moving two. Atoms take the shortest path."},
             {"label": "Gain 2 electrons to fill the shell to 8", "correct": true, "feedback": "Correct! Shortest path wins. Sulfur pulls in two electrons and becomes S²⁻, configuration 2, 8, 8."}
           ],
-          "reveal": "<p><strong>Sulfur gains 2.</strong> A full outer shell here is 8 electrons. Sulfur already has 6, so it is far closer to a full shell by <em>gaining 2</em> than by losing all 6 &mdash; moving two electrons is chemically far cheaper than moving six. So sulfur tends to pull in two electrons, becoming the sulfide ion (S²⁻) with the configuration 2, 8, 8. The rule of thumb: an atom takes the <em>shortest</em> path to a full outer shell.</p><div style='max-width: 580px; margin: 1.5rem auto 0.5rem; text-align: center;'><svg viewBox='0 0 300 135' preserveAspectRatio='xMidYMid meet' style='width: 100%; border: 1px solid var(--hair-soft); background: var(--paper-2); border-radius: 4px;'><g transform='translate(65, 60)'><circle r='18' fill='none' stroke='var(--hair-soft)' stroke-width='var(--dia-stroke)'/><circle r='28' fill='none' stroke='var(--hair-soft)' stroke-width='var(--dia-stroke)'/><circle r='38' fill='none' stroke='var(--hair-soft)' stroke-width='var(--dia-stroke)'/><circle r='var(--dia-r-atom)' fill='var(--card)' stroke='var(--ink)' stroke-width='var(--dia-stroke-bond)'/><text y='3' font-family='var(--mono)' style='font-size: var(--dia-caption-size);' font-weight='700' text-anchor='middle'>16+</text><circle cx='0' cy='-18' r='var(--dia-r-particle)' fill='var(--ink-mute)'/><circle cx='0' cy='18' r='var(--dia-r-particle)' fill='var(--ink-mute)'/><circle cx='0' cy='-28' r='var(--dia-r-particle)' fill='var(--ink-mute)'/><circle cx='0' cy='28' r='var(--dia-r-particle)' fill='var(--ink-mute)'/><circle cx='-28' cy='0' r='var(--dia-r-particle)' fill='var(--ink-mute)'/><circle cx='28' cy='0' r='var(--dia-r-particle)' fill='var(--ink-mute)'/><circle cx='-20' cy='20' r='var(--dia-r-particle)' fill='var(--ink-mute)'/><circle cx='20' cy='-20' r='var(--dia-r-particle)' fill='var(--ink-mute)'/><circle cx='-20' cy='-20' r='var(--dia-r-particle)' fill='var(--ink-mute)'/><circle cx='20' cy='20' r='var(--dia-r-particle)' fill='var(--ink-mute)'/><circle cx='0' cy='-38' r='var(--dia-r-particle)' fill='var(--accent)'/><circle cx='0' cy='38' r='var(--dia-r-particle)' fill='var(--accent)'/><circle cx='-38' cy='0' r='var(--dia-r-particle)' fill='var(--accent)'/><circle cx='38' cy='0' r='var(--dia-r-particle)' fill='var(--accent)'/><circle cx='-27' cy='27' r='var(--dia-r-particle)' fill='var(--accent)'/><circle cx='27' cy='-27' r='var(--dia-r-particle)' fill='var(--accent)'/><circle cx='-27' cy='-27' r='var(--dia-r-particle)' fill='none' stroke='var(--accent)' stroke-width='var(--dia-stroke)' stroke-dasharray='1.2 1.2'/><circle cx='27' cy='27' r='var(--dia-r-particle)' fill='none' stroke='var(--accent)' stroke-width='var(--dia-stroke)' stroke-dasharray='1.2 1.2'/><text x='0' y='52' font-family='var(--display)' style='font-size: var(--dia-caption-size);' font-weight='700' text-anchor='middle'>Sulfur (2, 8, 6)</text></g><g transform='translate(150, 60)'><line x1='-25' y1='0' x2='20' y2='0' stroke='var(--ink-mute)' stroke-width='var(--dia-stroke)' stroke-dasharray='3 3'/><polygon points='12,-4 22,0 12,4' fill='var(--ink-mute)'/><text y='-8' font-family='var(--mono)' style='font-size: var(--dia-caption-size);' text-anchor='middle' font-weight='700' fill='var(--accent)'>+ 2 e⁻</text></g><g transform='translate(235, 60)'><circle r='18' fill='none' stroke='var(--hair-soft)' stroke-width='var(--dia-stroke)'/><circle r='28' fill='none' stroke='var(--hair-soft)' stroke-width='var(--dia-stroke)'/><circle r='38' fill='none' stroke='var(--hair-soft)' stroke-width='var(--dia-stroke)'/><circle r='var(--dia-r-atom)' fill='var(--card)' stroke='var(--ink)' stroke-width='var(--dia-stroke-bond)'/><text y='3' font-family='var(--mono)' style='font-size: var(--dia-caption-size);' font-weight='700' text-anchor='middle'>16+</text><circle cx='0' cy='-18' r='var(--dia-r-particle)' fill='var(--ink-mute)'/><circle cx='0' cy='18' r='var(--dia-r-particle)' fill='var(--ink-mute)'/><circle cx='0' cy='-28' r='var(--dia-r-particle)' fill='var(--ink-mute)'/><circle cx='0' cy='28' r='var(--dia-r-particle)' fill='var(--ink-mute)'/><circle cx='-28' cy='0' r='var(--dia-r-particle)' fill='var(--ink-mute)'/><circle cx='28' cy='0' r='var(--dia-r-particle)' fill='var(--ink-mute)'/><circle cx='-20' cy='20' r='var(--dia-r-particle)' fill='var(--ink-mute)'/><circle cx='20' cy='-20' r='var(--dia-r-particle)' fill='var(--ink-mute)'/><circle cx='-20' cy='-20' r='var(--dia-r-particle)' fill='var(--ink-mute)'/><circle cx='20' cy='20' r='var(--dia-r-particle)' fill='var(--ink-mute)'/><circle cx='0' cy='-38' r='var(--dia-r-particle)' fill='var(--accent)'/><circle cx='0' cy='38' r='var(--dia-r-particle)' fill='var(--accent)'/><circle cx='-38' cy='0' r='var(--dia-r-particle)' fill='var(--accent)'/><circle cx='38' cy='0' r='var(--dia-r-particle)' fill='var(--accent)'/><circle cx='-27' cy='27' r='var(--dia-r-particle)' fill='var(--accent)'/><circle cx='27' cy='-27' r='var(--dia-r-particle)' fill='var(--accent)'/><circle cx='-27' cy='-27' r='var(--dia-r-particle)' fill='var(--paper)' stroke='var(--accent)' stroke-width='var(--dia-stroke)'/><circle cx='27' cy='27' r='var(--dia-r-particle)' fill='var(--paper)' stroke='var(--accent)' stroke-width='var(--dia-stroke)'/><rect x='25' y='-35' width='14' height='11' rx='2' fill='var(--paper-2)' stroke='var(--hair)' stroke-width='var(--dia-stroke)'/><text x='32' y='-27' font-family='var(--mono)' style='font-size: var(--dia-caption-size);' font-weight='700' fill='var(--accent)' text-anchor='middle'>2⁻</text><text x='0' y='52' font-family='var(--display)' style='font-size: var(--dia-caption-size);' font-weight='700' text-anchor='middle'>Sulfide Ion (2, 8, 8)</text></g></svg><p style=\"font-size:0.75rem; font-style:italic; color:var(--ink-mute); margin-top:0.3rem;\">&bull; core electrons &middot; <span style=\"color:var(--accent);\">&bull; valence electrons</span> &middot; <span style=\"border: 1px solid var(--accent); border-radius: 50%; width: 5px; height: 5px; display: inline-block; vertical-align: middle;\"></span> electrons gained<br>the short path is gain 2, not lose 6</p></div>"
+          "reveal": "<p><strong>Sulfur gains 2.</strong> A full outer shell here is 8 electrons. Sulfur already has 6, so it is far closer to a full shell by <em>gaining 2</em> than by losing all 6 &mdash; moving two electrons is chemically far cheaper than moving six. So sulfur tends to pull in two electrons, becoming the sulfide ion (S²⁻) with the configuration 2, 8, 8. The rule of thumb: an atom takes the <em>shortest</em> path to a full outer shell.</p><div style='max-width: 580px; margin: 1.5rem auto 0.5rem; text-align: center;'><svg viewBox='0 0 300 135' preserveAspectRatio='xMidYMid meet' style='width: 100%; border: 1px solid var(--hair-soft); background: var(--paper-2); border-radius: 4px;'><g transform='translate(65, 60)'><circle r='18' fill='none' stroke='var(--hair-soft)' style='stroke-width: var(--dia-stroke)'/><circle r='28' fill='none' stroke='var(--hair-soft)' style='stroke-width: var(--dia-stroke)'/><circle r='38' fill='none' stroke='var(--hair-soft)' style='stroke-width: var(--dia-stroke)'/><circle fill='var(--card)' stroke='var(--ink)' style='r: var(--dia-r-atom); stroke-width: var(--dia-stroke-bond)'/><text y='3' font-family='var(--mono)' style='font-size: var(--dia-caption-size);' font-weight='700' text-anchor='middle'>16+</text><circle cx='0' cy='-18' fill='var(--ink-mute)' style='r: var(--dia-r-particle)'/><circle cx='0' cy='18' fill='var(--ink-mute)' style='r: var(--dia-r-particle)'/><circle cx='0' cy='-28' fill='var(--ink-mute)' style='r: var(--dia-r-particle)'/><circle cx='0' cy='28' fill='var(--ink-mute)' style='r: var(--dia-r-particle)'/><circle cx='-28' cy='0' fill='var(--ink-mute)' style='r: var(--dia-r-particle)'/><circle cx='28' cy='0' fill='var(--ink-mute)' style='r: var(--dia-r-particle)'/><circle cx='-20' cy='20' fill='var(--ink-mute)' style='r: var(--dia-r-particle)'/><circle cx='20' cy='-20' fill='var(--ink-mute)' style='r: var(--dia-r-particle)'/><circle cx='-20' cy='-20' fill='var(--ink-mute)' style='r: var(--dia-r-particle)'/><circle cx='20' cy='20' fill='var(--ink-mute)' style='r: var(--dia-r-particle)'/><circle cx='0' cy='-38' fill='var(--accent)' style='r: var(--dia-r-particle)'/><circle cx='0' cy='38' fill='var(--accent)' style='r: var(--dia-r-particle)'/><circle cx='-38' cy='0' fill='var(--accent)' style='r: var(--dia-r-particle)'/><circle cx='38' cy='0' fill='var(--accent)' style='r: var(--dia-r-particle)'/><circle cx='-27' cy='27' fill='var(--accent)' style='r: var(--dia-r-particle)'/><circle cx='27' cy='-27' fill='var(--accent)' style='r: var(--dia-r-particle)'/><circle cx='-27' cy='-27' fill='none' stroke='var(--accent)' stroke-dasharray='1.2 1.2' style='r: var(--dia-r-particle); stroke-width: var(--dia-stroke)'/><circle cx='27' cy='27' fill='none' stroke='var(--accent)' stroke-dasharray='1.2 1.2' style='r: var(--dia-r-particle); stroke-width: var(--dia-stroke)'/><text x='0' y='52' font-family='var(--display)' style='font-size: var(--dia-caption-size);' font-weight='700' text-anchor='middle'>Sulfur (2, 8, 6)</text></g><g transform='translate(150, 60)'><line x1='-25' y1='0' x2='20' y2='0' stroke='var(--ink-mute)' stroke-dasharray='3 3' style='stroke-width: var(--dia-stroke)'/><polygon points='12,-4 22,0 12,4' fill='var(--ink-mute)'/><text y='-8' font-family='var(--mono)' style='font-size: var(--dia-caption-size);' text-anchor='middle' font-weight='700' fill='var(--accent)'>+ 2 e⁻</text></g><g transform='translate(235, 60)'><circle r='18' fill='none' stroke='var(--hair-soft)' style='stroke-width: var(--dia-stroke)'/><circle r='28' fill='none' stroke='var(--hair-soft)' style='stroke-width: var(--dia-stroke)'/><circle r='38' fill='none' stroke='var(--hair-soft)' style='stroke-width: var(--dia-stroke)'/><circle fill='var(--card)' stroke='var(--ink)' style='r: var(--dia-r-atom); stroke-width: var(--dia-stroke-bond)'/><text y='3' font-family='var(--mono)' style='font-size: var(--dia-caption-size);' font-weight='700' text-anchor='middle'>16+</text><circle cx='0' cy='-18' fill='var(--ink-mute)' style='r: var(--dia-r-particle)'/><circle cx='0' cy='18' fill='var(--ink-mute)' style='r: var(--dia-r-particle)'/><circle cx='0' cy='-28' fill='var(--ink-mute)' style='r: var(--dia-r-particle)'/><circle cx='0' cy='28' fill='var(--ink-mute)' style='r: var(--dia-r-particle)'/><circle cx='-28' cy='0' fill='var(--ink-mute)' style='r: var(--dia-r-particle)'/><circle cx='28' cy='0' fill='var(--ink-mute)' style='r: var(--dia-r-particle)'/><circle cx='-20' cy='20' fill='var(--ink-mute)' style='r: var(--dia-r-particle)'/><circle cx='20' cy='-20' fill='var(--ink-mute)' style='r: var(--dia-r-particle)'/><circle cx='-20' cy='-20' fill='var(--ink-mute)' style='r: var(--dia-r-particle)'/><circle cx='20' cy='20' fill='var(--ink-mute)' style='r: var(--dia-r-particle)'/><circle cx='0' cy='-38' fill='var(--accent)' style='r: var(--dia-r-particle)'/><circle cx='0' cy='38' fill='var(--accent)' style='r: var(--dia-r-particle)'/><circle cx='-38' cy='0' fill='var(--accent)' style='r: var(--dia-r-particle)'/><circle cx='38' cy='0' fill='var(--accent)' style='r: var(--dia-r-particle)'/><circle cx='-27' cy='27' fill='var(--accent)' style='r: var(--dia-r-particle)'/><circle cx='27' cy='-27' fill='var(--accent)' style='r: var(--dia-r-particle)'/><circle cx='-27' cy='-27' fill='var(--paper)' stroke='var(--accent)' style='r: var(--dia-r-particle); stroke-width: var(--dia-stroke)'/><circle cx='27' cy='27' fill='var(--paper)' stroke='var(--accent)' style='r: var(--dia-r-particle); stroke-width: var(--dia-stroke)'/><rect x='25' y='-35' width='14' height='11' rx='2' fill='var(--paper-2)' stroke='var(--hair)' style='stroke-width: var(--dia-stroke)'/><text x='32' y='-27' font-family='var(--mono)' style='font-size: var(--dia-caption-size);' font-weight='700' fill='var(--accent)' text-anchor='middle'>2⁻</text><text x='0' y='52' font-family='var(--display)' style='font-size: var(--dia-caption-size);' font-weight='700' text-anchor='middle'>Sulfide Ion (2, 8, 8)</text></g></svg><p style=\"font-size:0.75rem; font-style:italic; color:var(--ink-mute); margin-top:0.3rem;\">&bull; core electrons &middot; <span style=\"color:var(--accent);\">&bull; valence electrons</span> &middot; <span style=\"border: 1px solid var(--accent); border-radius: 50%; width: 5px; height: 5px; display: inline-block; vertical-align: middle;\"></span> electrons gained<br>the short path is gain 2, not lose 6</p></div>"
+
         }
         </script>
       </div>
@@ -1028,8 +1029,8 @@
           <circle class="atom-e-val" cx="220" cy="45" style="r: var(--dia-r-particle)" />
           <circle class="atom-e-val" cx="259" cy="61" style="r: var(--dia-r-particle)" />
           <!-- Empty spot (ready to receive the valence e⁻ from Na) -->
-          <circle cx="165" cy="100" style="r: var(--dia-r-particle)" fill="none" stroke="var(--accent)" stroke-width="var(--dia-stroke)"
-            stroke-dasharray="3 2" />
+          <circle cx="165" cy="100" style="r: var(--dia-r-particle); stroke-width: var(--dia-stroke)" fill="none" stroke="var(--accent)" 
+ stroke-dasharray="3 2"/>
           <text class="d-label" x="220" y="174" text-anchor="middle" style="font-size: var(--dia-label-size);">gains 1 e⁻ &rarr; Cl⁻</text>
           <text class="d-sub" x="220" y="190" text-anchor="middle" style="font-size: var(--dia-caption-size);">7 valence &middot; nonmetal</text>
 
@@ -1055,8 +1056,8 @@
           <text class="d-sub" x="360" y="190" text-anchor="middle" style="font-size: var(--dia-caption-size);">8 valence &middot; noble</text>
 
           <!-- Direct Transfer Arrow from Sodium's valence e- (130,100) to Chlorine's empty spot (165,100) -->
-          <line x1="136" y1="100" x2="159" y2="100" fill="none" stroke="var(--accent)" stroke-width="var(--dia-stroke-bond)"
-            stroke-dasharray="4 3" marker-end="url(#oct-arr)" />
+          <line x1="136" y1="100" x2="159" y2="100" fill="none" stroke="var(--accent)" 
+ stroke-dasharray="4 3" marker-end="url(#oct-arr)" style="stroke-width: var(--dia-stroke-bond)"/>
 
           <defs>
             <marker id="oct-arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" viewBox="0 0 6 6">
@@ -1172,9 +1173,9 @@
         <svg viewBox="0 0 320 120" preserveAspectRatio="xMidYMid meet" style="width: 100%; border: 1px solid var(--hair-soft); background: var(--paper-2); border-radius: 4px;">
           <!-- Lithium (2, 1) -->
           <g transform="translate(55, 55)">
-            <circle r="12" fill="none" stroke="var(--hair-soft)" stroke-width="var(--dia-stroke)"/>
-            <circle r="22" fill="none" stroke="var(--hair-soft)" stroke-width="var(--dia-stroke)"/>
-            <circle style="r: var(--dia-r-atom)" fill="var(--card)" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <circle r="12" fill="none" stroke="var(--hair-soft)" style="stroke-width: var(--dia-stroke)"/>
+            <circle r="22" fill="none" stroke="var(--hair-soft)" style="stroke-width: var(--dia-stroke)"/>
+            <circle style="r: var(--dia-r-atom); stroke-width: var(--dia-stroke)" fill="var(--card)" stroke="var(--ink)"/>
             <text y="2" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" text-anchor="middle">3+</text>
             <circle cx="0" cy="-12" style="r: var(--dia-r-particle)" fill="var(--ink-mute)"/>
             <circle cx="0" cy="12" style="r: var(--dia-r-particle)" fill="var(--ink-mute)"/>
@@ -1184,10 +1185,10 @@
 
           <!-- Sodium (2, 8, 1) -->
           <g transform="translate(160, 55)">
-            <circle r="12" fill="none" stroke="var(--hair-soft)" stroke-width="var(--dia-stroke)"/>
-            <circle r="20" fill="none" stroke="var(--hair-soft)" stroke-width="var(--dia-stroke)"/>
-            <circle r="28" fill="none" stroke="var(--hair-soft)" stroke-width="var(--dia-stroke)"/>
-            <circle style="r: var(--dia-r-atom)" fill="var(--card)" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <circle r="12" fill="none" stroke="var(--hair-soft)" style="stroke-width: var(--dia-stroke)"/>
+            <circle r="20" fill="none" stroke="var(--hair-soft)" style="stroke-width: var(--dia-stroke)"/>
+            <circle r="28" fill="none" stroke="var(--hair-soft)" style="stroke-width: var(--dia-stroke)"/>
+            <circle style="r: var(--dia-r-atom); stroke-width: var(--dia-stroke)" fill="var(--card)" stroke="var(--ink)"/>
             <text y="2" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" text-anchor="middle">11+</text>
             <circle cx="0" cy="-12" style="r: var(--dia-r-particle)" fill="var(--ink-mute)"/>
             <circle cx="0" cy="12" style="r: var(--dia-r-particle)" fill="var(--ink-mute)"/>
@@ -1205,11 +1206,11 @@
 
           <!-- Potassium (2, 8, 8, 1) -->
           <g transform="translate(265, 55)">
-            <circle r="10" fill="none" stroke="var(--hair-soft)" stroke-width="var(--dia-stroke)"/>
-            <circle r="17" fill="none" stroke="var(--hair-soft)" stroke-width="var(--dia-stroke)"/>
-            <circle r="24" fill="none" stroke="var(--hair-soft)" stroke-width="var(--dia-stroke)"/>
-            <circle r="31" fill="none" stroke="var(--hair-soft)" stroke-width="var(--dia-stroke)"/>
-            <circle style="r: var(--dia-r-atom)" fill="var(--card)" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+            <circle r="10" fill="none" stroke="var(--hair-soft)" style="stroke-width: var(--dia-stroke)"/>
+            <circle r="17" fill="none" stroke="var(--hair-soft)" style="stroke-width: var(--dia-stroke)"/>
+            <circle r="24" fill="none" stroke="var(--hair-soft)" style="stroke-width: var(--dia-stroke)"/>
+            <circle r="31" fill="none" stroke="var(--hair-soft)" style="stroke-width: var(--dia-stroke)"/>
+            <circle style="r: var(--dia-r-atom); stroke-width: var(--dia-stroke)" fill="var(--card)" stroke="var(--ink)"/>
             <text y="2" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" text-anchor="middle">19+</text>
             <!-- 1s -->
             <circle cx="0" cy="-10" style="r: var(--dia-r-particle)" fill="var(--ink-mute)"/>
@@ -1238,7 +1239,7 @@
           </g>
 
           <!-- Horizontal Bracket spanning the three outer valence electrons -->
-          <path d="M 55 12 L 55 5 L 265 5 L 265 12" fill="none" stroke="var(--accent)" stroke-width="var(--dia-stroke)"/>
+          <path d="M 55 12 L 55 5 L 265 5 L 265 12" fill="none" stroke="var(--accent)" style="stroke-width: var(--dia-stroke)"/>
           <text x="160" y="-1" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--accent)" font-weight="700" text-anchor="middle">1 valence electron each</text>
         </svg>
         <p style="font-size:0.75rem; font-style:italic; color:var(--ink-mute); margin-top:0.3rem;">
@@ -1273,11 +1274,11 @@
         <svg viewBox="0 0 200 130" preserveAspectRatio="xMidYMid meet" style="width: 100%; border: 1px solid var(--hair-soft); background: var(--paper-2); border-radius: 4px;">
           <g transform="translate(100, 60)">
             <!-- Shells -->
-            <circle r="18" fill="none" stroke="var(--hair-soft)" stroke-width="var(--dia-stroke)"/>
-            <circle r="28" fill="none" stroke="var(--hair-soft)" stroke-width="var(--dia-stroke)"/>
-            <circle r="38" fill="none" stroke="var(--hair-soft)" stroke-width="var(--dia-stroke)"/>
+            <circle r="18" fill="none" stroke="var(--hair-soft)" style="stroke-width: var(--dia-stroke)"/>
+            <circle r="28" fill="none" stroke="var(--hair-soft)" style="stroke-width: var(--dia-stroke)"/>
+            <circle r="38" fill="none" stroke="var(--hair-soft)" style="stroke-width: var(--dia-stroke)"/>
             <!-- Nucleus -->
-            <circle style="r: var(--dia-r-atom)" fill="var(--card)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+            <circle style="r: var(--dia-r-atom); stroke-width: var(--dia-stroke-bond)" fill="var(--card)" stroke="var(--ink)"/>
             <text y="2.5" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" font-weight="700" text-anchor="middle">X</text>
             <!-- Core: 2 -->
             <circle cx="0" cy="-18" style="r: var(--dia-r-particle)" fill="var(--ink-mute)"/>
@@ -1300,7 +1301,7 @@
             <circle cx="27" cy="-27" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
             <circle cx="-27" cy="-27" style="r: var(--dia-r-particle)" fill="var(--accent)"/>
             <!-- Prominent gap at 27, 27 -->
-            <circle cx="27" cy="27" style="r: var(--dia-r-particle)" fill="none" stroke="var(--accent)" stroke-width="var(--dia-stroke)" stroke-dasharray="1.5 1.5"/>
+            <circle cx="27" cy="27" style="r: var(--dia-r-particle); stroke-width: var(--dia-stroke)" fill="none" stroke="var(--accent)" stroke-dasharray="1.5 1.5"/>
             
             <text x="0" y="52" font-family="var(--display)" style="font-size: var(--dia-caption-size);" font-weight="700" text-anchor="middle">Element X (2, 8, 7)</text>
           </g>

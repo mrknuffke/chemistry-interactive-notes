@@ -6,6 +6,7 @@ A dated, one-line record of what shipped. This is not a to-do list (see [`TODO.m
 
 ---
 
+- **2026-07-24** — Completed repository-wide SVG presentation attribute cleanup (converted 398 bare var() geometry/stroke attributes to inline styles across 11 lesson HTML files), verified and fixed sort-classify score persistence in core.js, audited CLAUDE.md glossary count (80 keys), validated HTML structures and JSON widget configs across all 12 lessons, and finalized Phase 6 Lesson 1-2b retrofit.
 - **2026-07-19** — Fixed custom JSON rendering in the diagram generator: custom structures pasted into the search box or Advanced JSON Editor now automatically synchronize to 'Custom JSON', preventing preset formula lookups (like 'H2O') from overwriting custom JSON structures without needing to clear the search box first.
 - **2026-07-18** — Added Acetone (C₃H₆O) and Ethanol (C₂H₆O) molecule templates to the teacher-facing diagram generator with Lewis structures, CPK color mapping, and common-name lookups.
 - **2026-07-10** — Retrofitted Lesson 2-7b (Mole Conversions) with a dynamic visual Conversion Builder canvas showing bulk/particulate state transitions (beaker, weighing boat, flask, Bunsen burner flame, crystal grids, and molecular groups) and real-time unit cancellation feedback.

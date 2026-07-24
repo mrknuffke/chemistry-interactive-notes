@@ -111,7 +111,7 @@ scaffold/
     tokens.css       design tokens: fonts, colors, base type, grid bg, dark mode
     components.css   shared component library (frame, widgets, diagram conventions)
     core.js          shared behaviors (theme, TOC, nav, reveal, retrieval widgets, glossary tooltips)
-    glossary.js      window.GC_GLOSSARY — 80 term definitions (check count on edit — this drifts); drives hover tooltips on <strong class="term">
+    glossary.js      window.GC_GLOSSARY — 80 term entries (72 canonical + 8 aliases; check count on edit — this drifts); drives hover tooltips on <strong class="term">
     elements.js      window.GC_ELEMENTS — canonical periodic data (Z=1..36); read from here, never retype
   lessons/
     <id>_<slug>.html one file per lesson; links ../assets/*, plus its own <id>.js

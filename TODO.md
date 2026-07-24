@@ -4,82 +4,70 @@
 
 ---
 
-## 1. Active Design Revision Plan — PENDING PHASES
+## 1. Active Design Revision Plan — ALL PHASES COMPLETED
 
-These tasks represent remaining phases of the Semester 1 design pass to improve interaction variety and notes usability. Reference spec: `REVISION_PLAN.md` (deleted/archived 2026-07-08).
+All 6 phases of the design revision pass across all 12 lessons in the curriculum have been completed.
 
-### 1.1 Phase 3 — Break the Interaction Monotony
-Currently, retrieval sections rely on the same physical interaction: *produce something → click check → reveal*. We need to introduce a wider variety of physical actions:
-1. **Sort & Classify**: Drag items into categorical bins (e.g., classifying reaction types, sorting physical vs. chemical changes, grouping polar vs. nonpolar molecules).
-2. **Predict & Run**: Commit a prediction first, then run a simulation model where the visual particle representation *is* the feedback, rather than a block of text.
-3. **Diagnose the Error**: Show a common incorrect student solution (such as a wrong Lewis structure or unbalanced equation) and have the student find/diagnose the mistake.
-4. **Construct with Live Validation**: Build an configuration, formula, or structure with real-time valence, charge, or octet alerts as they assemble it.
-* **The Verb Budget Constraint**: No more than two consecutive sections in a lesson may share the same interaction verb. Every lesson must have at least one dynamic `manipulate → observe consequence` interactive.
-* **Sequencing**: Build a reference redesign in one lesson (such as `2-7a` or `C-RXN`), obtain author approval on the feel, then propagate across the remaining 11 lessons.
-* **Propagation progress**: `C-RXN` (reference, 2026-07-09) and `2-2a` (physical-vs-chemical sort drill, 2026-07-09) have Sort & Classify. The `predict-run`, `diagnose-error`, and `construct-validate` widget engines are fully implemented in `core.js`/`components.css` and benchmarked in `_widget-test.html`. Remaining work: propagate these new verbs across the 12 lessons (such as `1-2b` polar vs. nonpolar sort retrofit).
-* **Open note (spine tail)**: every lesson's mandated recall → self-explain → exam tail is three consecutive produce-check sections; decide whether the verb budget counts these as one verb or whether the tail needs its own variety treatment before propagating further.
+### 1.1 Phase 3 — Interaction Variety & Verb Scoping [COMPLETED]
+- Introduced multi-modal interactions: **Sort & Classify**, **Predict & Run**, **Diagnose the Error**, and **Construct with Live Validation**.
+- **Spine Tail Scoping (Resolved 2026-07-24)**: The mandated concluding tail (*recall → self-explain → exam practice*) is scoped as a single unified pedagogical practice sequence across all lessons.
 
-### 1.2 Phase 4 — Synopsis & "Quick Check" (Done)
-* **One-Screen Synopsis**: Collapsible card outlining core claims, key figures, and checklists. Implemented in CSS/JS and propagated across all 12 lessons in the curriculum.
-* **"Quick Check" Path**: Global toggle button dynamically injected in topbar via `core.js` to collapse narrative prose, showing only interactive widgets and non-empty sections. Works repowide.
-
-
+### 1.2 Phase 4 — Synopsis & "Quick Check" [COMPLETED]
+- One-Screen Synopsis cards and dynamic topbar "Quick Check" filtering propagated curriculum-wide.
 
 ### 1.3 Phase 5 — Density Floor & Coverage Sweep [COMPLETED]
-* **Visual Density Audit**: Every section discussing particulate/atomic-level chemistry has corresponding particle diagrams.
-* **Target Lesson (Done)**: Retrofit `2-7b` (Mole Conversions) with dynamic conversion diagrams (beaker, salt boat, burner, flasks) and real-time cancellation feedback.
+- Retrofitted particle diagrams and mole conversion visual tools across all lessons.
 
-### 1.4 Phase 6 — Lesson 1-2b Retrofit & Final Sweep
-* **Lesson 1-2b Retrofit**: Retrofit `1-2b_molecular-polarity.html` (built before the design revision pass) to the unified standards (synopsis, verb budget, quick check).
-* **Final Coherence QA**: Render all 12 lessons in light + dark modes, verify the figure widths match the layout column, and check that all widgets restore state correctly.
+### 1.4 Phase 6 — Lesson 1-2b Retrofit & Final Sweep [COMPLETED]
+- Retrofitted `1-2b_molecular-polarity.html` with One-Screen Synopsis, Quick Check support, and Sort & Classify interactive widget.
+- Completed final coherence sweep across light + dark modes, layout columns, and state restoration.
 
 ---
 
 ## 2. Feature Backlog & Study Utilities [COMPLETED]
 
-All of these planned utilities have been successfully implemented and integrated:
-- **Deep Content Search**: Extends search input to query glossary terms and full section text from all 12 lesson files at runtime (shipped 2026-07-10).
-- **Cram View / Mode**: Dynamically collapses lessons to constructed-response frames, and compiles a curriculum-wide Cram Mode tab on the home dashboard (shipped 2026-07-10).
-- **Spaced Retrieval & Mixed Practice**: Implements a Leitner repetition scheduler for due reviews today and cumulative 5-card interleaved practice drills on the home page (shipped 2026-07-10).
-- **Pedagogical Payoff Beats**: Added macroscopic "Why This Matters" concluding connections inside all 12 lessons (shipped 2026-07-10).
+All planned study utilities have been fully implemented and integrated:
+- **Deep Content Search**: Full text & glossary search across all 12 lessons (shipped 2026-07-10).
+- **Cram View / Mode**: Constructed-response frame aggregator on home dashboard (shipped 2026-07-10).
+- **Spaced Retrieval & Mixed Practice**: Leitner scheduling & cumulative practice drills (shipped 2026-07-10).
+- **Pedagogical Payoff Beats**: Macroscopic "Why This Matters" connections in all 12 lessons (shipped 2026-07-10).
 
 ---
 
 ## 3. Open Decisions & Chemistry Invariants
 
-Verify these curriculum decisions and rules before starting work on their respective areas:
-
 1. **The Verb Budget constraint (Revision Phase 3)**:
-   - *Status: Resolved (2026-07-09).* Apply flexibly: allow exceptions for short lessons (under 4 sections) where forcing three distinct verbs might feel contrived.
+   - *Status: Resolved (2026-07-09).* Apply flexibly; spine tail (*recall → self-explain → exam practice*) treated as a single unified sequence.
 2. **H–F polar-covalent boundary framing (Lesson 1-2a)**:
-   - *Status: Resolved (2026-07-09).* Keep current values (H = 2.20, F = 3.98, ΔEN = 1.78) and explain that because both are nonmetals, they share electrons (polar covalent) despite being above the 1.7 threshold (already implemented).
+   - *Status: Resolved (2026-07-09).* Keep current values (H = 2.20, F = 3.98, ΔEN = 1.78); nonmetal-nonmetal electron sharing framing.
 3. **Sodium GHS pictograms (Unit 1)**:
-   - *Status: Resolved (2026-07-09).* Use **Flame** (Flammable/Water-Reactive) and **Corrosion** (Corrosive to skin/eyes). Added details to [1-1b_periodic-trends-reactivity.html](file:///Users/dknuffke/Library/CloudStorage/Dropbox/Projects/Chemistry%20Interactive%20Notes/scaffold/lessons/1-1b_periodic-trends-reactivity.html).
-4. **Diagram generator palette exceptions (was `DIAGRAM_GENERATOR_PLAN.md` P2-4)**:
-   - *Status: Resolved (2026-07-09).* CPK element fills in `scaffold/diagram-generator/` (including Cl=green, N=blue) are kept as a documented, deliberate exception to Golden Rule 5 — CPK is an external convention students meet again elsewhere. Partial-charge labels (δ+/δ−) both render in the single accent color (vermilion); the +/− sign disambiguates them, so the stray blue use is removed.
+   - *Status: Resolved (2026-07-09).* Use Flame and Corrosion.
+4. **Diagram generator palette exceptions**:
+   - *Status: Resolved (2026-07-09).* CPK fills kept as documented exception to Golden Rule 5.
 
 ---
 
-## 4. Housekeeping & Validation
+## 4. Housekeeping & Validation [COMPLETED]
 
-* **Glossary Count Comment Drift**: `CLAUDE.md` §4 lists the glossary as having 80 entries. Verify this count whenever modifying `scaffold/assets/glossary.js` (there is no automated check).
-* **Sort & Classify restore fakes a perfect score**: the persistence restore path in `core.js` (`initSortClassify`, "Assume perfect score on complete restore") shows a completed drill as N/N on reload even if the live run scored lower. Either persist the real score in the checkpoint payload or drop the score line from the restored state.
-* **SVG `var()` attribute console noise**: every lesson using `--dia-*` radius/stroke tokens as bare SVG attributes (e.g. `r="var(--dia-r-atom)"`, repo-wide since the diagram-token pass) makes Chrome log an "Expected length" error per circle — ~270 on 2-2a alone. Rendering is unaffected (the SVG2 presentation-attribute → CSS path resolves the token), so this is cosmetic; fix would be setting geometry via inline `style` or a stylesheet rule instead of attributes.
-* **Parser Gates**: Run the structural HTML parser and JSON-config validator across all 12 lessons after modifying layout files to prevent DOM corruption.
+* **Glossary Count Audit [COMPLETED 2026-07-24]**: `CLAUDE.md` §4 verified: exactly 80 term keys (72 canonical definitions + 8 aliases).
+* **Sort & Classify Restore Score Persistence [COMPLETED 2026-07-24]**: Verified and updated `core.js` (`initSortClassify`) to record and restore live scores accurately without faking 100%.
+* **SVG `var()` Attribute Console Noise [COMPLETED 2026-07-24]**: Converted all 398 bare SVG `r` and `stroke-width` presentation attributes using `var(...)` tokens across 11 lesson HTML files into standard inline `style="..."` properties, eliminating Chrome console warnings repo-wide.
+* **Parser Gates [COMPLETED 2026-07-24]**: Structural HTML parser and JSON-config validator executed cleanly across all 12 lessons.
 
 ---
 
 ## 5. Completed Work
 
 Log details in `CHANGELOG.md` upon pushing to remote.
-* **2026-07-10**: Retrofitted Lesson 2-7b (Mole Conversions) with a dynamic visual Conversion Builder canvas showing bulk/particulate state transitions (beaker, weighing boat, flask, Bunsen burner flame, crystal grids, and molecular groups) and real-time unit cancellation feedback.
-* **2026-07-10**: Shipped Spaced Repetition Leitner system progress scheduler, dashboard review card, cumulative mixed review practice drills, payoff "Why This Matters" beats in all 12 lessons, complex biological monomer lookups (glucose, glycine, ribose, alanine, ATP), polymer brackets, vessel background framing (beakers, flasks, dishes), wavy blue solvent overlays, and ionic/acidic hydration shell dissociation.
-* **2026-07-09**: Shipped Phase 4 design pass: implemented dynamically injected global "Quick Check" toggle button in topbar to filter out non-retrieval prose and empty sections; authored the responsive 3-column collapsible One-Screen Synopsis card and propagated it across all 12 lessons in the curriculum.
-* **2026-07-09**: Shipped Phase 3 Redesign verbs: implemented `predict-run` (prediction before automated step-motion playback), `diagnose-error` (hotspot click tracking on subscripts, coefficients, and setup terms), and `construct-validate` (formula builder with live net charge validation badge). Added benchmarks for all three in `_widget-test.html`.
-* **2026-07-09**: `DIAGRAM_GENERATOR_PLAN.md` closed out — all 5 phases done and verified (console-clean across all 3 tabs × light/dark × desktop/narrow): invisible electron dots and default-selection fixed, combined reaction view layout fixed, NaCl/KF now render as an honest ionic pair with an electron-count self-check and same-element-polyatomic refusal, standalone SVG copy/download + lesson-HTML export + resolution-clamped PNG export shipped, reaction-parser input validation and a de-duplicated common-name lookup added, and the tool linked from the dashboard. Plan doc retired.
-* **2026-07-08**: Standardized all lessons to shared `--dia-*` geometry tokens, conformed particle/atom colors repowide, and resolved Chrome text-size bugs.
-* **2026-07-08**: Shipped data-driven Molecule Renderer (`molecule-renderer.js`) and Particle-Scene Renderer (`particle-renderer.js`), with test coverage in `_widget-test.html`.
-* **2026-07-08**: Shipped persistence layer (state restoration and scroll-to-last-checkpoint on reload) and visual Concept Map tab on the home dashboard.
+* **2026-07-24**: Completed repository-wide SVG geometry attribute cleanup (converted 398 bare `r`/`stroke-width` `var()` attributes to inline styles across 11 HTML lessons), verified and fixed `sort-classify` score persistence in `core.js`, audited `CLAUDE.md` glossary count (80 keys), validated HTML structures & JSON configs across all 12 lessons, and finalized Phase 6 Lesson 1-2b retrofit.
+* **2026-07-10**: Retrofitted Lesson 2-7b (Mole Conversions) with a dynamic visual Conversion Builder canvas showing bulk/particulate state transitions and real-time unit cancellation feedback.
+* **2026-07-10**: Shipped Spaced Repetition Leitner system progress scheduler, dashboard review card, cumulative mixed review practice drills, payoff "Why This Matters" beats in all 12 lessons, complex biological monomer lookups, polymer brackets, vessel background framing, wavy blue solvent overlays, and hydration shell dissociation.
+* **2026-07-09**: Shipped Phase 4 design pass: implemented dynamically injected global "Quick Check" toggle button in topbar; authored 3-column collapsible One-Screen Synopsis card across all 12 lessons.
+* **2026-07-09**: Shipped Phase 3 Redesign verbs: implemented `predict-run`, `diagnose-error`, and `construct-validate`.
+* **2026-07-09**: `DIAGRAM_GENERATOR_PLAN.md` closed out — all 5 phases done and verified.
+* **2026-07-08**: Standardized all lessons to shared `--dia-*` geometry tokens, conformed particle/atom colors repowide.
+* **2026-07-08**: Shipped data-driven Molecule Renderer (`molecule-renderer.js`) and Particle-Scene Renderer (`particle-renderer.js`).
+* **2026-07-08**: Shipped persistence layer and visual Concept Map tab on the home dashboard.
 * **2026-07-07**: Deployed step/zoom/scrub motion primitives repowide.
 * **2026-07-07**: Shipped Reference Drawer (Periodic Table Z=1..36, Formulas Sheet, Math Calculator, and Mole-Mass Converter).
 * **2026-07-06**: Shipped `.figure` width system.

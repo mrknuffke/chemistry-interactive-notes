@@ -220,17 +220,17 @@
             <!-- Reactants -->
             <g transform="translate(60, 50)">
               <!-- 2 separate Na atoms -->
-              <circle cx="-25" cy="10" style="r: var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+              <circle cx="-25" cy="10" style="r: var(--dia-r-atom); stroke-width: var(--dia-stroke-bond)" fill="var(--ink-mute)" stroke="var(--ink)"/>
               <text x="-25" y="12" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" font-weight="700" fill="var(--paper)" text-anchor="middle">Na</text>
               
-              <circle cx="-10" cy="-15" style="r: var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+              <circle cx="-10" cy="-15" style="r: var(--dia-r-atom); stroke-width: var(--dia-stroke-bond)" fill="var(--ink-mute)" stroke="var(--ink)"/>
               <text x="-10" y="-13" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" font-weight="700" fill="var(--paper)" text-anchor="middle">Na</text>
 
               <!-- 1 Cl2 molecule (two gray atoms bonded) -->
-              <line x1="20" y1="0" x2="36" y2="0" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke-bond)"/>
-              <circle cx="20" cy="0" style="r: var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+              <line x1="20" y1="0" x2="36" y2="0" stroke="var(--ink-mute)" style="stroke-width: var(--dia-stroke-bond)"/>
+              <circle cx="20" cy="0" style="r: var(--dia-r-atom); stroke-width: var(--dia-stroke-bond)" fill="var(--ink-mute)" stroke="var(--ink)"/>
               <text x="20" y="2" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" font-weight="700" fill="var(--paper)" text-anchor="middle">Cl</text>
-              <circle cx="36" cy="0" style="r: var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+              <circle cx="36" cy="0" style="r: var(--dia-r-atom); stroke-width: var(--dia-stroke-bond)" fill="var(--ink-mute)" stroke="var(--ink)"/>
               <text x="36" y="2" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" font-weight="700" fill="var(--paper)" text-anchor="middle">Cl</text>
               
               <text x="5" y="38" font-family="var(--display)" style="font-size: var(--dia-label-size);" font-weight="700" text-anchor="middle">2 Na + Cl₂</text>
@@ -238,13 +238,13 @@
 
             <!-- Arrow -->
             <g transform="translate(145, 50)">
-              <line x1="-15" y1="0" x2="15" y2="0" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke-bond)"/>
+              <line x1="-15" y1="0" x2="15" y2="0" stroke="var(--ink-mute)" style="stroke-width: var(--dia-stroke-bond)"/>
               <polygon points="8,-4 16,0 8,4" fill="var(--ink-mute)"/>
             </g>
 
             <!-- Products (initially blank or dashed outline) -->
             <g transform="translate(230, 50)">
-              <rect x="-30" y="-25" width="60" height="50" fill="none" stroke="var(--hair-soft)" stroke-dasharray="2 2" stroke-width="var(--dia-stroke)" rx="4"/>
+              <rect x="-30" y="-25" width="60" height="50" fill="none" stroke="var(--hair-soft)" stroke-dasharray="2 2" rx="4" style="stroke-width: var(--dia-stroke)"/>
               <text x="0" y="3" font-family="var(--display)" style="font-size: var(--dia-caption-size);" fill="var(--ink-mute)" text-anchor="middle">Products Form Here</text>
             </g>
 
@@ -262,22 +262,22 @@
             <!-- Rearranging: bonds breaking -->
             <g transform="translate(60, 50)">
               <!-- Na losing e- (dashed orbits/arrows) -->
-              <circle cx="-25" cy="10" style="r: var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" opacity="0.6"/>
-              <circle cx="-10" cy="-15" style="r: var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" opacity="0.6"/>
+              <circle cx="-25" cy="10" style="r: var(--dia-r-atom); stroke-width: var(--dia-stroke-bond)" fill="var(--ink-mute)" stroke="var(--ink)" opacity="0.6"/>
+              <circle cx="-10" cy="-15" style="r: var(--dia-r-atom); stroke-width: var(--dia-stroke-bond)" fill="var(--ink-mute)" stroke="var(--ink)" opacity="0.6"/>
               <!-- Cl2 bond breaking -->
-              <line x1="20" y1="0" x2="36" y2="0" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke)" stroke-dasharray="2 2"/>
-              <circle cx="20" cy="0" style="r: var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" opacity="0.6"/>
-              <circle cx="36" cy="0" style="r: var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)" opacity="0.6"/>
+              <line x1="20" y1="0" x2="36" y2="0" stroke="var(--ink-mute)" stroke-dasharray="2 2" style="stroke-width: var(--dia-stroke)"/>
+              <circle cx="20" cy="0" style="r: var(--dia-r-atom); stroke-width: var(--dia-stroke-bond)" fill="var(--ink-mute)" stroke="var(--ink)" opacity="0.6"/>
+              <circle cx="36" cy="0" style="r: var(--dia-r-atom); stroke-width: var(--dia-stroke-bond)" fill="var(--ink-mute)" stroke="var(--ink)" opacity="0.6"/>
               
               <!-- Curving energy arrows representing electron transfer -->
-              <path d="M -17 -10 Q 0 -15 11 -3" fill="none" stroke="var(--accent)" stroke-width="var(--dia-stroke)" stroke-dasharray="2 1.5"/>
-              <path d="M -17 8 Q 5 15 27 5" fill="none" stroke="var(--accent)" stroke-width="var(--dia-stroke)" stroke-dasharray="2 1.5"/>
+              <path d="M -17 -10 Q 0 -15 11 -3" fill="none" stroke="var(--accent)" stroke-dasharray="2 1.5" style="stroke-width: var(--dia-stroke)"/>
+              <path d="M -17 8 Q 5 15 27 5" fill="none" stroke="var(--accent)" stroke-dasharray="2 1.5" style="stroke-width: var(--dia-stroke)"/>
               <text x="5" y="38" font-family="var(--display)" style="font-size: var(--dia-label-size);" font-weight="700" text-anchor="middle">Rearranging</text>
             </g>
 
             <!-- Arrow -->
             <g transform="translate(145, 50)">
-              <line x1="-15" y1="0" x2="15" y2="0" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke-bond)"/>
+              <line x1="-15" y1="0" x2="15" y2="0" stroke="var(--ink-mute)" style="stroke-width: var(--dia-stroke-bond)"/>
               <polygon points="8,-4 16,0 8,4" fill="var(--ink-mute)"/>
             </g>
 
@@ -299,29 +299,29 @@
           <svg viewBox="0 0 300 130" style="width: 100%; border: 1px solid var(--hair-soft); background: var(--paper-2); border-radius: 4px;">
             <!-- Empty reactants -->
             <g transform="translate(60, 50)">
-              <rect x="-38" y="-25" width="85" height="50" fill="none" stroke="var(--hair-soft)" stroke-dasharray="2 2" stroke-width="var(--dia-stroke)" rx="4"/>
+              <rect x="-38" y="-25" width="85" height="50" fill="none" stroke="var(--hair-soft)" stroke-dasharray="2 2" rx="4" style="stroke-width: var(--dia-stroke)"/>
               <text x="4" y="3" font-family="var(--display)" style="font-size: var(--dia-caption-size);" fill="var(--ink-mute)" text-anchor="middle">Reactants Consumed</text>
             </g>
 
             <!-- Arrow -->
             <g transform="translate(145, 50)">
-              <line x1="-15" y1="0" x2="15" y2="0" stroke="var(--ink-mute)" stroke-width="var(--dia-stroke-bond)"/>
+              <line x1="-15" y1="0" x2="15" y2="0" stroke="var(--ink-mute)" style="stroke-width: var(--dia-stroke-bond)"/>
               <polygon points="8,-4 16,0 8,4" fill="var(--ink-mute)"/>
             </g>
 
             <!-- Products: NaCl ionic lattice -->
             <g transform="translate(230, 50)">
               <!-- Ions Na+ and Cl- stacked -->
-              <circle cx="-12" cy="-10" style="r: var(--dia-r-atom-sm)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+              <circle cx="-12" cy="-10" style="r: var(--dia-r-atom-sm); stroke-width: var(--dia-stroke-bond)" fill="var(--ink-mute)" stroke="var(--ink)"/>
               <text x="-12" y="-8" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" font-weight="700" fill="var(--paper)" text-anchor="middle">Na⁺</text>
               
-              <circle cx="8" cy="-10" style="r: var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+              <circle cx="8" cy="-10" style="r: var(--dia-r-atom); stroke-width: var(--dia-stroke-bond)" fill="var(--ink-mute)" stroke="var(--ink)"/>
               <text x="8" y="-8" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" font-weight="700" fill="var(--paper)" text-anchor="middle">Cl⁻</text>
               
-              <circle cx="-12" cy="12" style="r: var(--dia-r-atom)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+              <circle cx="-12" cy="12" style="r: var(--dia-r-atom); stroke-width: var(--dia-stroke-bond)" fill="var(--ink-mute)" stroke="var(--ink)"/>
               <text x="-12" y="14" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" font-weight="700" fill="var(--paper)" text-anchor="middle">Cl⁻</text>
               
-              <circle cx="8" cy="12" style="r: var(--dia-r-atom-sm)" fill="var(--ink-mute)" stroke="var(--ink)" stroke-width="var(--dia-stroke-bond)"/>
+              <circle cx="8" cy="12" style="r: var(--dia-r-atom-sm); stroke-width: var(--dia-stroke-bond)" fill="var(--ink-mute)" stroke="var(--ink)"/>
               <text x="8" y="14" font-family="var(--mono)" style="font-size: var(--dia-caption-size);" font-weight="700" fill="var(--paper)" text-anchor="middle">Na⁺</text>
 
               <text x="0" y="38" font-family="var(--display)" style="font-size: var(--dia-label-size);" font-weight="700" text-anchor="middle">2 NaCl (crystal)</text>
@@ -548,7 +548,7 @@
                 <text x="35" y="58" font-weight="700">Element</text>
                 <text x="115" y="58" text-anchor="middle" font-weight="700">Left</text>
                 <text x="175" y="58" text-anchor="middle" font-weight="700">Right</text>
-                <line x1="30" y1="62" x2="190" y2="62" stroke="var(--hair-soft)" stroke-width="var(--dia-stroke)"/>
+                <line x1="30" y1="62" x2="190" y2="62" stroke="var(--hair-soft)" style="stroke-width: var(--dia-stroke)"/>
                 
                 <!-- C row -->
                 <text x="35" y="71" fill="var(--ink)">Carbon (C)</text>
@@ -579,7 +579,7 @@
                 <text x="35" y="58" font-weight="700">Element</text>
                 <text x="115" y="58" text-anchor="middle" font-weight="700">Left</text>
                 <text x="175" y="58" text-anchor="middle" font-weight="700">Right</text>
-                <line x1="30" y1="62" x2="190" y2="62" stroke="var(--hair-soft)" stroke-width="var(--dia-stroke)"/>
+                <line x1="30" y1="62" x2="190" y2="62" stroke="var(--hair-soft)" style="stroke-width: var(--dia-stroke)"/>
                 
                 <!-- C row -->
                 <text x="35" y="71" fill="var(--ink)">Carbon (C)</text>
@@ -590,7 +590,7 @@
                 <text x="35" y="81" fill="var(--ink)">Hydrogen (H)</text>
                 <text x="115" y="81" text-anchor="middle" fill="var(--ink)">4</text>
                 <text x="175" y="81" text-anchor="middle" fill="var(--ink)">4</text>
-                <circle cx="145" cy="78" style="r: var(--dia-r-atom-sm)" fill="none" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+                <circle cx="145" cy="78" style="r: var(--dia-r-atom-sm); stroke-width: var(--dia-stroke)" fill="none" stroke="var(--ink)"/>
                 
                 <!-- O row (still imbalanced) -->
                 <text x="35" y="91" fill="var(--accent)">Oxygen (O)</text>
@@ -611,7 +611,7 @@
                 <text x="35" y="58" font-weight="700">Element</text>
                 <text x="115" y="58" text-anchor="middle" font-weight="700">Left</text>
                 <text x="175" y="58" text-anchor="middle" font-weight="700">Right</text>
-                <line x1="30" y1="62" x2="190" y2="62" stroke="var(--hair-soft)" stroke-width="var(--dia-stroke)"/>
+                <line x1="30" y1="62" x2="190" y2="62" stroke="var(--hair-soft)" style="stroke-width: var(--dia-stroke)"/>
                 
                 <!-- C row -->
                 <text x="35" y="71" fill="var(--ink)">Carbon (C)</text>
@@ -627,7 +627,7 @@
                 <text x="35" y="91" fill="var(--ink)">Oxygen (O)</text>
                 <text x="115" y="91" text-anchor="middle" fill="var(--ink)">4</text>
                 <text x="175" y="91" text-anchor="middle" fill="var(--ink)">4</text>
-                <circle cx="145" cy="88" style="r: var(--dia-r-atom-sm)" fill="none" stroke="var(--ink)" stroke-width="var(--dia-stroke)"/>
+                <circle cx="145" cy="88" style="r: var(--dia-r-atom-sm); stroke-width: var(--dia-stroke)" fill="none" stroke="var(--ink)"/>
               </g>
             </g>
 
@@ -638,12 +638,12 @@
                 <tspan fill="var(--ink-mute)">1</tspan> CH₄ + <tspan fill="var(--ink)">2</tspan> O₂ &rarr; <tspan fill="var(--ink-mute)">1</tspan> CO₂ + <tspan fill="var(--ink)">2</tspan> H₂O
               </text>
               <!-- Ledger (all green highlight) -->
-              <rect x="25" y="48" width="170" height="48" rx="3" fill="var(--paper)" stroke="var(--accent)" stroke-width="var(--dia-stroke-bond)"/>
+              <rect x="25" y="48" width="170" height="48" rx="3" fill="var(--paper)" stroke="var(--accent)" style="stroke-width: var(--dia-stroke-bond)"/>
               <g font-family="var(--mono)" style="font-size: var(--dia-caption-size);" fill="var(--accent)">
                 <text x="35" y="58" font-weight="700">Element</text>
                 <text x="115" y="58" text-anchor="middle" font-weight="700">Left</text>
                 <text x="175" y="58" text-anchor="middle" font-weight="700">Right</text>
-                <line x1="30" y1="62" x2="190" y2="62" stroke="var(--accent)" stroke-width="var(--dia-stroke)"/>
+                <line x1="30" y1="62" x2="190" y2="62" stroke="var(--accent)" style="stroke-width: var(--dia-stroke)"/>
                 
                 <!-- C row -->
                 <text x="35" y="71">Carbon (C)</text>
